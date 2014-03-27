@@ -1,0 +1,14 @@
+{
+	"name": "methodize",
+	"version": "0.0.1",
+	"authors": [
+		{
+			"name": "Susan Brown",
+			"email": "sbrwn.sb@gmail.com"
+		}
+	],
+	"dependencies": {
+		"jquery": "2.0.3",
+		"node-uuid": "1.4.1"
+	}
+}
