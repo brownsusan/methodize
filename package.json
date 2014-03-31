@@ -5,7 +5,11 @@
   "private": true,
   "dependencies": {
     "express": "3.x",
-    "mongoose" : "3.8.x",
-    "ejs" : "1.0.0"
+    "mongoose": "3.8.x",
+    "ejs": "1.0.0",
+    "socket.io": "~0.9.16",
+    "cookie": "~0.1.1",
+    "connect": "~2.14.3",
+    "socket.io-session": "0.0.5"
   }
 }
