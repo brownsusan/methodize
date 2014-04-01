@@ -1,0 +1,141 @@
+/* http://meyerweb.com/eric/tools/css/reset/
+ v2.0 | 20110126
+ License: none (public domain)
+ */
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after, q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/* ---------------------------------------------------------- */
+/* ---------------------------------------------------------- */
+/* ------------------------ END RESET ----------------------- */
+/* ---------------------------------------------------------- */
+/* ---------------------------------------------------------- */
+.container {
+	width: 100%;
+	padding: 0;
+}
+html {
+	background-image: url('/img/retina_wood_@2X.png');
+}
+
+body {
+	background: none;
+	font: 14px Arial, Helvetica, sans-serif;
+	color: #333;
+}
+
+header {
+	background: #333333; /* Old browsers */
+	background: -moz-linear-gradient(top,  #333333 68%, #1a1a1a 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(68%,#333333), color-stop(100%,#1a1a1a)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #333333 68%,#1a1a1a 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #333333 68%,#1a1a1a 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #333333 68%,#1a1a1a 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  #333333 68%,#1a1a1a 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#333333', endColorstr='#1a1a1a',GradientType=0 ); /* IE6-9 */
+	height: 40px;
+	margin-bottom: 20px;
+}
+
+.round-color-rep {
+	float: right;
+	height: 15px;
+	width: 15px;
+	border-radius: 8.5px;
+	background: rgba(231, 85, 111, 0.7);
+	border: 1px solid rgb(231, 85, 111);
+	margin-top: 12px;
+	box-shadow: inset 0px 0px 5px rgba(0,0,0,0.2);
+}
+
+.pill-color-rep {
+	border-radius: 10px;
+	line-height: 20px;
+	font-size: 12px;
+	text-align: center;
+	float: right;
+	height: 20px;
+	width: 30px;
+	background: rgba(231, 85, 111, 0.7);
+	border: 1px solid rgb(231, 85, 111);
+	margin-top: 9px;
+	box-shadow: inset 0px 0px 5px rgba(0,0,0,0.2);
+}
+
+.tasks ul li, .categories ul li, .subtasks li .completed-subtasks li {
+	border: 1px solid #c6c6c6;
+	border-radius: 2px;
+	margin: 5px 0;
+	padding: 0 10px;
+	background: #ffffff; /* Old browsers */
+	background: -moz-linear-gradient(top,  #ffffff 0%, #e6e6e6 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#e6e6e6)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #ffffff 0%,#e6e6e6 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #ffffff 0%,#e6e6e6 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #ffffff 0%,#e6e6e6 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  #ffffff 0%,#e6e6e6 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e6e6e6',GradientType=0 ); /* IE6-9 */
+}
+
+.tasks ul li, .categories ul li{
+	height: 40px;
+	line-height: 40px;
+}
+
+.subtasks li, .completed-subtasks li{
+	height: 30px;
+	line-height: 30px;
+}
+
+.completed-tasks li, .completed-subtasks li {
+	opacity: 0.6;
+}
+
+.task-add-update {
+	background: #f7f8f9;
+	padding: 10px;
+	/*box-shadow: 0px 0px 0px 5px rgba(0,0,0,0.3);*/
+}
+
+.task-add-update span {
+	display: block;
+}
+
+.task-add-update textarea {
+	min-width: 100%;
+	max-width: 100%;
+	border: 1px solid #b2b2b2;
+	min-height: 160px;
+}
+
+ul {
+	margin: 20px 0;
+}

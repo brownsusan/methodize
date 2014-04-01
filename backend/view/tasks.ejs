@@ -1,0 +1,136 @@
+<% include template/head.ejs %>
+
+<header>
+
+</header>
+<body class="container">
+	<div class="categories col-md-3">
+		<input type="text" placeholder="Add a new category..." />
+
+		<ul>
+			<li>
+				<span>Category Title</span>
+				<span class="pill-color-rep">9</span>
+			</li>
+			<li>
+				<span>Category Title</span>
+				<span class="pill-color-rep">8</span>
+			</li>
+			<li>
+				<span>Category Title</span>
+				<span class="pill-color-rep">7</span>
+			</li>
+			<li>
+				<span>Category Title</span>
+				<span class="pill-color-rep">6</span>
+			</li>
+			<li>
+				<span>Category Title</span>
+				<span class="pill-color-rep">5</span>
+			</li>
+		</ul>
+	</div>
+	<div class="tasks col-md-6">
+		<input type="text" placeholder="Add a new task..." />
+
+		<ul>
+			<li>
+				<input type="checkbox"/>
+				<span>Task Title</span>
+				<span>Due Date</span>
+				<span class="round-color-rep"></span>
+			</li>
+			<li>
+				<input type="checkbox"/>
+				<span>Task Title</span>
+				<span>Due Date</span>
+				<span class="round-color-rep"></span>
+			</li>
+			<li>
+				<input type="checkbox"/>
+				<span>Task Title</span>
+				<span>Due Date</span>
+				<span class="round-color-rep"></span>
+			</li>
+			<li>
+				<input type="checkbox"/>
+				<span>Task Title</span>
+				<span>Due Date</span>
+				<span class="round-color-rep"></span>
+			</li>
+			<li>
+				<input type="checkbox"/>
+				<span>Task Title</span>
+				<span>Due Date</span>
+				<span class="round-color-rep"></span>
+			</li>
+			<li>
+				<input type="checkbox"/>
+				<span>Task Title</span>
+				<span>Due Date</span>
+				<span class="round-color-rep"></span>
+			</li>
+
+		</ul>
+		<ul class="completed-tasks">
+			Completed Tasks
+			<li>
+				<input type="checkbox" checked="true"/>
+				<span>Task Title</span>
+				<span class="round-color-rep"></span>
+			</li>
+			<li>
+				<input type="checkbox" checked="true"/>
+				<span>Task Title</span>
+				<span class="round-color-rep"></span>
+			</li>
+			<li>
+				<input type="checkbox" checked="true"/>
+				<span>Task Title</span>
+				<span class="round-color-rep"></span>
+			</li>
+			<li>
+				<input type="checkbox" checked="true"/>
+				<span>Task Title</span>
+				<span class="round-color-rep"></span>
+			</li>
+			<li>
+				<input type="checkbox" checked="true"/>
+				<span>Task Title</span>
+				<span class="round-color-rep"></span>
+			</li>
+		</ul>
+	</div>
+	<div class="details col-md-3">
+		<div class="task-add-update">
+			<span>Title</span>
+			<span>Due Date</span>
+			<span>Reminde Me</span>
+			<span>Category</span>
+			<span>Priority</span>
+			<span>Sub Tasks</span>
+			<input type="text" placeholder="Add a subtask..." />
+			<ul class="subtasks">
+				<li>
+					<input type="checkbox"/>
+					<label>Task Title</label>
+				</li>
+				<li>
+					<input type="checkbox"/>
+					<label>Task Title</label>
+				</li>
+			</ul>
+			<ul class="completed-subtasks">
+				Completed - 1
+				<li>
+					<input type="checkbox" checked="true"/>
+					<label>Task Title</label>
+				</li>
+			</ul>
+			<span>Notes</span>
+			<textarea></textarea>
+		</div>
+	</div>
+</body>
+
+<% include template/foot.ejs %>
