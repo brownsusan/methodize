@@ -8,12 +8,14 @@
 	<button>
 		Next
 	</button>
-	<button>
-		View Changer
-	</button>
-	<button>
-		Add
-	</button>
+	<div class="edit">
+		<button>
+			View Changer
+		</button>
+		<button>
+			Add
+		</button>
+	</div>
 </header>
 <body class="container">
 	<table class="week">
@@ -27,6 +29,39 @@
 			<td>7</td>
 		</tr>
 	</table>
+
+	<div class="events col-md-6">
+		<div class="all-day">
+			<ul>
+				<li>
+					Title
+					<span>Category Color</span>
+				</li>
+				<li>
+					Title
+					<span>Category Color</span>
+				</li>
+				<li>
+					Title
+					<span>Category Color</span>
+				</li>
+				<li>
+					Title
+					<span>Category Color</span>
+				</li>
+				<li>
+					Title
+					<span>Category Color</span>
+				</li>
+
+				<li>
+					Title
+					<span>Category Color</span>
+				</li>
+			</ul>
+		</div>
+		<div class="event-stack"></div>
+	</div>
 	<div class="tasks col-md-6">
 		<ul class="tasks">
 			<li>
@@ -81,38 +116,7 @@
 			</li>
 		</ul>
 	</div>
-	<div class="events col-md-6">
-		<div class="all-day">
-			<ul>
-				<li>
-					Title
-					<span>Category Color</span>
-				</li>
-				<li>
-					Title
-					<span>Category Color</span>
-				</li>
-				<li>
-					Title
-					<span>Category Color</span>
-				</li>
-				<li>
-					Title
-					<span>Category Color</span>
-				</li>
-				<li>
-					Title
-					<span>Category Color</span>
-				</li>
 
-				<li>
-					Title
-					<span>Category Color</span>
-				</li>
-			</ul>
-		</div>
-		<div class="event-stack"></div>
-	</div>
 </body>
 
 <% include template/foot.ejs %>

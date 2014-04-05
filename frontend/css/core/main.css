@@ -38,6 +38,7 @@ table {
 /* ------------------------ END RESET ----------------------- */
 /* ---------------------------------------------------------- */
 /* ---------------------------------------------------------- */
+
 .container {
 	width: 100%;
 	padding: 0;
@@ -48,9 +49,26 @@ html {
 
 body {
 	background: none;
-	font: 14px Arial, Helvetica, sans-serif;
+	font: 12px Arial, Helvetica, sans-serif;
 	color: #333;
+	line-height: 1.5em;
 }
+
+button{
+	background:#222222;
+	border: 1px solid #333333;
+	border-radius: 2px;
+	color: #E6E6E6;
+	height: 28px;
+	padding: 0 10px;
+	margin: 5px;
+	font-size: 10px;
+}
+
+h1{
+	font-size: 16px;
+}
+
 
 header {
 	background: #333333; /* Old browsers */
@@ -63,7 +81,64 @@ header {
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#333333', endColorstr='#1a1a1a',GradientType=0 ); /* IE6-9 */
 	height: 40px;
 	margin-bottom: 20px;
+	color: #E6E6E6;
+	line-height: 30px;
+	text-align: center;
 }
+
+input[type=text]{
+	height: 40px;
+	background: rgba(249, 248, 247, 0.5);
+	border: 1px solid #b3b3b3;
+	padding: 5px;
+	width: 100%;
+	border-radius: 2px;
+}
+
+nav{
+	height: 100%;
+	width: 130px;
+	background: #222222;
+	position: fixed;
+	top: 0;
+	padding: 10px;
+	z-index: 1000;
+	color: #E6E6E6;
+}
+
+nav a{
+	height: 40px;
+	margin: 5px 0;
+}
+
+
+nav a, nav span{
+	color: #E6E6E6;
+	display: block;
+}
+
+nav img{
+	height: 40px;
+	width: 40px;
+	margin: 30px 0;
+}
+
+nav span:nth-child(2){
+	margin-top: 0px;
+	padding-top: 0;
+}
+
+.slidebitch{
+	width: 20px;
+	background: red;
+	height: 100%;
+	float: right;
+	overflow: none;
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+
 
 .round-color-rep {
 	float: right;
@@ -129,6 +204,7 @@ header {
 	background: #f7f8f9;
 	padding: 10px;
 	/*box-shadow: 0px 0px 0px 5px rgba(0,0,0,0.3);*/
+	line-height: 2em;
 }
 
 .task-add-update span {
@@ -174,9 +250,12 @@ tr:first-child td {
 	font-weight: 700;
 }
 
-
 .week{
 	min-height: 150px;
+}
+
+.edit{
+	float: right;
 }
 
 .events{
