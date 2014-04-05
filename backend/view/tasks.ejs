@@ -103,35 +103,76 @@
 		</ul>
 	</div>
 	<div class="details col-md-3">
-		<div class="task-add-update">
-			<h1>Title</h1>
-			<span>Due Date</span>
-			<span>Reminde Me</span>
-			<span>Category</span>
-			<span>Priority</span>
-			<span>Sub Tasks</span>
-			<input type="text" placeholder="Add a subtask..." />
-			<ul class="subtasks">
+		<div id="tab-container">
+			<ul>
 				<li>
-					<input type="checkbox"/>
-					<label>Task Title</label>
+					<a href="#task-add-update">The Second Tab</a>
 				</li>
 				<li>
-					<input type="checkbox"/>
-					<label>Task Title</label>
+					<a href="#event-add-update">Tab C</a>
 				</li>
 			</ul>
-			<ul class="completed-subtasks">
-				Completed - 1
-				<li>
-					<input type="checkbox" checked="true"/>
-					<label>Task Title</label>
-				</li>
-			</ul>
-			<span>Notes</span>
-			<textarea></textarea>
+			<div id="task-add-update">
+				<h1>Title</h1>
+				<span>Due Date</span>
+				<span>Reminde Me</span>
+				<span>Category</span>
+				<span>Priority</span>
+				<span>Sub Tasks</span>
+				<input type="text" placeholder="Add a subtask..." />
+				<ul class="subtasks">
+					<li>
+						<input type="checkbox"/>
+						<label>Task Title</label>
+					</li>
+					<li>
+						<input type="checkbox"/>
+						<label>Task Title</label>
+					</li>
+				</ul>
+				<ul class="completed-subtasks">
+					Completed - 1
+					<li>
+						<input type="checkbox" checked="true"/>
+						<label>Task Title</label>
+					</li>
+				</ul>
+				<span>Notes</span>
+				<textarea></textarea>
+			</div>
+			<div id="event-add-update">
+				<h1>Title</h1>
+				<span>Start Date</span>
+				<span>End Date</span>
+				<label>
+					<input type="checkbox" />
+					All Day</label>
+				<span>Reminde Me</span>
+				<span>Category</span>
+				<span>Priority</span>
+				<span>Sub Tasks</span>
+				<input type="text" placeholder="Add a subtask..." />
+				<ul class="subtasks">
+					<li>
+						<input type="checkbox"/>
+						<label>Task Title</label>
+					</li>
+					<li>
+						<input type="checkbox"/>
+						<label>Task Title</label>
+					</li>
+				</ul>
+				<ul class="completed-subtasks">
+					Completed - 1
+					<li>
+						<input type="checkbox" checked="true"/>
+						<label>Task Title</label>
+					</li>
+				</ul>
+				<span>Notes</span>
+				<textarea></textarea>
+			</div>
 		</div>
 	</div>
-</body>
 
 <% include template/foot.ejs %>
