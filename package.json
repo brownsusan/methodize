@@ -12,6 +12,7 @@
     "connect": "~2.14.3",
     "socket.io-session": "0.0.5",
     "blueimp-md5": "~1.1.0",
-    "node-uuid": "~1.4.1"
+    "node-uuid": "~1.4.1",
+    "connect-mongo": "~0.4.0"
   }
 }

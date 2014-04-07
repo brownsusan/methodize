@@ -1,4 +1,7 @@
+var blueimpMd5 = require('blueimp-md5');
 var mongoose = require('mongoose');
+
+var md5 = blueimpMd5.md5;
 
 var UserModel = mongoose.model('User');
 
@@ -25,18 +28,38 @@ module.exports.route = function(app) {
 
 	});
 
-	app.post('/action/create_user', function(req, res) {
+	app.post('/action/signin_user', function(req, res) {
 
-		var user = new UserModel();
-		user.email = req.body.email;
-		user.password = req.body.password;
-		user.phoneNumber = req.body.phone;
+		var email = req.body.email.toLowerCase();
+		var password = req.body.password;
 
-		user.save(function(err, results) {
+		UserModel.findOne({
+			'email' : email
+		}, function(err, results) {
 
-			console.log(err);
+			if (err) {
+				res.json({
+					'error' : true
+				});
+				return;
+			}
 
-			res.json(results);
+			var user = results;
+
+			var passwordHash = md5(password + user.salt);
+
+			if (passwordHash != user.password) {
+				res.json({
+					'error' : true
+				});
+				return;
+			}
+
+			req.session.user = user;
+
+			res.json({
+				'error' : false
+			});
 
 		});
 

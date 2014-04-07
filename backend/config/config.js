@@ -4,13 +4,13 @@ var express = require('express');
 var path = require('path');
 var socketIOSession = require('socket.io-session');
 
-// var MongoStore = require('connect-mongo')(express);
-// 
+var MongoStore = require('connect-mongo')(express);
+//
 var sessionSecret = 'testing';
-// var sessionStore = new MongoStore({
-	// 'db' : '',
-	// 'auto_reconnect' : true
-// });
+var sessionStore = new MongoStore({
+	'db' : 'methodize',
+	'auto_reconnect' : true
+});
 
 var cookieParser = express.cookieParser(sessionSecret);
 
@@ -27,10 +27,10 @@ module.exports.setupExpress = function(server) {
 		server.use(express.urlencoded());
 		server.use(express.methodOverride());
 		server.use(cookieParser);
-		// server.use(express.session({
-			// 'secret' : sessionSecret,
-			// 'store' : sessionStore
-		// }));
+		server.use(express.session({
+			'secret' : sessionSecret,
+			'store' : sessionStore
+		}));
 		server.use(server.router);
 		server.use(express.static(path.join(_frontend_root)));
 
@@ -42,8 +42,8 @@ module.exports.setupSocketIO = function(server) {
 
 	server.configure(function() {
 
-		// server.set('authorization', socketIOSession(cookieParser, sessionStore));
+		server.set('authorization', socketIOSession(cookieParser, sessionStore));
 
 	});
 
-};
+}; 
