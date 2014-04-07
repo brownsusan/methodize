@@ -1,18 +1,21 @@
 <% include template/head.ejs %>
 
 <header>
-	<form>
+	<form id="login-form">
 		<input type="text" placeholder="email address"/>
 		<input type="password" placeholder="password" />
 	</form>
+	<button id="login-submit">Sign Up</button>
 </header>
 
-<form>
-	<input type="text" placeholder="email address" />
-	<input type="tel" placeholder="phone number" />
-	<input type="password" placeholder="password" />
-	<input type="password" placeholder="confirm pass" />
-	<input type="submit" value="sign up" />
+<form id="sign-up-form">
+	<input id="sign-up-email" type="text" placeholder="email address" />
+	<input id="sign-up-phone" type="tel" placeholder="phone number" />
+	<input id="sign-up-pass" type="password" placeholder="password" />
+	<input id="sign-up-confirmPass" type="password" placeholder="confirm pass" />
 </form>
+<button id="sign-up-submit">Sign Up</button>
+
+<div id="landing-error"></div>
 
 <% include template/foot.ejs %>

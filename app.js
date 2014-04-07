@@ -6,7 +6,6 @@ _backend_root = _root + '/backend';
 //Giving a reference to my front end folder
 _frontend_root = _root + '/frontend';
 
-
 //Importing libraries
 //Route Engine, Duh
 var express = require('express');
@@ -32,11 +31,11 @@ var config = require(_backend_root + '/config/config');
 
 /** Mongoose */
 
-// fs.readdirSync(_backend_root + '/model').forEach(function(file) {
-// require(_backend_root + '/model/' + file);
-// });
-//
-// mongoose.connect('mongodb://localhost/WHATEVER');
+fs.readdirSync(_backend_root + '/model').forEach(function(file) {
+	require(_backend_root + '/model/' + file);
+});
+
+mongoose.connect('mongodb://localhost/methodize');
 
 /** Express Server */
 
@@ -85,4 +84,4 @@ socketIOServer.sockets.on('connection', function(userSocket) {
 
 httpServer.listen(expressServer.get('port'), function() {
 	console.log('Express server listening on port ' + expressServer.get('port') + ' and process ' + process.pid);
-}); 
+});
