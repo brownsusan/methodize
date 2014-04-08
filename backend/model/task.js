@@ -10,7 +10,14 @@ var Task = new Schema({
 			return uuid.v4();
 		}
 	},
-	'title' : String,
+	'userId' : {
+		'type' : String,
+		'required' : true
+	},
+	'title' : {
+		'type' : String,
+		'required' : true
+	},
 	'dueDate' : Date,
 	'reminder' : [{
 		'start' : Date,

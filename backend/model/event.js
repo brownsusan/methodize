@@ -10,17 +10,30 @@ var Event = new Schema({
 			return uuid.v4();
 		}
 	},
-	'title' : String,
-	'startDate' : Date,
-	'endDate' : Date,
+	'userId' : {
+		'type' : String,
+		'required' : true
+	},
+	'title' : {
+		'type' : String,
+		'required' : true
+	},
+	'startDate' : {
+		'type' : Date,
+		'required' : true
+	},
+	'endDate' : {
+		'type' : Date,
+		'required' : true
+	},
 	'allDay' : Boolean,
 	'reminder' : [{
 		'start' : Date,
 		'end' : Date,
 		'frequency' : Number,
 		'via' : {
-			'type':Array,
-			'enum': ['call', 'email', 'sms']
+			'type' : Array,
+			'enum' : ['call', 'email', 'sms']
 		}
 	}],
 	'category' : String,
@@ -43,4 +56,4 @@ Event.pre('save', function(next) {
 
 });
 
-mongoose.model('Event', Event); 
+mongoose.model('Event', Event);
