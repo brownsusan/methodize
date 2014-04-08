@@ -1,180 +1,131 @@
 <% include template/head.ejs %>
 
-<header>
-</header>
+<header></header>
 <% include template/nav.ejs %>
-<body class="container">
-	<div class="categories col-md-3">
-		<input type="text" placeholder="Add a new category..." />
+<div class="categories col-md-3">
+	<input id="category-add-input" type="text" placeholder="Add a new category..." />
 
+	<ul>
+		<li>
+			<span>Category Title</span>
+			<span class="pill-color-rep">9</span>
+		</li>
+	</ul>
+</div>
+<div class="tasks col-md-6">
+	<input id="task-add-input" type="text" placeholder="Add a new task..." />
+
+	<ul>
+		<li>
+			<input type="checkbox"/>
+			<span>Task Title</span>
+			<span>Due Date</span>
+			<span class="round-color-rep"></span>
+		</li>
+	</ul>
+	<ul class="completed-tasks">
+		Completed Tasks
+		<li>
+			<input type="checkbox" checked="true"/>
+			<span>Task Title</span>
+			<span class="round-color-rep"></span>
+		</li>
+	</ul>
+</div>
+<div class="details col-md-3">
+	<div id="tab-container">
 		<ul>
 			<li>
-				<span>Category Title</span>
-				<span class="pill-color-rep">9</span>
+				<a href="#task-add-update">Task</a>
 			</li>
 			<li>
-				<span>Category Title</span>
-				<span class="pill-color-rep">8</span>
+				<a href="#event-add-update">Event</a>
 			</li>
-			<li>
-				<span>Category Title</span>
-				<span class="pill-color-rep">7</span>
-			</li>
-			<li>
-				<span>Category Title</span>
-				<span class="pill-color-rep">6</span>
-			</li>
-			<li>
-				<span>Category Title</span>
-				<span class="pill-color-rep">5</span>
-			</li>
+			<div style="clear: both;"></div>
 		</ul>
-	</div>
-	<div class="tasks col-md-6">
-		<input type="text" placeholder="Add a new task..." />
-
-		<ul>
-			<li>
-				<input type="checkbox"/>
-				<span>Task Title</span>
-				<span>Due Date</span>
-				<span class="round-color-rep"></span>
-			</li>
-			<li>
-				<input type="checkbox"/>
-				<span>Task Title</span>
-				<span>Due Date</span>
-				<span class="round-color-rep"></span>
-			</li>
-			<li>
-				<input type="checkbox"/>
-				<span>Task Title</span>
-				<span>Due Date</span>
-				<span class="round-color-rep"></span>
-			</li>
-			<li>
-				<input type="checkbox"/>
-				<span>Task Title</span>
-				<span>Due Date</span>
-				<span class="round-color-rep"></span>
-			</li>
-			<li>
-				<input type="checkbox"/>
-				<span>Task Title</span>
-				<span>Due Date</span>
-				<span class="round-color-rep"></span>
-			</li>
-			<li>
-				<input type="checkbox"/>
-				<span>Task Title</span>
-				<span>Due Date</span>
-				<span class="round-color-rep"></span>
-			</li>
-
-		</ul>
-		<ul class="completed-tasks">
-			Completed Tasks
-			<li>
-				<input type="checkbox" checked="true"/>
-				<span>Task Title</span>
-				<span class="round-color-rep"></span>
-			</li>
-			<li>
-				<input type="checkbox" checked="true"/>
-				<span>Task Title</span>
-				<span class="round-color-rep"></span>
-			</li>
-			<li>
-				<input type="checkbox" checked="true"/>
-				<span>Task Title</span>
-				<span class="round-color-rep"></span>
-			</li>
-			<li>
-				<input type="checkbox" checked="true"/>
-				<span>Task Title</span>
-				<span class="round-color-rep"></span>
-			</li>
-			<li>
-				<input type="checkbox" checked="true"/>
-				<span>Task Title</span>
-				<span class="round-color-rep"></span>
-			</li>
-		</ul>
-	</div>
-	<div class="details col-md-3">
-		<div id="tab-container">
-			<ul>
+		<div id="task-add-update">
+			<input id="task-submit-title" type="text" placeholder="Title" />
+			<input id="task-submit-due-date" type="text" placeholder="Due Date" />
+			<input id="task-submit-due-time" type="text" placeholder="Due Time" />
+			<span>Reminde Me</span>
+			<label>Category
+				<select id="task-submit-category" >
+					<option value="cat1">Cat 1</option>
+					<option value="cat2">Cat 2</option>
+					<option value="cat3">Cat 3</option>
+					<option value="cat4">Cat 4</option>
+				</select></label>
+			<label>
+				<input id="task-submit-important" type="checkbox" />
+				Important</label>
+			<span>Sub Tasks</span>
+			<input type="text"  placeholder="Add a subtask..." />
+			<ul class="subtasks">
 				<li>
-					<a href="#task-add-update">Task</a>
+					<input type="checkbox"/>
+					<label>Task Title</label>
 				</li>
 				<li>
-					<a href="#event-add-update">Event</a>
+					<input type="checkbox"/>
+					<label>Task Title</label>
 				</li>
-				<div style="clear: both;"></div>
 			</ul>
-			<div id="task-add-update">
-				<h1>Title</h1>
-				<span>Due Date</span>
-				<span>Reminde Me</span>
-				<span>Category</span>
-				<span>Priority</span>
-				<span>Sub Tasks</span>
-				<input type="text" placeholder="Add a subtask..." />
-				<ul class="subtasks">
-					<li>
-						<input type="checkbox"/>
-						<label>Task Title</label>
-					</li>
-					<li>
-						<input type="checkbox"/>
-						<label>Task Title</label>
-					</li>
-				</ul>
-				<ul class="completed-subtasks">
-					Completed - 1
-					<li>
-						<input type="checkbox" checked="true"/>
-						<label>Task Title</label>
-					</li>
-				</ul>
-				<span>Notes</span>
-				<textarea></textarea>
-				<button id="task-submit"></button>
-			</div>
-			<div id="event-add-update">
-				<h1>Title</h1>
-				<span>Start Date</span>
-				<span>End Date</span>
-				<label>
-					<input type="checkbox" />
-					All Day</label>
-				<span>Reminde Me</span>
-				<span>Category</span>
-				<span>Priority</span>
-				<span>Sub Tasks</span>
-				<input type="text" placeholder="Add a subtask..." />
-				<ul class="subtasks">
-					<li>
-						<input type="checkbox"/>
-						<label>Task Title</label>
-					</li>
-					<li>
-						<input type="checkbox"/>
-						<label>Task Title</label>
-					</li>
-				</ul>
-				<ul class="completed-subtasks">
-					Completed - 1
-					<li>
-						<input type="checkbox" checked="true"/>
-						<label>Task Title</label>
-					</li>
-				</ul>
-				<span>Notes</span>
-				<textarea></textarea>
-				<button id="event-submit"></button>
-			</div>
+			<ul class="completed-subtasks">
+				Completed - 1
+				<li>
+					<input type="checkbox" checked="true"/>
+					<label>Task Title</label>
+				</li>
+			</ul>
+			<span>Notes</span>
+			<textarea id="task-submit-notes"></textarea>
+			<button id="task-submit"></button>
+		</div>
+		<div id="event-add-update">
+			<input id="event-submit-title" type="text" placeholder="Title" />
+			<input id="event-submit-start-date" type="text" placeholder="Start Date" />
+			<input id="event-submit-start-time" type="text" placeholder="Start Time" />
+
+			<input id="event-submit-end-date" type="text" placeholder="End Date" />
+			<input id="event-submit-end-time" type="text" placeholder="End Time" />
+			<label>
+				<input type="checkbox"  />
+				All Day</label>
+			<span>Reminde Me</span>
+			<label>Category
+				<select id="event-submit-category" >
+					<option value="cat1">Cat 1</option>
+					<option value="cat2">Cat 2</option>
+					<option value="cat3">Cat 3</option>
+					<option value="cat4">Cat 4</option>
+				</select></label>
+			<label>
+				<input id="event-submit-important" type="checkbox" />
+				Important</label>
+			<span>Sub Tasks</span>
+			<input type="text"  placeholder="Add a subtask..." />
+			<ul class="subtasks">
+				<li>
+					<input type="checkbox"/>
+					<label>Task Title</label>
+				</li>
+				<li>
+					<input type="checkbox"/>
+					<label>Task Title</label>
+				</li>
+			</ul>
+			<ul class="completed-subtasks">
+				Completed - 1
+				<li>
+					<input type="checkbox" checked="true"/>
+					<label>Task Title</label>
+				</li>
+			</ul>
+			<span>Notes</span>
+			<textarea id="event-submit-notes"></textarea>
+			<button id="event-submit"></button>
 		</div>
 	</div>
+</div>
 
 <% include template/foot.ejs %>

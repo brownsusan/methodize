@@ -1,0 +1,120 @@
+<% include template/head.ejs %>
+
+<header>
+	<button>
+		Previous
+	</button>
+	<span>Page Title</span>
+	<button>
+		Next
+	</button>
+	<div class="edit">
+		<button>
+			View Changer
+		</button>
+		<button>
+			Add
+		</button>
+	</div>
+</header>
+<% include template/nav.ejs %>
+<table class="week">
+	<tr>
+		<td>1</td>
+		<td>2</td>
+		<td>3</td>
+		<td>4</td>
+		<td>5</td>
+		<td>6</td>
+		<td>7</td>
+	</tr>
+</table>
+
+<div class="events col-md-6">
+	<div class="all-day">
+		<ul>
+			<li>
+				Title
+				<span>Category Color</span>
+			</li>
+			<li>
+				Title
+				<span>Category Color</span>
+			</li>
+			<li>
+				Title
+				<span>Category Color</span>
+			</li>
+			<li>
+				Title
+				<span>Category Color</span>
+			</li>
+			<li>
+				Title
+				<span>Category Color</span>
+			</li>
+
+			<li>
+				Title
+				<span>Category Color</span>
+			</li>
+		</ul>
+	</div>
+	<div class="event-stack"></div>
+</div>
+<div class="tasks col-md-6">
+	<ul class="tasks">
+		<li>
+			<input type="checkbox"/>
+			<span>Task Title</span>
+			<span>Due Date</span>
+			<span class="round-color-rep"></span>
+		</li>
+		<li>
+			<input type="checkbox"/>
+			<span>Task Title</span>
+			<span>Due Date</span>
+			<span class="round-color-rep"></span>
+		</li>
+		<li>
+			<input type="checkbox"/>
+			<span>Task Title</span>
+			<span>Due Date</span>
+			<span class="round-color-rep"></span>
+		</li>
+		<li>
+			<input type="checkbox"/>
+			<span>Task Title</span>
+			<span>Due Date</span>
+			<span class="round-color-rep"></span>
+		</li>
+	</ul>
+	<ul class="completed-tasks">
+		<li>
+			<input type="checkbox" checked="true"/>
+			<span>Task Title</span>
+			<span>Due Date</span>
+			<span class="round-color-rep"></span>
+		</li>
+		<li>
+			<input type="checkbox" checked="true"/>
+			<span>Task Title</span>
+			<span>Due Date</span>
+			<span class="round-color-rep"></span>
+		</li>
+		<li>
+			<input type="checkbox" checked="true"/>
+			<span>Task Title</span>
+			<span>Due Date</span>
+			<span class="round-color-rep"></span>
+		</li>
+		<li>
+			<input type="checkbox" checked="true"/>
+			<span>Task Title</span>
+			<span>Due Date</span>
+			<span class="round-color-rep"></span>
+		</li>
+	</ul>
+</div>
+
+<% include template/foot.ejs %>

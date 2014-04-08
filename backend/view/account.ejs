@@ -1,0 +1,27 @@
+<% include template/head.ejs %>
+
+<header></header>
+<% include template/nav.ejs %>
+<div id="account-info">
+	<span>Name </span><span>Susan Brown</span>
+	<br />
+	<span>Email Address </span><span>sbrwn.sb@gmail.com</span>
+	<br />
+	<span>Phone Number </span><span>123 456 7890</span>
+	<br />
+	<button id="account-edit">
+		Edit
+	</button>
+</div>
+<div id="account-edit">
+	<span>Name </span>
+	<input type="text" value="Susan Brown"/>
+	<span>Email Address </span>
+	<input type="email" value="sbrwn.sb@gmail.com"/>
+	<span>Phone Number </span>
+	<input type="tel" value="2488803127"/>
+	<button id="account-submit">
+		Edit
+	</button>
+</div>
+<% include template/foot.ejs %>

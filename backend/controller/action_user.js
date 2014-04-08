@@ -6,9 +6,10 @@ var md5 = blueimpMd5.md5;
 var UserModel = mongoose.model('User');
 
 module.exports.route = function(app) {
-
-	app.get('/action', function(req, res) {
-		res.send('/action');
+	
+	app.get('/action/signout', function(req, res) {
+		req.session.destroy();
+		res.redirect('/');
 	});
 
 	app.post('/action/create_user', function(req, res) {
@@ -19,6 +20,13 @@ module.exports.route = function(app) {
 		user.phoneNumber = req.body.phone;
 
 		user.save(function(err, results) {
+			
+			 if (err || !results) {
+				res.json({
+					'error' : true
+				});
+				return;
+			}
 
 			console.log(err);
 
@@ -28,6 +36,7 @@ module.exports.route = function(app) {
 
 	});
 
+
 	app.post('/action/signin_user', function(req, res) {
 
 		var email = req.body.email.toLowerCase();
@@ -36,8 +45,9 @@ module.exports.route = function(app) {
 		UserModel.findOne({
 			'email' : email
 		}, function(err, results) {
-
-			if (err) {
+			
+			
+			if (err || !results) {
 				res.json({
 					'error' : true
 				});

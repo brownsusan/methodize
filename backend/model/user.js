@@ -1,5 +1,4 @@
 var blueimpMd5 = require('blueimp-md5');
-var fs = require('fs');
 var uuid = require('node-uuid');
 var mongoose = require('mongoose');
 
@@ -57,4 +56,4 @@ User.pre('save', function(next) {
 
 });
 
-mongoose.model('User', User); 
+mongoose.model('User', User);

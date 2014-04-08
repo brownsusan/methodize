@@ -1,0 +1,28 @@
+
+<h1>Title</h1>
+				<span>Due Date</span>
+				<span>Reminde Me</span>
+				<span>Category</span>
+				<span>Priority</span>
+				<span>Sub Tasks</span>
+				<input type="text" placeholder="Add a subtask..." />
+				<ul class="subtasks">
+					<li>
+						<input type="checkbox"/>
+						<label>Task Title</label>
+					</li>
+					<li>
+						<input type="checkbox"/>
+						<label>Task Title</label>
+					</li>
+				</ul>
+				<ul class="completed-subtasks">
+					Completed - 1
+					<li>
+						<input type="checkbox" checked="true"/>
+						<label>Task Title</label>
+					</li>
+				</ul>
+				<span>Notes</span>
+				<textarea></textarea>
+				<button id="task-submit"></button>

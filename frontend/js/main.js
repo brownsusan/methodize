@@ -22,7 +22,9 @@ $('#login-submit').click(function() {
 			'password' : pass
 		},
 		success : function(response) {
-			console.log('success');
+			if(!response.error){
+				window.location.href = "/calendar/week";
+			}
 		}
 	});
 
@@ -62,7 +64,6 @@ $('#sign-up-submit').click(function() {
 		return;
 	}
 
-	//Ajax call - create doc
 	$.ajax({
 		url : "/action/create_user",
 		type : "post",
@@ -73,12 +74,10 @@ $('#sign-up-submit').click(function() {
 			'password' : pass
 		},
 		success : function(response) {
-			console.log('success');
-			// if (response.document_id) {
-			// console.log("end");
-			// console.log(response.document_id);
-			// window.location = '/document/' + response.document_id;
-			// }
+			console.log(response.error);
+			if(!response.error){
+				window.location.href = "/calendar/week";
+			}
 		}
 	});
 

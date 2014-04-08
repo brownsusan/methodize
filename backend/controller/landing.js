@@ -1,6 +1,6 @@
 module.exports.route = function(app) {
 
-	app.get('/landing', function(req, res) {
+	app.get('/', function(req, res) {
 		res.render('landing');
 	});
 
