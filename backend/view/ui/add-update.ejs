@@ -1,0 +1,151 @@
+<div class="add-update">
+		<div id="tab-container">
+			<ul>
+				<li>
+					<a href="#task-add-update">Task</a>
+				</li>
+				<li>
+					<a href="#event-add-update">Event</a>
+				</li>
+				<div style="clear: both;"></div>
+
+			</ul>
+			<div id="task-add-update">
+				<input id="task-submit-title" type="text" placeholder="Title" />
+				<input id="task-submit-due-date" type="text" placeholder="Due Date" />
+				<span>Remind Me</span>
+				<button id="task-add-reminder">
+					Add
+				</button>
+				<div class="reminder">
+					<input placeholder="Start Time" class="reminder-start-time" type="text" />
+					<input placeholder="End Time" class="reminder-end-time" type="text" />
+					<br />
+					<!-- End Time - (task due time, time picker) -->
+					<label>Frequency
+						<select id="event-submit-category" >
+							<option value="hour">Every Hour</option>
+							<option value="thirty">Every 30 Min</option>
+							<option value="fifteen">Every 15 Min</option>
+							<option value="five">Every 5 Min</option>
+						</select></label>
+					<br />
+					<label>
+						<input type="checkbox" value="email" />
+						Email</label>
+					<label>
+						<input type="checkbox" value="sms" />
+						Sms</label>
+					<label>
+						<input type="checkbox" value="phone" />
+						Phone</label>
+					<br />
+					<!-- Via - check boxes phone, email, sms -->
+				</div>
+				<label>Category
+					<select id="task-submit-category" >
+						<option value="cat1">Cat 1</option>
+						<option value="cat2">Cat 2</option>
+						<option value="cat3">Cat 3</option>
+						<option value="cat4">Cat 4</option>
+					</select></label>
+				<br />
+				<label>
+					<input id="task-submit-important" type="checkbox" />
+					Important</label>
+				<span>Sub Tasks</span>
+				<input type="text"  placeholder="Add a subtask..." />
+				<ul class="subtasks">
+					<li>
+						<input type="checkbox"/>
+						<label>Task Title</label>
+					</li>
+					<li>
+						<input type="checkbox"/>
+						<label>Task Title</label>
+					</li>
+				</ul>
+				<ul class="completed-subtasks">
+					Completed - 1
+					<li>
+						<input type="checkbox" checked="true"/>
+						<label>Task Title</label>
+					</li>
+				</ul>
+				<span>Notes</span>
+				<textarea id="task-submit-notes"></textarea>
+				<button id="task-submit"></button>
+			</div>
+
+			<div id="event-add-update">
+				<input id="event-submit-title" type="text" placeholder="Title" />
+				<input id="event-submit-start-date" type="text" placeholder="Start Date" />
+
+				<input id="event-submit-end-date" type="text" placeholder="End Date" />
+				<label>
+					<input type="checkbox"  />
+					All Day</label>
+				<span>Remind Me</span>
+				<button id="task-add-reminder">
+					Add
+				</button>
+				<div class="reminder">
+					<input placeholder="Start Time" class="reminder-start-time" type="text" />
+					<input placeholder="End Time" class="reminder-end-time" type="text" />
+					<br />
+					<!-- End Time - (task due time, time picker) -->
+					<label>Frequency
+						<select id="event-submit-category" >
+							<option value="hour">Every Hour</option>
+							<option value="thirty">Every 30 Min</option>
+							<option value="fifteen">Every 15 Min</option>
+							<option value="five">Every 5 Min</option>
+						</select></label>
+					<br />
+					<label>
+						<input type="checkbox" value="email" />
+						Email</label>
+					<label>
+						<input type="checkbox" value="sms" />
+						Sms</label>
+					<label>
+						<input type="checkbox" value="phone" />
+						Phone</label>
+					<br />
+					<!-- Via - check boxes phone, email, sms -->
+				</div>
+				<label>Category
+					<select id="event-submit-category" >
+						<option value="cat1">Cat 1</option>
+						<option value="cat2">Cat 2</option>
+						<option value="cat3">Cat 3</option>
+						<option value="cat4">Cat 4</option>
+					</select></label>
+				<label>
+					<input id="event-submit-important" type="checkbox" />
+					Important</label>
+				<span>Sub Tasks</span>
+				<input type="text"  placeholder="Add a subtask..." />
+				<ul class="subtasks">
+					<li>
+						<input type="checkbox"/>
+						<label>Task Title</label>
+					</li>
+					<li>
+						<input type="checkbox"/>
+						<label>Task Title</label>
+					</li>
+				</ul>
+				<ul class="completed-subtasks">
+					Completed - 1
+					<li>
+						<input type="checkbox" checked="true"/>
+						<label>Task Title</label>
+					</li>
+				</ul>
+				<span>Notes</span>
+				<textarea id="event-submit-notes"></textarea>
+				<button id="event-submit"></button>
+			</div>
+		</div>
+	</div>

@@ -2,11 +2,11 @@ var mongoose = require('mongoose');
 var TaskModel = mongoose.model('Task');
 module.exports.route = function(app) {
 
-	app.get('/action/create-task', function(req, res) {
+	app.post('/action/create-task', function(req, res) {
 
 		var task = new TaskModel();
 		task.userId = req.session.user.id;
-		task.title = 'req.body.title';
+		task.title = req.body.title;
 		task.dueDate = new Date();
 		task.reminder = [{
 			'start' : new Date(),
