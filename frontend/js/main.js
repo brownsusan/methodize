@@ -31,6 +31,22 @@ $('#category-add-input').keypress(function() {
 		console.log('cat');
 
 		var title = $('#category-add-input').val();
+		var color = 'red';
+
+		$.ajax({
+			url : "/action/create-category",
+			type : "post",
+			dataType : "json",
+			data : {
+				'title' : title,
+				'color' : color
+			},
+			success : function(response) {
+				if (!response.error) {
+
+				}
+			}
+		});
 
 	}
 });

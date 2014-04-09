@@ -7,31 +7,12 @@ module.exports.route = function(app) {
 		var task = new TaskModel();
 		task.userId = req.session.user.id;
 		task.title = req.body.title;
-		task.dueDate = new Date();
-		task.reminder = [{
-			'start' : new Date(),
-			'end' : new Date(),
-			'frequency' : 7,
-			'via' : ['call', 'email', 'sms']
-		}];
-		task.category = 'req.body.category';
-		task.important = true;
-		task.subtask = [{
-			'title' : 'Title',
-			'completed' : true
-		}, {
-			'title' : 'Title 2',
-			'completed' : false
-		}];
-		task.note = 'req.body.note';
-
-		// task.title = req.body.title;
-		// task.dueDate = req.body.dueDate;
-		// task.reminder = req.body.reminder;
-		// task.category = req.body.category;
-		// task.important = req.body.important;
-		// task.subtask = req.body.subtask;
-		// task.note = req.body.note;
+		task.dueDate = req.body.dueDate;
+		task.reminder = req.body.reminder;
+		task.category = req.body.category;
+		task.important = req.body.important;
+		task.subtask = req.body.subtask;
+		task.note = req.body.note;
 
 		task.save(function(err, results) {
 
@@ -68,24 +49,13 @@ module.exports.route = function(app) {
 
 			var task = results;
 			task.userId = req.session.user.id;
-			task.title = 'req.body.titie';
-			task.dueDate = new Date();
-			task.reminder = [{
-				'start' : new Date(),
-				'end' : new Date(),
-				'frequency' : 7,
-				'via' : ['call', 'email', 'sms']
-			}];
-			task.category = 'req.body.category';
-			task.important = true;
-			task.subtask = [{
-				'title' : 'Title',
-				'completed' : true
-			}, {
-				'title' : 'Title 2',
-				'completed' : false
-			}];
-			task.note = 'req.body.note';
+			task.title = req.body.title;
+			task.dueDate = req.body.dueDate;
+			task.reminder = req.body.reminder;
+			task.category = req.body.category;
+			task.important = req.body.important;
+			task.subtask = req.body.subtask;
+			task.note = req.body.note;
 
 			task.save(function(err, results) {
 
