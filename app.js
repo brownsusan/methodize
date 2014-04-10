@@ -68,19 +68,22 @@ expressServer.use(function(req, res, next) {
 
 // config
 config.setupSocketIO(socketIOServer);
-
+// whenever a connection is made to the socket server, create a new socket in sockets - call it userSocket
 socketIOServer.sockets.on('connection', function(userSocket) {
-
+	//Read all of the listeners
 	fs.readdirSync(_backend_root + '/listener').forEach(function(file) {
+		//Check to make sure each file is a js file
 		if (file.substr(-3) == '.js') {
+			//Require each listener
 			var listener = require(_backend_root + '/listener/' + file);
+			//Give the listener the server and the new socket
 			listener.setup(socketIOServer, userSocket);
 		}
 	});
 
 });
 
-/** HTTP Serveer */
+/** HTTP Server */
 
 httpServer.listen(expressServer.get('port'), function() {
 	console.log('Express server listening on port ' + expressServer.get('port') + ' and process ' + process.pid);

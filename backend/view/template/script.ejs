@@ -2,4 +2,8 @@
 <script src="/bower_components/easytabs/lib/jquery.easytabs.min.js"></script>
 <script src="/bower_components/datetimepicker/date-functions.js"></script>
 <script src="/bower_components/datetimepicker/jquery.datetimepicker.js"></script>
+<!-- Imported from server, gives global io variable -->
+<script src="/socket.io/socket.io.js"></script>
+<!-- Use the io variable - tell it where to connect (the server) - store the server connection as a var -->
+<script>var _socketConnection = io.connect('/');</script>
 <script src="/js/main.js"></script>

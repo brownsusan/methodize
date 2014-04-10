@@ -1,6 +1,7 @@
-// var mongoose = require('mongoose');
-
-// var Model = mongoose.model('Model');
+// Require Mongoose
+var mongoose = require('mongoose');
+// Get the appropriate db model
+var EventModel = mongoose.model('Event');
 
 module.exports.setup = function(socketServer, userSocket) {
 

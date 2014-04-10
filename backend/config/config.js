@@ -1,3 +1,4 @@
+// Require Libraries
 var cookie = require('cookie');
 var connect = require('connect');
 var express = require('express');
@@ -5,8 +6,9 @@ var path = require('path');
 var socketIOSession = require('socket.io-session');
 
 var MongoStore = require('connect-mongo')(express);
-//
+//'Password' that protects the user session
 var sessionSecret = 'testing';
+// Set up session var (equivalent of $_SESSION in php)
 var sessionStore = new MongoStore({
 	'db' : 'methodize',
 	'auto_reconnect' : true
@@ -14,35 +16,35 @@ var sessionStore = new MongoStore({
 
 var cookieParser = express.cookieParser(sessionSecret);
 
-module.exports.setupExpress = function(server) {
+module.exports.setupExpress = function(expressServer) {
 
-	server.configure(function() {
-
-		server.set('port', process.env.PORT || 3000);
-		server.set('views', path.join(_backend_root, '/view'));
-		server.set('view engine', 'ejs');
-		server.use(express.bodyParser());
-		server.use(express.logger('dev'));
-		server.use(express.json());
-		server.use(express.urlencoded());
-		server.use(express.methodOverride());
-		server.use(cookieParser);
-		server.use(express.session({
+	expressServer.configure(function() {
+		//Give express server everything that it will need
+		expressServer.set('port', process.env.PORT || 3000);
+		expressServer.set('views', path.join(_backend_root, '/view'));
+		expressServer.set('view engine', 'ejs');
+		expressServer.use(express.bodyParser());
+		expressServer.use(express.logger('dev'));
+		expressServer.use(express.json());
+		expressServer.use(express.urlencoded());
+		expressServer.use(express.methodOverride());
+		expressServer.use(cookieParser);
+		expressServer.use(express.session({
 			'secret' : sessionSecret,
 			'store' : sessionStore
 		}));
-		server.use(server.router);
-		server.use(express.static(path.join(_frontend_root)));
+		expressServer.use(expressServer.router);
+		expressServer.use(express.static(path.join(_frontend_root)));
 
 	});
 
 };
 
-module.exports.setupSocketIO = function(server) {
-
-	server.configure(function() {
-
-		server.set('authorization', socketIOSession(cookieParser, sessionStore));
+module.exports.setupSocketIO = function(socketIOServer) {
+	
+	socketIOServer.configure(function() {
+	// Give the socket IO server eveything that it will need
+		socketIOServer.set('authorization', socketIOSession(cookieParser, sessionStore));
 
 	});
 

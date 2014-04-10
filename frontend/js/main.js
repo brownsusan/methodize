@@ -43,7 +43,7 @@ $('#category-add-input').keypress(function() {
 			},
 			success : function(response) {
 				if (!response.error) {
-
+					
 				}
 			}
 		});
