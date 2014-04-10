@@ -50,30 +50,3 @@ $('#category-add-input').keypress(function() {
 
 	}
 });
-
-//TASK JS STUFF
-$('#task-add-input').keypress(function() {
-
-	if (event.which == 13) {
-		//Validation Here
-		//Manipulate the data
-		var title = $('#task-add-input').val();
-		//Figure out how to determine category
-		var category = 'inbox';
-
-		$.ajax({
-			url : "/action/create-task",
-			type : "post",
-			dataType : "json",
-			data : {
-				'title' : title,
-				'category' : category
-			},
-			success : function(response) {
-				if (!response.error) {
-
-				}
-			}
-		});
-	}
-});

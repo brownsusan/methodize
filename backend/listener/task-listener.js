@@ -7,8 +7,35 @@ module.exports.setup = function(socketServer, userSocket) {
 	// Get the session
 	var session = userSocket.handshake.session;
 	// Set up an event listener
-	userSocket.on('event_from_client', function(data) {
+	userSocket.on('create_task', function(data) {
+		var task = new TaskModel();
+		task.userId = session.user.id;
+		task.title = data.title;
+		task.dueDate = data.dueDate;
+		task.reminder = data.reminder;
+		task.category = data.category;
+		task.important = data.important;
+		task.subtask = data.subtask;
+		task.note = data.note;
 
+		task.save(function(err, results) {
+
+			if (err || !results) {
+				userSocket.emit('create_task_complete', {
+					// Send error as part of data
+					'error' : true
+				});
+				return;
+			}
+
+			console.log(err);
+
+			userSocket.emit('create_task_complete', {
+				// Send an error as part of data
+				'error' : false
+			});
+
+		});
 	});
 
-}; 
+};
