@@ -21,23 +21,3 @@ $('#task-add-input').keypress(function() {
 		});
 	}
 });
-
-// //Create a 'complete' listener for the sign up
-// _socketConnection.on('update_task_complete', function(data) {
-	// console.log(data);
-	// if (!data.error) {
-		// window.location.href = "/calendar/day";
-	// }
-// 
-// });
-// 
-// $('#sign-up-submit').click(function() {
-// 
-	// //Emit an event
-	// _socketConnection.emit('signup_user', {
-		// 'email' : email,
-		// 'phone' : phone,
-		// 'password' : pass
-	// });
-// 
-// });

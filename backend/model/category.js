@@ -22,6 +22,9 @@ var Category = new Schema({
 		'type' : String,
 		'required' : true
 	}
+}, {
+	'collection' : 'category',
+	'versionKey' : false
 });
 
 Category.pre('save', function(next) {

@@ -23,30 +23,3 @@ $('.my-nav-slide').click(function() {
 $('#test-add').click(function() {
 	$('.add-update').toggle();
 });
-
-//CATEGORY JS STUFF
-$('#category-add-input').keypress(function() {
-	if (event.which == 13) {
-		//Add The Cat to the DB
-		console.log('cat');
-
-		var title = $('#category-add-input').val();
-		var color = 'red';
-
-		$.ajax({
-			url : "/action/create-category",
-			type : "post",
-			dataType : "json",
-			data : {
-				'title' : title,
-				'color' : color
-			},
-			success : function(response) {
-				if (!response.error) {
-					
-				}
-			}
-		});
-
-	}
-});
