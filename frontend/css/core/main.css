@@ -330,3 +330,12 @@ tr:first-child td {
 #login-form input[type=text], #sign-up-form input[type=text]{ 
 	width: 100px;
 }
+
+
+.category-id{
+	display: none;
+}
+
+#parent-category{
+	display: none;
+}

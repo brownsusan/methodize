@@ -11,13 +11,16 @@
 		<input id="category-add-input" type="text" placeholder="Add a new category..." />
 
 		<ul>
-			<li>
-				<span>Category Title</span>
+			<li class="category">
+				<span class="category-title">Category Title</span>
+				<!-- Need to put the real id in the value-->
+				<input type="text" class="category-id" value="CategoryId"/>
 				<span class="pill-color-rep">9</span>
 			</li>
 		</ul>
 	</div>
 	<div class="tasks col-md-8">
+		<input type="text" id="parent-category" />
 		<input id="task-add-input" type="text" placeholder="Add a new task..." />
 
 		<ul>
@@ -40,6 +43,6 @@
 </div>
 
 <% include template/script.ejs %>
-<script src="/js/category.js"></script>
-<script src="/js/task.js"></script>
+<script src="/js/core/category.js"></script>
+<script src="/js/core/task.js"></script>
 <% include template/foot.ejs %>
