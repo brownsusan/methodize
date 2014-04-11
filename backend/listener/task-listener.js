@@ -38,4 +38,27 @@ module.exports.setup = function(socketServer, userSocket) {
 		});
 	});
 
+	userSocket.on('read_tasks', function(data) {
+		var userId = session.user.id;
+		TaskModel.find({
+			'userId' : userId
+		}, function(err, results) {
+			if (err || !results) {
+				userSocket.emit('read_tasks_complete', {
+					// Send error as part of data
+					'error' : true
+				});
+				return;
+			}
+
+			userSocket.emit('read_tasks_complete', {
+				// Send an error as part of data
+				'error' : false,
+				'tasks' : results
+			});
+
+		});
+
+	});
+
 };

@@ -1,8 +1,25 @@
+// Turn off caching
+EJS.config({
+	cache : false
+});
+
 $(document).ready(function() {
 	$('#tab-container').easytabs();
 	$('#task-submit-due-date').datetimepicker();
 	$('#event-submit-start-date').datetimepicker();
 	$('#event-submit-end-date').datetimepicker();
+
+	_socketConnection.emit('read_tasks');
+});
+
+_socketConnection.on('read_tasks_complete', function(data) {
+	$('.task-list').empty();
+	for (var i = 0, j = data.tasks.length; i < j; i++) {
+		var task = new EJS({
+			url : '/view/ui/task-item.ejs'
+		}).render(data.tasks[i]);
+		$('.task-list').append(task);
+	};
 });
 
 $('.my-nav-slide').click(function() {

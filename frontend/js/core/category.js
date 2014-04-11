@@ -1,7 +1,21 @@
 //Create a 'complete' listener for the category creation
+$(document).ready(function() {
+	_socketConnection.emit('read_categories');
+});
+
+_socketConnection.on('read_categories_complete', function(data) {
+	$('.category-list').empty();
+	for (var i = 0, j = data.categories.length; i < j; i++) {
+		var category = new EJS({
+			url : '/view/ui/category.ejs'
+		}).render(data.categories[i]);
+		$('.category-list').append(category);
+	};
+});
+
 _socketConnection.on('create_category_complete', function(data) {
 	if (!data.error) {
-		console.log('no errors mama');
+		_socketConnection.emit('read_categories');
 	}
 
 });
@@ -19,4 +33,4 @@ $('#category-add-input').keypress(function() {
 			'color' : color
 		});
 	}
-}); 
+});

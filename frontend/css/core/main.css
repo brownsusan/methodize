@@ -146,9 +146,9 @@ input[type=text] {
 
 .my-nav-slide {
 	width: 20px;
-	background: red;
+	background: black;
 	height: 100%;
-	float: left;
+	float: right;
 	position: relative;
 	top: 0;
 	left: 0;
@@ -164,7 +164,7 @@ input[type=text] {
 }
 
 #my-nav li a{
-	float: right;
+	float: left;
 	display: block;
 	width: 130px;
 }

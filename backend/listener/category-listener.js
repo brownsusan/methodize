@@ -31,5 +31,28 @@ module.exports.setup = function(socketServer, userSocket) {
 
 		});
 	});
+	
+	
+	userSocket.on('read_categories', function(data) {
+		var userId = session.user.id;
+		CategoryModel.find({
+			'userId' : userId
+		}, function(err, results) {
+			if (err || !results) {
+				userSocket.emit('read_categories_complete', {
+					// Send error as part of data
+					'error' : true
+				});
+				return;
+			}
+
+			userSocket.emit('read_categories_complete', {
+				// Send an error as part of data
+				'error' : false,
+				'categories' : results
+			});
+
+		});
+	});
 
 };

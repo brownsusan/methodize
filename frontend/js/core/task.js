@@ -1,7 +1,7 @@
 //Create a 'complete' listener for the sign in
 _socketConnection.on('create_task_complete', function(data) {
 	if (!data.error) {
-		console.log('no errors mama');
+		_socketConnection.emit('read_tasks');
 	}
 
 });
@@ -24,4 +24,4 @@ $('#task-add-input').keypress(function() {
 			'category' : category
 		});
 	}
-});
+}); 
