@@ -20,17 +20,29 @@ var Task = new Schema({
 	},
 	'dueDate' : Date,
 	'reminder' : [{
+		'id' : {
+			'type' : String,
+			'default' : function() {
+				return uuid.v4();
+			}
+		},
 		'start' : Date,
 		'end' : Date,
 		'frequency' : Number,
 		'via' : {
-			'type':Array,
-			'enum': ['call', 'email', 'sms']
+			'type' : Array,
+			'enum' : ['call', 'email', 'sms']
 		}
 	}],
 	'category' : String,
 	'important' : Boolean,
 	'subtask' : [{
+		'id' : {
+			'type' : String,
+			'default' : function() {
+				return uuid.v4();
+			}
+		},
 		'title' : String,
 		'completed' : Boolean
 	}],
@@ -48,4 +60,4 @@ Task.pre('save', function(next) {
 
 });
 
-mongoose.model('Task', Task); 
+mongoose.model('Task', Task);
