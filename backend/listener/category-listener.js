@@ -34,6 +34,9 @@ module.exports.setup = function(socketServer, userSocket) {
 	
 	
 	userSocket.on('read_categories', function(data) {
+		if(session.user === undefined){
+			return;
+		}
 		var userId = session.user.id;
 		CategoryModel.find({
 			'userId' : userId

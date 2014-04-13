@@ -10,6 +10,7 @@ $(document).ready(function() {
 	$('#event-submit-end-date').datetimepicker();
 
 	_socketConnection.emit('read_tasks');
+	_socketConnection.emit('read_categories');
 });
 
 _socketConnection.on('read_tasks_complete', function(data) {
@@ -19,6 +20,14 @@ _socketConnection.on('read_tasks_complete', function(data) {
 			url : '/view/ui/task-item.ejs'
 		}).render(data.tasks[i]);
 		$('.task-list').append(task);
+	};
+});
+
+_socketConnection.on('read_categories_complete', function(data) {
+	console.log(data);
+	$('#task-submit-category').empty();
+	for (var i = 0, j = data.categories.length; i < j; i++) {
+		$('#task-submit-category').append('<option value="' + data.categories[i].id + '">' + data.categories[i].title + '</option>');
 	};
 });
 
@@ -32,9 +41,31 @@ $('#test-add').click(function() {
 	$('.add-update').toggle();
 });
 
-$('.category').click(function() {
-	var parentCategoryId = $(this).children('.category-id').val();
+$(document).on('click', '.category', function() {
+	console.log('something');
+	var parentCategoryId = $(this).find('.category-id').val();
 	$('#parent-category').val(parentCategoryId);
+
+	$.ajax({
+		type : 'get',
+		url : "api_task/read_tasks_by_category",
+		data : {
+			'categoryId' : parentCategoryId
+		},
+		dataType : 'json',
+		success : function(response) {
+			var tasks = response.data;
+			console.log(tasks);
+			$('.task-list').empty();
+			for (var i = 0, j = tasks.length; i < j; i++) {
+				var task = new EJS({
+					url : '/view/ui/task-item.ejs'
+				}).render(tasks[i]);
+				$('.task-list').append(task);
+			};
+
+		}
+	})
 });
 
 var reminder = new EJS({

@@ -4,6 +4,7 @@ var blueimpMd5 = require('blueimp-md5');
 var md5 = blueimpMd5.md5;
 // Get the appropriate db model
 var UserModel = mongoose.model('User');
+var CategoryModel = mongoose.model('Category');
 
 module.exports.setup = function(socketServer, userSocket) {
 
@@ -58,6 +59,7 @@ module.exports.setup = function(socketServer, userSocket) {
 		user.phoneNumber = data.phone;
 
 		user.save(function(err, results) {
+			var user = results;
 
 			if (err || !results) {
 				userSocket.emit('signup_user_complete', {
@@ -67,11 +69,21 @@ module.exports.setup = function(socketServer, userSocket) {
 				return;
 			}
 
-			console.log(err);
+			var category = new CategoryModel();
+			category.userId = results.id;
+			category.title = 'Inbox';
+			category.color = 'red';
 
-			userSocket.emit('signup_user_complete', {
-				// Send error as part of data - this is the success
-				'error' : false
+			category.save(function(err, results) {
+				if (!err || results) {
+					session.user = user;
+					session.save();
+					userSocket.emit('signup_user_complete', {
+						// Send error as part of data - this is the success
+						'error' : false
+					});
+				}
+
 			});
 
 		});

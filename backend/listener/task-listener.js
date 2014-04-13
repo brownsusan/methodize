@@ -39,6 +39,10 @@ module.exports.setup = function(socketServer, userSocket) {
 	});
 
 	userSocket.on('read_tasks', function(data) {
+		if(session.user === undefined){
+			return;
+		}
+		
 		var userId = session.user.id;
 		TaskModel.find({
 			'userId' : userId
