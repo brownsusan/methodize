@@ -1,21 +1,25 @@
 //Create a 'complete' listener for the category creation
-$(document).ready(function() {
-	_socketConnection.emit('read_categories');
-});
+_.observe(db.categories, function() {
+	
+	$('#task-submit-category').empty();
+	
+	for (var i = 0, j = db.categories.length; i < j; i++) {
+		$('#task-submit-category').append('<option value="' + db.categories[i].id + '">' + db.categories[i].title + '</option>');
+	};
 
-_socketConnection.on('read_categories_complete', function(data) {
 	$('.category-list').empty();
-	for (var i = 0, j = data.categories.length; i < j; i++) {
+	
+	for (var i = 0, j = db.categories.length; i < j; i++) {
 		var category = new EJS({
 			url : '/view/ui/category.ejs'
-		}).render(data.categories[i]);
+		}).render(db.categories[i]);
 		$('.category-list').append(category);
-	};
+	}
+	
 });
 
 _socketConnection.on('create_category_complete', function(data) {
 	if (!data.error) {
-		_socketConnection.emit('read_categories');
 	}
 
 });

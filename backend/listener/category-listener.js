@@ -31,10 +31,9 @@ module.exports.setup = function(socketServer, userSocket) {
 
 		});
 	});
-	
-	
+
 	userSocket.on('read_categories', function(data) {
-		if(session.user === undefined){
+		if (session.user === undefined) {
 			return;
 		}
 		var userId = session.user.id;
@@ -58,4 +57,16 @@ module.exports.setup = function(socketServer, userSocket) {
 		});
 	});
 
+	userSocket.on('update_category', function(data) {
+		if (session.user === undefined) {
+			return;
+		}
+	});
+
+	userSocket.on('delete_category', function(data) {
+		if (session.user === undefined) {
+			return;
+		}
+	});
 };
+

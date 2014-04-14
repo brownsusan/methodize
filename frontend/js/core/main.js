@@ -13,23 +13,7 @@ $(document).ready(function() {
 	_socketConnection.emit('read_categories');
 });
 
-_socketConnection.on('read_tasks_complete', function(data) {
-	$('.task-list').empty();
-	for (var i = 0, j = data.tasks.length; i < j; i++) {
-		var task = new EJS({
-			url : '/view/ui/task-item.ejs'
-		}).render(data.tasks[i]);
-		$('.task-list').append(task);
-	};
-});
-
-_socketConnection.on('read_categories_complete', function(data) {
-	console.log(data);
-	$('#task-submit-category').empty();
-	for (var i = 0, j = data.categories.length; i < j; i++) {
-		$('#task-submit-category').append('<option value="' + data.categories[i].id + '">' + data.categories[i].title + '</option>');
-	};
-});
+var db = {};
 
 $('.my-nav-slide').click(function() {
 	$('#my-nav').animate({

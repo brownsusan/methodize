@@ -64,5 +64,30 @@ module.exports.setup = function(socketServer, userSocket) {
 		});
 
 	});
+	
+	userSocket.on('read_task_by_id', function(data) {
+		if(session.user === undefined){
+			return;
+		}
+	});
+	
+	userSocket.on('read_tasks_by_category', function(data) {
+		if(session.user === undefined){
+			return;
+		}
+	});
+	
+	
+	userSocket.on('update_task', function(data) {
+		if(session.user === undefined){
+			return;
+		}
+	});
+	
+	userSocket.on('delete_task', function(data) {
+		if(session.user === undefined){
+			return;
+		}
+	});
 
 };
