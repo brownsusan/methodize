@@ -16,22 +16,19 @@ _socketConnection.on('read_categories_complete', function(data) {
 _socketConnection.on('create_category_complete', function(data) {
 	console.log('create_category_complete');
 	if (!data.error) {
+		_socketConnection.emit('read_categories');
 	}
 });
-
 
 _socketConnection.on('update_category_complete', function(data) {
 	console.log('update_category_complete');
 	if (!data.error) {
 	}
-	
+
 	_socketConnection.emit('read_categories');
 });
 
 _socketConnection.on('delete_category_complete', function(data) {
 	console.log('delete_category_complete');
-	if (!data.error) {
-	}
-	
 	_socketConnection.emit('read_categories');
 });

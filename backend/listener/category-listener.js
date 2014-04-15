@@ -78,24 +78,20 @@ module.exports.setup = function(socketServer, userSocket) {
 	});
 
 	userSocket.on('delete_category', function(data) {
-		
-		console.log('clickedclickedclickedclickedclicked');
-		
+
 		if (session.user === undefined) {
 			return;
 		}
-		TaskModel.remove({
-			'category' : data.id,
+		CategoryModel.remove({
+			'id' : data.id,
 			'userId' : session.user.id
 		}, function(err, results) {
-			console.log(err);
-			console.log(results);
-			if (!err && results) {
-				CategoryModel.remove({
-					'id' : data.id,
+			if (!err) {
+				TaskModel.remove({
+					'category' : data.id,
 					'userId' : session.user.id
 				}, function(err, results) {
-					if (!err && results) {
+					if (!err) {
 						userSocket.emit('delete_category_complete', {
 							'error' : false
 						});
