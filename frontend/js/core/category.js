@@ -52,11 +52,17 @@ $(document).on('keypress', '.category-title-edit', (function(event) {
 		var title = $(this).closest('.category').find('.category-title-edit').val();
 		var id = $(this).closest('.category').find('.category-id').val();
 		//Figure out how to determine color
-		console.log(title);
-		console.log(id);
 		_socketConnection.emit('update_category', {
 			'id' : id,
 			'title' : title
 		});
 	}
-}))
+}));
+
+$(document).on('click', '.category-delete', function(event) {
+	console.log('click');
+	var id = $(this).closest('.category').find('.category-id').val();
+	_socketConnection.emit('delete_category', {
+		'id' : id
+	});
+});

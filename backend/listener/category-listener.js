@@ -2,6 +2,7 @@
 var mongoose = require('mongoose');
 // Get the appropriate db model
 var CategoryModel = mongoose.model('Category');
+var TaskModel = mongoose.model('Task');
 
 module.exports.setup = function(socketServer, userSocket) {
 	// Get the session
@@ -65,10 +66,10 @@ module.exports.setup = function(socketServer, userSocket) {
 		CategoryModel.findOne({
 			'id' : data.id
 		}, function(err, results) {
-			if(!err && results)
-			results.title = data.title;
+			if (!err && results)
+				results.title = data.title;
 			results.save();
-			
+
 			userSocket.emit('update_category_complete', {
 				'error' : false
 			});
@@ -77,9 +78,32 @@ module.exports.setup = function(socketServer, userSocket) {
 	});
 
 	userSocket.on('delete_category', function(data) {
+		
+		console.log('clickedclickedclickedclickedclicked');
+		
 		if (session.user === undefined) {
 			return;
 		}
+		TaskModel.remove({
+			'category' : data.id,
+			'userId' : session.user.id
+		}, function(err, results) {
+			console.log(err);
+			console.log(results);
+			if (!err && results) {
+				CategoryModel.remove({
+					'id' : data.id,
+					'userId' : session.user.id
+				}, function(err, results) {
+					if (!err && results) {
+						userSocket.emit('delete_category_complete', {
+							'error' : false
+						});
+					}
+				});
+			}
+		});
+
 	});
 };
 

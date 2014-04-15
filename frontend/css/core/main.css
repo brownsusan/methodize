@@ -46,7 +46,7 @@ table {
 	padding-left: 20px
 }
 
-.add-update{
+.add-update {
 	display: none;
 	width: 25%;
 	position: absolute;
@@ -55,9 +55,7 @@ table {
 	z-index: 1001;
 	height: 700px;
 	overflow: scroll;
-	
 }
-
 
 html {
 	background-image: url('/img/retina_wood_@2X.png');
@@ -101,7 +99,7 @@ header {
 	text-align: center;
 }
 
-footer{
+footer {
 	position: absolute;
 	bottom: 0;
 }
@@ -126,16 +124,16 @@ input[type=text] {
 	background: #222222;
 	position: fixed;
 	top: 0;
-	left:0;
+	left: 0;
 	color: #E6E6E6;
 }
 
 /*#nav-placeholder{
-	width: 190px;
-	display: block;
-	background: #00f;
-	height: 100%;
-}*/
+ width: 190px;
+ display: block;
+ background: #00f;
+ height: 100%;
+ }*/
 
 #my-nav a {
 	height: 40px;
@@ -157,7 +155,7 @@ input[type=text] {
 	margin: 0;
 }
 
-#my-nav li img{
+#my-nav li img {
 	float: left;
 	display: inline-block;
 	width: 20px;
@@ -165,17 +163,16 @@ input[type=text] {
 	margin: 10px 0;
 }
 
-#my-nav li a{
+#my-nav li a {
 	float: left;
 	display: block;
 	width: 130px;
 }
 
-#my-nav li{
+#my-nav li {
 	line-height: 40px;
 	height: 40px;
 }
-
 
 .round-color-rep {
 	float: right;
@@ -329,15 +326,20 @@ tr:first-child td {
 	border: 1px solid rgb(231, 85, 111);
 }
 
-#login-form input[type=text], #sign-up-form input[type=text]{ 
+#login-form input[type=text], #sign-up-form input[type=text] {
 	width: 100px;
 }
 
-
-.category-id, .core-hidden{
+.category-id, .core-hidden {
 	display: none;
 }
 
-#parent-category{
+.category-delete {
+	height: 20px;
+	float: right;
+	margin: 10px;
+}
+
+#parent-category {
 	display: none;
 }

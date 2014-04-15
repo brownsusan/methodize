@@ -26,8 +26,12 @@ _socketConnection.on('update_category_complete', function(data) {
 	}
 	
 	_socketConnection.emit('read_categories');
+});
+
+_socketConnection.on('delete_category_complete', function(data) {
+	console.log('delete_category_complete');
+	if (!data.error) {
+	}
 	
-	// $('.category-title').show();
-	// $('.pill-color-rep').show();
-	// $('.category-title-edit').hide();
+	_socketConnection.emit('read_categories');
 });
