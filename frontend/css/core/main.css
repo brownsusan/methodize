@@ -334,7 +334,7 @@ tr:first-child td {
 }
 
 
-.category-id{
+.category-id, .core-hidden{
 	display: none;
 }
 

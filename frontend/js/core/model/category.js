@@ -18,3 +18,16 @@ _socketConnection.on('create_category_complete', function(data) {
 	if (!data.error) {
 	}
 });
+
+
+_socketConnection.on('update_category_complete', function(data) {
+	console.log('update_category_complete');
+	if (!data.error) {
+	}
+	
+	_socketConnection.emit('read_categories');
+	
+	// $('.category-title').show();
+	// $('.pill-color-rep').show();
+	// $('.category-title-edit').hide();
+});

@@ -61,6 +61,19 @@ module.exports.setup = function(socketServer, userSocket) {
 		if (session.user === undefined) {
 			return;
 		}
+
+		CategoryModel.findOne({
+			'id' : data.id
+		}, function(err, results) {
+			if(!err && results)
+			results.title = data.title;
+			results.save();
+			
+			userSocket.emit('update_category_complete', {
+				'error' : false
+			});
+		});
+
 	});
 
 	userSocket.on('delete_category', function(data) {
