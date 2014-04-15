@@ -8,8 +8,8 @@ $(document).ready(function() {
 	$('#task-submit-due-date').datetimepicker();
 	$('#event-submit-start-date').datetimepicker();
 	$('#event-submit-end-date').datetimepicker();
-
-	_socketConnection.emit('read_tasks');
+	var defaultCategory = $('#user-default-category').val();
+	_socketConnection.emit('read_tasks_by_category', {'categoryId' : defaultCategory});
 	_socketConnection.emit('read_categories');
 });
 
@@ -26,30 +26,14 @@ $('#test-add').click(function() {
 });
 
 $(document).on('click', '.category', function() {
-	console.log('something');
+
 	var parentCategoryId = $(this).find('.category-id').val();
 	$('#parent-category').val(parentCategoryId);
 
-	$.ajax({
-		type : 'get',
-		url : "api_task/read_tasks_by_category",
-		data : {
-			'categoryId' : parentCategoryId
-		},
-		dataType : 'json',
-		success : function(response) {
-			var tasks = response.data;
-			console.log(tasks);
-			$('.task-list').empty();
-			for (var i = 0, j = tasks.length; i < j; i++) {
-				var task = new EJS({
-					url : '/view/ui/task-item.ejs'
-				}).render(tasks[i]);
-				$('.task-list').append(task);
-			};
+	_socketConnection.emit('read_tasks_by_category', {
+		'categoryId' : parentCategoryId
+	});
 
-		}
-	})
 });
 
 var reminder = new EJS({

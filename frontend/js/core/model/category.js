@@ -2,7 +2,7 @@
 db.categories = [];
 
 _socketConnection.on('read_categories_complete', function(data) {
-
+	console.log('read_categories_complete');
 	while (db.categories.length > 0) {
 		db.categories.pop();
 	}
@@ -14,6 +14,7 @@ _socketConnection.on('read_categories_complete', function(data) {
 });
 
 _socketConnection.on('create_category_complete', function(data) {
+	console.log('create_category_complete');
 	if (!data.error) {
 	}
 });

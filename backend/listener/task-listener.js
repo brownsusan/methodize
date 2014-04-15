@@ -8,6 +8,7 @@ module.exports.setup = function(socketServer, userSocket) {
 	var session = userSocket.handshake.session;
 	// Set up an event listener
 	userSocket.on('create_task', function(data) {
+
 		var task = new TaskModel();
 		task.userId = session.user.id;
 		task.title = data.title;
@@ -32,18 +33,21 @@ module.exports.setup = function(socketServer, userSocket) {
 
 			userSocket.emit('create_task_complete', {
 				// Send an error as part of data
-				'error' : false
+				'error' : false,
+				'task' : results
 			});
 
 		});
+
 	});
 
 	userSocket.on('read_tasks', function(data) {
-		if(session.user === undefined){
+		if (session.user === undefined) {
 			return;
 		}
-		
+
 		var userId = session.user.id;
+
 		TaskModel.find({
 			'userId' : userId
 		}, function(err, results) {
@@ -64,28 +68,42 @@ module.exports.setup = function(socketServer, userSocket) {
 		});
 
 	});
-	
+
 	userSocket.on('read_task_by_id', function(data) {
-		if(session.user === undefined){
+		if (session.user === undefined) {
 			return;
 		}
 	});
-	
+
 	userSocket.on('read_tasks_by_category', function(data) {
-		if(session.user === undefined){
+		if (session.user === undefined) {
 			return;
 		}
+
+		TaskModel.find({
+			'category' : data.categoryId
+		}, function(err, results) {
+			if (err || !results) {
+				userSocket.emit('read_tasks_by_category_complete', {
+					'error' : true
+				});
+			}
+			userSocket.emit('read_tasks_by_category_complete', {
+				'error' : false,
+				'tasks' : results
+			});
+		});
+
 	});
-	
-	
+
 	userSocket.on('update_task', function(data) {
-		if(session.user === undefined){
+		if (session.user === undefined) {
 			return;
 		}
 	});
-	
+
 	userSocket.on('delete_task', function(data) {
-		if(session.user === undefined){
+		if (session.user === undefined) {
 			return;
 		}
 	});
