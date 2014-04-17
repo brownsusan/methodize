@@ -1,0 +1,68 @@
+<div class="task-details">
+	<input class="task-id" type="hidden" value="<%= id %>" />
+	<span><%= title%></span>
+	<span><% if (typeof dueDate != 'undefined') { %>value="<%= dueDate %>" <% } %></span>
+	<span>Reminders</span>
+	<div>
+		<div>
+			<span>Reminder Start</span>
+			<span>Reminder End</span>
+			<span>Reminder Frequency</span>
+			<span>Reminder Via</span>
+		</div>
+	</div>
+	<button id="task-add-reminder">
+		Add
+	</button>
+	<span>Category</span>
+	<br />
+	<label>
+		<input id="task-submit-important" type="checkbox" />
+		Important</label>
+	<span>Sub Tasks</span>
+	<input id="task-submit-subtask" type="text"  placeholder="Add a subtask..." />
+	<ul class="subtasks"></ul>
+	<ul class="completed-subtasks">
+		Completed - 1
+		<li>
+			<input type="checkbox" checked="true"/>
+			<label>Task Title</label>
+		</li>
+	</ul>
+	<span>Notes</span>
+	<textarea id="task-submit-notes"></textarea>
+	<button id="task-edit-button">
+		Edit
+	</button>
+</div>
+
+<div class="task-edit core-hidden">
+	<input class="task-id" type="hidden" value="<%= id %>" />
+	<input id="task-submit-title" type="text" value="<%= title%>" />
+	<input id="task-submit-due-date" type="text" <% if (typeof dueDate != 'undefined') { %>value="<%= dueDate %>" <% } %>placeholder = "Due Date"/>
+	<span>Remind Me</span>
+	<div id="reminders"></div>
+	<button id="task-add-reminder">
+		Add
+	</button>
+	<label>Category <select id="task-submit-category" ></select></label>
+	<br />
+	<label>
+		<input id="task-submit-important" type="checkbox" />
+		Important</label>
+	<span>Sub Tasks</span>
+	<input id="task-submit-subtask" type="text"  placeholder="Add a subtask..." />
+	<ul class="subtasks"></ul>
+	<ul class="completed-subtasks">
+		Completed - 1
+		<li>
+			<input type="checkbox" checked="true"/>
+			<label>Task Title</label>
+		</li>
+	</ul>
+	<span>Notes</span>
+	<textarea id="task-submit-notes"></textarea>
+	<button id="task-edit-submit">
+		Save
+	</button>
+</div>

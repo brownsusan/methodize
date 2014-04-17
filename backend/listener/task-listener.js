@@ -73,6 +73,23 @@ module.exports.setup = function(socketServer, userSocket) {
 		if (session.user === undefined) {
 			return;
 		}
+
+		TaskModel.findOne({
+			'id' : data.id
+		}, function(err, results) {
+			if (err || !results) {
+				userSocket.emit('read_task_by_id_complete', {
+					error : true
+				});
+				return;
+			}
+
+			userSocket.emit('read_task_by_id_complete', {
+				'error' : false,
+				'task' : results
+			});
+
+		});
 	});
 
 	userSocket.on('read_tasks_by_category', function(data) {
@@ -100,6 +117,43 @@ module.exports.setup = function(socketServer, userSocket) {
 		if (session.user === undefined) {
 			return;
 		}
+
+		TaskModel.findOne({
+			'id' : data.id
+		}, function(err, results) {
+			if (err || !results) {
+				userSocket.emit('update_task_complete', {
+					'error' : true
+				});
+			}
+			var task = results;
+			task.title = data.title;
+			task.dueDate = data.dueDate;
+			task.reminder = data.reminder;
+			task.category = data.category;
+			task.important = data.important;
+			task.subtask = data.subtask;
+			task.note = data.note;
+
+			task.save(function(err, results) {
+
+				if (err || !results) {
+					userSocket.emit('update_task_complete', {
+						// Send error as part of data
+						'error' : true
+					});
+					return;
+				}
+
+				userSocket.emit('update_task_complete', {
+					// Send an error as part of data
+					'error' : false,
+					'task' : results
+				});
+
+			});
+		});
+
 	});
 
 	userSocket.on('delete_task', function(data) {

@@ -5,9 +5,9 @@ _socketConnection.on('create_task_complete', function(data) {
 	console.log('create_task_complete');
 	if (!data.error) {
 	}
-	
+
 	db.tasks.push(data.task);
-	
+
 });
 
 _socketConnection.on('read_tasks_complete', function(data) {
@@ -29,16 +29,22 @@ _socketConnection.on('read_task_by_id_complete', function(data) {
 	console.log('read_task_by_id_complete');
 	if (!data.error) {
 	}
+		
 	_.where(db.tasks, {
 		id : data.id
 	});
+	// console.log(data.dueDate);
+	var taskDetail = new EJS({
+		url : '/view/ui/task-detail.ejs'
+	}).render(data.task);
+	$('.task-details-container').append(taskDetail);
 });
 
 _socketConnection.on('read_tasks_by_category_complete', function(data) {
 	console.log('read_tasks_by_category_complete');
 	if (!data.error) {
 	}
-	
+
 	while (db.tasks.length > 0) {
 		db.tasks.pop();
 	}
@@ -46,7 +52,7 @@ _socketConnection.on('read_tasks_by_category_complete', function(data) {
 	for (var i = 0, j = data.tasks.length; i < j; i++) {
 		db.tasks.push(data.tasks[i]);
 	}
-	
+
 });
 
 _socketConnection.on('update_task_complete', function(data) {

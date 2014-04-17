@@ -21,7 +21,6 @@ _.observe(db.categories, function() {
 _socketConnection.on('create_category_complete', function(data) {
 	if (!data.error) {
 	}
-
 });
 
 $('#category-add-input').keypress(function() {

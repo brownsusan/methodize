@@ -1,5 +1,7 @@
-<li>
+<li class="task-item">
 	<input type="checkbox"/>
 	<span><%= title %></span>
+	<% if (typeof dueDate != 'undefined') { %><span><%= dueDate %></span> <% } %>
+	<input class="task-id" type="hidden" value="<%= id %>" />
 	<span class="round-color-rep"></span>
 </li>
