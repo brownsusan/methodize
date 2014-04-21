@@ -1,0 +1,66 @@
+<div class="task-details core-hidden col-md-3">
+	<input id="task-detail-id" type="hidden" />
+	<span id="task-detail-title"></span>
+	<span id="task-detail-due-date"></span>
+	<span>Reminders</span>
+	<div id="task-detail-reminders">
+	</div>
+	<div></div>
+	<button id="task-add-reminder">
+		Add
+	</button>
+	<span>Category</span>
+	<br />
+	<label>
+		<input id="task-detail-important" type="checkbox" />
+		Important</label>
+	<span>Sub Tasks</span>
+	<input id="task-submit-subtask" type="text"  placeholder="Add a subtask..." />
+	<ul class="subtasks"></ul>
+	<ul class="completed-subtasks">
+		Completed - 1
+		<li>
+			<input type="checkbox" checked="true"/>
+			<label>Task Title</label>
+		</li>
+	</ul>
+	<span>Notes</span>
+	<textarea id="task-detail-notes"></textarea>
+	<button id="task-edit-button">
+		Edit
+	</button>
+</div>
+
+<div class="task-edit core-hidden col-md-3">
+	<input id="task-edit-id" type="hidden" />
+	<input id="task-edit-title" type="text" />
+	<input id="task-edit-due-date" class="datetimepicker" type="text" placeholder = "Due Date"/>
+	<span>Remind Me</span>
+	<div id="task-edit-reminders">
+	</div>
+	<button id="task-add-reminder">
+		Add
+	</button>
+	<label>Category
+		<select id="task-edit-category" >
+		</select></label>
+	<br />
+	<label>
+		<input id="task-edit-important" type="checkbox"/>
+		Important</label>
+	<span>Sub Tasks</span>
+	<input id="task-edit-subtask" type="text"  placeholder="Add a subtask..." />
+	<ul class="subtasks"></ul>
+	<ul class="completed-subtasks">
+		Completed - 1
+		<li>
+			<input type="checkbox"/>
+			<label>Task Title</label>
+		</li>
+	</ul>
+	<span>Notes</span>
+	<textarea id="task-edit-notes"></textarea>
+	<button id="task-edit-submit">
+		Save
+	</button>
+</div>

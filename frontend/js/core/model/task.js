@@ -33,7 +33,6 @@ _socketConnection.on('read_task_by_id_complete', function(data) {
 	_.where(db.tasks, {
 		id : data.id
 	});
-	// console.log(data.dueDate);
 	var taskDetail = new EJS({
 		url : '/view/ui/task-detail.ejs'
 	}).render(data.task);

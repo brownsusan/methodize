@@ -5,9 +5,7 @@ EJS.config({
 
 $(document).ready(function() {
 	$('#tab-container').easytabs();
-	$('#task-submit-due-date').datetimepicker();
-	$('#event-submit-start-date').datetimepicker();
-	$('#event-submit-end-date').datetimepicker();
+	$('.datetimepicker').datetimepicker();
 	var defaultCategory = $('#user-default-category').val();
 	_socketConnection.emit('read_tasks_by_category', {'categoryId' : defaultCategory});
 	_socketConnection.emit('read_categories');
@@ -61,8 +59,8 @@ $('#task-submit').click(function() {
 			via.push('sms');
 		}
 		var reminder = {
-			startDate : $('.reminder-start-time').val(),
-			endDate : $('.reminder-end-time').val(),
+			start : $('.reminder-start-time').val(),
+			end : $('.reminder-end-time').val(),
 			frequency : $('.reminder-frequency').val(),
 			via : via
 		};
@@ -77,12 +75,13 @@ $('#task-submit').click(function() {
 		};
 		subtasks.push(subtask);
 	});
-
+	
 	var title = $('#task-submit-title').val();
 	var dueDate = $('#task-submit-due-date').val();
 	var category = $('#task-submit-category').val();
 	var important = $('#task-submit-important').val();
-	var note = $('#task-submit-note').val();
+	var frequency = $('#task-add-update').find('.reminder-frequency').val();
+	var note = $('#task-submit-notes').val();
 
 	//Validation
 
@@ -93,6 +92,7 @@ $('#task-submit').click(function() {
 		'category' : category,
 		'important' : important,
 		'subtask' : subtasks,
+		'frequency' : frequency,
 		'note' : note
 	});
 });

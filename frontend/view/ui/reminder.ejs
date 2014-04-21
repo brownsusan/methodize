@@ -1,14 +1,15 @@
 <div class="reminder">
-	<input placeholder="Start Time" class="reminder-start-time" type="text" />
-	<input placeholder="End Time" class="reminder-end-time" type="text" />
+	<input placeholder="Start Time" class="reminder-start-time datetimepicker" type="text" />
+	<input placeholder="End Time" class="reminder-end-time datetimepicker" type="text" />
 	<br />
 	<!-- End Time - (task due time, time picker) -->
 	<label>Frequency
-		<select id="event-submit-frequency" >
-			<option value="hour">Every Hour</option>
-			<option value="thirty">Every 30 Min</option>
-			<option value="fifteen">Every 15 Min</option>
-			<option value="five">Every 5 Min</option>
+		<select class="reminder-frequency" >
+			<option value="0">Once</option>
+			<option value="60">Every Hour</option>
+			<option value="30">Every 30 Min</option>
+			<option value="15">Every 15 Min</option>
+			<option value="5">Every 5 Min</option>
 		</select></label>
 	<br />
 	<label>

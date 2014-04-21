@@ -12,23 +12,20 @@
 		</ul>
 		<div id="task-add-update">
 			<input id="task-submit-title" type="text" placeholder="Title" />
-			<input id="task-submit-due-date" type="text" placeholder="Due Date" />
+			<input id="task-submit-due-date" class="datetimepicker" type="text" placeholder="Due Date" />
 			<span>Remind Me</span>
 			<div id="reminders"></div>
 			<button id="task-add-reminder">
 				Add
 			</button>
-			<label>Category
-				<select id="task-submit-category" >
-				</select></label>
+			<label>Category <select id="task-submit-category" ></select></label>
 			<br />
 			<label>
 				<input id="task-submit-important" type="checkbox" />
 				Important</label>
 			<span>Sub Tasks</span>
 			<input id="task-submit-subtask" type="text"  placeholder="Add a subtask..." />
-			<ul class="subtasks">
-			</ul>
+			<ul class="subtasks"></ul>
 			<ul class="completed-subtasks">
 				Completed - 1
 				<li>
@@ -38,8 +35,17 @@
 			</ul>
 			<span>Notes</span>
 			<textarea id="task-submit-notes"></textarea>
-			<button id="task-submit">Save</button>
+			<button id="task-submit">
+				Save
+			</button>
 		</div>
+
+
+
+
+
+
+
 
 		<div id="event-add-update">
 			<input id="event-submit-title" type="text" placeholder="Title" />
@@ -50,7 +56,7 @@
 				<input type="checkbox"  />
 				All Day</label>
 			<span>Remind Me</span>
-			<button id="task-add-reminder">
+			<button id="event-add-reminder">
 				Add
 			</button>
 			<div class="reminder">
@@ -59,11 +65,12 @@
 				<br />
 				<!-- End Time - (task due time, time picker) -->
 				<label>Frequency
-					<select id="event-submit-category" >
-						<option value="hour">Every Hour</option>
-						<option value="thirty">Every 30 Min</option>
-						<option value="fifteen">Every 15 Min</option>
-						<option value="five">Every 5 Min</option>
+					<select class="reminder-frequency" >
+						<option value="0">Once</option>
+						<option value="60">Every Hour</option>
+						<option value="30">Every 30 Min</option>
+						<option value="15">Every 15 Min</option>
+						<option value="5">Every 5 Min</option>
 					</select></label>
 				<br />
 				<label>
