@@ -168,9 +168,21 @@ module.exports.setup = function(socketServer, userSocket) {
 	});
 
 	userSocket.on('delete_task', function(data) {
+		console.log(data);
 		if (session.user === undefined) {
 			return;
 		}
+		TaskModel.remove({
+			'id' : data.id,
+			'userId' : session.user.id
+		}, function(err, results) {
+			console.log(results.id);
+			if (!err) {
+				userSocket.emit('delete_task_complete', {
+					'error' : false,
+					'id' : results.id
+				});
+			}
+		});
 	});
-
 };

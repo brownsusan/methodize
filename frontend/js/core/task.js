@@ -53,27 +53,35 @@ $(document).on('click', '.task-item', function() {
 	// show reminders
 	$('#task-detail-reminders').empty();
 	var reminders = task.reminder;
-	for (var i = 0, j = reminders.length; i < j; i++) {
-		reminders[i]
-		var reminder = new EJS({
-			url : '/view/ui/reminder-display.ejs'
-		}).render(reminders[i]);
-		$('#task-detail-reminders').append(reminder);
+	if (reminders === undefined) {
+		console.log('ass');
+	} else {
+		for (var i = 0, j = reminders.length; i < j; i++) {
+			reminders[i]
+			var reminder = new EJS({
+				url : '/view/ui/reminder-display.ejs'
+			}).render(reminders[i]);
+			$('#task-detail-reminders').append(reminder);
 
-	};
+		};
+	}
+
 	$('#task-detail-important').attr("checked", task.important);
 
 	// show subtasks
 	$('.subtasks').empty();
 	var subtasks = task.subtask;
-	for (var i = 0, j = subtasks.length; i < j; i++) {
-		subtasks[i]
-		var subtask = new EJS({
-			url : '/view/ui/subtask.ejs'
-		}).render(subtasks[i]);
-		$('.subtasks').append(subtask);
-	};
-
+	if (subtasks === undefined) {
+		console.log('ass');
+	} else {
+		for (var i = 0, j = subtasks.length; i < j; i++) {
+			subtasks[i]
+			var subtask = new EJS({
+				url : '/view/ui/subtask.ejs'
+			}).render(subtasks[i]);
+			$('.subtasks').append(subtask);
+		};
+	}
 	$('#task-detail-notes').html(task.note);
 
 	$('.task-details').toggle();
@@ -198,4 +206,12 @@ $(document).on('click', '#task-edit-submit', function() {
 		'note' : note
 	});
 
+});
+
+$(document).on('click', '.task-delete', function(event) {
+	console.log('click dick');
+	var id = $(this).closest('.task-item').find('.task-id').val();
+	_socketConnection.emit('delete_task', {
+		'id' : id
+	});
 });

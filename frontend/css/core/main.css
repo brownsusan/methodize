@@ -168,7 +168,6 @@ input[type=text] {
 	background: rgba(231, 85, 111, 0.7);
 	border: 1px solid rgb(231, 85, 111);
 	margin-top: 12px;
-	box-shadow: inset 0px 0px 5px rgba(0,0,0,0.2);
 }
 
 .pill-color-rep {
@@ -182,7 +181,6 @@ input[type=text] {
 	background: rgba(231, 85, 111, 0.7);
 	border: 1px solid rgb(231, 85, 111);
 	margin-top: 9px;
-	box-shadow: inset 0px 0px 5px rgba(0,0,0,0.2);
 }
 
 .tasks ul li, .categories ul li, .subtasks li, .completed-subtasks li, .all-day ul li {
@@ -320,7 +318,7 @@ tr:first-child td {
 	display: none;
 }
 
-.category-delete {
+.category-delete, .task-delete {
 	height: 20px;
 	float: right;
 	margin: 10px;

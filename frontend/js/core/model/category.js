@@ -10,10 +10,6 @@ _socketConnection.on('read_categories_complete', function(data) {
 	for (var i = 0, j = data.categories.length; i < j; i++) {
 		db.categories.push(data.categories[i]);
 	}
-	
-	// for (var i = 0, j = db.categories.length; i < j; i++) {
-		// $('#task-submit-category').append('<option value="' + db.categories[i].id + '">' + db.categories[i].title + '</option>');
-	// };
 
 });
 
