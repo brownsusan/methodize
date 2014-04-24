@@ -23,7 +23,7 @@ _socketConnection.on('create_category_complete', function(data) {
 	}
 });
 
-$('#category-add-input').keypress(function() {
+$('#category-add-input').keypress(function(event) {
 	if (event.which == 13) {
 		//Validation Here
 		//Manipulate the data
