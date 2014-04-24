@@ -16,6 +16,7 @@
     "ejs": "~1.0.0",
     "underscore": "~1.6.0",
     "underscore.db": "~0.6.0",
-    "array": "~0.4.3"
+    "array": "~0.4.3",
+    "underscore-observable-arrays": "*"
   }
 }

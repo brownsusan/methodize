@@ -1,0 +1,21 @@
+{
+  "name": "underscore-observable-arrays",
+  "keywords": [
+    "array",
+    "events"
+  ],
+  "dependencies": {
+    "underscore": ">= 1.2.1"
+  },
+  "homepage": "https://github.com/mennovanslooten/Observable-Arrays",
+  "_release": "1bfb9f7f71",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "1bfb9f7f7141d0f152c1825f57eee99f2e4c4607"
+  },
+  "_source": "git://github.com/mennovanslooten/Observable-Arrays.git",
+  "_target": "*",
+  "_originalSource": "underscore-observable-arrays",
+  "_direct": true
+}
