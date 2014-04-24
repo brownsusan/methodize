@@ -28,12 +28,9 @@ $('#category-add-input').keypress(function(event) {
 		//Validation Here
 		//Manipulate the data
 		var title = $('#category-add-input').val();
-		//Figure out how to determine color
-		var color = 'red';
 
 		_socketConnection.emit('create_category', {
-			'title' : title,
-			'color' : color
+			'title' : title
 		});
 	}
 });

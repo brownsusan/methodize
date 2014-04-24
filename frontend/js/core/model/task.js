@@ -67,6 +67,7 @@ _socketConnection.on('delete_task_complete', function(data) {
 	console.log('delete_task_complete');
 	if (!data.error) {
 	}
+	
 	_.removeWhere(db.tasks, {
 		id : data.id
 	});

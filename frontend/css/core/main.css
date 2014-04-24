@@ -178,8 +178,8 @@ input[type=text] {
 	float: right;
 	height: 20px;
 	width: 30px;
-	background: rgba(231, 85, 111, 0.7);
-	border: 1px solid rgb(231, 85, 111);
+	/*background: rgba(231, 85, 111, 0.7);*/
+	/*border: 1px solid rgb(231, 85, 111);*/
 	margin-top: 9px;
 }
 

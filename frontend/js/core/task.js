@@ -37,7 +37,6 @@ $('#task-add-input').keypress(function(event) {
 
 // triggers when clicking a task item to view it's details
 $(document).on('click', '.task-item', function() {
-
 	var id = $(this).find('.task-id').val();
 
 	var tasks = _(db.tasks).where({

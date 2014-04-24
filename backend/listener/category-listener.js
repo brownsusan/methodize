@@ -13,7 +13,6 @@ module.exports.setup = function(socketServer, userSocket) {
 		var category = new CategoryModel();
 		category.userId = session.user.id;
 		category.title = data.title;
-		category.color = data.color;
 
 		category.save(function(err, results) {
 

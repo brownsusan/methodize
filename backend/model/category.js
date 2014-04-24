@@ -20,6 +20,12 @@ var Category = new Schema({
 	},
 	'color' : {
 		'type' : String,
+		'default' : function(){
+			var colors = ['red', 'blue', 'orange', 'hotpink', 'green', 'purple', 'black', 'gold', 'deepskyblue'];
+			var color = colors[~~(Math.random()*colors.length)];
+			console.log(color);
+			return color;
+		},
 		'required' : true
 	}
 }, {

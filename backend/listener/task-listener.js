@@ -172,15 +172,22 @@ module.exports.setup = function(socketServer, userSocket) {
 		if (session.user === undefined) {
 			return;
 		}
-		TaskModel.remove({
+		TaskModel.findOne({
 			'id' : data.id,
 			'userId' : session.user.id
 		}, function(err, results) {
-			console.log(results.id);
+			
+			var task = results;
+			
 			if (!err) {
-				userSocket.emit('delete_task_complete', {
-					'error' : false,
-					'id' : results.id
+				task.remove(function(err, results) {
+					console.log(results.id);
+					if (!err) {
+						userSocket.emit('delete_task_complete', {
+							'error' : false,
+							'id' : results.id
+						});
+					}
 				});
 			}
 		});
