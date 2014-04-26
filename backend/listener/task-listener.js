@@ -136,13 +136,31 @@ module.exports.setup = function(socketServer, userSocket) {
 			}
 
 			var task = results;
-			task.title = data.title;
-			task.dueDate = data.dueDate;
-			task.reminder = data.reminder;
-			task.category = data.category;
-			task.important = data.important;
-			task.subtask = data.subtask;
-			task.note = data.note;
+			if(data.title !== undefined){
+				task.title = data.title;
+			}
+			if(data.dueDate !== undefined){
+				task.dueDate = data.dueDate;
+			}
+			if(data.reminder !== undefined){
+				task.reminder = data.reminder;
+			}
+		
+			if(data.category !== undefined){
+				task.category = data.category;
+			}
+			if(data.important !== undefined){
+				task.important = data.important;
+			}
+			if(data.subtask !== undefined){
+				task.subtask = data.subtask;
+			}
+			if(data.note !== undefined){
+				task.note = data.note;
+			}
+			if(data.completed !== undefined){
+				task.completed = data.completed;
+			}
 
 			task.save(function(err, results) {
 

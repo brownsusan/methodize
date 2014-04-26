@@ -1,14 +1,23 @@
 //Create a 'complete' listener for the sign in
 // triggers when the db.tasks updates
 _.observe(db.tasks, function() {
-
+	console.log('heyo');
 	$('.task-task-list').empty();
+	$('.task-completedTask-list').empty();
 
 	for (var i = 0, j = db.tasks.length; i < j; i++) {
-		var task = new EJS({
-			url : '/view/ui/task-item.ejs'
-		}).render(db.tasks[i]);
-		$('.task-task-list').append(task);
+		if (db.tasks[i].completed === false) {
+			var task = new EJS({
+				url : '/view/ui/task-item.ejs'
+			}).render(db.tasks[i]);
+			$('.task-task-list').append(task);
+		}
+		if (db.tasks[i].completed === true) {
+			var task = new EJS({
+				url : '/view/ui/task-item.ejs'
+			}).render(db.tasks[i]);
+			$('.task-completedTask-list').append(task);
+		}
 	};
 
 });
@@ -206,10 +215,21 @@ $(document).on('click', '#taskEdit_updateTask_button', function() {
 	});
 
 });
-
+// When an item is deleted
 $(document).on('click', '.task-item-delete', function(event) {
 	var id = $(this).closest('.task-item').find('.task-item-id').val();
 	_socketConnection.emit('delete_task', {
 		'id' : id
+	});
+});
+
+// When a task is checked off
+$(document).on('click', 'input[type=checkbox]', function(event) {
+	var id = $(this).closest('.task-item').find('.task-item-id').val();
+	var completed = $(this).is(":checked");
+	console.log(completed);
+	_socketConnection.emit('update_task', {
+		'id' : id,
+		'completed' : completed
 	});
 });

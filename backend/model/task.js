@@ -38,6 +38,10 @@ var Task = new Schema({
 		'type' : String,
 		'ref' : 'Category'
 	},
+	'completed' : {
+		'type' : Boolean,
+		'default' : false
+	},
 	'important' : Boolean,
 	'subtask' : [{
 		'id' : {
