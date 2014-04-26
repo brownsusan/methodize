@@ -67,6 +67,21 @@ _socketConnection.on('update_task_complete', function(data) {
 	}, data.task);
 });
 
+_socketConnection.on('update_subtask_complete', function(data) {
+	
+	console.log('update_subtask_complete');
+	
+	if (!data.error) {
+	}
+	
+	console.log(data);
+	
+	_.updateWhere(db.tasks, {
+		id : data.task.id
+	}, data.task);
+	
+});
+
 _socketConnection.on('delete_task_complete', function(data) {
 	console.log('delete_task_complete');
 	if (!data.error) {

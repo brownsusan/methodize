@@ -1,3 +1,6 @@
+var taskId;
+
+
 //Create a 'complete' listener for the sign in
 // triggers when the db.tasks updates
 _.observe(db.tasks, function() {
@@ -21,6 +24,22 @@ _.observe(db.tasks, function() {
 	};
 
 });
+
+_socketConnection.on('update_subtask_complete', function(data){
+	$('.subtasks').empty();
+	var subtasks = data.task.subtask;
+	if (subtasks === undefined) {
+		console.log('ass');
+	} else {
+		for (var i = 0, j = subtasks.length; i < j; i++) {
+			subtasks[i]
+			var subtask = new EJS({
+				url : '/view/ui/subtask.ejs'
+			}).render(subtasks[i]);
+			$('.subtasks').append(subtask);
+		};
+	}
+})
 
 // triggers when adding a new task to a category
 $('#task_taskAdd_input').keypress(function(event) {
@@ -47,6 +66,7 @@ $('#task_taskAdd_input').keypress(function(event) {
 // triggers when clicking a task item to view it's details
 $(document).on('click', '.task-item', function() {
 	var id = $(this).find('.task-item-id').val();
+	taskId = id;
 
 	var tasks = _(db.tasks).where({
 		'id' : id
@@ -233,3 +253,23 @@ $(document).on('click', 'input[type=checkbox]', function(event) {
 		'completed' : completed
 	});
 });
+
+$(document).on('click', '.subtasks li', function(event) {
+	console.log('buns');
+	$(this).find('.subtask-title').addClass('core-hidden');
+	$(this).find('.subtask-title-edit').removeClass('core-hidden');
+});
+
+$(document).on('keypress', '.subtask-title-edit', function(event) {
+	if (event.which === 13) {
+		var subtaskId = $(this).closest('.subtasks li').find('.subtask-id').val();
+		var title = $(this).closest('.subtasks li').find('.subtask-title-edit').val();
+		console.log(subtaskId, taskId, title);
+		_socketConnection.emit('update_subtask', {
+			'taskId' : taskId,
+			'subtaskId' : subtaskId,
+			'title' : title
+		});
+	}
+});
+

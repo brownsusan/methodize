@@ -136,29 +136,29 @@ module.exports.setup = function(socketServer, userSocket) {
 			}
 
 			var task = results;
-			if(data.title !== undefined){
+			if (data.title !== undefined) {
 				task.title = data.title;
 			}
-			if(data.dueDate !== undefined){
+			if (data.dueDate !== undefined) {
 				task.dueDate = data.dueDate;
 			}
-			if(data.reminder !== undefined){
+			if (data.reminder !== undefined) {
 				task.reminder = data.reminder;
 			}
-		
-			if(data.category !== undefined){
+
+			if (data.category !== undefined) {
 				task.category = data.category;
 			}
-			if(data.important !== undefined){
+			if (data.important !== undefined) {
 				task.important = data.important;
 			}
-			if(data.subtask !== undefined){
+			if (data.subtask !== undefined) {
 				task.subtask = data.subtask;
 			}
-			if(data.note !== undefined){
+			if (data.note !== undefined) {
 				task.note = data.note;
 			}
-			if(data.completed !== undefined){
+			if (data.completed !== undefined) {
 				task.completed = data.completed;
 			}
 
@@ -184,6 +184,34 @@ module.exports.setup = function(socketServer, userSocket) {
 
 	});
 
+	userSocket.on('update_subtask', function(data) {
+		TaskModel.findOne({
+			'id' : data.taskId
+		}, function(err, results) {
+			task = results;
+			for (var i = 0, j = task.subtask.length; i < j; i++) {
+				if (task.subtask[i].id == data.subtaskId) {
+					task.subtask[i].title = data.title;
+					task.save(function() {
+
+						userSocket.emit('update_subtask_complete', {
+							'error' : false,
+							'task' : task
+						});
+
+					});
+
+					return;
+				}
+			}
+
+			userSocket.emit('update_subtask_complete', {
+				'error' : true
+			});
+
+		});
+	});
+
 	userSocket.on('delete_task', function(data) {
 		console.log(data);
 		if (session.user === undefined) {
@@ -193,9 +221,9 @@ module.exports.setup = function(socketServer, userSocket) {
 			'id' : data.id,
 			'userId' : session.user.id
 		}, function(err, results) {
-			
+
 			var task = results;
-			
+
 			if (!err) {
 				task.remove(function(err, results) {
 					console.log(results.id);
