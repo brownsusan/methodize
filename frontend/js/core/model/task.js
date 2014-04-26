@@ -63,7 +63,7 @@ _socketConnection.on('update_task_complete', function(data) {
 	console.log(data);
 	
 	_.updateWhere(db.tasks, {
-		id : data.id
+		id : data.task.id
 	}, data.task);
 });
 
