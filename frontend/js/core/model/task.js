@@ -34,12 +34,13 @@ _socketConnection.on('read_task_by_id_complete', function(data) {
 		id : data.id
 	});
 	var taskDetail = new EJS({
-		url : '/view/ui/task-detail.ejs'
+		url : '/view/ui/taskDetail.ejs'
 	}).render(data.task);
-	$('.task-details-container').append(taskDetail);
+	$('.task-taskDetails').append(taskDetail);
 });
 
 _socketConnection.on('read_tasks_by_category_complete', function(data) {
+	console.log(data.tasks);
 	console.log('read_tasks_by_category_complete');
 	if (!data.error) {
 	}

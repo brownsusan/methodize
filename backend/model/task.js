@@ -34,7 +34,10 @@ var Task = new Schema({
 			'enum' : ['call', 'email', 'sms']
 		}
 	}],
-	'category' : String,
+	'category' : {
+		'type' : String,
+		'ref' : 'Category'
+	},
 	'important' : Boolean,
 	'subtask' : [{
 		'id' : {

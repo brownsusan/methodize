@@ -46,7 +46,7 @@ table {
 	padding-left: 20px
 }
 
-.add-update {
+.addPanel-container {
 	display: none;
 	width: 25%;
 	position: absolute;
@@ -106,12 +106,12 @@ input[type=text] {
 	border-radius: 2px;
 }
 
-#my-nav {
+nav {
 	width: 140px;
 	float: right;
 }
 
-#nav-container {
+#nav_container {
 	height: 100%;
 	z-index: 1000;
 	background: #222222;
@@ -121,16 +121,16 @@ input[type=text] {
 	color: #E6E6E6;
 }
 
-#my-nav a {
+nav a {
 	height: 40px;
 }
 
-#my-nav li a, #my-nav li span {
+nav li a, #my-nav li span {
 	color: #E6E6E6;
 	display: block;
 }
 
-.my-nav-slide {
+#nav_slider {
 	width: 20px;
 	background: black;
 	height: 100%;
@@ -141,7 +141,7 @@ input[type=text] {
 	margin: 0;
 }
 
-#my-nav li img {
+nav li img {
 	float: left;
 	display: inline-block;
 	width: 20px;
@@ -149,13 +149,13 @@ input[type=text] {
 	margin: 10px 0;
 }
 
-#my-nav li a {
+nav li a {
 	float: left;
 	display: block;
 	width: 130px;
 }
 
-#my-nav li {
+nav li {
 	line-height: 40px;
 	height: 40px;
 }
@@ -178,18 +178,16 @@ input[type=text] {
 	float: right;
 	height: 20px;
 	width: 30px;
-	/*background: rgba(231, 85, 111, 0.7);*/
-	/*border: 1px solid rgb(231, 85, 111);*/
 	margin-top: 9px;
 }
 
-.tasks ul li, .categories ul li, .subtasks li, .completed-subtasks li, .all-day ul li {
+.task-tasks ul li, .task-categories ul li, .subtasks li, .completed-subtasks li, .day-events-allDay ul li {
 	border-radius: 2px;
 	margin: 5px 0;
 	padding: 0 10px;
 }
 
-.tasks ul li, .categories ul li, .subtasks li, .completed-subtasks li {
+.task-tasks ul li, .task-categories ul li, .subtasks li, .completed-subtasks li {
 	border: 1px solid #F5F5F5;
 	margin: 5px 0;
 	/*padding: 0 10px;*/
@@ -203,7 +201,7 @@ input[type=text] {
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e6e6e6',GradientType=0 );*/
 }
 
-.tasks ul li, .categories ul li, .all-day ul li {
+.task-tasks ul li, .task-categories ul li, .day-events-allDay ul li {
 	height: 40px;
 	line-height: 40px;
 }
@@ -213,7 +211,7 @@ input[type=text] {
 	line-height: 30px;
 }
 
-.completed-tasks li, .completed-subtasks li {
+.day-completedTasks li, .completed-subtasks li {
 	opacity: 0.6;
 }
 
@@ -248,11 +246,11 @@ input[type=text] {
 	margin: 0 0 10px 0;
 }
 
-#task-add-update span {
+#addPanel_addTask span {
 	display: block;
 }
 
-#task-add-update textarea, #event-add-update textarea {
+#addPanel_addTask textarea, #addPanel_addEvent textarea {
 	min-width: 100%;
 	max-width: 100%;
 	border: 1px solid #b2b2b2;
@@ -292,7 +290,7 @@ tr:first-child td {
 	font-weight: 700;
 }
 
-.week {
+.day-weekPreview {
 	min-height: 150px;
 }
 
@@ -300,17 +298,17 @@ tr:first-child td {
 	float: right;
 }
 
-.events {
+.day-events {
 	background: rgba(249, 248, 247, 0.3);
 	min-height: 100%;
 }
 
-.all-day ul li {
+.day-events-allDay ul li {
 	background: rgba(231, 85, 111, 0.7);
 	border: 1px solid rgb(231, 85, 111);
 }
 
-#login-form input[type=text], #sign-up-form input[type=text] {
+#landing_login_form input[type=text], #landing_signUp_form input[type=text] {
 	width: 100px;
 }
 
@@ -318,7 +316,7 @@ tr:first-child td {
 	display: none;
 }
 
-.category-delete, .task-delete {
+.category-delete, .task-item-delete {
 	height: 20px;
 	float: right;
 	margin: 10px;

@@ -6,10 +6,10 @@ _socketConnection.on('signin_user_complete', function(data) {
 
 });
 
-$('#login-submit').click(function() {
+$('#landing_login_submit_button').click(function() {
 	//Get the data
-	var email = $('#login-email').val();
-	var pass = $('#login-pass').val();
+	var email = $('#landing_login_email_input').val();
+	var pass = $('#landing_login_password_input').val();
 	// Emit an event - name it - create an object to emit
 	_socketConnection.emit('signin_user', {
 		'email' : email,
@@ -26,12 +26,12 @@ _socketConnection.on('signup_user_complete', function(data) {
 
 });
 
-$('#sign-up-submit').click(function() {
+$('#landing_signUp_submit_button').click(function() {
 	// Get the data
-	var email = $('#sign-up-email').val();
-	var phone = $('#sign-up-phone').val();
-	var pass = $('#sign-up-pass').val();
-	var confirmPass = $('#sign-up-confirmPass').val();
+	var email = $('#landing_signUp_email').val();
+	var phone = $('#landing_signUp_phone').val();
+	var pass = $('#landing_signUp_password').val();
+	var confirmPass = $('#landing_signUp_confirmPassword').val();
 
 	var regex_email = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
 	var regex_pass = /^[a-zA-Z]\w{3,14}$/;

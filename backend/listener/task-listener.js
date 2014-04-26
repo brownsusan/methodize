@@ -96,14 +96,13 @@ module.exports.setup = function(socketServer, userSocket) {
 	});
 
 	userSocket.on('read_tasks_by_category', function(data) {
-
 		if (session.user === undefined) {
 			return;
 		}
 
 		TaskModel.find({
 			'category' : data.categoryId
-		}, function(err, results) {
+		}).exec(function(err, results) {
 
 			if (err || !results) {
 				userSocket.emit('read_tasks_by_category_complete', {

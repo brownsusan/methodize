@@ -13,14 +13,14 @@ $(document).ready(function() {
 
 var db = {};
 
-$('.my-nav-slide').click(function() {
-	$('#my-nav').animate({
+$('#nav_slider').click(function() {
+	$('nav').animate({
 		width : 'toggle'
 	});
 });
 
 $('#test-add').click(function() {
-	$('.add-update').toggle();
+	$('.addPanel-container').toggle();
 });
 
 $(document).on('click', '.category', function() {
@@ -38,37 +38,36 @@ var reminder = new EJS({
 	url : '/view/ui/reminder.ejs'
 }).render();
 
-$('#task-add-reminder').click(function() {
-	$('#reminders').append(reminder);
-	$('.reminder-start-time').datetimepicker();
-	$('.reminder-end-time').datetimepicker();
+$('#addPanel_addTask_addReminder_button').click(function() {
+	$('#addPanel_addTask_reminders_container').append(reminder);
+	$('.reminder-startTime-input').datetimepicker();
+	$('.reminder-endTime-input').datetimepicker();
 });
 
-$('#task-submit').click(function() {
-	console.log('ass');
+$('#addPanel_addTask_submit_button').click(function() {
 	var reminders = [];
-	$('#task-add-update .reminder').each(function() {
+	$('#addPanel_addTask .reminder').each(function() {
 		var via = [];
-		if ($(this).find('.via-email').is(":checked")) {
+		if ($(this).find('.via-email-input').is(":checked")) {
 			via.push('email');
 		}
-		if ($(this).find('.via-call').is(":checked")) {
+		if ($(this).find('.via-call-input').is(":checked")) {
 			via.push('call');
 		}
-		if ($(this).find('.via-sms').is(":checked")) {
+		if ($(this).find('.via-sms-input').is(":checked")) {
 			via.push('sms');
 		}
 		var reminder = {
-			start : $('.reminder-start-time').val(),
-			end : $('.reminder-end-time').val(),
-			frequency : $('.reminder-frequency').val(),
+			start : $('.reminder-startTime-input').val(),
+			end : $('.reminder-endTime-input').val(),
+			frequency : $('.reminder-frequency-select').val(),
 			via : via
 		};
 		reminders.push(reminder);
 	});
 
 	var subtasks = [];
-	$('#task-add-update .subtasks li').each(function() {
+	$('#addPanel_addTask .subtasks li').each(function() {
 		var subtask = {
 			title : $(this).find('.subtask-title').html(),
 			completed : $(this).find('.subtask-completed').prop('checked')
@@ -76,12 +75,12 @@ $('#task-submit').click(function() {
 		subtasks.push(subtask);
 	});
 	
-	var title = $('#task-submit-title').val();
-	var dueDate = $('#task-submit-due-date').val();
-	var category = $('#task-submit-category').val();
-	var important = $('#task-submit-important').val();
-	var frequency = $('#task-add-update').find('.reminder-frequency').val();
-	var note = $('#task-submit-notes').val();
+	var title = $('#addPanel_addTask_title_input').val();
+	var dueDate = $('#addPanel_addTask_dueDate_input').val();
+	var category = $('#addPanel_addTask_category_select').val();
+	var important = $('#addPanel_addTask_important_input').val();
+	var frequency = $('#addPanel_addTask').find('.reminder-frequency-select').val();
+	var note = $('#addPanel_addTask_note_textarea').val();
 
 	//Validation
 
@@ -97,7 +96,7 @@ $('#task-submit').click(function() {
 	});
 });
 
-$('#task-submit-subtask').keypress(function() {
+$('#addSubtask_input').keypress(function() {
 	if (event.which == 13) {
 		var data = {
 			'title' : $(this).val(),
@@ -108,7 +107,7 @@ $('#task-submit-subtask').keypress(function() {
 			url : '/view/ui/subtask.ejs'
 		}).render(data);
 
-		$('#task-add-update .subtasks').append(subtask);
+		$('#addPanel_addTask .subtasks').append(subtask);
 
 	}
 });

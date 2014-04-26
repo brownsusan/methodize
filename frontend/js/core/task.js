@@ -2,23 +2,23 @@
 // triggers when the db.tasks updates
 _.observe(db.tasks, function() {
 
-	$('.task-list').empty();
+	$('.task-task-list').empty();
 
 	for (var i = 0, j = db.tasks.length; i < j; i++) {
 		var task = new EJS({
 			url : '/view/ui/task-item.ejs'
 		}).render(db.tasks[i]);
-		$('.task-list').append(task);
+		$('.task-task-list').append(task);
 	};
 
 });
 
 // triggers when adding a new task to a category
-$('#task-add-input').keypress(function(event) {
+$('#task_taskAdd_input').keypress(function(event) {
 
 	if (event.which == 13) {
 		//Manipulate the data
-		var title = $('#task-add-input').val();
+		var title = $('#task_taskAdd_input').val();
 		//Figure out how to determine category
 		var category = $('#parent-category').val();
 
@@ -37,7 +37,7 @@ $('#task-add-input').keypress(function(event) {
 
 // triggers when clicking a task item to view it's details
 $(document).on('click', '.task-item', function() {
-	var id = $(this).find('.task-id').val();
+	var id = $(this).find('.task-item-id').val();
 
 	var tasks = _(db.tasks).where({
 		'id' : id
@@ -45,12 +45,12 @@ $(document).on('click', '.task-item', function() {
 
 	var task = tasks[0];
 
-	$('#task-detail-id').attr("value", task.id);
-	$('#task-detail-title').html(task.title);
-	$('#task-detail-due-date').html(task.dueDate);
+	$('#taskDetail_id_input').attr("value", task.id);
+	$('#taskDetail_title').html(task.title);
+	$('#taskDetail_dueDate').html(task.dueDate);
 
 	// show reminders
-	$('#task-detail-reminders').empty();
+	$('#taskDetail_reminders_container').empty();
 	var reminders = task.reminder;
 	if (reminders === undefined) {
 		console.log('ass');
@@ -60,12 +60,12 @@ $(document).on('click', '.task-item', function() {
 			var reminder = new EJS({
 				url : '/view/ui/reminder-display.ejs'
 			}).render(reminders[i]);
-			$('#task-detail-reminders').append(reminder);
+			$('#taskDetail_reminders_container').append(reminder);
 
 		};
 	}
 
-	$('#task-detail-important').attr("checked", task.important);
+	$('#taskDetail_important_input').attr("checked", task.important);
 
 	// show subtasks
 	$('.subtasks').empty();
@@ -81,17 +81,17 @@ $(document).on('click', '.task-item', function() {
 			$('.subtasks').append(subtask);
 		};
 	}
-	$('#task-detail-notes').html(task.note);
+	$('#taskDetail_note_textarea').html(task.note);
 
-	$('.task-details').toggle();
-	$('.task-edit').hide();
+	$('.taskDetail-container').toggle();
+	$('.taskEdit-container').hide();
 
 });
 
 //When The Edit Button Is Clicked
-$(document).on('click', '#task-edit-button', function() {
+$(document).on('click', '#taskDetail_editTask_button', function() {
 
-	var id = $('#task-detail-id').val();
+	var id = $('#taskDetail_id_input').val();
 
 	// get the task from the client side model
 	var tasks = _(db.tasks).where({
@@ -100,30 +100,30 @@ $(document).on('click', '#task-edit-button', function() {
 
 	var task = tasks[0];
 
-	$('#task-edit-id').val(task.id);
-	$('#task-edit-title').val(task.title);
+	$('#taskEdit_id_input').val(task.id);
+	$('#taskEdit_title_input').val(task.title);
 	// TODO
-	// $('#task-edit-due-date').datetimepicker();
+	// $('#taskEdit_dueDate_input').datetimepicker();
 
 	// show reminders
-	$('#task-edit-reminders').empty();
+	$('#taskEdit_reminders_container').empty();
 	var reminders = task.reminder;
 	for (var i = 0, j = reminders.length; i < j; i++) {
 		var reminder = new EJS({
 			url : '/view/ui/reminder-display.ejs'
 		}).render(reminders[i]);
-		$('#task-edit-reminders').append(reminder);
+		$('#taskEdit_reminders_container').append(reminder);
 	}
 
 	// show categories
-	$('#task-edit-category').empty();
+	$('#taskEdit_category_select').empty();
 	var categories = db.categories;
 	for (var i = 0, j = categories.length; i < j; i++) {
 		var category = '<option value="' + categories[i].id + '">' + categories[i].title + '</option>';
-		$('#task-edit-category').append(category);
+		$('#taskEdit_category_select').append(category);
 	}
 
-	$('#task-edit-important').attr('checked', task.important);
+	$('#taskEdit_important_input').attr('checked', task.important);
 
 	// show subtasks
 	$('.subtasks').empty();
@@ -135,40 +135,40 @@ $(document).on('click', '#task-edit-button', function() {
 		$('.task-edit .subtasks').append(subtask);
 	}
 
-	$('#task-edit-notes').html(task.note);
+	$('#taskEdit_note_textarea').html(task.note);
 
-	$('.task-details').hide();
-	$('.task-edit').show();
+	$('.taskDetail-container').hide();
+	$('.taskEdit-container').show();
 
 });
 
 //When The Save Button Is Clicked
-$(document).on('click', '#task-edit-submit', function() {
+$(document).on('click', '#taskEdit_updateTask_button', function() {
 
-	var id = $('#task-edit-id').val();
+	var id = $('#taskEdit_id_input').val();
 
 	var reminders = [];
 
-	$('.task-edit .reminder').each(function() {
+	$('.taskEdit-container .reminder').each(function() {
 
 		var via = [];
 
-		if ($(this).find('.via-email').is(":checked")) {
+		if ($(this).find('.via-email-input').is(":checked")) {
 			via.push('email');
 		}
 
-		if ($(this).find('.via-call').is(":checked")) {
+		if ($(this).find('.via-call-input').is(":checked")) {
 			via.push('call');
 		}
 
-		if ($(this).find('.via-sms').is(":checked")) {
+		if ($(this).find('.via-sms-input').is(":checked")) {
 			via.push('sms');
 		}
 
 		var reminder = {
-			startDate : $('.reminder-start-time').val(),
-			endDate : $('.reminder-end-time').val(),
-			frequency : $('.reminder-frequency').val(),
+			startDate : $('.reminder-startTime-input').val(),
+			endDate : $('.reminder-endTime-input').val(),
+			frequency : $('.reminder-frequency-select').val(),
 			via : via
 		};
 
@@ -178,7 +178,7 @@ $(document).on('click', '#task-edit-submit', function() {
 
 	var subtasks = [];
 
-	$('#task-add-update .subtasks li').each(function() {
+	$('#addPanel_addTask .subtasks li').each(function() {
 		var subtask = {
 			title : $(this).find('.subtask-title').html(),
 			completed : $(this).find('.subtask-completed').prop('checked')
@@ -186,11 +186,11 @@ $(document).on('click', '#task-edit-submit', function() {
 		subtasks.push(subtask);
 	});
 
-	var title = $('#task-edit-title').val();
-	var dueDate = $('#task-edit-due-date').val();
-	var category = $('#task-edit-category').val();
-	var important = $('#task-edit-important').val();
-	var note = $('#task-edit-notes').html();
+	var title = $('#taskEdit_title_input').val();
+	var dueDate = $('#taskEdit_dueDate_input').val();
+	var category = $('#taskEdit_category_select').val();
+	var important = $('#taskEdit_important_input').val();
+	var note = $('#taskEdit_note_textarea').html();
 
 	//Validation
 
@@ -207,9 +207,8 @@ $(document).on('click', '#task-edit-submit', function() {
 
 });
 
-$(document).on('click', '.task-delete', function(event) {
-	console.log('click dick');
-	var id = $(this).closest('.task-item').find('.task-id').val();
+$(document).on('click', '.task-item-delete', function(event) {
+	var id = $(this).closest('.task-item').find('.task-item-id').val();
 	_socketConnection.emit('delete_task', {
 		'id' : id
 	});

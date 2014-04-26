@@ -1,19 +1,19 @@
 //Create a 'complete' listener for the category creation
 _.observe(db.categories, function() {
 
-	$('#task-submit-category').empty();
+	$('#addPanel_addTask_category_select').empty();
 
 	for (var i = 0, j = db.categories.length; i < j; i++) {
-		$('#task-submit-category').append('<option value="' + db.categories[i].id + '">' + db.categories[i].title + '</option>');
+		$('#addPanel_addTask_category_select').append('<option value="' + db.categories[i].id + '">' + db.categories[i].title + '</option>');
 	};
 
-	$('.category-list').empty();
+	$('.task-category-list').empty();
 
 	for (var i = 0, j = db.categories.length; i < j; i++) {
 		var category = new EJS({
 			url : '/view/ui/category.ejs'
 		}).render(db.categories[i]);
-		$('.category-list').append(category);
+		$('.task-category-list').append(category);
 	}
 
 });
@@ -23,11 +23,11 @@ _socketConnection.on('create_category_complete', function(data) {
 	}
 });
 
-$('#category-add-input').keypress(function(event) {
+$('#task_categoryAdd_input').keypress(function(event) {
 	if (event.which == 13) {
 		//Validation Here
 		//Manipulate the data
-		var title = $('#category-add-input').val();
+		var title = $('#task_categoryAdd_input').val();
 
 		_socketConnection.emit('create_category', {
 			'title' : title

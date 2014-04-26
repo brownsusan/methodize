@@ -1,0 +1,71 @@
+<div class="addPanel-container">
+	<div id="tab-container">
+		<ul>
+			<li>
+				<a href="#addPanel_addTask">Task</a>
+			</li>
+			<li>
+				<a href="#addPanel_addEvent">Event</a>
+			</li>
+			<div style="clear: both;"></div>
+
+
+
+		</ul>
+		<div id="addPanel_addTask">
+			<input id="addPanel_addTask_title_input" type="text" placeholder="Title" />
+			<input id="addPanel_addTask_dueDate_input" class="datetimepicker" type="text" placeholder="Due Date" />
+			<span>Remind Me</span>
+			<div id="addPanel_addTask_reminders_container"></div>
+			<button id="addPanel_addTask_addReminder_button">
+				Add
+			</button>
+			<label>Category <select id="addPanel_addTask_category_select" ></select></label>
+			<br />
+			<label>
+				<input id="addPanel_addTask_important_input" type="checkbox" />
+				Important</label>
+			<span>Sub Tasks</span>
+			<input id="addSubtask_input" type="text"  placeholder="Add a subtask..." />
+			<ul class="subtasks"></ul>
+			<ul class="completed-subtasks"></ul>
+			<span>Notes</span>
+			<textarea id="addPanel_addTask_note_textarea"></textarea>
+			<button id="addPanel_addTask_submit_button">
+				Save
+			</button>
+		</div>
+
+
+
+		<div id="addPanel_addEvent">
+			<input id="addPanel_addEvent_title_input" type="text" placeholder="Title" />
+			<input id="addPanel_addEvent_startDate_input" class="datetimepicker" type="text" placeholder="Start Date" />
+			<input id="addPanel_addEvent_endDate_input" class="datetimepicker" type="text" placeholder="End Date" />
+			<label>
+				<input id="addPanel_addEvent_allDay_input" type="checkbox"  />
+				All Day</label>
+			<span>Remind Me</span>
+			<button id="addPanel_addEvent_addReminder_button">
+				Add
+			</button>
+			<div id="addPanel_addEvent_reminders_container"></div>
+			<label>Category <select id="addPanel_addEvent_category_select" ></select></label>
+			<label>
+				<input id="addPanel_addEvent_important_input" type="checkbox" />
+				Important</label>
+			<span>Sub Tasks</span>
+			<input id="addSubtask_input" type="text"  placeholder="Add a subtask..." />
+			<ul class="subtasks"></ul>
+			<ul class="completed-subtasks"></ul>
+			<span>Notes</span>
+			<textarea id="addPanel_addEvent_note_textarea"></textarea>
+			<button id="addPanel_addEvent_submit_button">
+				Save
+			</button>
+		</div>
+		
+		
+		
+	</div>
+</div>

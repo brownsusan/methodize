@@ -5,36 +5,28 @@
 
 <div class="content">
 
-	<div id="nav-placeholder"></div>
+	<div id="nav_placeholder"></div>
 
-	<div class="categories col-md-3">
-		<input id="category-add-input" type="text" placeholder="Add a new category..." />
+	<div class="task-categories col-md-3">
+		<input id="task_categoryAdd_input" type="text" placeholder="Add a new category..." />
 		<input type="hidden" id="user-default-category" value="<%= userInboxId %>"/>
-		<ul class="category-list">
-		</ul>
+		<ul class="task-category-list"></ul>
 	</div>
-	<div class="tasks col-md-6">
+	<div class="task-tasks col-md-6">
+		<!-- Open Tasks -->
 		<input type="text" id="parent-category" />
-		<input id="task-add-input" type="text" placeholder="Add a new task..." />
+		<input id="task_taskAdd_input" type="text" placeholder="Add a new task..." />
+		<ul class="task-task-list"></ul>
 
-		<ul class="task-list">
-			
-		</ul>
-		<ul class="completed-tasks">
-			Completed Tasks
-			<li>
-				<input type="checkbox" checked="true"/>
-				<span>Task Title</span>
-				<span class="round-color-rep"></span>
-			</li>
+		<!-- Completed Tasks -->
+		<ul class="task-completed-task-list">
+			<!-- This will be a list of multiple 'task-item' elements with a checked value of true -->
 		</ul>
 	</div>
-	
-	<div class="task-details-container col-md-3">
-		
-	</div>
+
+	<div class="task-taskDetails col-md-3"></div>
 </div>
-<% include ui/task-detail.ejs %>
+<% include ui/taskDetail.ejs %>
 <% include template/script.ejs %>
 <script src="/js/core/task.js"></script>
 <% include template/foot.ejs %>
