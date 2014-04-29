@@ -21,7 +21,7 @@ var Category = new Schema({
 	'color' : {
 		'type' : String,
 		'default' : function(){
-			var colors = ['#E32727', '#2D95BF', '#F27D28', '#FF5F7D', '#4EBA6F', '#955BA5', '#089943', '#F0C62C', '#4D32FF'];
+			var colors = ['#FF4343', '#FF8C3E', '#FFD13E', '#92C472', '#13A566', '#65C2CE', '#9A69F9', '#955BA5', '#FF6E8D'];
 			var color = colors[~~(Math.random()*colors.length)];
 			return color;
 		},

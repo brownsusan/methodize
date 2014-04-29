@@ -71,7 +71,7 @@ module.exports.setup = function(socketServer, userSocket) {
 			var category = new CategoryModel();
 			category.userId = results.id;
 			category.title = 'Inbox';
-			category.color = 'red';
+			category.color = '#4281DB';
 
 			category.save(function(err, results) {
 				if (!err || results) {
