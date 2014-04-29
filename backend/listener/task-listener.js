@@ -9,7 +9,6 @@ module.exports.setup = function(socketServer, userSocket) {
 	var session = userSocket.handshake.session;
 	// Set up an event listener
 	userSocket.on('create_task', function(data) {
-
 		var task = new TaskModel();
 		task.userId = session.user.id;
 		task.title = data.title;
@@ -24,13 +23,14 @@ module.exports.setup = function(socketServer, userSocket) {
 
 			if (err || !results) {
 				userSocket.emit('create_task_complete', {
+
 					// Send error as part of data
 					'error' : true
 				});
 				return;
 			}
-
 			userSocket.emit('create_task_complete', {
+
 				// Send an error as part of data
 				'error' : false,
 				'task' : results
@@ -94,6 +94,7 @@ module.exports.setup = function(socketServer, userSocket) {
 	});
 
 	userSocket.on('read_tasks_by_category', function(data) {
+		console.log('reading by category');
 		if (session.user === undefined) {
 			return;
 		}
@@ -101,7 +102,7 @@ module.exports.setup = function(socketServer, userSocket) {
 		TaskModel.find({
 			'category' : data.categoryId
 		}, function(err, results) {
-			
+
 			if (err || !results) {
 				userSocket.emit('read_tasks_by_category_complete', {
 					'error' : true
