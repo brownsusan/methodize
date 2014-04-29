@@ -9,7 +9,6 @@ module.exports.setup = function(socketServer, userSocket) {
 	var session = userSocket.handshake.session;
 	// Set up an event listener
 	userSocket.on('create_category', function(data) {
-		console.log('emit');
 		var category = new CategoryModel();
 		category.userId = session.user.id;
 		category.title = data.title;

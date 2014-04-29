@@ -4,11 +4,11 @@ var taskId;
 //Create a 'complete' listener for the sign in
 // triggers when the db.tasks updates
 _.observe(db.tasks, function() {
-	console.log('heyo');
 	$('.task-task-list').empty();
 	$('.task-completedTask-list').empty();
 
 	for (var i = 0, j = db.tasks.length; i < j; i++) {
+		
 		if (db.tasks[i].completed === false) {
 			var task = new EJS({
 				url : '/view/ui/task-item.ejs'
@@ -29,7 +29,6 @@ _socketConnection.on('update_subtask_complete', function(data){
 	$('.subtasks').empty();
 	var subtasks = data.task.subtask;
 	if (subtasks === undefined) {
-		console.log('ass');
 	} else {
 		for (var i = 0, j = subtasks.length; i < j; i++) {
 			subtasks[i]
@@ -82,7 +81,6 @@ $(document).on('click', '.task-item', function() {
 	$('#taskDetail_reminders_container').empty();
 	var reminders = task.reminder;
 	if (reminders === undefined) {
-		console.log('ass');
 	} else {
 		for (var i = 0, j = reminders.length; i < j; i++) {
 			reminders[i]
@@ -100,7 +98,6 @@ $(document).on('click', '.task-item', function() {
 	$('.subtasks').empty();
 	var subtasks = task.subtask;
 	if (subtasks === undefined) {
-		console.log('ass');
 	} else {
 		for (var i = 0, j = subtasks.length; i < j; i++) {
 			subtasks[i]
@@ -247,7 +244,6 @@ $(document).on('click', '.task-item-delete', function(event) {
 $(document).on('click', 'input[type=checkbox]', function(event) {
 	var id = $(this).closest('.task-item').find('.task-item-id').val();
 	var completed = $(this).is(":checked");
-	console.log(completed);
 	_socketConnection.emit('update_task', {
 		'id' : id,
 		'completed' : completed
@@ -255,7 +251,6 @@ $(document).on('click', 'input[type=checkbox]', function(event) {
 });
 
 $(document).on('click', '.subtasks li', function(event) {
-	console.log('buns');
 	$(this).find('.subtask-title').addClass('core-hidden');
 	$(this).find('.subtask-title-edit').removeClass('core-hidden');
 });
@@ -264,7 +259,6 @@ $(document).on('keypress', '.subtask-title-edit', function(event) {
 	if (event.which === 13) {
 		var subtaskId = $(this).closest('.subtasks li').find('.subtask-id').val();
 		var title = $(this).closest('.subtasks li').find('.subtask-title-edit').val();
-		console.log(subtaskId, taskId, title);
 		_socketConnection.emit('update_subtask', {
 			'taskId' : taskId,
 			'subtaskId' : subtaskId,

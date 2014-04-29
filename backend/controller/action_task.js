@@ -37,8 +37,6 @@ module.exports.route = function(app) {
 					return;
 				}
 
-				console.log(err);
-
 				res.json(results);
 
 			});
@@ -63,8 +61,6 @@ module.exports.route = function(app) {
 					});
 					return;
 				}
-
-				console.log(err);
 
 				res.json(results);
 

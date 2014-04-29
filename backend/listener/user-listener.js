@@ -42,7 +42,6 @@ module.exports.setup = function(socketServer, userSocket) {
 			//Have to call session.save() after changing the session in any way - just how socketio works
 			session.user = user;
 			session.save();
-			console.log(session);
 			//Emit an event from the server to the client using the userSocket
 			userSocket.emit('signin_user_complete', {
 				// Send error as part of data - this is the success
@@ -53,7 +52,6 @@ module.exports.setup = function(socketServer, userSocket) {
 	});
 
 	userSocket.on('signup_user', function(data) {
-		console.log(data);
 		var user = new UserModel();
 		user.email = data.email;
 		user.password = data.password;

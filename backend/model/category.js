@@ -23,7 +23,6 @@ var Category = new Schema({
 		'default' : function(){
 			var colors = ['#E32727', '#2D95BF', '#F27D28', '#FF5F7D', '#4EBA6F', '#955BA5', '#089943', '#F0C62C', '#4D32FF'];
 			var color = colors[~~(Math.random()*colors.length)];
-			console.log(color);
 			return color;
 		},
 		'required' : true

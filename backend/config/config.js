@@ -24,7 +24,7 @@ module.exports.setupExpress = function(expressServer) {
 		expressServer.set('views', path.join(_backend_root, '/view'));
 		expressServer.set('view engine', 'ejs');
 		expressServer.use(express.bodyParser());
-		expressServer.use(express.logger('dev'));
+		// expressServer.use(express.logger('dev'));
 		expressServer.use(express.json());
 		expressServer.use(express.urlencoded());
 		expressServer.use(express.methodOverride());

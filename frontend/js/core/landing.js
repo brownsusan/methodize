@@ -19,7 +19,6 @@ $('#landing_login_submit_button').click(function() {
 
 //Create a 'complete' listener for the sign up
 _socketConnection.on('signup_user_complete', function(data) {
-	console.log(data);
 	if (!data.error) {
 		window.location.href = "/calendar/day";
 	}
@@ -55,7 +54,6 @@ $('#landing_signUp_submit_button').click(function() {
 	}
 
 	if (valid == false) {
-		console.log("invalid");
 		var errorHtml = '<span>Please fill out the form completely and correctly. Be sure the check the hints in each field!<span></br>';
 		$('#landing-error').html(errorHtml);
 		return;

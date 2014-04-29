@@ -99,6 +99,7 @@ $('#addPanel_addTask_submit_button').click(function() {
 $('#addSubtask_input').keypress(function() {
 	if (event.which == 13) {
 		var data = {
+			'id' : uuid.v4(),
 			'title' : $(this).val(),
 			'open' : true
 		}

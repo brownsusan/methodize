@@ -30,8 +30,6 @@ module.exports.setup = function(socketServer, userSocket) {
 				return;
 			}
 
-			console.log(err);
-
 			userSocket.emit('create_task_complete', {
 				// Send an error as part of data
 				'error' : false,
@@ -102,8 +100,8 @@ module.exports.setup = function(socketServer, userSocket) {
 
 		TaskModel.find({
 			'category' : data.categoryId
-		}).exec(function(err, results) {
-
+		}, function(err, results) {
+			
 			if (err || !results) {
 				userSocket.emit('read_tasks_by_category_complete', {
 					'error' : true
@@ -213,7 +211,6 @@ module.exports.setup = function(socketServer, userSocket) {
 	});
 
 	userSocket.on('delete_task', function(data) {
-		console.log(data);
 		if (session.user === undefined) {
 			return;
 		}
@@ -226,7 +223,6 @@ module.exports.setup = function(socketServer, userSocket) {
 
 			if (!err) {
 				task.remove(function(err, results) {
-					console.log(results.id);
 					if (!err) {
 						userSocket.emit('delete_task_complete', {
 							'error' : false,

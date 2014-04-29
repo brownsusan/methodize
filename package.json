@@ -13,6 +13,8 @@
     "socket.io-session": "0.0.5",
     "blueimp-md5": "~1.1.0",
     "node-uuid": "~1.4.1",
-    "connect-mongo": "~0.4.0"
+    "connect-mongo": "~0.4.0",
+    "mongoose-post-find": "0.0.2",
+    "async": "~0.8.0"
   }
 }

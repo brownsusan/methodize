@@ -10,7 +10,6 @@ module.exports.route = function(app) {
 			'category' : req.query.categoryId
 		}, function(err, results) {
 			if (err || !results) {
-				console.log('bye');
 				res.json({
 					error:true
 				});

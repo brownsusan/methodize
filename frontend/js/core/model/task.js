@@ -40,7 +40,9 @@ _socketConnection.on('read_task_by_id_complete', function(data) {
 });
 
 _socketConnection.on('read_tasks_by_category_complete', function(data) {
-	console.log(data.tasks);
+	
+	console.log(data);
+	
 	console.log('read_tasks_by_category_complete');
 	if (!data.error) {
 	}
@@ -60,7 +62,6 @@ _socketConnection.on('update_task_complete', function(data) {
 	if (!data.error) {
 	}
 	
-	console.log(data);
 	
 	_.updateWhere(db.tasks, {
 		id : data.task.id
@@ -73,8 +74,6 @@ _socketConnection.on('update_subtask_complete', function(data) {
 	
 	if (!data.error) {
 	}
-	
-	console.log(data);
 	
 	_.updateWhere(db.tasks, {
 		id : data.task.id

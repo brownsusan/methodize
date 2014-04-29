@@ -8,7 +8,6 @@ module.exports.route = function(app) {
 			'title' : 'Inbox',
 			'userId' : userId
 		}, function(err, results) {
-			console.log(results);
 			var userInboxId = results.id;
 			res.render('task', {
 				'userInboxId' : userInboxId

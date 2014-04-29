@@ -36,7 +36,6 @@ $('#task_categoryAdd_input').keypress(function(event) {
 });
 
 $(document).on('dblclick', '.category', function(event) {
-	console.log('dbl');
 	$(this).find('.category-title').hide();
 	$(this).find('.pill-color-rep').hide();
 	$(this).find('.category-title-edit').show();
@@ -56,7 +55,6 @@ $(document).on('keypress', '.category-title-edit', (function(event) {
 }));
 
 $(document).on('click', '.category-delete', function(event) {
-	console.log('click');
 	var id = $(this).closest('.category').find('.category-id').val();
 	_socketConnection.emit('delete_category', {
 		'id' : id
