@@ -2,9 +2,11 @@
 _.observe(db.categories, function() {
 
 	$('#addPanel_addTask_category_select').empty();
+	$('#addPanel_addEvent_category_select').empty();
 
 	for (var i = 0, j = db.categories.length; i < j; i++) {
 		$('#addPanel_addTask_category_select').append('<option value="' + db.categories[i].id + '">' + db.categories[i].title + '</option>');
+		$('#addPanel_addEvent_category_select').append('<option value="' + db.categories[i].id + '">' + db.categories[i].title + '</option>');
 	};
 
 	$('.task-category-list').empty();
