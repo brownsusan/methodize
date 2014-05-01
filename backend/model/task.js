@@ -74,16 +74,17 @@ Task.plugin(mongoosePostFind, {
 	find : function(results, next) {
 		async.each(results, function(task, nextTask) {
 			CategoryModel.findOne({
-				'id' : task.category,
-				'userId' : task.userId
-			}, function(err, results){
-				task.categoryObject = {
-					'title' : results.title,
-					'color' : results.color
-				};
-				nextTask();
+				'id' : task.category
+			}, function(err, results) {
+				if (results != null) {
+					task.categoryObject = {
+						'title' : results.title,
+						'color' : results.color
+					};
+					nextTask();
+				}
 			});
-			
+
 		}, function(err) {
 			next(null, results);
 		});
