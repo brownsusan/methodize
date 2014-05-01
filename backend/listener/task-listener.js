@@ -94,7 +94,6 @@ module.exports.setup = function(socketServer, userSocket) {
 	});
 
 	userSocket.on('read_tasks_by_category', function(data) {
-		console.log('reading by category');
 		if (session.user === undefined) {
 			return;
 		}

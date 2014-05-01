@@ -3,11 +3,19 @@ EJS.config({
 	cache : false
 });
 
+// window.setInterval(function() {checkEventsAndTasks()},3000);
+
+var checkEventsAndTasks = function() {
+	console.log('Checking the events and tasks');
+}
+
 $(document).ready(function() {
 	$('#tab-container').easytabs();
 	$('.datetimepicker').datetimepicker();
 	var defaultCategory = $('#user-default-category').val();
-	_socketConnection.emit('read_tasks_by_category', {'categoryId' : defaultCategory});
+	_socketConnection.emit('read_tasks_by_category', {
+		'categoryId' : defaultCategory
+	});
 	_socketConnection.emit('read_categories');
 });
 
@@ -74,7 +82,7 @@ $('#addPanel_addTask_submit_button').click(function() {
 		};
 		subtasks.push(subtask);
 	});
-	
+
 	var title = $('#addPanel_addTask_title_input').val();
 	var dueDate = $('#addPanel_addTask_dueDate_input').val();
 	var category = $('#addPanel_addTask_category_select').val();
@@ -96,19 +104,80 @@ $('#addPanel_addTask_submit_button').click(function() {
 	});
 });
 
-$('#addSubtask_input').keypress(function() {
+$('#addPanel_addEvent_addReminder_button').click(function() {
+	console.log('Add a Reminder to an Event');
+	$('#addPanel_addEvent_reminders_container').append(reminder);
+	$('.reminder-startTime-input').datetimepicker();
+	$('.reminder-endTime-input').datetimepicker();
+});
+
+$('#addPanel_addEvent_submit_button').click(function() {
+	console.log('Add Event From Panel');
+	var reminders = [];
+	$('#addPanel_addEvent .reminder').each(function() {
+		var via = [];
+		if ($(this).find('.via-email-input').is(":checked")) {
+			via.push('email');
+		}
+		if ($(this).find('.via-call-input').is(":checked")) {
+			via.push('call');
+		}
+		if ($(this).find('.via-sms-input').is(":checked")) {
+			via.push('sms');
+		}
+		var reminder = {
+			start : $('.reminder-startTime-input').val(),
+			end : $('.reminder-endTime-input').val(),
+			frequency : $('.reminder-frequency-select').val(),
+			via : via
+		};
+		reminders.push(reminder);
+	});
+
+	var subtasks = [];
+	$('#addPanel_addEvent .subtasks li').each(function() {
+		var subtask = {
+			title : $(this).find('.subtask-title').html(),
+			completed : $(this).find('.subtask-completed').prop('checked')
+		};
+		subtasks.push(subtask);
+	});
+
+	var title = $('#addPanel_addEvent_title_input').val();
+	var startDate = $('#addPanel_addEvent_startDate_input').val();
+	var endDate = $('#addPanel_addEvent_endDate_input').val();
+	var allDay = $('#addPanel_addEvent_allDay_input').is(":checked");
+	var category = $('#addPanel_addEvent_category_select').val();
+	var important = $('#addPanel_addEvent_important_input').is(":checked");
+	var frequency = $('#addPanel_addEvent').find('.reminder-frequency-select').val();
+	var note = $('#addPanel_addEvent_note_textarea').val();
+
+	//Validation
+	console.log('title: ' + title, 'startDate: ' + startDate, 'endDate: ' + endDate, 'allDay: ' + allDay, 'reminder: ' + reminders, 'category: ' + category, 'important: ' + important, 'subtask: ' + subtasks, 'frequency: ' + frequency, 'note: ' + note);
+	// _socketConnection.emit('create_event', {
+	// 'title' : title,
+	// 'dueDate' : dueDate,
+	// 'reminder' : reminders,
+	// 'category' : category,
+	// 'important' : important,
+	// 'subtask' : subtasks,
+	// 'frequency' : frequency,
+	// 'note' : note
+	// });
+});
+
+$(document).on('keypress', '#addSubtask_input', function(event) {
+	console.log('asasdsfsdaf');
 	if (event.which == 13) {
 		var data = {
 			'id' : uuid.v4(),
 			'title' : $(this).val(),
 			'open' : true
 		}
-
 		var subtask = new EJS({
 			url : '/view/ui/subtask.ejs'
 		}).render(data);
 
-		$('#addPanel_addTask .subtasks').append(subtask);
-
+		$(this).closest('.subtasks').append(subtask);
 	}
 });
