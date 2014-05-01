@@ -153,31 +153,33 @@ $('#addPanel_addEvent_submit_button').click(function() {
 	var note = $('#addPanel_addEvent_note_textarea').val();
 
 	//Validation
-	console.log('title: ' + title, 'startDate: ' + startDate, 'endDate: ' + endDate, 'allDay: ' + allDay, 'reminder: ' + reminders, 'category: ' + category, 'important: ' + important, 'subtask: ' + subtasks, 'frequency: ' + frequency, 'note: ' + note);
-	// _socketConnection.emit('create_event', {
-	// 'title' : title,
-	// 'dueDate' : dueDate,
-	// 'reminder' : reminders,
-	// 'category' : category,
-	// 'important' : important,
-	// 'subtask' : subtasks,
-	// 'frequency' : frequency,
-	// 'note' : note
-	// });
+	_socketConnection.emit('create_event', {
+		'title' : title,
+		'startDate' : startDate,
+		'endDate' : endDate,
+		'allDay' : allDay,
+		'reminder' : reminders,
+		'category' : category,
+		'important' : important,
+		'subtask' : subtasks,
+		'frequency' : frequency,
+		'note' : note
+	});
+
 });
 
-$(document).on('keypress', '#addSubtask_input', function(event) {
-	console.log('asasdsfsdaf');
+$(document).on('keypress', '.addSubtask_input', function(event) {
 	if (event.which == 13) {
 		var data = {
 			'id' : uuid.v4(),
 			'title' : $(this).val(),
 			'open' : true
 		}
+
 		var subtask = new EJS({
 			url : '/view/ui/subtask.ejs'
 		}).render(data);
 
-		$(this).closest('.subtasks').append(subtask);
+		$(this).next('.subtasks').append(subtask);
 	}
 });

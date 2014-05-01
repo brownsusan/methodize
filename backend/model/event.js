@@ -44,7 +44,7 @@ var Event = new Schema({
 	}],
 	'note' : String,
 }, {
-	'collection' : 'task',
+	'collection' : 'event',
 	'versionKey' : false
 });
 

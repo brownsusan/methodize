@@ -5,8 +5,13 @@ _socketConnection.on('create_task_complete', function(data) {
 	console.log('create_task_complete');
 	if (!data.error) {
 	}
-	_socketConnection.emit('read_tasks_by_category', {'categoryId' : data.task.category});
-	// db.tasks.push(data.task);
+	//TO DO : THIS CONDITIONAL NEEDS TO REPRESENT IF A TASK ALREADY EXISTS IN THE DATABASE OR NOT
+	if (data.task.category) {
+		_socketConnection.emit('read_tasks_by_category', {
+			'categoryId' : data.task.category
+		});
+		// db.tasks.push(data.task);
+	}
 });
 
 _socketConnection.on('read_tasks_complete', function(data) {
