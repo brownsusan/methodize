@@ -1,16 +1,21 @@
 $(document).ready(function() {
 	_socketConnection.emit('read_events');
+	// Read events by day
+	// Read events by month
 });
 
 var events = [];
 
 _socketConnection.on('read_events_complete', function(data) {
-	console.log(data.events);
 	for (var i = 0, j = data.events.length; i < j; i++) {
+		console.log(data.events[i]);
+		//Formatting the data from the database to work with fullcalendar.
+		//Eventually I want to have the schema match what full calendar needs.
 		var newEvent = {
 			'title' : data.events[i].title,
 			'start' : data.events[i].startDate,
-			'end' : data.events[i].endDate
+			'end' : data.events[i].endDate,
+			'color' : data.events[i].categoryObject.color
 		}
 		events.push(newEvent);
 	};

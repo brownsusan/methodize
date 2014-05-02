@@ -1,5 +1,8 @@
+var async = require('async');
 var uuid = require('node-uuid');
 var mongoose = require('mongoose');
+var mongoosePostFind = require('mongoose-post-find');
+var CategoryModel = mongoose.model('Category');
 
 var Schema = mongoose.Schema;
 
@@ -40,6 +43,7 @@ var Event = new Schema({
 		'type' : String,
 		'required' : true
 	},
+	'categoryObject' : Object,
 	'important' : Boolean,
 	'subtask' : [{
 		'title' : String,
@@ -57,6 +61,27 @@ Event.pre('save', function(next) {
 
 	next();
 
+});
+
+Event.plugin(mongoosePostFind, {
+	find : function(results, next) {
+		async.each(results, function(newEvent, nextEvent) {
+			CategoryModel.findOne({
+				'id' : newEvent.category
+			}, function(err, results) {
+				if (results != null) {
+					newEvent.categoryObject = {
+						'title' : results.title,
+						'color' : results.color
+					};
+					nextEvent();
+				}
+			});
+
+		}, function(err) {
+			next(null, results);
+		});
+	}
 });
 
 mongoose.model('Event', Event);
