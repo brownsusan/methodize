@@ -121,10 +121,16 @@ nav {
 	z-index: 1000;
 }
 
+nav h1{
+	margin-top: 10px;
+	margin-left: 10px;
+	font-size: 12px;
+}
+
 nav a {
 	height: 30px;
-	line-height: 30px;
-	margin: 0 5px 10px 10px;
+	line-height: 20px;
+	margin: 0 10px 5px 10px;
 	width: 200px;
 	float: left;
 	display: block;
