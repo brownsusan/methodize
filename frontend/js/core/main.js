@@ -23,10 +23,17 @@ $(document).ready(function() {
 
 var db = {};
 
-$('#nav_slider').click(function() {
-	$('nav').animate({
-		width : 'toggle'
-	});
+$('nav').click(function() {
+	console.log($('nav').css('left'));
+	if ($('nav').css('left') == '0px') {
+		$('nav').animate({
+			left : -180
+		});
+	} else {
+		$('nav').animate({
+			left : 0
+		});
+	}
 });
 
 $('#test-add').click(function() {

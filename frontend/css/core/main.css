@@ -97,32 +97,37 @@ footer {
 	bottom: 0;
 }
 
-input[type=text] {
+input[type=text], input[type=tel], input[type=password]{
 	height: 30px;
 	background: rgba(249, 248, 247, 0.5);
 	border: 1px solid #b3b3b3;
 	padding: 5px;
-	width: 100%;
 	border-radius: 2px;
 }
 
-nav {
-	width: 140px;
-	float: right;
+input[type=text] {
+	width: 100%;
 }
 
-#nav_container {
+nav {
+	width: 220px;
 	height: 100%;
-	z-index: 1000;
-	background: #222222;
-	position: fixed;
 	top: 0;
-	left: 0;
+	float: right;
+	position: fixed;
+	left: -180px;
 	color: #E6E6E6;
+	background: #222222;
+	z-index: 1000;
 }
 
 nav a {
-	height: 40px;
+	height: 30px;
+	line-height: 30px;
+	margin: 0 5px 10px 10px;
+	width: 200px;
+	float: left;
+	display: block;
 }
 
 nav li a, #my-nav li span {
@@ -130,35 +135,14 @@ nav li a, #my-nav li span {
 	display: block;
 }
 
-#nav_slider {
-	width: 20px;
-	background: black;
-	height: 100%;
-	float: right;
-	position: relative;
-	top: 0;
-	left: 0;
-	margin: 0;
-}
-
 nav li img {
-	float: left;
+	float: right;
 	display: inline-block;
 	width: 20px;
 	height: 20px;
-	margin: 10px 0;
 }
 
-nav li a {
-	float: left;
-	display: block;
-	width: 130px;
-}
 
-nav li {
-	line-height: 40px;
-	height: 40px;
-}
 
 .round-color-rep {
 	float: right;
@@ -334,7 +318,14 @@ ul {
 
 }
 
-/*FULL CALENDAR OVERRIDES*/
+/*
+==================================================================
+┌─┐┬ ┬┬  ┬    ┌─┐┌─┐┬  ┌─┐┌┐┌┌┬┐┌─┐┬─┐  ┌─┐┬  ┬┌─┐┬─┐┬─┐┬┌┬┐┌─┐┌─┐
+├┤ │ ││  │    │  ├─┤│  ├┤ │││ ││├─┤├┬┘  │ │└┐┌┘├┤ ├┬┘├┬┘│ ││├┤ └─┐
+└  └─┘┴─┘┴─┘  └─┘┴ ┴┴─┘└─┘┘└┘─┴┘┴ ┴┴└─  └─┘ └┘ └─┘┴└─┴└─┴─┴┘└─┘└─┘
+==================================================================
+*/
+
 .fc-event {
 	height: 30px;
 }
@@ -348,14 +339,31 @@ thead {
 	color: #fff;
 }
 
-.fc-button{
-	/*background: #999;*/
-	/*color: white;*/
+/*
+ =====================================
+ ┌─┐┌─┐┌─┐┌─┐┬ ┬┌┐┌┌┬┐  ┌─┐┌─┐┌─┐┌─┐
+ ├─┤│  │  │ ││ ││││ │   ├─┘├─┤│ ┬├┤
+ ┴ ┴└─┘└─┘└─┘└─┘┘└┘ ┴   ┴  ┴ ┴└─┘└─┘
+ =====================================
+ */
+#landing_login_form, #landing_signUp_form {
+	float: right;
 }
 
-.fc-state-active{
+header h1 {
+	float: left;
 }
 
-.fc-state-default{
-	
+#landing_signUp_form {
+	background: #BCE8F1;
+	height: 300px;
+	margin: 10px;
+	padding: 10px;
+	width: 300px;
+}
+#landing_signUp_form input[type=text], #landing_signUp_form input[type=tel], #landing_signUp_form input[type=password] {
+	background: white;
+	margin-bottom: 10px;
+	display: block;
+	width: 100%;
 }
