@@ -21,7 +21,7 @@ module.exports.setup = function(socketServer, userSocket) {
 		newEvent.note = data.note;
 
 		newEvent.save(function(err, results) {
-		console.log(err);
+			console.log(err);
 			if (err || !results) {
 				userSocket.emit('create_event_complete', {
 					// Send error as part of data
@@ -40,4 +40,30 @@ module.exports.setup = function(socketServer, userSocket) {
 
 	});
 
+	userSocket.on('read_events', function(data) {
+		if (session.user === undefined) {
+			return;
+		}
+
+		var userId = session.user.id;
+
+		EventModel.find({
+			'userId' : userId
+		}, function(err, results) {
+			if (err || !results) {
+				userSocket.emit('read_events_complete', {
+					// Send error as part of data
+					'error' : true
+				});
+				return;
+			}
+
+			userSocket.emit('read_events_complete', {
+				// Send an error as part of data
+				'error' : false,
+				'events' : results
+			});
+
+		});
+	});
 };

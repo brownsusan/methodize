@@ -16,7 +16,9 @@ $(document).ready(function() {
 	_socketConnection.emit('read_tasks_by_category', {
 		'categoryId' : defaultCategory
 	});
+
 	_socketConnection.emit('read_categories');
+
 });
 
 var db = {};

@@ -39,6 +39,7 @@ var Task = new Schema({
 	}],
 	'category' : {
 		'type' : String,
+		'required' : true
 	},
 	'categoryObject' : Object,
 	'completed' : {

@@ -17,6 +17,11 @@
     "underscore": "~1.6.0",
     "underscore.db": "~0.6.0",
     "array": "~0.4.3",
-    "underscore-observable-arrays": "*"
+    "underscore-observable-arrays": "*",
+    "fullcalendar": "~1.6.4",
+    "jquery-ui": "~1.10.4"
+  },
+  "resolutions": {
+    "jquery": "2.0.3"
   }
 }

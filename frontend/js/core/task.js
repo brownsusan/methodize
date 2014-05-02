@@ -31,14 +31,13 @@ _socketConnection.on('update_subtask_complete', function(data){
 	if (subtasks === undefined) {
 	} else {
 		for (var i = 0, j = subtasks.length; i < j; i++) {
-			subtasks[i]
 			var subtask = new EJS({
 				url : '/view/ui/subtask.ejs'
 			}).render(subtasks[i]);
 			$('.subtasks').append(subtask);
 		};
 	}
-})
+});
 
 // triggers when adding a new task to a category
 $('#task_taskAdd_input').keypress(function(event) {

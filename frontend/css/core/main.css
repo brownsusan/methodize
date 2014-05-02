@@ -98,7 +98,7 @@ footer {
 }
 
 input[type=text] {
-	height: 40px;
+	height: 30px;
 	background: rgba(249, 248, 247, 0.5);
 	border: 1px solid #b3b3b3;
 	padding: 5px;
@@ -164,10 +164,10 @@ nav li {
 	float: right;
 	height: 15px;
 	width: 15px;
-	border-radius: 8.5px;
+	border-radius: 10px;
 	background: rgba(231, 85, 111, 0.7);
-	border: 1px solid rgb(231, 85, 111);
-	margin-top: 12px;
+	/*border: 1px solid rgb(231, 85, 111);*/
+	margin-top: 8px;
 }
 
 .pill-color-rep {
@@ -178,7 +178,7 @@ nav li {
 	float: right;
 	height: 20px;
 	width: 30px;
-	margin-top: 9px;
+	margin-top: 5px;
 }
 
 .task-tasks ul li, .task-categories ul li, .subtasks li, .completed-subtasks li, .day-events-allDay ul li {
@@ -202,13 +202,13 @@ nav li {
 }
 
 .task-tasks ul li, .task-categories ul li, .day-events-allDay ul li {
-	height: 40px;
-	line-height: 40px;
+	height: 30px;
+	line-height: 30px;
 }
 
 .subtasks li, .completed-subtasks li {
-	height: 30px;
-	line-height: 30px;
+	height: 20px;
+	line-height: 20px;
 }
 
 .day-completedTasks li, .completed-subtasks li {
@@ -265,7 +265,7 @@ ul {
 	margin-bottom: 30px;
 }
 
-table {
+/*table {
 	background: rgba(249, 248, 247, 0.3);
 	border-collapse: collapse;
 	color: #222;
@@ -292,7 +292,7 @@ tr:first-child td {
 
 .day-weekPreview {
 	min-height: 150px;
-}
+}*/
 
 .edit {
 	float: right;
@@ -317,11 +317,21 @@ tr:first-child td {
 }
 
 .category-delete, .task-item-delete {
-	height: 20px;
+	height: 10px;
 	float: right;
-	margin: 10px;
+	margin: 5px;
 }
 
 #parent-category {
 	display: none;
 }
+
+/*DETAIL DISPLAY*/
+.taskDetail-container{
+	background: white;
+	padding: 10px;
+	/*height: 100%;*/
+	
+}
+
+

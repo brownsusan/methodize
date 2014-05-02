@@ -36,7 +36,10 @@ var Event = new Schema({
 			'enum' : ['call', 'email', 'sms']
 		}
 	}],
-	'category' : String,
+	'category' : {
+		'type' : String,
+		'required' : true
+	},
 	'important' : Boolean,
 	'subtask' : [{
 		'title' : String,
