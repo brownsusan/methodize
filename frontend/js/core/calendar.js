@@ -136,4 +136,13 @@ $(document).on('click', '#eventEdit_updateEvent_button', function() {
 	// $('.eventDetail-container').hide();
 	// $('.eventEdit-container').show();
 });
+
+$(document).on('click', '#eventDetail_deleteEvent_button', function() {
+	var id = $('#eventDetail_id_input').val();
+	_socketConnection.emit('delete_event', {
+		'id' : id
+	});
+	// $('.eventDetail-container').hide();
+	// $('.eventEdit-container').show();
+});
 //delete in modal

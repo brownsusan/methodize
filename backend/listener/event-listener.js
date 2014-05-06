@@ -135,4 +135,28 @@ module.exports.setup = function(socketServer, userSocket) {
 
 	});
 
+	userSocket.on('delete_event', function(data) {
+		if (session.user === undefined) {
+			return;
+		}
+		EventModel.findOne({
+			'id' : data.id,
+			'userId' : session.user.id
+		}, function(err, results) {
+
+			var eventToDelete = results;
+
+			if (!err) {
+				eventToDelete.remove(function(err, results) {
+					if (!err) {
+						userSocket.emit('delete_event_complete', {
+							'error' : false,
+							'id' : results.id
+						});
+					}
+				});
+			}
+		});
+	});
+
 };
