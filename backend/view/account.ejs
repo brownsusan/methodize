@@ -2,27 +2,31 @@
 
 <header></header>
 <% include template/nav.ejs %>
-<div id="account_info_display">
-	<span>Name </span><span>Susan Brown</span>
-	<br />
-	<span>Email Address </span><span>sbrwn.sb@gmail.com</span>
-	<br />
-	<span>Phone Number </span><span>123 456 7890</span>
-	<br />
-	<button id="account_edit_button">
-		Edit
-	</button>
-</div>
-<div id="account_info_edit">
-	<span>Name </span>
-	<input type="text" value="Susan Brown"/>
-	<span>Email Address </span>
-	<input type="email" value="sbrwn.sb@gmail.com"/>
-	<span>Phone Number </span>
-	<input type="tel" value="2488803127"/>
-	<button id="account_submit_button">
-		Edit
-	</button>
+<!-- GET USER INFO -->
+<div id="account_container">
+	<div id="account_info_display">
+		<span>Name </span>
+		<span class="account-userId"></span>
+		<br />
+		<span>Email Address </span><span>sbrwn.sb@gmail.com</span>
+		<br />
+		<span>Phone Number </span><span>123 456 7890</span>
+		<br />
+		<button id="account_edit_button">
+			Edit
+		</button>
+	</div>
+	<div id="account_info_edit">
+		<span>Name </span>
+		<input type="text" value="Susan Brown"/>
+		<span>Email Address </span>
+		<input type="email" value="sbrwn.sb@gmail.com"/>
+		<span>Phone Number </span>
+		<input type="tel" value="2488803127"/>
+		<button id="account_submit_button">
+			Save
+		</button>
+	</div>
 </div>
 <% include template/script.ejs %>
 <script src="/js/core/account.js"></script>

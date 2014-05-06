@@ -158,7 +158,6 @@ nav li img {
 	width: 15px;
 	border-radius: 10px;
 	background: rgba(231, 85, 111, 0.7);
-	/*border: 1px solid rgb(231, 85, 111);*/
 	margin-top: 8px;
 }
 
@@ -182,15 +181,7 @@ nav li img {
 .task-tasks ul li, .task-categories ul li, .subtasks li, .completed-subtasks li {
 	border: 1px solid #F5F5F5;
 	margin: 5px 0;
-	/*padding: 0 10px;*/
 	background: #f7f8f9; /* Old browsers */
-	/*background: -moz-linear-gradient(top,  #ffffff 0%, #e6e6e6 100%);
-	 background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#e6e6e6));
-	 background: -webkit-linear-gradient(top,  #ffffff 0%,#e6e6e6 100%);
-	 background: -o-linear-gradient(top,  #ffffff 0%,#e6e6e6 100%);
-	 background: -ms-linear-gradient(top,  #ffffff 0%,#e6e6e6 100%);
-	 background: linear-gradient(to bottom,  #ffffff 0%,#e6e6e6 100%);
-	 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e6e6e6',GradientType=0 );*/
 }
 
 .task-tasks ul li, .task-categories ul li, .day-events-allDay ul li {
@@ -210,7 +201,6 @@ nav li img {
 #tab-container {
 	background: #f7f8f9;
 	padding: 10px;
-	/*box-shadow: 0px 0px 0px 5px rgba(0,0,0,0.3);*/
 	line-height: 2em;
 }
 
@@ -256,35 +246,6 @@ ul {
 .subtasks {
 	margin-bottom: 30px;
 }
-
-/*table {
- background: rgba(249, 248, 247, 0.3);
- border-collapse: collapse;
- color: #222;
- font-family: 'PT Sans', sans-serif;
- font-size: 13px;
- width: 100%;
- min-height: 100%;
- max-height: 100%;
- margin-top: -20px;
- }
-
- td {
- border: 1px solid #ccc;
- color: #444;
- line-height: 22px;
- text-align: center;
- width: 14.28571428571429%;
- }
-
- tr:first-child td {
- color: #222;
- font-weight: 700;
- }
-
- .day-weekPreview {
- min-height: 150px;
- }*/
 
 .edit {
 	float: right;
@@ -352,13 +313,6 @@ thead {
 }
 
 
-/*
- =====================================
- ┌─┐┌─┐┌─┐┌─┐┬ ┬┌┐┌┌┬┐  ┌─┐┌─┐┌─┐┌─┐
- ├─┤│  │  │ ││ ││││ │   ├─┘├─┤│ ┬├┤
- ┴ ┴└─┘└─┘└─┘└─┘┘└┘ ┴   ┴  ┴ ┴└─┘└─┘
- =====================================
- */
 #landing_login_form, #landing_signUp_form {
 	float: right;
 }
@@ -388,4 +342,23 @@ header h1 {
 	left: 200px;
 	z-index: 10000;
 	background: white;
+}
+
+/*
+ =====================================
+ ┌─┐┌─┐┌─┐┌─┐┬ ┬┌┐┌┌┬┐  ┌─┐┌─┐┌─┐┌─┐
+ ├─┤│  │  │ ││ ││││ │   ├─┘├─┤│ ┬├┤
+ ┴ ┴└─┘└─┘└─┘└─┘┘└┘ ┴   ┴  ┴ ┴└─┘└─┘
+ =====================================
+ */
+
+#account_container{
+	background: white;
+	margin: 20px auto;
+	width: 300px;
+	height: 300px;
+}
+
+#account_info_edit{
+	display:none;
 }
