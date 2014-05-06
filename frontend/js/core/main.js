@@ -29,9 +29,15 @@ $('nav').click(function() {
 		$('nav').animate({
 			left : -180
 		});
+		$('body').animate({
+			'left' : 0
+		});
 	} else {
 		$('nav').animate({
 			left : 0
+		});
+		$('body').animate({
+			'left' : +180
 		});
 	}
 });
