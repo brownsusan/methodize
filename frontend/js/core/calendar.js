@@ -35,20 +35,36 @@ _socketConnection.on('read_events_complete', function(data) {
 		selectable : true,
 		selectHelper : true,
 		select : function(start, end, allDay) {
-			var title = prompt('Event Title:');
-			if (title) {
-				calendar.fullCalendar('renderEvent', {
-					title : title,
-					start : start,
-					end : end,
-					allDay : allDay
-				}, true // make the event "stick"
-				);
-			}
+			console.log(start, end, allDay);
+			$('#addPanel_addTask_dueDate_input').val(start);
+			$('#addPanel_addEvent_startDate_input').val(start);
+			$('#addPanel_addEvent_endDate_input').val(end);
+			$('.addPanel-container').show();
+			// var title = prompt('Make an event with this start and end date');
+			// if (title) {
+				// calendar.fullCalendar('renderEvent', {
+					// title : title,
+					// start : start,
+					// end : end,
+					// allDay : allDay
+				// }, true // make the event "stick"
+				// );
+			// }
 			calendar.fullCalendar('unselect');
 		},
 		editable : true,
-		events : events
+		events : events,
+		eventClick : function(calEvent, jsEvent, view) {
+			// alert('Bring up the details panel for ' + calEvent.title);
+			//Check to see if there is a details on the page already
+			//If there is take it off
+			//Then create a new one with the clicked event
+			$('.eventDetail-container').show();
+		}
 	});
 
 });
+
+//hide the detail container when closed
+//update in modal
+//delete in modal
