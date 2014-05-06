@@ -43,7 +43,7 @@ table {
 	width: 100%;
 	padding: 0;
 	float: right;
-	padding-left: 20px
+	padding-left: 40px
 }
 
 .addPanel-container {
@@ -372,9 +372,24 @@ header h1 {
 	padding: 10px;
 	width: 300px;
 }
+
 #landing_signUp_form input[type=text], #landing_signUp_form input[type=tel], #landing_signUp_form input[type=password] {
 	background: white;
 	margin-bottom: 10px;
 	display: block;
 	width: 100%;
+}
+
+
+
+
+
+
+
+.eventDetail-container, .eventEdit-container{
+	position: absolute;
+	top: 80px;
+	left: 200px;
+	z-index: 10000;
+	background: white;
 }

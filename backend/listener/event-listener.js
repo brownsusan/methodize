@@ -66,4 +66,73 @@ module.exports.setup = function(socketServer, userSocket) {
 
 		});
 	});
+
+	userSocket.on('update_event', function(data) {
+
+		if (session.user === undefined) {
+			return;
+		}
+
+		EventModel.findOne({
+			'id' : data.id
+		}, function(err, results) {
+
+			if (err || !results) {
+				userSocket.emit('update_event_complete', {
+					'error' : true
+				});
+			}
+
+			var eventToUpdate = results;
+			if (data.title !== undefined) {
+				eventToUpdate.title = data.title;
+			}
+			if (data.startDate !== undefined) {
+				eventToUpdate.startDate = data.startDate;
+			}
+			if (data.endDate !== undefined) {
+				eventToUpdate.endDate = data.endDate;
+			}
+			if (data.allDay !== undefined) {
+				eventToUpdate.allDay = data.allDay;
+			}
+			if (data.reminder !== undefined) {
+				eventToUpdate.reminder = data.reminder;
+			}
+
+			if (data.category !== undefined) {
+				eventToUpdate.category = data.category;
+			}
+			if (data.important !== undefined) {
+				eventToUpdate.important = data.important;
+			}
+			if (data.subtask !== undefined) {
+				eventToUpdate.subtask = data.subtask;
+			}
+			if (data.note !== undefined) {
+				eventToUpdate.note = data.note;
+			}
+
+			eventToUpdate.save(function(err, results) {
+
+				if (err || !results) {
+					userSocket.emit('update_event_complete', {
+						// Send error as part of data
+						'error' : true
+					});
+					return;
+				}
+
+				userSocket.emit('update_event_complete', {
+					// Send an error as part of data
+					'error' : false,
+					'updatedEvent' : results
+				});
+
+			});
+
+		});
+
+	});
+
 };
