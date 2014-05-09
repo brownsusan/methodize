@@ -2,6 +2,7 @@
 var mongoose = require('mongoose');
 // Get the appropriate db model
 var EventModel = mongoose.model('Event');
+var TaskModel = mongoose.model('Task');
 
 module.exports.setup = function(socketServer, userSocket) {
 
@@ -63,7 +64,7 @@ module.exports.setup = function(socketServer, userSocket) {
 				'error' : false,
 				'events' : results
 			});
-
+			
 		});
 	});
 
@@ -157,6 +158,44 @@ module.exports.setup = function(socketServer, userSocket) {
 				});
 			}
 		});
+	});
+
+	userSocket.on('read_all_task_event_by_user', function(data) {
+
+		console.log('read_all_task_event_by_user');
+
+		var calendarData = [];
+		if (session.user === undefined) {
+			return;
+		}
+		EventModel.find({
+			'userId' : session.user.id
+		}, function(err, results) {
+			if (!err) {
+				// LOOP OVER RESULTS AND PUSH THEM INTO THE ARRAY
+				for (var i = 0, j = results.length; i < j; i++) {
+					calendarData.push(results[i]);
+				};
+
+				TaskModel.find({
+					'userId' : session.user.id
+				}, function(err, results) {
+
+					if (!err) {
+						for (var i = 0, j = results.length; i < j; i++) {
+							calendarData.push(results[i]);
+						};
+						userSocket.emit('read_all_task_event_by_user_complete', {
+							'error' : false,
+							'calendarData' : calendarData
+						})
+					}
+				});
+
+			}
+
+		});
+
 	});
 
 };

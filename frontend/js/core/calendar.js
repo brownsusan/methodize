@@ -1,5 +1,6 @@
 $(document).ready(function() {
 	_socketConnection.emit('read_events');
+	_socketConnection.emit('read_all_task_event_by_user');
 	// Read events by day
 	// Read events by month
 	//NEED UNDERSCORE REPS OF ALL DATA FOR CALENDAR
@@ -7,28 +8,51 @@ $(document).ready(function() {
 	var events = [];
 	// var categories = [];
 
-	_socketConnection.on('read_events_complete', function(data) {
-		console.log(data.events);
-		for (var i = 0, j = data.events.length; i < j; i++) {
-			//Formatting the data from the database to work with fullcalendar.
-			//Eventually I want to have the schema match what full calendar needs.
-			var newEvent = {
-				'id' : data.events[i].id,
-				'title' : data.events[i].title,
-				'start' : data.events[i].startDate,
-				'end' : data.events[i].endDate,
-				'color' : data.events[i].categoryObject.color,
-				'category' : data.events[i].categoryObject.title,
-				'categoryId' : data.events[i].category,
-				'important' : data.events[i].important,
-				'allDay' : data.events[i].allDay,
-				'reminder' : data.events[i].reminder,
-				'subtasks' : data.events[i].subtasks,
-				'note' : data.events[i].notes
+	_socketConnection.on('read_all_task_event_by_user_complete', function(data) {
+		var calendarData = [];
+		console.log(data);
+		// format events and tasks by type
+		for (var i = 0, j = data.calendarData.length; i < j; i++) {
+			if (data.calendarData[i].modelType == 'typeEvent') {
+				console.log('Its an event!');
+				var newEvent = {
+					'id' : data.calendarData[i].id,
+					'title' : data.calendarData[i].title,
+					'start' : data.calendarData[i].startDate,
+					'end' : data.calendarData[i].endDate,
+					'color' : data.calendarData[i].categoryObject.color,
+					'category' : data.calendarData[i].categoryObject.title,
+					'categoryId' : data.calendarData[i].category,
+					'important' : data.calendarData[i].important,
+					'allDay' : data.calendarData[i].allDay,
+					'reminder' : data.calendarData[i].reminder,
+					'subtasks' : data.calendarData[i].subtasks,
+					'note' : data.calendarData[i].notes
+				}
+				calendarData.push(newEvent);
 			}
-			events.push(newEvent);
+			if (data.calendarData[i].modelType == 'typeTask') {
+				console.log('Its a task!');
+				var newTask = {
+					'id' : data.calendarData[i].id,
+					'title' : data.calendarData[i].title,
+					'start' : data.calendarData[i].dueDate,
+					'end' : data.calendarData[i].dueDate,
+					'color' : data.calendarData[i].categoryObject.color,
+					'category' : data.calendarData[i].categoryObject.title,
+					'categoryId' : data.calendarData[i].category,
+					'important' : data.calendarData[i].important,
+					'allDay' : false,
+					'reminder' : data.calendarData[i].reminder,
+					'subtasks' : data.calendarData[i].subtasks,
+					'note' : data.calendarData[i].notes
+				}
+				calendarData.push(newTask);
+			}
 		};
-
+		console.log(calendarData);
+		// push them into an array
+		// initialize calendar
 		var date = new Date();
 		var d = date.getDate();
 		var m = date.getMonth();
@@ -49,14 +73,32 @@ $(document).ready(function() {
 				$('#addPanel_addTask_dueDate_input').val(start);
 				$('#addPanel_addEvent_startDate_input').val(start);
 				$('#addPanel_addEvent_endDate_input').val(end);
+
+				if ($('.eventDetail-container').css('right') == '0px') {
+					$('.eventDetail-container').animate({
+						'right' : -300
+					});
+					//move out the add panel
+					$('.addPanel-container').animate({
+						'right' : 0
+					});
+
+					$('.addPanel-container').animate({
+						'right' : 0
+					});
+
+				}
+
 				$('.eventDetail-container').hide();
 				$('.eventEdit-container').hide();
 				$('.addPanel-container').show();
 				calendar.fullCalendar('unselect');
 			},
 			editable : true,
-			events : events,
+			events : calendarData,
 			eventClick : function(calEvent, jsEvent, view) {
+				// TODO
+				// EMPTY EVERYTHING
 				// TODO
 				// NEED TO FORMAT THE EVENT OBJECTS TO MATCH THE SCHEMA IN ORDER TO DISPLAY THEM PROPERT
 				var id = calEvent.id;
@@ -74,6 +116,8 @@ $(document).ready(function() {
 				// $('#eventDetail_reminders_container').empty();
 				// $('#eventEdit_reminders_container').empty();
 				console.log(calEvent.reminder);
+				$('#eventDetail_reminders_container').empty();
+				$('#eventEdit_reminders_container').empty();
 				if (calEvent.reminder != undefined && calEvent.reminder.length != 0) {
 					var reminders = calEvent.reminder;
 					for (var i = 0, j = reminders.length; i < j; i++) {
@@ -113,12 +157,32 @@ $(document).ready(function() {
 				//
 				// $('#taskEdit_note_textarea').html(task.note);
 
+				if ($('.eventDetail-container').css('right') == '0px') {
+					$('.eventDetail-container').animate({
+						'right' : -300
+					});
+					$('body').animate({
+						'right' : 0
+					});
+					// THIS ELSE NEEDS TO BE MOVED INTO SOME BUTTON CLICK FUNCTION
+				} else {
+					$('.eventDetail-container').animate({
+						'right' : 0
+					});
+					$('body').animate({
+						'right' : +300
+					});
+				}
 				$('.eventDetail-container').show();
 				$('.addPanel-container').hide();
 			}
 		});
+	});
+
+	_socketConnection.on('read_events_complete', function(data) {
 
 	});
+
 });
 //hide the detail container when closed
 $(document).on('click', '#eventDetail_editEvent_button', function() {

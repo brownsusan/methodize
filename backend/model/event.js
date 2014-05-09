@@ -50,6 +50,7 @@ var Event = new Schema({
 		'completed' : Boolean
 	}],
 	'note' : String,
+	'modelType' : String
 }, {
 	'collection' : 'event',
 	'versionKey' : false
@@ -66,6 +67,9 @@ Event.pre('save', function(next) {
 Event.plugin(mongoosePostFind, {
 	find : function(results, next) {
 		async.each(results, function(newEvent, nextEvent) {
+
+			newEvent.modelType = 'typeEvent';
+
 			CategoryModel.findOne({
 				'id' : newEvent.category
 			}, function(err, results) {

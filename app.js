@@ -25,7 +25,9 @@ var expressServer = express();
 var httpServer = http.createServer(expressServer);
 //Create a socket server and tell it to use the HTTP server that I just set up.
 //Socket IO is going to expect my http Server in the constructor.
-var socketIOServer = io.listen(httpServer);
+var socketIOServer = io.listen(httpServer, {
+	log : false
+});
 
 var config = require(_backend_root + '/config/config');
 

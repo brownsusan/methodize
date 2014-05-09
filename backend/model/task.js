@@ -58,6 +58,7 @@ var Task = new Schema({
 		'completed' : Boolean
 	}],
 	'note' : String,
+	'modelType' : String
 }, {
 	'collection' : 'task',
 	'versionKey' : false
@@ -73,17 +74,28 @@ Task.pre('save', function(next) {
 
 Task.plugin(mongoosePostFind, {
 	find : function(results, next) {
+
 		async.each(results, function(task, nextTask) {
 			CategoryModel.findOne({
 				'id' : task.category
 			}, function(err, results) {
+
+				task.modelType = 'typeTask';
+
 				if (results != null) {
 					task.categoryObject = {
 						'title' : results.title,
 						'color' : results.color
 					};
 					nextTask();
+				} else {
+					task.categoryObject = {
+						'title' : '',
+						'color' : ''
+					};
+					nextTask();
 				}
+
 			});
 
 		}, function(err) {

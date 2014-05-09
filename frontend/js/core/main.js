@@ -24,10 +24,12 @@ $(document).ready(function() {
 var db = {};
 
 $('nav').click(function() {
+	//CLOSE OTHER PANELS/MOVE OTHER PANELS
+	
 	console.log($('nav').css('left'));
 	if ($('nav').css('left') == '0px') {
 		$('nav').animate({
-			left : -180
+			'left' : -180
 		});
 		$('body').animate({
 			'left' : 0
