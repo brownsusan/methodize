@@ -171,7 +171,7 @@ $(document).on('click', '#taskDetail_editTask_button', function() {
 $(document).on('click', '#taskEdit_updateTask_button', function() {
 
 	var id = $('#taskEdit_id_input').val();
-
+	console.log(id);
 	var reminders = [];
 
 	$('.taskEdit-container .reminder').each(function() {

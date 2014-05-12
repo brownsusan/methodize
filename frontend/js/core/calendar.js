@@ -156,7 +156,8 @@ $(document).ready(function() {
 				// }
 				//
 				// $('#taskEdit_note_textarea').html(task.note);
-
+				// TODO
+				// Make this happen for task details too
 				if ($('.eventDetail-container').css('right') == '0px') {
 					$('.eventDetail-container').animate({
 						'right' : -300
@@ -164,7 +165,7 @@ $(document).ready(function() {
 					$('body').animate({
 						'right' : 0
 					});
-					// THIS ELSE NEEDS TO BE MOVED INTO SOME BUTTON CLICK FUNCTION
+					// THIS ELSE NEEDS TO BE MOVED INTO SOME CLOSE BUTTON CLICK FUNCTION
 				} else {
 					$('.eventDetail-container').animate({
 						'right' : 0
@@ -178,11 +179,6 @@ $(document).ready(function() {
 			}
 		});
 	});
-
-	_socketConnection.on('read_events_complete', function(data) {
-
-	});
-
 });
 //hide the detail container when closed
 $(document).on('click', '#eventDetail_editEvent_button', function() {
@@ -197,8 +193,8 @@ $(document).on('click', '#eventEdit_updateEvent_button', function() {
 		'id' : id,
 		'title' : title
 	});
-	// $('.eventDetail-container').hide();
-	// $('.eventEdit-container').show();
+	$('.eventDetail-container').hide();
+	$('.eventEdit-container').show();
 });
 
 $(document).on('click', '#eventDetail_deleteEvent_button', function() {
@@ -209,4 +205,3 @@ $(document).on('click', '#eventDetail_deleteEvent_button', function() {
 	// $('.eventDetail-container').hide();
 	// $('.eventEdit-container').show();
 });
-//delete in modal
