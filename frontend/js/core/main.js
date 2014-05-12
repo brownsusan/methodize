@@ -41,6 +41,7 @@ $('nav').click(function() {
 		$('body').animate({
 			'left' : +180
 		});
+		//CLOSE DETAIL SHIT
 	}
 });
 

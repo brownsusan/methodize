@@ -83,7 +83,7 @@ $(document).ready(function() {
 						'right' : 0
 					});
 
-					$('.addPanel-container').animate({
+					$('.body').animate({
 						'right' : 0
 					});
 
@@ -94,7 +94,7 @@ $(document).ready(function() {
 				$('.addPanel-container').show();
 				calendar.fullCalendar('unselect');
 			},
-			editable : true,
+			editable : false,
 			events : calendarData,
 			eventClick : function(calEvent, jsEvent, view) {
 				// TODO
