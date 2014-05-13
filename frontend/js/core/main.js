@@ -68,10 +68,6 @@ $('#nav_container').click(function(event) {
 	return false;
 });
 
-$('.nav-account-link').click(function() {
-	$('#account_container').slideToggle('slow');
-});
-
 $(document).on('click', '.category', function() {
 
 	var parentCategoryId = $(this).find('.category-id').val();
@@ -223,4 +219,25 @@ $(document).on('keypress', '.addSubtask_input', function(event) {
 
 		$(this).next('.subtasks').append(subtask);
 	}
+});
+
+$('.nav-account-link').click(function() {
+	$('#account_container').slideToggle();
+}).children('#account_container').click(function(e) {
+	return false;
+});
+
+$('#account_edit_button').click(function() {
+	$('#account_info_display').hide();
+	$('#account_info_edit').show();
+});
+
+$('#account_submit_button').click(function() {
+	// var phone = ;
+	// var email = ;
+	// var password = ;
+	// var confirmPassword = ;
+	//emit an update account event
+	$('#account_info_display').show();
+	$('#account_info_edit').hide();
 });

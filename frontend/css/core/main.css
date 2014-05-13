@@ -358,12 +358,11 @@ header h1 {
  ┴ ┴└─┘└─┘└─┘└─┘┘└┘ ┴   ┴  ┴ ┴└─┘└─┘
  =====================================
  */
-
 #account_container {
 	display: none;
-	height: 500px;
 	width: 200px;
 	margin: 0 auto;
+	clear: both;
 }
 
 #account_info_edit {
