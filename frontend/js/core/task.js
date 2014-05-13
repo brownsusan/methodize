@@ -106,7 +106,8 @@ $(document).on('click', '.task-item', function(event) {
 		};
 	}
 	$('#taskDetail_note_textarea').html(task.note);
-
+	$('.task-tasks').removeClass('col-md-9');
+	$('.task-tasks').addClass('col-md-6');
 	$('.taskDetail-container').show();
 	$('.taskEdit-container').hide();
 
