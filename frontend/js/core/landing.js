@@ -1,7 +1,7 @@
 //Create a 'complete' listener for the sign in
 _socketConnection.on('signin_user_complete', function(data) {
 	if (!data.error) {
-		window.location.href = "/calendar/day";
+		window.location.href = "/calendar";
 	}
 
 });
