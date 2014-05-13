@@ -1,6 +1,5 @@
 var taskId;
 
-
 //Create a 'complete' listener for the sign in
 // triggers when the db.tasks updates
 _.observe(db.tasks, function() {
@@ -8,7 +7,7 @@ _.observe(db.tasks, function() {
 	$('.task-completedTask-list').empty();
 
 	for (var i = 0, j = db.tasks.length; i < j; i++) {
-		
+
 		if (db.tasks[i].completed === false) {
 			var task = new EJS({
 				url : '/view/ui/task-item.ejs'
@@ -25,7 +24,7 @@ _.observe(db.tasks, function() {
 
 });
 
-_socketConnection.on('update_subtask_complete', function(data){
+_socketConnection.on('update_subtask_complete', function(data) {
 	$('.subtasks').empty();
 	var subtasks = data.task.subtask;
 	if (subtasks === undefined) {
@@ -62,7 +61,7 @@ $('#task_taskAdd_input').keypress(function(event) {
 });
 
 // triggers when clicking a task item to view it's details
-$(document).on('click', '.task-item', function() {
+$(document).on('click', '.task-item', function(event) {
 	var id = $(this).find('.task-item-id').val();
 	taskId = id;
 
@@ -108,7 +107,7 @@ $(document).on('click', '.task-item', function() {
 	}
 	$('#taskDetail_note_textarea').html(task.note);
 
-	$('.taskDetail-container').toggle();
+	$('.taskDetail-container').show();
 	$('.taskEdit-container').hide();
 
 });

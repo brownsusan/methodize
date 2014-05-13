@@ -88,4 +88,7 @@ _socketConnection.on('delete_task_complete', function(data) {
 	_.removeWhere(db.tasks, {
 		id : data.id
 	});
+	
+	$('.taskDetail-container').hide();
+	$('.taskEdit-container').hide();
 });
