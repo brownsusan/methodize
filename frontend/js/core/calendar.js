@@ -1,11 +1,6 @@
 $(document).ready(function() {
 	_socketConnection.emit('read_events');
 	_socketConnection.emit('read_all_task_event_by_user');
-	// Read events by day
-	// Read events by month
-	//NEED UNDERSCORE REPS OF ALL DATA FOR CALENDAR
-	// var tasks = [];
-	var events = [];
 	// var categories = [];
 
 	_socketConnection.on('read_all_task_event_by_user_complete', function(data) {
@@ -50,9 +45,6 @@ $(document).ready(function() {
 				calendarData.push(newTask);
 			}
 		};
-		console.log(calendarData);
-		// push them into an array
-		// initialize calendar
 		var date = new Date();
 		var d = date.getDate();
 		var m = date.getMonth();
@@ -75,27 +67,14 @@ $(document).ready(function() {
 				$('#addPanel_addEvent_endDate_input').val(end);
 
 				//Open the event detail container when a day is selected
-				$('.eventDetail-container').animate({
-					'right' : -300
-				});
-
-				//move out the add panel
-				$('.addPanel-container').animate({
-					'right' : 0
-				});
-
-				$('body').animate({
-					'right' : +300
-				});
-
+				openAdd();
 				//Here is where I might close the event detail container
 				if ($('.eventDetail-container').css('right') == '-300px') {
-					console.log('event detail is open');
+					//THE DETAIL CONTAINER IS OPEN IN THIS CONDITIONAL
 				}
-
+				// THESE ARE SPECIFIC TO THE SELECT OF FULLCALENDAR
 				$('.eventDetail-container').hide();
 				$('.eventEdit-container').hide();
-				$('.addPanel-container').show();
 				calendar.fullCalendar('unselect');
 			},
 			editable : false,
@@ -117,9 +96,6 @@ $(document).ready(function() {
 				$('#eventDetail_allDay_input').attr("checked", calEvent.allDay);
 				// TODO
 				// show reminders
-				// $('#eventDetail_reminders_container').empty();
-				// $('#eventEdit_reminders_container').empty();
-				console.log(calEvent.reminder);
 				$('#eventDetail_reminders_container').empty();
 				$('#eventEdit_reminders_container').empty();
 				if (calEvent.reminder != undefined && calEvent.reminder.length != 0) {
@@ -165,36 +141,16 @@ $(document).ready(function() {
 
 				//If the event detail container is open - close it
 				if ($('.eventDetail-container').css('right') == '0px') {
-
-					$('.eventDetail-container').animate({
-						'right' : -300
-					});
-
-					$('body').animate({
-						'right' : 0
-					}, function() {
-						$('body').css('left', 'auto');
-						$('body').css('right', 'auto');
-					});
-
+					// Call the close function here
+					closeDetails();
 					// THIS ELSE NEEDS TO BE MOVED INTO SOME CLOSE BUTTON CLICK FUNCTION
 					//If the event detail container is closed - open it
 				} else {
-					$('.eventDetail-container').animate({
-						'right' : 0
-					});
-					
-					$('#nav_container').animate({
-						'left' : -180
-					});
-
-					$('body').animate({
-						'left' : +180
-					});
-
+					//Call the open function here
+					openDetails();
 				}
-				$('.eventDetail-container').show();
-				$('.addPanel-container').hide();
+				//This is specific to the event click function
+				// $('.addPanel-container').hide();
 			}
 		});
 	});

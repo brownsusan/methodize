@@ -2,12 +2,12 @@
 EJS.config({
 	cache : false
 });
-
+//TWILIO CONCEPT
 // window.setInterval(function() {checkEventsAndTasks()},3000);
 
-var checkEventsAndTasks = function() {
-	console.log('Checking the events and tasks');
-}
+// var checkEventsAndTasks = function() {
+	// console.log('Checking the events and tasks');
+// }
 
 $(document).ready(function() {
 	$('#tab-container').easytabs();
@@ -24,59 +24,27 @@ $(document).ready(function() {
 var db = {};
 
 $('#nav_container').click(function(event) {
-	console.log(event.currentTarget);
-	//CLOSE OTHER PANELS/MOVE OTHER PANELS
-
-	console.log($('#nav_container').css('left'));
-
 	// if nav is open - close it
 	if ($('#nav_container').css('left') == '0px') {
-		$('#nav_container').animate({
-			'left' : -180
-		});
-
-		$('body').animate({
-			'left' : 0
-		}, function() {
-			$('body').css('left', 'auto');
-			$('body').css('right', 'auto');
-		});
-
+		closeNav();
 	}
-
 	// if nav if closed - open it
 	else {
-
-		$('#nav_container').animate({
-			'left' : 0
-		});
-
-		$('body').animate({
-			'left' : +180
-		});
-
-		// $('.eventDetail-container').animate({
-		// 'right' : -300
-		// });
-		//move out the add panel
-		// $('.addPanel-container').animate({
-		// 'right' : 0
-		// });
-		//CLOSE DETAIL SHIT
+		closeAdd();
+		closeDetails();
+		openNav();
 	}
 }).children().children().children('.nav-account-link').click(function(e) {
 	return false;
 });
 
 $(document).on('click', '.category', function() {
-
 	var parentCategoryId = $(this).find('.category-id').val();
 	$('#parent-category').val(parentCategoryId);
 
 	_socketConnection.emit('read_tasks_by_category', {
 		'categoryId' : parentCategoryId
 	});
-
 });
 
 var reminder = new EJS({
@@ -241,3 +209,93 @@ $('#account_submit_button').click(function() {
 	$('#account_info_display').show();
 	$('#account_info_edit').hide();
 });
+
+// Open Navigation
+var openNav = function() {
+	$('#nav_container').animate({
+		'left' : 0
+	});
+
+	$('body').animate({
+		'left' : +180
+	});
+};
+
+// Close Navigation
+var closeNav = function() {
+	$('#nav_container').animate({
+		'left' : -180
+	});
+
+	$('body').animate({
+		'left' : 0
+	}, function() {
+		$('body').css('left', 'auto');
+		$('body').css('right', 'auto');
+	});
+};
+
+// Open Details
+var openDetails = function() {
+	//Call the close nav function if the nav is open
+	$('.eventDetail-container').show();
+	if ($('#nav_container').css('left') == '0px') {
+		closeNav();
+	}
+	$('body').animate({
+		'left' : -300
+	});
+	$('.eventDetail-container').animate({
+		'right' : 0
+	});
+};
+// Close Details
+var closeDetails = function() {
+	if ($('.eventDetail-container').css('right') == '0px') {
+		//
+		$('.eventDetail-container').animate({
+			'right' : -300
+		});
+
+		$('body').animate({
+			'right' : 0
+		}, function() {
+			$('body').css('left', 'auto');
+			$('body').css('right', 'auto');
+		});
+	}
+};
+// Open Add Panel
+var openAdd = function() {
+	//Needs a conditional to see if the event detail container is open - if it is then close it
+	closeNav();
+	$('.addPanel-container').show();
+	$('.eventDetail-container').animate({
+		'right' : -300
+	});
+
+	//move out the add panel
+	$('.addPanel-container').animate({
+		'right' : 0
+	});
+
+	$('body').animate({
+		'right' : +300
+	});
+};
+// Close Add Panel
+var closeAdd = function() {
+	if ($('.addPanel-container').css('right') == '0px') {
+		$('.addPanel-container').animate({
+			'right' : -300
+		});
+
+		$('body').animate({
+			'right' : 0
+		}, function() {
+			$('body').css('left', 'auto');
+			$('body').css('right', 'auto');
+			$('.addPanel-container').hide();
+		});
+	}
+};
