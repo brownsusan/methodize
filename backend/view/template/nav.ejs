@@ -1,6 +1,6 @@
 <div id="nav_container">
 	<nav>
-			<h1>Methodize.Me</h1>
+		<h1>Methodize.Me</h1>
 		<ul>
 			<li>
 				<a href="#"><img src="/img/fake-prof-pic.png"/> Susan Brown</a>
@@ -11,12 +11,13 @@
 			<li>
 				<a href="/task"><img src="/img/icon/icon_38699.png" />Tasks</a>
 			</li>
-			<li>
-				<a href="/account"><img src="/img/icon/icon_9428.png" />Account</a>
-			</li>
-			<li>
-				<a href="/action/signout">Log Out</a>
+			<li class="nav-account-link">
+				<a><img src="/img/icon/icon_9428.png" />Account</a>
 			</li>
 		</ul>
 	</nav>
+	<% include account.ejs %>
+	<footer>
+		<a href="/action/signout">Log Out</a>
+	</footer>
 </div>

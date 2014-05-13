@@ -23,30 +23,53 @@ $(document).ready(function() {
 
 var db = {};
 
-$('nav').click(function() {
+$('#nav_container').click(function(event) {
+	console.log(event.currentTarget);
 	//CLOSE OTHER PANELS/MOVE OTHER PANELS
-	
-	console.log($('nav').css('left'));
-	if ($('nav').css('left') == '0px') {
-		$('nav').animate({
+
+	console.log($('#nav_container').css('left'));
+
+	// if nav is open - close it
+	if ($('#nav_container').css('left') == '0px') {
+		$('#nav_container').animate({
 			'left' : -180
 		});
+
 		$('body').animate({
 			'left' : 0
+		}, function() {
+			$('body').css('left', 'auto');
+			$('body').css('right', 'auto');
 		});
-	} else {
-		$('nav').animate({
-			left : 0
+
+	}
+
+	// if nav if closed - open it
+	else {
+
+		$('#nav_container').animate({
+			'left' : 0
 		});
+
 		$('body').animate({
 			'left' : +180
 		});
+
+		// $('.eventDetail-container').animate({
+		// 'right' : -300
+		// });
+		//move out the add panel
+		// $('.addPanel-container').animate({
+		// 'right' : 0
+		// });
 		//CLOSE DETAIL SHIT
 	}
+}).children().children().children('.nav-account-link').click(function(e) {
+	return false;
 });
 
-$('#test-add').click(function() {
-	$('.addPanel-container').toggle();
+$('.nav-account-link').click(function() {
+	$('#account_container').slideToggle('slow');
 });
 
 $(document).on('click', '.category', function() {

@@ -74,19 +74,23 @@ $(document).ready(function() {
 				$('#addPanel_addEvent_startDate_input').val(start);
 				$('#addPanel_addEvent_endDate_input').val(end);
 
-				if ($('.eventDetail-container').css('right') == '0px') {
-					$('.eventDetail-container').animate({
-						'right' : -300
-					});
-					//move out the add panel
-					$('.addPanel-container').animate({
-						'right' : 0
-					});
+				//Open the event detail container when a day is selected
+				$('.eventDetail-container').animate({
+					'right' : -300
+				});
 
-					$('.body').animate({
-						'right' : 0
-					});
+				//move out the add panel
+				$('.addPanel-container').animate({
+					'right' : 0
+				});
 
+				$('body').animate({
+					'right' : +300
+				});
+
+				//Here is where I might close the event detail container
+				if ($('.eventDetail-container').css('right') == '-300px') {
+					console.log('event detail is open');
 				}
 
 				$('.eventDetail-container').hide();
@@ -158,21 +162,36 @@ $(document).ready(function() {
 				// $('#taskEdit_note_textarea').html(task.note);
 				// TODO
 				// Make this happen for task details too
+
+				//If the event detail container is open - close it
 				if ($('.eventDetail-container').css('right') == '0px') {
+
 					$('.eventDetail-container').animate({
 						'right' : -300
 					});
+
 					$('body').animate({
 						'right' : 0
+					}, function() {
+						$('body').css('left', 'auto');
+						$('body').css('right', 'auto');
 					});
+
 					// THIS ELSE NEEDS TO BE MOVED INTO SOME CLOSE BUTTON CLICK FUNCTION
+					//If the event detail container is closed - open it
 				} else {
 					$('.eventDetail-container').animate({
 						'right' : 0
 					});
-					$('body').animate({
-						'right' : +300
+					
+					$('#nav_container').animate({
+						'left' : -180
 					});
+
+					$('body').animate({
+						'left' : +180
+					});
+
 				}
 				$('.eventDetail-container').show();
 				$('.addPanel-container').hide();
