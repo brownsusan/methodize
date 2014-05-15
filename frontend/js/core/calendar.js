@@ -70,11 +70,11 @@ $(document).ready(function() {
 				//Open the event detail container when a day is selected
 				openAdd();
 				//Here is where I might close the event detail container
-				if ($('.eventDetail-container').css('right') == '-300px') {
+				if ($('.eventDetailEdit-container').css('right') == '-300px') {
 					//THE DETAIL CONTAINER IS OPEN IN THIS CONDITIONAL
 				}
 				// THESE ARE SPECIFIC TO THE SELECT OF FULLCALENDAR
-				$('.eventDetail-container').hide();
+				$('.eventDetailEdit-container').hide();
 				$('.eventEdit-container').hide();
 				calendar.fullCalendar('unselect');
 			},
@@ -128,33 +128,29 @@ $(document).ready(function() {
 					}
 				}
 				$('#eventDetail_category').html(calEvent.category);
-				_socketConnection.on('read_categories_complete', function() {
-					// $('#taskEdit_category_select').empty();
-					// var categories = db.categories;
-					// for (var i = 0, j = categories.length; i < j; i++) {
-					// var category = '<option value="' + categories[i].id + '">' + categories[i].title + '</option>';
-					// $('#taskEdit_category_select').append(category);
-					// }
-					//
-					// $('#taskEdit_important_input').attr('checked', task.important);
-					//
-					// // show subtasks
-					// $('.subtasks').empty();
-					// var subtasks = task.subtask;
-					// for (var i = 0, j = subtasks.length; i < j; i++) {
-					// var subtask = new EJS({
-					// url : '/view/ui/subtask.ejs'
-					// }).render(subtasks[i]);
-					// $('.task-edit .subtasks').append(subtask);
-					// }
-				});
+				// $('#taskEdit_category_select').empty();
+				// for (var i = 0, j = categories.length; i < j; i++) {
+				// var category = '<option value="' + categories[i].id + '">' + categories[i].title + '</option>';
+				// $('#taskEdit_category_select').append(category);
+				// }
+				//
+				// $('#taskEdit_important_input').attr('checked', task.important);
+				//
+				// // show subtasks
+				// $('.subtasks').empty();
+				// var subtasks = task.subtask;
+				// for (var i = 0, j = subtasks.length; i < j; i++) {
+				// var subtask = new EJS({
+				// url : '/view/ui/subtask.ejs'
+				// }).render(subtasks[i]);
+				// $('.task-edit .subtasks').append(subtask);
+				// }
 				// show categories
 				$('#taskEdit_category_select').empty();
-				var categories = db.categories;
-				for (var i = 0, j = categories.length; i < j; i++) {
-					var category = '<option value="' + categories[i].id + '">' + categories[i].title + '</option>';
-					$('#taskEdit_category_select').append(category);
-				}
+				// for (var i = 0, j = categories.length; i < j; i++) {
+					// var category = '<option value="' + categories[i].id + '">' + categories[i].title + '</option>';
+					// $('#taskEdit_category_select').append(category);
+				// }
 
 				$('#taskEdit_important_input').attr('checked', calEvent.important);
 				// TODO
@@ -167,14 +163,14 @@ $(document).ready(function() {
 				// }).render(subtasks[i]);
 				// $('.task-edit .subtasks').append(subtask);
 				// }
-				
+
 				$('#eventDetail_note_textarea').html(calEvent.note);
 				$('#eventEdit_note_textarea').html(calEvent.note);
 				// TODO
 				// Make this happen for task details too
 
 				//If the event detail container is open - close it
-				if ($('.eventDetail-container').css('right') == '0px') {
+				if ($('.eventDetailEdit-container').css('right') == '0px') {
 					// Call the close function here
 					closeDetails();
 					//TODO
@@ -203,8 +199,8 @@ $(document).on('click', '#eventEdit_updateEvent_button', function() {
 		'id' : id,
 		'title' : title
 	});
-	$('.eventDetail-container').hide();
-	$('.eventEdit-container').show();
+	$('.eventDetail-container').show();
+	$('.eventEdit-container').hide();
 });
 
 $(document).on('click', '#eventDetail_deleteEvent_button', function() {

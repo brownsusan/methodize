@@ -238,6 +238,7 @@ var closeNav = function() {
 // Open Details
 var openDetails = function() {
 	//Call the close nav function if the nav is open
+	$('.eventDetailEdit-container').show();
 	$('.eventDetail-container').show();
 	if ($('#nav_container').css('left') == '0px') {
 		closeNav();
@@ -245,15 +246,15 @@ var openDetails = function() {
 	$('body').animate({
 		'left' : -300
 	});
-	$('.eventDetail-container').animate({
+	$('.eventDetailEdit-container').animate({
 		'right' : 0
 	});
 };
 // Close Details
 var closeDetails = function() {
-	if ($('.eventDetail-container').css('right') == '0px') {
+	if ($('.eventDetailEdit-container').css('right') == '0px') {
 		//
-		$('.eventDetail-container').animate({
+		$('.eventDetailEdit-container').animate({
 			'right' : -300
 		});
 
@@ -270,7 +271,7 @@ var openAdd = function() {
 	//Needs a conditional to see if the event detail container is open - if it is then close it
 	closeNav();
 	$('.addPanel-container').show();
-	$('.eventDetail-container').animate({
+	$('.eventDetailEdit-container').animate({
 		'right' : -300
 	});
 
