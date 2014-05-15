@@ -1,6 +1,7 @@
 $(document).ready(function() {
 	_socketConnection.emit('read_events');
 	_socketConnection.emit('read_all_task_event_by_user');
+	_socketConnection.emit('read_categories');
 	// var categories = [];
 
 	_socketConnection.on('read_all_task_event_by_user_complete', function(data) {
@@ -9,7 +10,6 @@ $(document).ready(function() {
 		// format events and tasks by type
 		for (var i = 0, j = data.calendarData.length; i < j; i++) {
 			if (data.calendarData[i].modelType == 'typeEvent') {
-				console.log('Its an event!');
 				var newEvent = {
 					'id' : data.calendarData[i].id,
 					'title' : data.calendarData[i].title,
@@ -22,12 +22,12 @@ $(document).ready(function() {
 					'allDay' : data.calendarData[i].allDay,
 					'reminder' : data.calendarData[i].reminder,
 					'subtasks' : data.calendarData[i].subtasks,
-					'note' : data.calendarData[i].notes
+					'note' : data.calendarData[i].note,
+					'modelType' : data.calendarData[i].modelType
 				}
 				calendarData.push(newEvent);
 			}
 			if (data.calendarData[i].modelType == 'typeTask') {
-				console.log('Its a task!');
 				var newTask = {
 					'id' : data.calendarData[i].id,
 					'title' : data.calendarData[i].title,
@@ -40,7 +40,8 @@ $(document).ready(function() {
 					'allDay' : false,
 					'reminder' : data.calendarData[i].reminder,
 					'subtasks' : data.calendarData[i].subtasks,
-					'note' : data.calendarData[i].notes
+					'note' : data.calendarData[i].note,
+					'modelType' : data.calendarData[i].modelType
 				}
 				calendarData.push(newTask);
 			}
@@ -81,9 +82,19 @@ $(document).ready(function() {
 			events : calendarData,
 			eventClick : function(calEvent, jsEvent, view) {
 				// TODO
-				// EMPTY EVERYTHING
+				// handle events vs task depending on modelType
+				// if(calEvent.modelType === 'typeEvent'){
+				//set fiels for detail and edit
+				// close task details
+				// 					open event details
+				// }
+				// if(calEvent.modelType === 'typeTask'){
+				//set fields for detail and edit
+				//close event details
+				// 					open task details
+				// }
 				// TODO
-				// NEED TO FORMAT THE EVENT OBJECTS TO MATCH THE SCHEMA IN ORDER TO DISPLAY THEM PROPERT
+				// NEED TO FORMAT THE EVENT OBJECTS TO MATCH THE SCHEMA IN ORDER TO DISPLAY THEM PROPERLY
 				var id = calEvent.id;
 				$('#eventDetail_id_input').val(id);
 				$('#eventEdit_id_input').val(id);
@@ -94,6 +105,8 @@ $(document).ready(function() {
 				$('#eventDetail_endDate').html(calEvent.end);
 				$('#eventEdit_endDate_input').val(calEvent.end);
 				$('#eventDetail_allDay_input').attr("checked", calEvent.allDay);
+				// TODO
+				// show note
 				// TODO
 				// show reminders
 				$('#eventDetail_reminders_container').empty();
@@ -115,27 +128,48 @@ $(document).ready(function() {
 					}
 				}
 				$('#eventDetail_category').html(calEvent.category);
+				_socketConnection.on('read_categories_complete', function() {
+					// $('#taskEdit_category_select').empty();
+					// var categories = db.categories;
+					// for (var i = 0, j = categories.length; i < j; i++) {
+					// var category = '<option value="' + categories[i].id + '">' + categories[i].title + '</option>';
+					// $('#taskEdit_category_select').append(category);
+					// }
+					//
+					// $('#taskEdit_important_input').attr('checked', task.important);
+					//
+					// // show subtasks
+					// $('.subtasks').empty();
+					// var subtasks = task.subtask;
+					// for (var i = 0, j = subtasks.length; i < j; i++) {
+					// var subtask = new EJS({
+					// url : '/view/ui/subtask.ejs'
+					// }).render(subtasks[i]);
+					// $('.task-edit .subtasks').append(subtask);
+					// }
+				});
 				// show categories
-				// $('#taskEdit_category_select').empty();
-				// var categories = db.categories;
-				// for (var i = 0, j = categories.length; i < j; i++) {
-				// var category = '<option value="' + categories[i].id + '">' + categories[i].title + '</option>';
-				// $('#taskEdit_category_select').append(category);
-				// }
-				//
-				// $('#taskEdit_important_input').attr('checked', task.important);
-				//
-				// // show subtasks
+				$('#taskEdit_category_select').empty();
+				var categories = db.categories;
+				for (var i = 0, j = categories.length; i < j; i++) {
+					var category = '<option value="' + categories[i].id + '">' + categories[i].title + '</option>';
+					$('#taskEdit_category_select').append(category);
+				}
+
+				$('#taskEdit_important_input').attr('checked', calEvent.important);
+				// TODO
+				// show subtasks
 				// $('.subtasks').empty();
-				// var subtasks = task.subtask;
+				// var subtasks = calEvent.subtask;
 				// for (var i = 0, j = subtasks.length; i < j; i++) {
 				// var subtask = new EJS({
 				// url : '/view/ui/subtask.ejs'
 				// }).render(subtasks[i]);
 				// $('.task-edit .subtasks').append(subtask);
 				// }
-				//
-				// $('#taskEdit_note_textarea').html(task.note);
+				
+				$('#eventDetail_note_textarea').html(calEvent.note);
+				$('#eventEdit_note_textarea').html(calEvent.note);
 				// TODO
 				// Make this happen for task details too
 
@@ -143,6 +177,7 @@ $(document).ready(function() {
 				if ($('.eventDetail-container').css('right') == '0px') {
 					// Call the close function here
 					closeDetails();
+					//TODO
 					// THIS ELSE NEEDS TO BE MOVED INTO SOME CLOSE BUTTON CLICK FUNCTION
 					//If the event detail container is closed - open it
 				} else {
