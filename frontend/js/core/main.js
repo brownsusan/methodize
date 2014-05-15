@@ -253,7 +253,7 @@ var openDetails = function() {
 // Close Details
 var closeDetails = function() {
 	if ($('.eventDetailEdit-container').css('right') == '0px') {
-		//
+		//HIDE DETAILS AND EVENTS
 		$('.eventDetailEdit-container').animate({
 			'right' : -300
 		});
@@ -286,6 +286,7 @@ var openAdd = function() {
 };
 // Close Add Panel
 var closeAdd = function() {
+	//HIDE DETAILS AND EVENTS
 	if ($('.addPanel-container').css('right') == '0px') {
 		$('.addPanel-container').animate({
 			'right' : -300

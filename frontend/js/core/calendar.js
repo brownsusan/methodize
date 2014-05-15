@@ -128,29 +128,6 @@ $(document).ready(function() {
 					}
 				}
 				$('#eventDetail_category').html(calEvent.category);
-				// $('#taskEdit_category_select').empty();
-				// for (var i = 0, j = categories.length; i < j; i++) {
-				// var category = '<option value="' + categories[i].id + '">' + categories[i].title + '</option>';
-				// $('#taskEdit_category_select').append(category);
-				// }
-				//
-				// $('#taskEdit_important_input').attr('checked', task.important);
-				//
-				// // show subtasks
-				// $('.subtasks').empty();
-				// var subtasks = task.subtask;
-				// for (var i = 0, j = subtasks.length; i < j; i++) {
-				// var subtask = new EJS({
-				// url : '/view/ui/subtask.ejs'
-				// }).render(subtasks[i]);
-				// $('.task-edit .subtasks').append(subtask);
-				// }
-				// show categories
-				$('#taskEdit_category_select').empty();
-				// for (var i = 0, j = categories.length; i < j; i++) {
-					// var category = '<option value="' + categories[i].id + '">' + categories[i].title + '</option>';
-					// $('#taskEdit_category_select').append(category);
-				// }
 
 				$('#taskEdit_important_input').attr('checked', calEvent.important);
 				// TODO
