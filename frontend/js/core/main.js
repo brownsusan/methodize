@@ -6,7 +6,7 @@ EJS.config({
 // window.setInterval(function() {checkEventsAndTasks()},3000);
 
 // var checkEventsAndTasks = function() {
-	// console.log('Checking the events and tasks');
+// console.log('Checking the events and tasks');
 // }
 
 $(document).ready(function() {
@@ -210,7 +210,13 @@ $('#account_submit_button').click(function() {
 	$('#account_info_edit').hide();
 });
 
-// Open Navigation
+// 	 ####  #####  ###### #    #         #      ####  #       ####   ####  ######
+// 	#    # #    # #      ##   #        #      #    # #      #    # #      #
+// 	#    # #    # #####  # #  #       #       #      #      #    #  ####  #####
+// 	#    # #####  #      #  # #      #        #      #      #    #      # #
+// 	#    # #      #      #   ##     #         #    # #      #    # #    # #
+// 	 ####  #      ###### #    #    #           ####  ######  ####   ####  ######
+
 var openNav = function() {
 	$('#nav_container').animate({
 		'left' : 0
@@ -221,7 +227,6 @@ var openNav = function() {
 	});
 };
 
-// Close Navigation
 var closeNav = function() {
 	$('#nav_container').animate({
 		'left' : -180
@@ -235,26 +240,39 @@ var closeNav = function() {
 	});
 };
 
-// Open Details
-var openDetails = function() {
-	//Call the close nav function if the nav is open
-	$('.eventDetailEdit-container').show();
-	$('.eventDetail-container').show();
+var openDetails = function(calEvent) {
+	if (calEvent.modelType === 'typeTask') {
+		$('.taskDetailEdit-container').show();
+		$('.taskDetail-container').show();
+		$('.taskEdit-container').hide();
+	}
+
+	if (calEvent.modelType === 'typeEvent') {
+		$('.eventDetailEdit-container').show();
+		$('.eventDetail-container').show();
+		$('.eventEdit-container').hide();
+	}
+	//IF the nav is open, call the close nav function
 	if ($('#nav_container').css('left') == '0px') {
 		closeNav();
 	}
+	//Show the detail edit panel
+	$('#detailEdit_container').show();
+	//Move the body
 	$('body').animate({
 		'left' : -300
 	});
-	$('.eventDetailEdit-container').animate({
+	//Move the container
+	$('#detailEdit_container').animate({
 		'right' : 0
 	});
 };
-// Close Details
+
 var closeDetails = function() {
-	if ($('.eventDetailEdit-container').css('right') == '0px') {
+	//If the container is open - close it
+	if ($('#detailEdit_container').css('right') == '0px') {
 		//HIDE DETAILS AND EVENTS
-		$('.eventDetailEdit-container').animate({
+		$('#detailEdit_container').animate({
 			'right' : -300
 		});
 
@@ -263,6 +281,12 @@ var closeDetails = function() {
 		}, function() {
 			$('body').css('left', 'auto');
 			$('body').css('right', 'auto');
+			$('.taskDetailEdit-container').hide();
+			$('.taskDetail-container').hide();
+			$('.taskEdit-container').hide();
+			$('.eventDetailEdit-container').hide();
+			$('.eventDetail-container').hide();
+			$('.eventEdit-container').hide();
 		});
 	}
 };

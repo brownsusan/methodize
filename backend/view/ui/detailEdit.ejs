@@ -1,0 +1,124 @@
+<div id = "detailEdit_container">
+	<div class="eventDetailEdit-container">
+		<div class="eventDetail-container core-hidden col-md-3">
+			<input id="eventDetail_id_input" type="hidden" />
+			<span id="eventDetail_title"></span>
+			<br />
+			<span id="eventDetail_startDate"></span>
+			<br />
+			<span id="eventDetail_endDate"></span>
+			<br />
+			<label>
+				<input id="eventDetail_allDay_input" type="checkbox"/>
+				All Day</label>
+			<br />
+			<span>Reminders</span>
+			<div id="eventDetail_reminders_container"></div>
+			<br />
+			<br />
+			<br />
+			<span id="eventDetail_category">Category</span>
+			<br />
+			<label>
+				<input id="eventDetail_important_input" type="checkbox" />
+				Important</label>
+			<br />
+			<span>Sub Tasks</span>
+			<input id="addSubtask_input" type="text"  placeholder="Add a subtask..." />
+			<ul class="subtasks"></ul>
+			<ul class="completed-subtasks"></ul>
+			<br />
+			<span>Notes</span>
+			<textarea id="eventDetail_note_textarea"></textarea>
+			<br />
+			<button id="eventDetail_editEvent_button">
+				Edit
+			</button>
+			<button id="eventDetail_deleteEvent_button">
+				delete
+			</button>
+		</div>
+
+		<div class="eventEdit-container core-hidden col-md-3">
+			<input id="eventEdit_id_input" type="hidden" />
+			<input id="eventEdit_title_input" type="text" />
+			<input id="eventEdit_startDate_input" class="datetimepicker" type="text" placeholder = "Start Date"/>
+			<input id="eventEdit_endDate_input" class="datetimepicker" type="text" placeholder = "End Date"/>
+			<label>
+				<input id="eventEdit_allDay_input" type="checkbox"/>
+				All Day</label>
+			<span>Remind Me</span>
+			<div id="eventEdit_reminders_container"></div>
+			<button id="eventEdit_addReminder_button">
+				Add
+			</button>
+			<label>Category <select id="eventEdit_category_select" ></select></label>
+			<br />
+			<label>
+				<input id="eventEdit_important_input" type="checkbox"/>
+				Important</label>
+			<span>Sub Tasks</span>
+			<input id="addSubtask_input" type="text"  placeholder="Add a subtask..." />
+			<ul class="subtasks"></ul>
+			<ul class="completed-subtasks"></ul>
+			<span>Notes</span>
+			<textarea id="eventEdit_note_textarea"></textarea>
+			<button id="eventEdit_updateEvent_button">
+				Save
+			</button>
+		</div>
+	</div>
+	<div class="taskDetailEdit-container">
+		<div class="taskDetail-container core-hidden col-md-3">
+			<input id="taskDetail_id_input" type="hidden" />
+			<span id="taskDetail_title"></span>
+			<br />
+			<br />
+			<span>Reminders</span>
+			<div id="taskDetail_reminders_container"></div>
+			<div></div>
+			<button id="taskDetail_addReminder_button">
+				Add
+			</button>
+			<span>Category</span>
+			<br />
+			<label>
+				<input id="taskDetail_important_input" type="checkbox" />
+				Important</label>
+			<span>Sub Tasks</span>
+			<input id="addSubtask_input" type="text"  placeholder="Add a subtask..." />
+			<ul class="subtasks"></ul>
+			<ul class="completed-subtasks"></ul>
+			<span>Notes</span>
+			<textarea id="taskDetail_note_textarea"></textarea>
+			<button id="taskDetail_editTask_button">
+				Edit
+			</button>
+		</div>
+
+		<div class="taskEdit-container core-hidden col-md-3">
+			<input id="taskEdit_id_input" type="hidden" />
+			<input id="taskEdit_title_input" type="text" />
+			<input id="taskEdit_dueDate_input" class="datetimepicker" type="text" placeholder = "Due Date"/>
+			<span>Remind Me</span>
+			<div id="taskEdit_reminders_container"></div>
+			<button id="taskEdit_addReminder_button">
+				Add
+			</button>
+			<label>Category <select id="taskEdit_category_select" ></select></label>
+			<br />
+			<label>
+				<input id="taskEdit_important_input" type="checkbox"/>
+				Important</label>
+			<span>Sub Tasks</span>
+			<input id="addSubtask_input" type="text"  placeholder="Add a subtask..." />
+			<ul class="subtasks"></ul>
+			<ul class="completed-subtasks"></ul>
+			<span>Notes</span>
+			<textarea id="taskEdit_note_textarea"></textarea>
+			<button id="taskEdit_updateTask_button">
+				Save
+			</button>
+		</div>
+	</div>
+</div>
