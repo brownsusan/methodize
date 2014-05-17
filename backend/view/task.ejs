@@ -1,18 +1,20 @@
 <% include template/head.ejs %>
 
-<header></header>
+<header>
+	<span class="task-pageHeading"></span>
+</header>
 <% include template/nav.ejs %>
 
 <div class="content">
 
 	<div id="nav_placeholder"></div>
 
-	<div class="task-categories col-md-3">
+	<div class="task-categories col-md-4">
 		<input id="task_categoryAdd_input" type="text" placeholder="Add a new category..." />
 		<input type="hidden" id="user-default-category" value="<%= userInboxId %>"/>
 		<ul class="task-category-list"></ul>
 	</div>
-	<div class="task-tasks col-md-9">
+	<div class="task-tasks col-md-8">
 		<!-- Open Tasks -->
 		<input type="text" id="parent-category" />
 		<input id="task_taskAdd_input" type="text" placeholder="Add a new task..." />
@@ -26,7 +28,7 @@
 
 	<div class="task-taskDetails col-md-3"></div>
 </div>
-<% include ui/taskDetail.ejs %>
+<% include ui/detailEdit.ejs %>
 <% include template/script.ejs %>
 <script src="/js/core/task.js"></script>
 <% include template/foot.ejs %>

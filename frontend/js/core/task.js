@@ -62,22 +62,26 @@ $('#task_taskAdd_input').keypress(function(event) {
 
 // triggers when clicking a task item to view it's details
 $(document).on('click', '.task-item', function(event) {
+	var calEvent = {
+		'modelType': 'typeTask'
+	}
 	var id = $(this).find('.task-item-id').val();
 	taskId = id;
 
-	var tasks = _(db.tasks).where({
+	var task = _(db.tasks).where({
 		'id' : id
 	});
 
-	var task = tasks[0];
+	var clickedTask = task[0];
 
-	$('#taskDetail_id_input').attr("value", task.id);
-	$('#taskDetail_title').html(task.title);
-	$('#taskDetail_dueDate').html(task.dueDate);
+	$('#taskDetail_id_input').attr("value", clickedTask.id);
+	$('#taskDetail_title').html(clickedTask.title);
+	// $('.task-pageHeading').html(clickedTask.title);
+	$('#taskDetail_dueDate').html(clickedTask.dueDate);
 
 	// show reminders
 	$('#taskDetail_reminders_container').empty();
-	var reminders = task.reminder;
+	var reminders = clickedTask.reminder;
 	if (reminders === undefined) {
 	} else {
 		for (var i = 0, j = reminders.length; i < j; i++) {
@@ -90,11 +94,11 @@ $(document).on('click', '.task-item', function(event) {
 		};
 	}
 
-	$('#taskDetail_important_input').attr("checked", task.important);
+	$('#taskDetail_important_input').attr("checked", clickedTask.important);
 
 	// show subtasks
 	$('.subtasks').empty();
-	var subtasks = task.subtask;
+	var subtasks = clickedTask.subtask;
 	if (subtasks === undefined) {
 	} else {
 		for (var i = 0, j = subtasks.length; i < j; i++) {
@@ -106,11 +110,7 @@ $(document).on('click', '.task-item', function(event) {
 		};
 	}
 	$('#taskDetail_note_textarea').html(task.note);
-	$('.task-tasks').removeClass('col-md-9');
-	$('.task-tasks').addClass('col-md-6');
-	$('.taskDetail-container').show();
-	$('.taskEdit-container').hide();
-
+	openDetails(calEvent);
 });
 
 //When The Edit Button Is Clicked

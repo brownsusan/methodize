@@ -188,7 +188,7 @@ nav li img {
 
 .task-tasks ul li, .task-categories ul li, .subtasks li, .completed-subtasks li {
 	margin: 5px 0;
-	background: rgba(255, 255, 255, 0.2); /* Old browsers */
+	background: #f7f8f9;
 }
 
 .task-tasks ul li, .task-categories ul li, .day-events-allDay ul li {
@@ -289,14 +289,6 @@ ul {
 	display: none;
 }
 
-/*DETAIL DISPLAY*/
-.taskDetail-container {
-	background: white;
-	padding: 10px;
-	/*height: 100%;*/
-
-}
-
 /*
  ==================================================================
  ┌─┐┬ ┬┬  ┬    ┌─┐┌─┐┬  ┌─┐┌┐┌┌┬┐┌─┐┬─┐  ┌─┐┬  ┬┌─┐┬─┐┬─┐┬┌┬┐┌─┐┌─┐
@@ -346,6 +338,10 @@ header h1 {
 	margin-bottom: 10px;
 	display: block;
 	width: 100%;
+}
+
+.category-title-edit{
+	max-width: 80%;
 }
 
 /*

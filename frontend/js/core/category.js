@@ -40,13 +40,16 @@ $('#task_categoryAdd_input').keypress(function(event) {
 });
 
 $(document).on('dblclick', '.category', function(event) {
-	$(this).find('.category-title').hide();
-	$(this).find('.pill-color-rep').hide();
-	$(this).find('.category-title-edit').show();
+	if ($(this).find('.category-id').val() != $('#user-default-category').val()) {
+		$(this).find('.category-title').hide();
+		$(this).find('.category-title-edit').show();
+	}
+	// TODO
+	// alert("You can't edit that bitch");
 });
 
 $(document).on('keypress', '.category-title-edit', (function(event) {
-	if (event.which == 13) {
+	if (event.which == 13 && $(this).closest().find('.category-id').val() != $('#user-default-category').val()) {
 		//Manipulate the data
 		var title = $(this).closest('.category').find('.category-title-edit').val();
 		var id = $(this).closest('.category').find('.category-id').val();
@@ -56,6 +59,8 @@ $(document).on('keypress', '.category-title-edit', (function(event) {
 			'title' : title
 		});
 	}
+	// TODO
+	// alert("You can't edit that bitch");
 }));
 
 $(document).on('click', '.category-delete', function(event) {

@@ -13,6 +13,7 @@ $(document).ready(function() {
 	$('#tab-container').easytabs();
 	$('.datetimepicker').datetimepicker();
 	var defaultCategory = $('#user-default-category').val();
+	$('.task-pageHeading').html('Inbox');
 	_socketConnection.emit('read_tasks_by_category', {
 		'categoryId' : defaultCategory
 	});
@@ -38,10 +39,11 @@ $('#nav_container').click(function(event) {
 	return false;
 });
 
-$(document).on('click', '.category', function() {
+$(document).on('click', '.category', function(event) {
 	var parentCategoryId = $(this).find('.category-id').val();
 	$('#parent-category').val(parentCategoryId);
-
+	console.log(event);
+	$('.task-pageHeading').html($(this).find('.category-title').html());
 	_socketConnection.emit('read_tasks_by_category', {
 		'categoryId' : parentCategoryId
 	});
