@@ -228,16 +228,18 @@ var openNav = function() {
 };
 
 var closeNav = function() {
-	$('#nav_container').animate({
-		'left' : -180
-	});
+	if ($('#nav_container').css('left') == '0px') {
+		$('#nav_container').animate({
+			'left' : -180
+		});
 
-	$('body').animate({
-		'left' : 0
-	}, function() {
-		$('body').css('left', 'auto');
-		$('body').css('right', 'auto');
-	});
+		$('body').animate({
+			'left' : 0
+		}, function() {
+			$('body').css('left', 'auto');
+			$('body').css('right', 'auto');
+		});
+	}
 };
 
 var openDetails = function(calEvent) {
@@ -252,10 +254,11 @@ var openDetails = function(calEvent) {
 		$('.eventDetail-container').show();
 		$('.eventEdit-container').hide();
 	}
-	//IF the nav is open, call the close nav function
-	if ($('#nav_container').css('left') == '0px') {
-		closeNav();
-	}
+	
+	//make sure nav is closed
+	closeNav();
+	closeAdd();
+
 	//Show the detail edit panel
 	$('#detailEdit_container').show();
 	//Move the body
@@ -294,10 +297,11 @@ var closeDetails = function() {
 var openAdd = function() {
 	//Needs a conditional to see if the event detail container is open - if it is then close it
 	closeNav();
+	closeDetails();
 	$('.addPanel-container').show();
-	$('.eventDetailEdit-container').animate({
-		'right' : -300
-	});
+	// $('.eventDetailEdit-container').animate({
+	// 'right' : -300
+	// });
 
 	//move out the add panel
 	$('.addPanel-container').animate({
