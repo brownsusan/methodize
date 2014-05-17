@@ -188,25 +188,19 @@ _socketConnection.on('read_all_task_event_by_user_complete', function(data) {
 				closeDetails();
 				//TODO
 				// THIS ELSE NEEDS TO BE MOVED INTO SOME CLOSE BUTTON CLICK FUNCTION
-				//If the event detail container is closed - open it
 			} else {
 				//Call the open function here
 				openDetails(calEvent);
 			}
-			// TODO
-			// NEED TO FORMAT THE EVENT OBJECTS TO MATCH THE SCHEMA IN ORDER TO DISPLAY THEM PROPERLY
-
-			// TODO
-			// Make this happen for task details too
-			//This is specific to the event click function
-			// $('.addPanel-container').hide();
 		}
 	});
 });
 
 $(document).on('click', '#eventDetail_editEvent_button', function() {
-	$('.eventDetail-container').hide();
-	$('.eventEdit-container').show();
+	$('.eventDetail-container').fadeOut(500, function(){
+		$('.eventEdit-container').fadeIn(500);
+	});
+	
 });
 
 $(document).on('click', '#eventEdit_updateEvent_button', function() {
@@ -216,8 +210,10 @@ $(document).on('click', '#eventEdit_updateEvent_button', function() {
 		'id' : id,
 		'title' : title
 	});
-	$('.eventDetail-container').show();
-	$('.eventEdit-container').hide();
+	
+	$('.eventEdit-container').fadeOut(500, function(){
+		$('.eventDetail-container').fadeIn(500);
+	});
 });
 
 $(document).on('click', '#eventDetail_deleteEvent_button', function() {
@@ -225,6 +221,5 @@ $(document).on('click', '#eventDetail_deleteEvent_button', function() {
 	_socketConnection.emit('delete_event', {
 		'id' : id
 	});
-	// $('.eventDetail-container').hide();
-	// $('.eventEdit-container').show();
+	closeDetails();
 });
