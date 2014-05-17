@@ -46,6 +46,12 @@ var Event = new Schema({
 	'categoryObject' : Object,
 	'important' : Boolean,
 	'subtask' : [{
+		'id' : {
+			'type' : String,
+			'default' : function() {
+				return uuid.v4();
+			}
+		},
 		'title' : String,
 		'completed' : Boolean
 	}],

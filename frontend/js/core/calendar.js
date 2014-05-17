@@ -3,6 +3,17 @@ $(document).ready(function() {
 	_socketConnection.emit('read_all_task_event_by_user');
 });
 
+
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+//
 _socketConnection.on('read_all_task_event_by_user_complete', function(data) {
 	var calendarData = [];
 	// format events and tasks by type
@@ -77,136 +88,7 @@ _socketConnection.on('read_all_task_event_by_user_complete', function(data) {
 		eventClick : function(calEvent, jsEvent, view) {
 			// TODO
 			// handle events vs task depending on modelType
-			var id = calEvent.id;
-			if (calEvent.modelType === 'typeEvent') {
-				$('#eventDetail_id_input').val(id);
-				$('#eventEdit_id_input').val(id);
-				$('#eventDetail_title').html('Title: ' + calEvent.title);
-				$('#eventEdit_title_input').val(calEvent.title);
-				$('#eventDetail_startDate').html('Start Date: ' + calEvent.start);
-				$('#eventEdit_startDate_input').val(calEvent.start);
-				$('#eventDetail_endDate').html('End Date: ' + calEvent.end);
-				$('#eventEdit_endDate_input').val(calEvent.end);
-				console.log(calEvent.allDay, calEvent.important)
-				// TODO
-				// THIS SHIT DOESNT WORK - EVERYTHING IS ALWAYS CHECKED FOE EVENTS AND TASKS ALL DAY AND IMPORTANT
-				if (calEvent.allDay === true) {
-					$('#eventDetail_allDay_input').attr("checked");
-					$('#eventEdit_allDay_input').attr("checked");
-				}
-				if (calEvent.important === true) {
-					$('#eventDetail_important_input').attr('checked', calEvent.important);
-					$('#eventEdit_important_input').attr('checked', calEvent.important);
-				}
-				$('#eventDetail_category').html('Category: ' + calEvent.category);
-				// TODO
-				// $('option').val(calEvent.categoryId).attr('selected="selected"');
-
-				$('#eventDetail_note_textarea').html(calEvent.note);
-				$('#eventEdit_note_textarea').html(calEvent.note);
-				// TODO
-				// show reminders
-				$('#eventDetail_reminders_container').empty();
-				$('#eventEdit_reminders_container').empty();
-				if (calEvent.reminder != undefined && calEvent.reminder.length != 0) {
-					var reminders = calEvent.reminder;
-					//TODO these conditionals are a temporay fix, all of this information is to be required from the user.
-					// need to get info showing by default
-					for (var i = 0, j = reminders.length; i < j; i++) {
-						if (!reminders[i].start) {
-							reminders[i].start = '';
-						}
-						if (!reminders[i].end) {
-							reminders[i].end = '';
-						}
-						if (!reminders[i].frequency) {
-							reminders[i].frequency = '';
-						}
-						if (!reminders[i].via) {
-							reminders[i].via = [];
-						}
-						var reminderDisplay = new EJS({
-							url : '/view/ui/reminder-display.ejs'
-						}).render(reminders[i]);
-
-						var reminder = new EJS({
-							url : '/view/ui/reminder.ejs'
-						}).render(reminders[i]);
-
-						$('#eventDetail_reminders_container').append(reminderDisplay);
-						$('#eventEdit_reminders_container').append(reminder);
-					}
-				}
-				//TODO
-				// Select option of current category should be chosen by default
-				// TODO
-				// show subtasks
-				$('.eventEdit-container').find('.subtasks').empty();
-				$('.eventDetail-container').find('.subtasks').empty();
-				if (calEvent.subtask != undefined && calEvent.subtask.length != 0) {
-					for (var i = 0, j = calEvent.subtasks.length; i < j; i++) {
-						var subtask = new EJS({
-							url : '/view/ui/subtask.ejs'
-						}).render(subtasks[i]);
-						$('.eventEdit-container .subtasks').append(subtask);
-						$('.eventDetail-container .subtasks').append(subtask);
-					}
-				}
-			}
-
-			if (calEvent.modelType === 'typeTask') {
-				//set fields for detail and edit
-				$('#taskDetail_id_input').val(id);
-				$('#taskEdit_id_input').val(id);
-				$('#taskDetail_title').html(calEvent.title);
-				$('#taskEdit_title_input').val(calEvent.title);
-				$('#taskDetail_dueDate').html(calEvent.start);
-				$('#taskEdit_dueDate_input').val(calEvent.start);
-				$('#taskDetail_category').html('Category: ' + calEvent.category);
-				if (calEvent.important === true) {
-					$('#taskDetail_important_input').attr('checked', calEvent.important);
-					$('#taskEdit_important_input').attr('checked', calEvent.important);
-				}
-				$('#taskDetail_note_textarea').html(calEvent.note);
-				$('#taskEdit_note_textarea').html(calEvent.note);
-				// TODO
-				// show reminders
-				$('#taskDetail_reminders_container').empty();
-				$('#taskEdit_reminders_container').empty();
-				if (calEvent.reminder != undefined && calEvent.reminder.length != 0) {
-					for (var i = 0, j = calEvent.reminder.length; i < j; i++) {
-						var reminderDisplay = new EJS({
-							url : '/view/ui/reminder-display.ejs'
-						}).render(calEvent.reminder[i]);
-
-						var reminder = new EJS({
-							url : '/view/ui/reminder.ejs'
-						}).render(calEvent.reminder[i]);
-						// TODO
-						// The reminders are not getting populated with data. If I do this in the template it causes an error when I try ot use the same template for fresh reminders
-						// $('.reminder-startTime-input').val(calEvent.reminder[i].start);
-						$('#taskDetail_reminders_container').append(reminderDisplay);
-						$('#taskEdit_reminders_container').append(reminder);
-					}
-				}
-				//TODO
-				// Select option of current category should be chosen by default
-				//TODO
-				// SHOW SUBTASKS
-				$('.taskEdit-container').find('.subtasks').empty();
-				$('.taskDetail-container').find('.subtasks').empty();
-				console.log(calEvent.subtasks);
-				if (calEvent.subtasks != undefined && calEvent.subtasks.length != 0) {
-					console.log('conditional met');
-					for (var i = 0, j = calEvent.subtasks.length; i < j; i++) {
-						var subtask = new EJS({
-							url : '/view/ui/subtask.ejs'
-						}).render(calEvent.subtasks[i]);
-						$('.taskEdit-container').find('.subtasks').append(subtask);
-						$('.taskDetail-container').find('.subtasks').append(subtask);
-					}
-				}
-			}
+			setFields(calEvent, jsEvent, view);
 			openDetails(calEvent);
 			// setFields(calEvent, jsEvent, view);
 			// // closeDetails();
@@ -230,6 +112,14 @@ $(document).on('click', '#eventDetail_editEvent_button', function() {
 });
 
 $(document).on('click', '#eventEdit_updateEvent_button', function() {
+	var id = $('#eventEdit_id_input').val();
+	console.log('Calendar JS: ' + id);
+	var title = $('#eventEdit_title_input').val();
+	var startDate = $('#eventEdit_startDate_input').val();
+	var endDate = $('#eventEdit_endDate_input').val();
+	var category = $('#eventEdit_category_select').val();
+	var important = $('#eventEdit_important_input').is(":checked");
+
 	var reminders = [];
 	$('.eventEdit-container .reminder').each(function() {
 		var via = [];
@@ -264,12 +154,7 @@ $(document).on('click', '#eventEdit_updateEvent_button', function() {
 		};
 		subtasks.push(subtask);
 	});
-	var id = $('#eventEdit_id_input').val();
-	var title = $('#eventEdit_title_input').val();
-	var startDate = $('#eventEdit_startDate_input').val();
-	var endDate = $('#eventEdit_endDate_input').val();
-	var category = $('#eventEdit_category_select').val();
-	var important = $('#eventEdit_important_input').is(":checked");
+
 	//TODO ALWAYS CHECKED ATTR
 	var allDay = $('#eventEdit_allDay_input').is(":checked");
 	var note = $('#eventEdit_note_textarea').html();

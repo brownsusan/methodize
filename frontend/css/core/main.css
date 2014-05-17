@@ -123,11 +123,11 @@ input[type=text] {
 
 #detailEdit_container, .addPanel-container {
 	display: none;
-	width: 300px;
+	width: 360px;
 	height: 100%;
 	top: 0;
 	position: fixed;
-	right: -300px;
+	right: -360px;
 	color: #999;
 	background: #222;
 	overflow: scroll;
@@ -370,7 +370,7 @@ header h1 {
 	height: 28px;
 	padding: 0 10px;
 	margin: 5px 0;
-	font-size: 10px;
+	font-size: 12px;
 }
 
 button {
@@ -381,4 +381,11 @@ button {
 .fc-button:hover, button:hover{
 	color: white;
 	background: #444;
+}
+
+.eventDetail-startDate-container span, .eventDetail-endDate-container span{
+	display: block;
+	max-width: 50%;
+	height: 50px;
+	float: left;
 }

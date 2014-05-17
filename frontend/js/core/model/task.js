@@ -59,7 +59,11 @@ _socketConnection.on('read_tasks_by_category_complete', function(data) {
 });
 
 _socketConnection.on('update_task_complete', function(data) {
+	console.log('ERROR: ' + data.error);
+	console.log('MESSAGE: ' + data.message);
+	console.log('TASK FRONT END MODEL: ' + data.task);
 	console.log('update_task_complete');
+	console.log(data.error);
 	if (!data.error) {
 	}
 

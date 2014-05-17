@@ -41,7 +41,6 @@ module.exports.setup = function(socketServer, userSocket) {
 	});
 
 	userSocket.on('read_tasks', function(data) {
-
 		if (session.user === undefined) {
 			return;
 		}
@@ -64,7 +63,6 @@ module.exports.setup = function(socketServer, userSocket) {
 				'error' : false,
 				'tasks' : results
 			});
-
 		});
 
 	});
@@ -118,7 +116,7 @@ module.exports.setup = function(socketServer, userSocket) {
 	});
 
 	userSocket.on('update_task', function(data) {
-
+		console.log('TASK LISTENER DATA' + data.id);
 		if (session.user === undefined) {
 			return;
 		}
@@ -129,7 +127,8 @@ module.exports.setup = function(socketServer, userSocket) {
 
 			if (err || !results) {
 				userSocket.emit('update_task_complete', {
-					'error' : true
+					'error' : true,
+					'message' : 'Couldnt find a matching task'
 				});
 			}
 
@@ -156,7 +155,7 @@ module.exports.setup = function(socketServer, userSocket) {
 			if (data.note !== undefined) {
 				task.note = data.note;
 			}
-			if (data.completed !== undefined) {
+			if (data.completed !== undefined && data.completed != null) {
 				task.completed = data.completed;
 			}
 
@@ -165,7 +164,8 @@ module.exports.setup = function(socketServer, userSocket) {
 				if (err || !results) {
 					userSocket.emit('update_task_complete', {
 						// Send error as part of data
-						'error' : true
+						'error' : true,
+						'message' : 'error in the task.save function'
 					});
 					return;
 				}
