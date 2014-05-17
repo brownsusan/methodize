@@ -1,9 +1,7 @@
 $(document).ready(function() {
 	_socketConnection.emit('read_events');
 	_socketConnection.emit('read_all_task_event_by_user');
-	_socketConnection.emit('read_categories');
 });
-// var categories = [];
 
 _socketConnection.on('read_all_task_event_by_user_complete', function(data) {
 	var calendarData = [];
@@ -74,7 +72,7 @@ _socketConnection.on('read_all_task_event_by_user_complete', function(data) {
 			}
 			calendar.fullCalendar('unselect');
 		},
-		editable : false,
+		editable : true,
 		events : calendarData,
 		eventClick : function(calEvent, jsEvent, view) {
 			// TODO
@@ -83,19 +81,27 @@ _socketConnection.on('read_all_task_event_by_user_complete', function(data) {
 			if (calEvent.modelType === 'typeEvent') {
 				$('#eventDetail_id_input').val(id);
 				$('#eventEdit_id_input').val(id);
-				$('#eventDetail_title').html(calEvent.title);
+				$('#eventDetail_title').html('Title: ' + calEvent.title);
 				$('#eventEdit_title_input').val(calEvent.title);
-				$('#eventDetail_startDate').html(calEvent.start);
+				$('#eventDetail_startDate').html('Start Date: ' + calEvent.start);
 				$('#eventEdit_startDate_input').val(calEvent.start);
-				$('#eventDetail_endDate').html(calEvent.end);
+				$('#eventDetail_endDate').html('End Date: ' + calEvent.end);
 				$('#eventEdit_endDate_input').val(calEvent.end);
-				$('#eventDetail_allDay_input').attr("checked", calEvent.allDay);
-				$('#eventEdit_allDay_input').attr("checked", calEvent.allDay);
-				$('#eventDetail_category').html(calEvent.category);
+				console.log(calEvent.allDay, calEvent.important)
+				// TODO
+				// THIS SHIT DOESNT WORK - EVERYTHING IS ALWAYS CHECKED FOE EVENTS AND TASKS ALL DAY AND IMPORTANT
+				if (calEvent.allDay === true) {
+					$('#eventDetail_allDay_input').attr("checked");
+					$('#eventEdit_allDay_input').attr("checked");
+				}
+				if (calEvent.important === true) {
+					$('#eventDetail_important_input').attr('checked', calEvent.important);
+					$('#eventEdit_important_input').attr('checked', calEvent.important);
+				}
+				$('#eventDetail_category').html('Category: ' + calEvent.category);
 				// TODO
 				// $('option').val(calEvent.categoryId).attr('selected="selected"');
-				$('#eventDetail_important_input').attr('checked', calEvent.important);
-				$('#eventEdit_important_input').attr('checked', calEvent.important);
+
 				$('#eventDetail_note_textarea').html(calEvent.note);
 				$('#eventEdit_note_textarea').html(calEvent.note);
 				// TODO
@@ -104,7 +110,21 @@ _socketConnection.on('read_all_task_event_by_user_complete', function(data) {
 				$('#eventEdit_reminders_container').empty();
 				if (calEvent.reminder != undefined && calEvent.reminder.length != 0) {
 					var reminders = calEvent.reminder;
+					//TODO these conditionals are a temporay fix, all of this information is to be required from the user.
+					// need to get info showing by default
 					for (var i = 0, j = reminders.length; i < j; i++) {
+						if (!reminders[i].start) {
+							reminders[i].start = '';
+						}
+						if (!reminders[i].end) {
+							reminders[i].end = '';
+						}
+						if (!reminders[i].frequency) {
+							reminders[i].frequency = '';
+						}
+						if (!reminders[i].via) {
+							reminders[i].via = [];
+						}
 						var reminderDisplay = new EJS({
 							url : '/view/ui/reminder-display.ejs'
 						}).render(reminders[i]);
@@ -142,9 +162,11 @@ _socketConnection.on('read_all_task_event_by_user_complete', function(data) {
 				$('#taskEdit_title_input').val(calEvent.title);
 				$('#taskDetail_dueDate').html(calEvent.start);
 				$('#taskEdit_dueDate_input').val(calEvent.start);
-				$('#taskDetail_category').html(calEvent.category);
-				$('#taskDetail_important_input').attr('checked', calEvent.important);
-				$('#taskEdit_important_input').attr('checked', calEvent.important);
+				$('#taskDetail_category').html('Category: ' + calEvent.category);
+				if (calEvent.important === true) {
+					$('#taskDetail_important_input').attr('checked', calEvent.important);
+					$('#taskEdit_important_input').attr('checked', calEvent.important);
+				}
 				$('#taskDetail_note_textarea').html(calEvent.note);
 				$('#taskEdit_note_textarea').html(calEvent.note);
 				// TODO
@@ -235,7 +257,7 @@ $(document).on('click', '#eventEdit_updateEvent_button', function() {
 	});
 
 	var subtasks = [];
-	$('#addPanel_addTask .subtasks li').each(function() {
+	$('.eventEdit-container .subtasks li').each(function() {
 		var subtask = {
 			title : $(this).find('.subtask-title').html(),
 			completed : $(this).find('.subtask-completed').prop('checked')
@@ -247,8 +269,9 @@ $(document).on('click', '#eventEdit_updateEvent_button', function() {
 	var startDate = $('#eventEdit_startDate_input').val();
 	var endDate = $('#eventEdit_endDate_input').val();
 	var category = $('#eventEdit_category_select').val();
-	var important = $('#eventEdit_important_input').val();
-	var allDay = $('#eventEdit_allDay_input').val();
+	var important = $('#eventEdit_important_input').is(":checked");
+	//TODO ALWAYS CHECKED ATTR
+	var allDay = $('#eventEdit_allDay_input').is(":checked");
 	var note = $('#eventEdit_note_textarea').html();
 
 	_socketConnection.emit('update_event', {

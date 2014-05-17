@@ -362,7 +362,7 @@ $(document).on('click', '#taskEdit_updateTask_button', function() {
 	var id = $('#taskEdit_id_input').val();
 	var dueDate = $('#taskEdit_dueDate_input').val();
 	var category = $('#taskEdit_category_select').val();
-	var important = $('#taskEdit_important_input').val();
+	var important = $('#taskEdit_important_input').is(":checked");
 	var note = $('#taskEdit_note_textarea').html();
 	var reminders = [];
 
