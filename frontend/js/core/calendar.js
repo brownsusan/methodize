@@ -62,18 +62,16 @@ _socketConnection.on('read_all_task_event_by_user_complete', function(data) {
 		selectHelper : true,
 		select : function(start, end, allDay) {
 			//If start and end date are the same prevent default
-			console.log(start, end, allDay);
-			$('#addPanel_addTask_dueDate_input').val(start);
-			$('#addPanel_addEvent_startDate_input').val(start);
-			$('#addPanel_addEvent_endDate_input').val(end);
-
-			//Open the event detail container when a day is selected
-			//If the details is open - close it
-			//If the nav is open - close it
-			openAdd();
-			// THESE ARE SPECIFIC TO THE SELECT OF FULLCALENDAR
-			$('.eventDetailEdit-container').hide();
-			$('.eventEdit-container').hide();
+			if (start.toUTCString() != end.toUTCString()) {
+				$('#addPanel_addTask_dueDate_input').val(start);
+				$('#addPanel_addEvent_startDate_input').val(start);
+				$('#addPanel_addEvent_endDate_input').val(end);
+				openAdd();
+				// THESE ARE SPECIFIC TO THE SELECT OF FULLCALENDAR
+			} 
+			if(start.toUTCString() == end.toUTCString()) {
+				console.log('DONT DO THE OPEN THING');
+			}
 			calendar.fullCalendar('unselect');
 		},
 		editable : false,

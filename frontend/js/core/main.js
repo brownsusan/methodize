@@ -198,8 +198,9 @@ $('.nav-account-link').click(function() {
 });
 
 $('#account_edit_button').click(function() {
-	$('#account_info_display').hide();
-	$('#account_info_edit').show();
+	$('#account_info_display').fadeOut(400, function(){
+		$('#account_info_edit').fadeIn(500);
+	});
 });
 
 $('#account_submit_button').click(function() {
@@ -256,7 +257,7 @@ var openDetails = function(calEvent) {
 		$('.eventDetail-container').show();
 		$('.eventEdit-container').hide();
 	}
-	
+
 	//make sure nav is closed
 	closeNav();
 	closeAdd();
@@ -301,9 +302,6 @@ var openAdd = function() {
 	closeNav();
 	closeDetails();
 	$('.addPanel-container').show();
-	// $('.eventDetailEdit-container').animate({
-	// 'right' : -300
-	// });
 
 	//move out the add panel
 	$('.addPanel-container').animate({
