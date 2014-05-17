@@ -59,17 +59,6 @@ body {
 	overflow: scroll;
 }
 
-button {
-	background: #222222;
-	border: 1px solid #333333;
-	border-radius: 2px;
-	color: #E6E6E6;
-	height: 28px;
-	padding: 0 10px;
-	margin: 5px;
-	font-size: 10px;
-}
-
 h1 {
 	font-size: 16px;
 }
@@ -90,17 +79,21 @@ footer {
 
 input[type=text], input[type=tel], input[type=password] {
 	height: 30px;
-	background: rgba(249, 248, 247, 0.5);
-	border: 1px solid #b3b3b3;
+	background: rgba(255, 255, 255, 0.05);
+	border: 1px solid rgba(255, 255, 255, 0.1);
 	padding: 5px;
 	border-radius: 2px;
+}
+
+input[type=checkbox]{
+	width: auto !important;
 }
 
 input[type=text] {
 	width: 100%;
 }
 
-#nav_container{
+#nav_container {
 	width: 220px;
 	height: 100%;
 	left: -180px;
@@ -112,15 +105,19 @@ input[type=text] {
 	z-index: 12;
 }
 
-#detailEdit_container{
+#detailEdit_container {
 	z-index: 11;
 }
 
-.addPanel-container{
+#detailEdit_container *, .addPanel-container * {
+	width: 100%;
+}
+
+.addPanel-container {
 	z-index: 10;
 }
 
-#calendar{
+#calendar {
 	z-index: 1;
 }
 
@@ -131,7 +128,8 @@ input[type=text] {
 	top: 0;
 	position: fixed;
 	right: -300px;
-	background: #fff;
+	color: #999;
+	background: #222;
 	overflow: scroll;
 }
 
@@ -189,9 +187,8 @@ nav li img {
 }
 
 .task-tasks ul li, .task-categories ul li, .subtasks li, .completed-subtasks li {
-	border: 1px solid #F5F5F5;
 	margin: 5px 0;
-	background: #f7f8f9; /* Old browsers */
+	background: rgba(255, 255, 255, 0.2); /* Old browsers */
 }
 
 .task-tasks ul li, .task-categories ul li, .day-events-allDay ul li {
@@ -200,8 +197,12 @@ nav li img {
 }
 
 .subtasks li, .completed-subtasks li {
-	height: 20px;
-	line-height: 20px;
+	height: 30px;
+	line-height: 30px;
+}
+
+.subtasks li * {
+	width: auto;
 }
 
 .day-completedTasks li, .completed-subtasks li {
@@ -209,7 +210,6 @@ nav li img {
 }
 
 #tab-container {
-	background: #f7f8f9;
 	padding: 10px;
 	line-height: 2em;
 }
@@ -231,7 +231,7 @@ nav li img {
 }
 
 #tab-container .active a {
-	background: #f2efeb;
+	background: #333;
 }
 
 #tab-container ul:first-child {
@@ -364,4 +364,25 @@ header h1 {
 
 #account_info_edit {
 	display: none;
+}
+
+.fc-button, button{	
+	background: #333;
+	box-shadow: none;
+	color: #E6E6E6;
+	text-shadow: none;
+	height: 28px;
+	padding: 0 10px;
+	margin: 5px 0;
+	font-size: 10px;
+}
+
+button {
+	border: none;
+	border-radius: 2px;
+}
+
+.fc-button:hover, button:hover{
+	color: white;
+	background: #444;
 }

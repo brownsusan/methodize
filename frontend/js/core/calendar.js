@@ -93,12 +93,11 @@ _socketConnection.on('read_all_task_event_by_user_complete', function(data) {
 				$('#eventEdit_endDate_input').val(calEvent.end);
 				$('#eventDetail_allDay_input').attr("checked", calEvent.allDay);
 				$('#eventDetail_category').html(calEvent.category);
+				$('option').val(calEvent.categoryId).attr('selected="selected"');
 				$('#eventDetail_important_input').attr('checked', calEvent.important);
 				$('#eventEdit_important_input').attr('checked', calEvent.important);
 				$('#eventDetail_note_textarea').html(calEvent.note);
 				$('#eventEdit_note_textarea').html(calEvent.note);
-				// TODO
-				// show note
 				// TODO
 				// show reminders
 				$('#eventDetail_reminders_container').empty();
