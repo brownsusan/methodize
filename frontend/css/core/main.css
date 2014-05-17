@@ -122,6 +122,7 @@ input[type=text] {
 }
 
 #detailEdit_container, .addPanel-container {
+	padding: 5px 10px;
 	display: none;
 	width: 360px;
 	height: 100%;
@@ -308,6 +309,11 @@ thead {
 	background: #222;
 }
 
+.fc-header-center, .fc-header-left, .fc-header-right{
+	margin: 0;
+	padding-top: 5px !important;
+}
+
 .fc-day-header {
 	border-color: #333;
 	color: #fff;
@@ -389,3 +395,4 @@ button {
 	height: 50px;
 	float: left;
 }
+

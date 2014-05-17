@@ -10,7 +10,7 @@ EJS.config({
 // }
 
 $(document).ready(function() {
-	$('#tab-container').easytabs();
+$('#tab-container').easytabs();
 	$('.datetimepicker').datetimepicker();
 	var defaultCategory = $('#user-default-category').val();
 	$('.task-pageHeading').html('Inbox');
@@ -23,7 +23,6 @@ $(document).ready(function() {
 });
 
 var db = {};
-
 $('#nav_container').click(function(event) {
 	// if nav is open - close it
 	if ($('#nav_container').css('left') == '0px') {
@@ -38,6 +37,7 @@ $('#nav_container').click(function(event) {
 }).children().children().children('.nav-account-link').click(function(e) {
 	return false;
 });
+
 
 $(document).on('click', '.category', function(event) {
 	closeDetails();
@@ -357,117 +357,16 @@ $(document).on('click', '#taskDetail_editTask_button', function() {
 
 });
 
-$(document).on('click', '#taskEdit_updateTask_button', function() {
-	var title = $('#taskEdit_title_input').val();
-	var id = $('#taskEdit_id_input').val();
-	var dueDate = $('#taskEdit_dueDate_input').val();
-	var category = $('#taskEdit_category_select').val();
-	var important = $('#taskEdit_important_input').is(":checked");
-	var note = $('#taskEdit_note_textarea').html();
-	var reminders = [];
-
-	$('.taskEdit-container').find('.reminder').each(function() {
-
-		var via = [];
-
-		if ($(this).find('.via-email-input').is(":checked")) {
-			via.push('email');
-		}
-
-		if ($(this).find('.via-call-input').is(":checked")) {
-			via.push('call');
-		}
-
-		if ($(this).find('.via-sms-input').is(":checked")) {
-			via.push('sms');
-		}
-
-		var reminder = {
-			start : $('.reminder-startTime-input').val(),
-			end : $('.reminder-endTime-input').val(),
-			frequency : $('.reminder-frequency-select').val(),
-			via : via
-		};
-
-		reminders.push(reminder);
-
-	});
-
-	var subtasks = [];
-
-	$('.taskEdit-container').find('.subtasks').find('li').each(function() {
-		var subtask = {
-			title : $(this).find('.subtask-title').html(),
-			completed : $(this).find('.subtask-completed').prop('checked')
-		};
-		subtasks.push(subtask);
-	});
-	
-	// console.log(
-		// 'id' + id + ' ' +
-		// 'title' + title + ' ' +
-		// 'dueDate' + dueDate + ' ' +
-		// 'reminder' + reminders + ' ' +
-		// 'category' + category + ' ' +
-		// 'important' + important + ' ' +
-		// 'subtask' + subtasks + ' ' +
-		// 'note' + note
-	// );
-
-	_socketConnection.emit('update_task', {
-		'id' : id,
-		'title' : title,
-		'dueDate' : dueDate,
-		'reminder' : reminders,
-		'category' : category,
-		'important' : important,
-		'subtask' : subtasks,
-		'note' : note
-	});
-
-	$('.taskEdit-container').fadeOut(500, function() {
-		$('.taskDetail-container').fadeIn(500);
-	});
-});
-
-$(document).on('click', '#taskDetail_deleteTask_button', function() {
-	var id = $('#taskDetail_id_input').val();
-	_socketConnection.emit('delete_task', {
-		'id' : id
-	});
-	closeDetails();
-});
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// ######  ######## ########    ######## #### ######## ##       ########   ######  
+//##    ## ##          ##       ##        ##  ##       ##       ##     ## ##    ## 
+//##       ##          ##       ##        ##  ##       ##       ##     ## ##       
+// ######  ######      ##       ######    ##  ######   ##       ##     ##  ######  
+//      ## ##          ##       ##        ##  ##       ##       ##     ##       ## 
+//##    ## ##          ##       ##        ##  ##       ##       ##     ## ##    ## 
+// ######  ########    ##       ##       #### ######## ######## ########   ######  
 var setFields = function(calEvent, jsEvent, view) {
 	var id = calEvent.id;
 	if (calEvent.modelType === 'typeEvent') {
@@ -606,4 +505,110 @@ var setFields = function(calEvent, jsEvent, view) {
 		}
 	}
 }
+//
+//
+//
+//
+//##     ## ########  ########     ###    ######## ########    ########    ###     ######  ##    ## 
+//##     ## ##     ## ##     ##   ## ##      ##    ##             ##      ## ##   ##    ## ##   ##  
+//##     ## ##     ## ##     ##  ##   ##     ##    ##             ##     ##   ##  ##       ##  ##   
+//##     ## ########  ##     ## ##     ##    ##    ######         ##    ##     ##  ######  #####    
+//##     ## ##        ##     ## #########    ##    ##             ##    #########       ## ##  ##   
+//##     ## ##        ##     ## ##     ##    ##    ##             ##    ##     ## ##    ## ##   ##  
+// #######  ##        ########  ##     ##    ##    ########       ##    ##     ##  ######  ##    ## 
+$(document).on('click', '#taskEdit_updateTask_button', function() {
+	var title = $('#taskEdit_title_input').val();
+	var id = $('#taskEdit_id_input').val();
+	var dueDate = $('#taskEdit_dueDate_input').val();
+	var category = $('#taskEdit_category_select').val();
+	var important = $('#taskEdit_important_input').is(":checked");
+	var note = $('#taskEdit_note_textarea').html();
+	var reminders = [];
+
+	$('.taskEdit-container').find('.reminder').each(function() {
+
+		var via = [];
+
+		if ($(this).find('.via-email-input').is(":checked")) {
+			via.push('email');
+		}
+
+		if ($(this).find('.via-call-input').is(":checked")) {
+			via.push('call');
+		}
+
+		if ($(this).find('.via-sms-input').is(":checked")) {
+			via.push('sms');
+		}
+
+		var reminder = {
+			start : $('.reminder-startTime-input').val(),
+			end : $('.reminder-endTime-input').val(),
+			frequency : $('.reminder-frequency-select').val(),
+			via : via
+		};
+
+		reminders.push(reminder);
+
+	});
+
+	var subtasks = [];
+
+	$('.taskEdit-container').find('.subtasks').find('li').each(function() {
+		var subtask = {
+			title : $(this).find('.subtask-title').html(),
+			completed : $(this).find('.subtask-completed').prop('checked')
+		};
+		subtasks.push(subtask);
+	});
+
+	// console.log(
+	// 'id' + id + ' ' +
+	// 'title' + title + ' ' +
+	// 'dueDate' + dueDate + ' ' +
+	// 'reminder' + reminders + ' ' +
+	// 'category' + category + ' ' +
+	// 'important' + important + ' ' +
+	// 'subtask' + subtasks + ' ' +
+	// 'note' + note
+	// );
+
+	_socketConnection.emit('update_task', {
+		'id' : id,
+		'title' : title,
+		'dueDate' : dueDate,
+		'reminder' : reminders,
+		'category' : category,
+		'important' : important,
+		'subtask' : subtasks,
+		'note' : note
+	});
+
+	$('.taskEdit-container').fadeOut(500, function() {
+		$('.taskDetail-container').fadeIn(500);
+	});
+});
+//
+//
+//
+//
+//########  ######## ##       ######## ######## ########    ########    ###     ######  ##    ## 
+//##     ## ##       ##       ##          ##    ##             ##      ## ##   ##    ## ##   ##  
+//##     ## ##       ##       ##          ##    ##             ##     ##   ##  ##       ##  ##   
+//##     ## ######   ##       ######      ##    ######         ##    ##     ##  ######  #####    
+//##     ## ##       ##       ##          ##    ##             ##    #########       ## ##  ##   
+//##     ## ##       ##       ##          ##    ##             ##    ##     ## ##    ## ##   ##  
+//########  ######## ######## ########    ##    ########       ##    ##     ##  ######  ##    ## 
+$(document).on('click', '#taskDetail_deleteTask_button', function() {
+	var id = $('#taskDetail_id_input').val();
+	_socketConnection.emit('delete_task', {
+		'id' : id
+	});
+	closeDetails();
+});
+
+$('.detailEdit-closeDetailEdit-button').click(function(){
+	closeDetails();
+});
+	
 

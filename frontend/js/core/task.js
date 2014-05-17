@@ -78,11 +78,6 @@ $(document).on('click', '.task-item', function(event) {
 	var note = clickedTask.note;
 	var categoryObject = clickedTask.categoryObject;
 	console.log(clickedTask);
-	// var color = clickedTask.id;
-	// var category = clickedTask.category;
-	// console.log(' title ' + title + ' due ' + dueDate +
-	// 'categoryId' + categoryId + 'important' + important +
-	// ' reminders ' + reminders + ' subtasks ' + subtasks + ' note ' + note);
 	var calEvent = {
 		'id' : clickedTaskId,
 		'title' : title,
