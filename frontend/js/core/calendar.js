@@ -68,8 +68,8 @@ _socketConnection.on('read_all_task_event_by_user_complete', function(data) {
 				$('#addPanel_addEvent_endDate_input').val(end);
 				openAdd();
 				// THESE ARE SPECIFIC TO THE SELECT OF FULLCALENDAR
-			} 
-			if(start.toUTCString() == end.toUTCString()) {
+			}
+			if (start.toUTCString() == end.toUTCString()) {
 				console.log('DONT DO THE OPEN THING');
 			}
 			calendar.fullCalendar('unselect');
@@ -185,22 +185,37 @@ _socketConnection.on('read_all_task_event_by_user_complete', function(data) {
 			//If the event detail container is open - close it
 			if ($('#detailEdit_container').css('right') == '0px') {
 				// Call the close function here
-				closeDetails();
+				// closeDetails();
 				//TODO
 				// THIS ELSE NEEDS TO BE MOVED INTO SOME CLOSE BUTTON CLICK FUNCTION
 			} else {
 				//Call the open function here
+				closeDetails();
 				openDetails(calEvent);
 			}
+		},
+		dayClick : function(date, allDay, jsEvent, view){
+			closeAdd();
+			closeDetails();
+			closeNav();
 		}
 	});
 });
 
+// function foo(){
+// 	bar
+// }
+
+$(document).on('click', 'td', function() {
+	console.log('something happened');
+	// openAdd();
+})
+
 $(document).on('click', '#eventDetail_editEvent_button', function() {
-	$('.eventDetail-container').fadeOut(500, function(){
+	$('.eventDetail-container').fadeOut(500, function() {
 		$('.eventEdit-container').fadeIn(500);
 	});
-	
+
 });
 
 $(document).on('click', '#eventEdit_updateEvent_button', function() {
@@ -210,8 +225,8 @@ $(document).on('click', '#eventEdit_updateEvent_button', function() {
 		'id' : id,
 		'title' : title
 	});
-	
-	$('.eventEdit-container').fadeOut(500, function(){
+
+	$('.eventEdit-container').fadeOut(500, function() {
 		$('.eventDetail-container').fadeIn(500);
 	});
 });
@@ -223,3 +238,33 @@ $(document).on('click', '#eventDetail_deleteEvent_button', function() {
 	});
 	closeDetails();
 });
+
+//START CHANGING THIS SHIT TO TASKS YO
+
+$(document).on('click', '#taskDetail_editTask_button', function() {
+	$('.eventDetail-container').fadeOut(500, function() {
+		$('.eventEdit-container').fadeIn(500);
+	});
+
+});
+
+$(document).on('click', '#eventEdit_updateEvent_button', function() {
+	var id = $('#eventEdit_id_input').val();
+	var title = $('#eventEdit_title_input').val();
+	_socketConnection.emit('update_event', {
+		'id' : id,
+		'title' : title
+	});
+
+	$('.eventEdit-container').fadeOut(500, function() {
+		$('.eventDetail-container').fadeIn(500);
+	});
+});
+
+$(document).on('click', '#eventDetail_deleteEvent_button', function() {
+	var id = $('#eventDetail_id_input').val();
+	_socketConnection.emit('delete_event', {
+		'id' : id
+	});
+	closeDetails();
+}); 
