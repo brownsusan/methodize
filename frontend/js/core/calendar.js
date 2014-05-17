@@ -135,22 +135,22 @@ _socketConnection.on('read_all_task_event_by_user_complete', function(data) {
 
 			if (calEvent.modelType === 'typeTask') {
 				//set fields for detail and edit
-				$('#eventDetail_id_input').val(id);
-				$('#eventEdit_id_input').val(id);
-				$('#eventDetail_title').html(calEvent.title);
-				$('#eventEdit_title_input').val(calEvent.title);
-				$('#eventDetail_startDate').html(calEvent.start);
-				$('#eventEdit_startDate_input').val(calEvent.start);
-				$('#eventDetail_endDate').html(calEvent.end);
-				$('#eventEdit_endDate_input').val(calEvent.end);
-				$('#eventDetail_category').html(calEvent.category);
-				$('#eventDetail_allDay_input').attr("checked", calEvent.allDay);
+				$('#taskDetail_id_input').val(id);
+				$('#taskEdit_id_input').val(id);
+				$('#taskDetail_title').html(calEvent.title);
+				$('#taskEdit_title_input').val(calEvent.title);
+				$('#taskDetail_startDate').html(calEvent.start);
+				$('#taskEdit_startDate_input').val(calEvent.start);
+				$('#taskDetail_endDate').html(calEvent.end);
+				$('#taskEdit_endDate_input').val(calEvent.end);
+				$('#taskDetail_category').html(calEvent.category);
+				$('#taskDetail_allDay_input').attr("checked", calEvent.allDay);
 				// TODO
 				// show note
 				// TODO
 				// show reminders
-				$('#eventDetail_reminders_container').empty();
-				$('#eventEdit_reminders_container').empty();
+				$('#taskDetail_reminders_container').empty();
+				$('#taskEdit_reminders_container').empty();
 				if (calEvent.reminder != undefined && calEvent.reminder.length != 0) {
 					var reminders = calEvent.reminder;
 					for (var i = 0, j = reminders.length; i < j; i++) {
@@ -162,14 +162,14 @@ _socketConnection.on('read_all_task_event_by_user_complete', function(data) {
 							url : '/view/ui/reminder.ejs'
 						}).render(reminders[i]);
 
-						$('#eventDetail_reminders_container').append(reminderDisplay);
-						$('#eventEdit_reminders_container').append(reminder);
+						$('#taskDetail_reminders_container').append(reminderDisplay);
+						$('#taskEdit_reminders_container').append(reminder);
 					}
 				}
 				//TODO
 				// Select option of current category should be chosen by default
-				$('#eventDetail_important_input').attr('checked', calEvent.important);
-				$('#eventEdit_important_input').attr('checked', calEvent.important);
+				$('#taskDetail_important_input').attr('checked', calEvent.important);
+				$('#taskEdit_important_input').attr('checked', calEvent.important);
 				// TODO
 				// show subtasks
 				$('.subtasks').empty();
@@ -181,8 +181,8 @@ _socketConnection.on('read_all_task_event_by_user_complete', function(data) {
 						$('.task-edit .subtasks').append(subtask);
 					}
 				}
-				$('#eventDetail_note_textarea').html(calEvent.note);
-				$('#eventEdit_note_textarea').html(calEvent.note);
+				$('#taskDetail_note_textarea').html(calEvent.note);
+				$('#taskEdit_note_textarea').html(calEvent.note);
 			}
 			//If the event detail container is open - close it
 			if ($('#detailEdit_container').css('right') == '0px') {
