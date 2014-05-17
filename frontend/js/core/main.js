@@ -40,6 +40,7 @@ $('#nav_container').click(function(event) {
 });
 
 $(document).on('click', '.category', function(event) {
+	closeDetails();
 	var parentCategoryId = $(this).find('.category-id').val();
 	$('#parent-category').val(parentCategoryId);
 	console.log(event);
@@ -49,12 +50,32 @@ $(document).on('click', '.category', function(event) {
 	});
 });
 
-var reminder = new EJS({
-	url : '/view/ui/reminder.ejs'
-}).render();
-
 $('#addPanel_addTask_addReminder_button').click(function() {
+	console.log('earth to add panel reminder');
+	var reminder = new EJS({
+		url : '/view/ui/reminder.ejs'
+	}).render();
 	$('#addPanel_addTask_reminders_container').append(reminder);
+	$('.reminder-startTime-input').datetimepicker();
+	$('.reminder-endTime-input').datetimepicker();
+});
+
+$('#taskEdit_addReminder_button').click(function() {
+	console.log('earth to task edit reminder');
+	var reminder = new EJS({
+		url : '/view/ui/reminder.ejs'
+	}).render();
+	$('#taskEdit_reminders_container').append(reminder);
+	$('.reminder-startTime-input').datetimepicker();
+	$('.reminder-endTime-input').datetimepicker();
+});
+
+$('#eventEdit_addReminder_button').click(function() {
+	console.log('earth to event edit reminder');
+	var reminder = new EJS({
+		url : '/view/ui/reminder.ejs'
+	}).render();
+	$('#eventEdit_reminders_container').append(reminder);
 	$('.reminder-startTime-input').datetimepicker();
 	$('.reminder-endTime-input').datetimepicker();
 });
@@ -109,13 +130,6 @@ $('#addPanel_addTask_submit_button').click(function() {
 		'frequency' : frequency,
 		'note' : note
 	});
-});
-
-$('#addPanel_addEvent_addReminder_button').click(function() {
-	console.log('Add a Reminder to an Event');
-	$('#addPanel_addEvent_reminders_container').append(reminder);
-	$('.reminder-startTime-input').datetimepicker();
-	$('.reminder-endTime-input').datetimepicker();
 });
 
 $('#addPanel_addEvent_submit_button').click(function() {
@@ -175,7 +189,7 @@ $('#addPanel_addEvent_submit_button').click(function() {
 
 });
 
-$(document).on('keypress', '.addSubtask_input', function(event) {
+$(document).on('keypress', '.addSubtask-input', function(event) {
 	if (event.which == 13) {
 		var data = {
 			'id' : uuid.v4(),
@@ -198,7 +212,7 @@ $('.nav-account-link').click(function() {
 });
 
 $('#account_edit_button').click(function() {
-	$('#account_info_display').fadeOut(400, function(){
+	$('#account_info_display').fadeOut(400, function() {
 		$('#account_info_edit').fadeIn(500);
 	});
 });
@@ -246,16 +260,22 @@ var closeNav = function() {
 };
 
 var openDetails = function(calEvent) {
+	// TODO
+	// make the fades work
 	if (calEvent.modelType === 'typeTask') {
 		$('.taskDetailEdit-container').show();
 		$('.taskDetail-container').show();
 		$('.taskEdit-container').hide();
+		$('.eventDetailEdit-container').hide();
+		$('.eventDetail-container').hide();
 	}
 
 	if (calEvent.modelType === 'typeEvent') {
 		$('.eventDetailEdit-container').show();
 		$('.eventDetail-container').show();
 		$('.eventEdit-container').hide();
+		$('.taskDetailEdit-container').hide();
+		$('.taskDetail-container').hide();
 	}
 
 	//make sure nav is closed
@@ -274,7 +294,7 @@ var openDetails = function(calEvent) {
 	});
 };
 
-var closeDetails = function() {
+var closeDetails = function(callback) {
 	//If the container is open - close it
 	if ($('#detailEdit_container').css('right') == '0px') {
 		//HIDE DETAILS AND EVENTS
@@ -329,3 +349,81 @@ var closeAdd = function() {
 		});
 	}
 };
+
+$(document).on('click', '#taskDetail_editTask_button', function() {
+	$('.taskDetail-container').fadeOut(500, function() {
+		$('.taskEdit-container').fadeIn(500);
+	});
+
+});
+
+$(document).on('click', '#taskEdit_updateTask_button', function() {
+	var title = $('#taskEdit_title_input').val();
+	var id = $('#taskEdit_id_input').val();
+	var dueDate = $('#taskEdit_dueDate_input').val();
+	var category = $('#taskEdit_category_select').val();
+	var important = $('#taskEdit_important_input').val();
+	var note = $('#taskEdit_note_textarea').html();
+	var reminders = [];
+
+	$('.taskEdit-container .reminder').each(function() {
+
+		var via = [];
+
+		if ($(this).find('.via-email-input').is(":checked")) {
+			via.push('email');
+		}
+
+		if ($(this).find('.via-call-input').is(":checked")) {
+			via.push('call');
+		}
+
+		if ($(this).find('.via-sms-input').is(":checked")) {
+			via.push('sms');
+		}
+
+		var reminder = {
+			startDate : $('.reminder-startTime-input').val(),
+			endDate : $('.reminder-endTime-input').val(),
+			frequency : $('.reminder-frequency-select').val(),
+			via : via
+		};
+
+		reminders.push(reminder);
+
+	});
+
+	var subtasks = [];
+
+	$('#addPanel_addTask .subtasks li').each(function() {
+		var subtask = {
+			title : $(this).find('.subtask-title').html(),
+			completed : $(this).find('.subtask-completed').prop('checked')
+		};
+		subtasks.push(subtask);
+	});
+
+	_socketConnection.emit('update_task', {
+		'id' : id,
+		'title' : title,
+		'dueDate' : dueDate,
+		'reminder' : reminders,
+		'category' : category,
+		'important' : important,
+		'subtask' : subtasks,
+		'note' : note
+	});
+
+	$('.taskEdit-container').fadeOut(500, function() {
+		$('.taskDetail-container').fadeIn(500);
+	});
+});
+
+$(document).on('click', '#taskDetail_deleteTask_button', function() {
+	var id = $('#taskDetail_id_input').val();
+	_socketConnection.emit('delete_task', {
+		'id' : id
+	});
+	closeDetails();
+});
+

@@ -62,6 +62,7 @@ $('#task_taskAdd_input').keypress(function(event) {
 
 // triggers when clicking a task item to view it's details
 $(document).on('click', '.task-item', function(event) {
+	// Here I could construct a calEvent object and use the public functions
 	var calEvent = {
 		'modelType': 'typeTask'
 	}
@@ -76,7 +77,7 @@ $(document).on('click', '.task-item', function(event) {
 
 	$('#taskDetail_id_input').attr("value", clickedTask.id);
 	$('#taskDetail_title').html(clickedTask.title);
-	// $('.task-pageHeading').html(clickedTask.title);
+	$('.task-pageHeading-task').html(' : ' + clickedTask.title);
 	$('#taskDetail_dueDate').html(clickedTask.dueDate);
 
 	// show reminders
@@ -168,69 +169,69 @@ $(document).on('click', '#taskDetail_editTask_button', function() {
 });
 
 //When The Save Button Is Clicked
-$(document).on('click', '#taskEdit_updateTask_button', function() {
-
-	var id = $('#taskEdit_id_input').val();
-	console.log(id);
-	var reminders = [];
-
-	$('.taskEdit-container .reminder').each(function() {
-
-		var via = [];
-
-		if ($(this).find('.via-email-input').is(":checked")) {
-			via.push('email');
-		}
-
-		if ($(this).find('.via-call-input').is(":checked")) {
-			via.push('call');
-		}
-
-		if ($(this).find('.via-sms-input').is(":checked")) {
-			via.push('sms');
-		}
-
-		var reminder = {
-			startDate : $('.reminder-startTime-input').val(),
-			endDate : $('.reminder-endTime-input').val(),
-			frequency : $('.reminder-frequency-select').val(),
-			via : via
-		};
-
-		reminders.push(reminder);
-
-	});
-
-	var subtasks = [];
-
-	$('#addPanel_addTask .subtasks li').each(function() {
-		var subtask = {
-			title : $(this).find('.subtask-title').html(),
-			completed : $(this).find('.subtask-completed').prop('checked')
-		};
-		subtasks.push(subtask);
-	});
-
-	var title = $('#taskEdit_title_input').val();
-	var dueDate = $('#taskEdit_dueDate_input').val();
-	var category = $('#taskEdit_category_select').val();
-	var important = $('#taskEdit_important_input').val();
-	var note = $('#taskEdit_note_textarea').html();
-
-	//Validation
-
-	_socketConnection.emit('update_task', {
-		'id' : id,
-		'title' : title,
-		'dueDate' : dueDate,
-		'reminder' : reminders,
-		'category' : category,
-		'important' : important,
-		'subtask' : subtasks,
-		'note' : note
-	});
-
-});
+// $(document).on('click', '#taskEdit_updateTask_button', function() {
+// 
+	// var id = $('#taskEdit_id_input').val();
+	// console.log(id);
+	// var reminders = [];
+// 
+	// $('.taskEdit-container .reminder').each(function() {
+// 
+		// var via = [];
+// 
+		// if ($(this).find('.via-email-input').is(":checked")) {
+			// via.push('email');
+		// }
+// 
+		// if ($(this).find('.via-call-input').is(":checked")) {
+			// via.push('call');
+		// }
+// 
+		// if ($(this).find('.via-sms-input').is(":checked")) {
+			// via.push('sms');
+		// }
+// 
+		// var reminder = {
+			// startDate : $('.reminder-startTime-input').val(),
+			// endDate : $('.reminder-endTime-input').val(),
+			// frequency : $('.reminder-frequency-select').val(),
+			// via : via
+		// };
+// 
+		// reminders.push(reminder);
+// 
+	// });
+// 
+	// var subtasks = [];
+// 
+	// $('#addPanel_addTask .subtasks li').each(function() {
+		// var subtask = {
+			// title : $(this).find('.subtask-title').html(),
+			// completed : $(this).find('.subtask-completed').prop('checked')
+		// };
+		// subtasks.push(subtask);
+	// });
+// 
+	// var title = $('#taskEdit_title_input').val();
+	// var dueDate = $('#taskEdit_dueDate_input').val();
+	// var category = $('#taskEdit_category_select').val();
+	// var important = $('#taskEdit_important_input').val();
+	// var note = $('#taskEdit_note_textarea').html();
+// 
+	// //Validation
+// 
+	// _socketConnection.emit('update_task', {
+		// 'id' : id,
+		// 'title' : title,
+		// 'dueDate' : dueDate,
+		// 'reminder' : reminders,
+		// 'category' : category,
+		// 'important' : important,
+		// 'subtask' : subtasks,
+		// 'note' : note
+	// });
+// 
+// });
 // When an item is deleted
 $(document).on('click', '.task-item-delete', function(event) {
 	var id = $(this).closest('.task-item').find('.task-item-id').val();
