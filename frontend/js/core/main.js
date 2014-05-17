@@ -43,7 +43,6 @@ $(document).on('click', '.category', function(event) {
 	closeDetails();
 	var parentCategoryId = $(this).find('.category-id').val();
 	$('#parent-category').val(parentCategoryId);
-	console.log(event);
 	$('.task-pageHeading').html($(this).find('.category-title').html());
 	_socketConnection.emit('read_tasks_by_category', {
 		'categoryId' : parentCategoryId
@@ -51,7 +50,6 @@ $(document).on('click', '.category', function(event) {
 });
 
 $('#addPanel_addTask_addReminder_button').click(function() {
-	console.log('earth to add panel reminder');
 	var reminder = new EJS({
 		url : '/view/ui/reminder.ejs'
 	}).render();
@@ -61,7 +59,6 @@ $('#addPanel_addTask_addReminder_button').click(function() {
 });
 
 $('#taskEdit_addReminder_button').click(function() {
-	console.log('earth to task edit reminder');
 	var reminder = new EJS({
 		url : '/view/ui/reminder.ejs'
 	}).render();
@@ -71,7 +68,6 @@ $('#taskEdit_addReminder_button').click(function() {
 });
 
 $('#eventEdit_addReminder_button').click(function() {
-	console.log('earth to event edit reminder');
 	var reminder = new EJS({
 		url : '/view/ui/reminder.ejs'
 	}).render();
@@ -133,7 +129,6 @@ $('#addPanel_addTask_submit_button').click(function() {
 });
 
 $('#addPanel_addEvent_submit_button').click(function() {
-	console.log('Add Event From Panel');
 	var reminders = [];
 	$('#addPanel_addEvent .reminder').each(function() {
 		var via = [];
@@ -383,7 +378,6 @@ var setFields = function(calEvent, jsEvent, view) {
 			$('#eventEdit_endDate_input').val(calEvent.end.toUTCString());
 		}
 
-		console.log(calEvent.allDay, calEvent.important)
 		// TODO
 		// THIS SHIT DOESNT WORK - EVERYTHING IS ALWAYS CHECKED FOE EVENTS AND TASKS ALL DAY AND IMPORTANT
 		if (calEvent.allDay === true) {
@@ -471,7 +465,6 @@ var setFields = function(calEvent, jsEvent, view) {
 		$('#taskEdit_reminders_container').empty();
 		if (calEvent.reminder != undefined && calEvent.reminder.length != 0) {
 			for (var i = 0, j = calEvent.reminder.length; i < j; i++) {
-				// console.log(calEvent.reminder[i].start);
 				var reminderDisplay = new EJS({
 					url : '/view/ui/reminder-display.ejs'
 				}).render(calEvent.reminder[i]);
@@ -492,9 +485,7 @@ var setFields = function(calEvent, jsEvent, view) {
 		// SHOW SUBTASKS
 		$('.taskEdit-container').find('.subtasks').empty();
 		$('.taskDetail-container').find('.subtasks').empty();
-		console.log(calEvent.subtasks);
 		if (calEvent.subtasks != undefined && calEvent.subtasks.length != 0) {
-			console.log('conditional met');
 			for (var i = 0, j = calEvent.subtasks.length; i < j; i++) {
 				var subtask = new EJS({
 					url : '/view/ui/subtask.ejs'

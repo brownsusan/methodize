@@ -116,7 +116,6 @@ module.exports.setup = function(socketServer, userSocket) {
 	});
 
 	userSocket.on('update_task', function(data) {
-		console.log('TASK LISTENER DATA' + data.id);
 		if (session.user === undefined) {
 			return;
 		}

@@ -79,7 +79,6 @@ _socketConnection.on('read_all_task_event_by_user_complete', function(data) {
 				// THESE ARE SPECIFIC TO THE SELECT OF FULLCALENDAR
 			}
 			if (start.toUTCString() == end.toUTCString()) {
-				console.log('DONT DO THE OPEN THING');
 			}
 			calendar.fullCalendar('unselect');
 		},
@@ -113,7 +112,6 @@ $(document).on('click', '#eventDetail_editEvent_button', function() {
 
 $(document).on('click', '#eventEdit_updateEvent_button', function() {
 	var id = $('#eventEdit_id_input').val();
-	console.log('Calendar JS: ' + id);
 	var title = $('#eventEdit_title_input').val();
 	var startDate = $('#eventEdit_startDate_input').val();
 	var endDate = $('#eventEdit_endDate_input').val();

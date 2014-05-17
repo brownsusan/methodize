@@ -77,7 +77,6 @@ $(document).on('click', '.task-item', function(event) {
 	var subtask = clickedTask.subtask;
 	var note = clickedTask.note;
 	var categoryObject = clickedTask.categoryObject;
-	console.log(clickedTask);
 	var calEvent = {
 		'id' : clickedTaskId,
 		'title' : title,

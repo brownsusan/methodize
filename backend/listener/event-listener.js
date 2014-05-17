@@ -22,7 +22,6 @@ module.exports.setup = function(socketServer, userSocket) {
 		newEvent.note = data.note;
 
 		newEvent.save(function(err, results) {
-			console.log(err);
 			if (err || !results) {
 				userSocket.emit('create_event_complete', {
 					// Send error as part of data
