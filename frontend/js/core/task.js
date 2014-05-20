@@ -14,6 +14,7 @@ _.observe(db.tasks, function() {
 			}).render(db.tasks[i]);
 			$('.task-task-list').append(task);
 		}
+
 		if (db.tasks[i].completed === true) {
 			var task = new EJS({
 				url : '/view/ui/task-item.ejs'
@@ -67,7 +68,7 @@ $(document).on('click', '.task-item', function(event) {
 	var task = _(db.tasks).where({
 		'id' : clickedTaskId
 	});
-	
+
 	var clickedTask = task[0];
 	var title = clickedTask.title;
 	var dueDate = clickedTask.dueDate;
@@ -112,7 +113,7 @@ $(document).on('click', 'input[type=checkbox]', function(event) {
 	});
 });
 
-$(document).on('click', '.subtasks li', function(event) {
+$(document).on('dblclick', '.subtasks li', function(event) {
 	$(this).find('.subtask-title').addClass('core-hidden');
 	$(this).find('.subtask-title-edit').removeClass('core-hidden');
 });
@@ -129,3 +130,18 @@ $(document).on('keypress', '.subtask-title-edit', function(event) {
 	}
 });
 
+// TODO
+// Handle Completion of Subtasks
+
+// TODO
+// Update display when a subtask is completed (could also be done with the update subtask function above)
+
+// TODO
+// Delete Subtask
+// Make an event listener on a delete button
+// Get the id of the clicked subtask
+// Emit a delete subtask event
+
+// TODO
+// Listen for delete subtask complete event
+// Update the display

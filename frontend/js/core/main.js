@@ -10,7 +10,7 @@ EJS.config({
 // }
 
 $(document).ready(function() {
-$('#tab-container').easytabs();
+	$('#tab-container').easytabs();
 	$('.datetimepicker').datetimepicker();
 	var defaultCategory = $('#user-default-category').val();
 	$('.task-pageHeading').html('Inbox');
@@ -37,7 +37,6 @@ $('#nav_container').click(function(event) {
 }).children().children().children('.nav-account-link').click(function(e) {
 	return false;
 });
-
 
 $(document).on('click', '.category', function(event) {
 	closeDetails();
@@ -212,12 +211,24 @@ $('#account_edit_button').click(function() {
 	});
 });
 
-$('#account_submit_button').click(function() {
-	// var phone = ;
-	// var email = ;
-	// var password = ;
-	// var confirmPassword = ;
-	//emit an update account event
+$('#account_update_button').click(function() {
+	// TODO
+	// UPDATE ACCOUNT
+	//Selectors
+	var phone = $('.account-update-phone').val();
+	var email = $('.account-update-email').val();
+	var newPassword = $('.account-update-newPass').val();
+	var confirmNewPassword = $('.account-update-confirmNewPass').val();
+	if(newPassword.length != 0 && confirmNewPassword.length != 0 && newPassword === confirmNewPassword){
+		var password = newPassword;
+	}
+	//VALIDATE
+	// emit an update account event
+	_socketConnection.emit('update_user', {
+		phone: phone,
+		email: email,
+		password: password
+	});
 	$('#account_info_display').show();
 	$('#account_info_edit').hide();
 });
@@ -352,16 +363,13 @@ $(document).on('click', '#taskDetail_editTask_button', function() {
 
 });
 
-
-
-
-// ######  ######## ########    ######## #### ######## ##       ########   ######  
-//##    ## ##          ##       ##        ##  ##       ##       ##     ## ##    ## 
-//##       ##          ##       ##        ##  ##       ##       ##     ## ##       
-// ######  ######      ##       ######    ##  ######   ##       ##     ##  ######  
-//      ## ##          ##       ##        ##  ##       ##       ##     ##       ## 
-//##    ## ##          ##       ##        ##  ##       ##       ##     ## ##    ## 
-// ######  ########    ##       ##       #### ######## ######## ########   ######  
+// ######  ######## ########    ######## #### ######## ##       ########   ######
+//##    ## ##          ##       ##        ##  ##       ##       ##     ## ##    ##
+//##       ##          ##       ##        ##  ##       ##       ##     ## ##
+// ######  ######      ##       ######    ##  ######   ##       ##     ##  ######
+//      ## ##          ##       ##        ##  ##       ##       ##     ##       ##
+//##    ## ##          ##       ##        ##  ##       ##       ##     ## ##    ##
+// ######  ########    ##       ##       #### ######## ######## ########   ######
 var setFields = function(calEvent, jsEvent, view) {
 	var id = calEvent.id;
 	if (calEvent.modelType === 'typeEvent') {
@@ -500,13 +508,13 @@ var setFields = function(calEvent, jsEvent, view) {
 //
 //
 //
-//##     ## ########  ########     ###    ######## ########    ########    ###     ######  ##    ## 
-//##     ## ##     ## ##     ##   ## ##      ##    ##             ##      ## ##   ##    ## ##   ##  
-//##     ## ##     ## ##     ##  ##   ##     ##    ##             ##     ##   ##  ##       ##  ##   
-//##     ## ########  ##     ## ##     ##    ##    ######         ##    ##     ##  ######  #####    
-//##     ## ##        ##     ## #########    ##    ##             ##    #########       ## ##  ##   
-//##     ## ##        ##     ## ##     ##    ##    ##             ##    ##     ## ##    ## ##   ##  
-// #######  ##        ########  ##     ##    ##    ########       ##    ##     ##  ######  ##    ## 
+//##     ## ########  ########     ###    ######## ########    ########    ###     ######  ##    ##
+//##     ## ##     ## ##     ##   ## ##      ##    ##             ##      ## ##   ##    ## ##   ##
+//##     ## ##     ## ##     ##  ##   ##     ##    ##             ##     ##   ##  ##       ##  ##
+//##     ## ########  ##     ## ##     ##    ##    ######         ##    ##     ##  ######  #####
+//##     ## ##        ##     ## #########    ##    ##             ##    #########       ## ##  ##
+//##     ## ##        ##     ## ##     ##    ##    ##             ##    ##     ## ##    ## ##   ##
+// #######  ##        ########  ##     ##    ##    ########       ##    ##     ##  ######  ##    ##
 $(document).on('click', '#taskEdit_updateTask_button', function() {
 	var title = $('#taskEdit_title_input').val();
 	var id = $('#taskEdit_id_input').val();
@@ -583,13 +591,13 @@ $(document).on('click', '#taskEdit_updateTask_button', function() {
 //
 //
 //
-//########  ######## ##       ######## ######## ########    ########    ###     ######  ##    ## 
-//##     ## ##       ##       ##          ##    ##             ##      ## ##   ##    ## ##   ##  
-//##     ## ##       ##       ##          ##    ##             ##     ##   ##  ##       ##  ##   
-//##     ## ######   ##       ######      ##    ######         ##    ##     ##  ######  #####    
-//##     ## ##       ##       ##          ##    ##             ##    #########       ## ##  ##   
-//##     ## ##       ##       ##          ##    ##             ##    ##     ## ##    ## ##   ##  
-//########  ######## ######## ########    ##    ########       ##    ##     ##  ######  ##    ## 
+//########  ######## ##       ######## ######## ########    ########    ###     ######  ##    ##
+//##     ## ##       ##       ##          ##    ##             ##      ## ##   ##    ## ##   ##
+//##     ## ##       ##       ##          ##    ##             ##     ##   ##  ##       ##  ##
+//##     ## ######   ##       ######      ##    ######         ##    ##     ##  ######  #####
+//##     ## ##       ##       ##          ##    ##             ##    #########       ## ##  ##
+//##     ## ##       ##       ##          ##    ##             ##    ##     ## ##    ## ##   ##
+//########  ######## ######## ########    ##    ########       ##    ##     ##  ######  ##    ##
 $(document).on('click', '#taskDetail_deleteTask_button', function() {
 	var id = $('#taskDetail_id_input').val();
 	_socketConnection.emit('delete_task', {
@@ -598,8 +606,6 @@ $(document).on('click', '#taskDetail_deleteTask_button', function() {
 	closeDetails();
 });
 
-$('.detailEdit-closeDetailEdit-button').click(function(){
+$('.detailEdit-closeDetailEdit-button').click(function() {
 	closeDetails();
-});
-	
-
+}); 

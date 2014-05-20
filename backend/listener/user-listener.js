@@ -89,4 +89,65 @@ module.exports.setup = function(socketServer, userSocket) {
 
 	});
 
+	userSocket.on('update_user', function(data) {
+		if (data.email !== undefined) {
+			var email = data.email.toLowerCase();
+		}
+		if (data.password !== undefined) {
+			var password = data.password;
+		}
+		if (data.phone !== undefined) {
+			var phone = data.phone;
+		}
+
+		UserModel.findOne({
+			'email' : email
+		}, function(err, results) {
+			// Check for an error
+			if (err || !results) {
+				//Emit an event from the server to the client using the userSocket
+				userSocket.emit('update_user_complete', {
+					// Send error as part of data
+					'error' : true,
+					'message' : 'Issue finding user'
+				});
+				return;
+			}
+
+			var user = results;
+			if (password) {
+				// Hash the password
+				var passwordHash = md5(password + user.salt);
+				user.password = passwordHash
+			}
+			if (phone) {
+				user.phoneNumber = phone;
+			}
+			if (email) {
+				user.email = email;
+			}
+			//Have to call session.save() after changing the session in any way - just how socketio works
+			user.save(function(err, results) {
+
+				if (err || !results) {
+					userSocket.emit('update_user_complete', {
+						// Send error as part of data
+						'error' : true,
+						'message' : 'error in the user.save function'
+					});
+					return;
+				}
+
+				userSocket.emit('update_user_complete', {
+					// Send an error as part of data
+					'error' : false,
+					'user' : results
+				});
+				session.user = user;
+				session.save();
+			});
+
+		});
+	});
+
 };

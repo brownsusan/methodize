@@ -17,8 +17,6 @@ var User = new Schema({
 			return uuid.v4();
 		}
 	},
-	'firstName' : String,
-	'lastName' : String,
 	'email' : {
 		'type' : String,
 		'required' : true,

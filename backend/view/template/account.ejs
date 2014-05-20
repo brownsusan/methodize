@@ -3,22 +3,28 @@
 		<span>Name </span>
 		<span class="account-userId"></span>
 		<br />
-		<span>Email Address </span><span>sbrwn.sb@gmail.com</span>
+		<span>Email Address </span><span class="account-display-email"></span>
 		<br />
-		<span>Phone Number </span><span>123 456 7890</span>
+		<span>Phone Number </span><span class="account-display-phone"></span>
+		<span>Password: </span><span>Click the 'Edit' button to manage your password.</span>
 		<br />
 		<button id="account_edit_button">
 			Edit
 		</button>
 	</div>
 	<div id="account_info_edit">
-		<span>Name </span>
-		<input type="text" value="Susan Brown"/>
 		<span>Email Address </span>
-		<input type="email" value="sbrwn.sb@gmail.com"/>
+		<input type="email" class="account-update-email"/>
 		<span>Phone Number </span>
-		<input type="tel" value="2488803127"/>
-		<button id="account_submit_button">
+		<input type="tel" class="account-update-phone"/>
+		<button id="account_update_changePass_button">Change Password</button>
+		<div id="account_update_changePass">
+			<span>New Password </span>
+			<input type="tel" class="account-update-newPass"/>
+			<span>Confirm New Password </span>
+			<input type="tel" class="account-update-confirmNewPass"/>
+		</div>
+		<button id="account_update_button">
 			Save
 		</button>
 	</div>
