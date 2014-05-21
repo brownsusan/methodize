@@ -59,14 +59,13 @@ _socketConnection.on('read_tasks_by_category_complete', function(data) {
 });
 
 _socketConnection.on('update_task_complete', function(data) {
-	console.log('ERROR: ' + data.error);
-	console.log('MESSAGE: ' + data.message);
-	console.log('TASK FRONT END MODEL: ' + data.task);
-	console.log('update_task_complete');
-	console.log(data.error);
 	if (!data.error) {
 	}
-
+	$('.taskEdit-container').fadeOut(500, function() {
+		setFields(data.task);
+		$('.taskDetail-container').fadeIn(500);
+	});
+	_socketConnection.emit('read_all_task_event_by_user', function(data){});
 	_.updateWhere(db.tasks, {
 		id : data.task.id
 	}, data.task);

@@ -122,6 +122,8 @@ module.exports.setup = function(socketServer, userSocket) {
 					});
 					return;
 				}
+				
+				results.modelType = 'typeEvent';
 
 				userSocket.emit('update_event_complete', {
 					// Send an error as part of data

@@ -168,6 +168,8 @@ module.exports.setup = function(socketServer, userSocket) {
 					});
 					return;
 				}
+				
+				results.modelType = 'typeTask';
 
 				userSocket.emit('update_task_complete', {
 					// Send an error as part of data

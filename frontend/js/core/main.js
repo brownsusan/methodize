@@ -9,6 +9,16 @@ EJS.config({
 // console.log('Checking the events and tasks');
 // }
 
+_socketConnection.on('update_event_complete', function(data) {
+	if (!data.error) {
+	}
+	$('.eventEdit-container').fadeOut(500, function() {
+		setFields(data.updatedEvent);
+		$('.eventDetail-container').fadeIn(500);
+	});
+	_socketConnection.emit('read_all_task_event_by_user', function(data){});
+});
+
 _socketConnection.on('update_user_complete', function(data) {
 	// Fade this in/out
 	$('#account_info_display').show();
@@ -605,11 +615,27 @@ $(document).on('click', '#taskEdit_updateTask_button', function() {
 		'subtask' : subtasks,
 		'note' : note
 	});
+});
 
+_socketConnection.on('update_task_complete', function(data) {
+	console.log('ERROR: ' + data.error);
+	console.log('MESSAGE: ' + data.message);
+	console.log('TASK FRONT END MODEL: ' + data.task);
+	console.log('update_task_complete');
+	console.log(data.error);
+	var task = data.task;
+	task.modelType = 'typeTask';
+	if (!data.error) {
+	}
 	$('.taskEdit-container').fadeOut(500, function() {
+		setFields(task);
 		$('.taskDetail-container').fadeIn(500);
 	});
+	_.updateWhere(db.tasks, {
+		id : data.task.id
+	}, data.task);
 });
+
 //
 //
 //
