@@ -462,13 +462,14 @@ var setFields = function(calEvent, jsEvent, view) {
 		// show subtasks
 		$('.eventEdit-container').find('.subtasks').empty();
 		$('.eventDetail-container').find('.subtasks').empty();
-		if (calEvent.subtask != undefined && calEvent.subtask.length != 0) {
+		console.log(calEvent.subtasks);
+		if (calEvent.subtasks != undefined && calEvent.subtasks.length != 0) {
 			for (var i = 0, j = calEvent.subtasks.length; i < j; i++) {
 				var subtask = new EJS({
 					url : '/view/ui/subtask.ejs'
-				}).render(subtasks[i]);
-				$('.eventEdit-container .subtasks').append(subtask);
-				$('.eventDetail-container .subtasks').append(subtask);
+				}).render(calEvent.subtasks[i]);
+				$('.eventEdit-container').find('.subtasks').append(subtask);
+				$('.eventDetail-container').find('.subtasks').append(subtask);
 			}
 		}
 	}
