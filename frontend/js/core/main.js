@@ -13,19 +13,21 @@ _socketConnection.on('update_event_complete', function(data) {
 	if (!data.error) {
 	}
 	$('.eventEdit-container').fadeOut(500, function() {
+		// TODO
+		//This data needs to be formatted differently?
 		setFields(data.updatedEvent);
 		$('.eventDetail-container').fadeIn(500);
 	});
-	_socketConnection.emit('read_all_task_event_by_user', function(data){});
+	_socketConnection.emit('read_all_task_event_by_user', function(data) {
+	});
 });
 
 _socketConnection.on('update_user_complete', function(data) {
-	// Fade this in/out
-	$('#account_info_display').show();
-	// TODO
-	// Reset fields with jquery selector
-	$('#account_info_edit').hide();
-	// Reset fields with jquery selectors
+	$('#account_info_edit').fadeOut(500, function() {
+		// TODO
+		// Reset fields with jquery selector
+		$('#account_info_display').fadeIn();
+	});
 });
 
 $(document).ready(function() {
@@ -38,7 +40,6 @@ $(document).ready(function() {
 	});
 
 	_socketConnection.emit('read_categories');
-
 });
 
 var db = {};
@@ -241,9 +242,6 @@ $('#account_edit_button').click(function() {
 });
 
 $('#account_update_button').click(function() {
-	// TODO
-	// UPDATE ACCOUNT
-	//Selectors
 	var userData = {};
 	userData.userId = $('#nav_userId').val();
 	userData.phone = $('.account-update-phone').val();
@@ -253,7 +251,7 @@ $('#account_update_button').click(function() {
 	if (newPassword.length != 0 && confirmNewPassword.length != 0 && newPassword === confirmNewPassword) {
 		userData.password = newPassword;
 	}
-	if(newPassword !== confirmNewPassword){
+	if (newPassword !== confirmNewPassword) {
 		alert('Those passwords did not match. Please try again');
 	}
 	if (userData.phone.length == 0 || userData.email.length == 0) {
@@ -392,7 +390,12 @@ $(document).on('click', '#taskDetail_editTask_button', function() {
 	});
 
 });
-
+//
+//
+//
+//
+//
+//
 // ######  ######## ########    ######## #### ######## ##       ########   ######
 //##    ## ##          ##       ##        ##  ##       ##       ##     ## ##    ##
 //##       ##          ##       ##        ##  ##       ##       ##     ## ##
@@ -400,6 +403,8 @@ $(document).on('click', '#taskDetail_editTask_button', function() {
 //      ## ##          ##       ##        ##  ##       ##       ##     ##       ##
 //##    ## ##          ##       ##        ##  ##       ##       ##     ## ##    ##
 // ######  ########    ##       ##       #### ######## ######## ########   ######
+//
+//
 var setFields = function(calEvent, jsEvent, view) {
 	var id = calEvent.id;
 	console.log(calEvent);
@@ -418,7 +423,7 @@ var setFields = function(calEvent, jsEvent, view) {
 		}
 
 		// TODO
-		// THIS SHIT DOESNT WORK - EVERYTHING IS ALWAYS CHECKED FOE EVENTS AND TASKS ALL DAY AND IMPORTANT
+		// THIS SHIT DOESNT WORK - EVERYTHING IS ALWAYS CHECKED FOR EVENTS AND TASKS ALL DAY AND IMPORTANT
 		if (calEvent.allDay === true) {
 			$('#eventDetail_allDay_input').attr("checked");
 			$('#eventEdit_allDay_input').attr("checked");
@@ -429,7 +434,7 @@ var setFields = function(calEvent, jsEvent, view) {
 		}
 		$('#eventDetail_category').html('Category: ' + calEvent.category);
 		// TODO
-		// $('option').val(calEvent.categoryId).attr('selected="selected"');
+		$('#eventEdit_category_select').find($('option').val(calEvent.categoryId)).attr('selected="selected"');
 
 		$('#eventDetail_note_textarea').html(calEvent.note);
 		$('#eventEdit_note_textarea').html(calEvent.note);
@@ -514,7 +519,8 @@ var setFields = function(calEvent, jsEvent, view) {
 					url : '/view/ui/reminder.ejs'
 				}).render(calEvent.reminder[i]);
 				// TODO
-				// The reminders are not getting populated with data. If I do this in the template it causes an error when I try ot use the same template for fresh reminders
+				// The reminders are not getting populated with data. 
+				//If I do this in the template it causes an error when I try ot use the same template for fresh reminders
 				// $('.reminder-startTime-input').val(calEvent.reminder[i].start);
 				$('#taskDetail_reminders_container').append(reminderDisplay);
 				$('#taskEdit_reminders_container').append(reminder);
@@ -549,8 +555,12 @@ var setFields = function(calEvent, jsEvent, view) {
 //##     ## ##        ##     ## ##     ##    ##    ##             ##    ##     ## ##    ## ##   ##
 // #######  ##        ########  ##     ##    ##    ########       ##    ##     ##  ######  ##    ##
 $(document).on('click', '#taskEdit_updateTask_button', function() {
-	var title = $('#taskEdit_title_input').val();
 	var id = $('#taskEdit_id_input').val();
+	var task = _(db.tasks).where({
+		'id' : id
+	});
+	var clickedTask = task[0];
+	var title = $('#taskEdit_title_input').val();
 	var dueDate = $('#taskEdit_dueDate_input').val();
 	var category = $('#taskEdit_category_select').val();
 	var important = $('#taskEdit_important_input').is(":checked");
@@ -588,8 +598,8 @@ $(document).on('click', '#taskEdit_updateTask_button', function() {
 
 	$('.taskEdit-container').find('.subtasks').find('li').each(function() {
 		var subtask = {
-			title : $(this).find('.subtask-title').html(),
-			completed : $(this).find('.subtask-completed').prop('checked')
+			'title' : $(this).find('.subtask-title').html(),
+			'completed' : $(this).find('.subtask-completed').prop('checked')
 		};
 		subtasks.push(subtask);
 	});

@@ -1,20 +1,20 @@
 $(document).ready(function() {
 	_socketConnection.emit('read_events');
 	_socketConnection.emit('read_all_task_event_by_user');
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
 });
 
-
-// 
-// 
-// 
-// 
-// 
-// 
-// 
-// 
-// 
-//
 _socketConnection.on('read_all_task_event_by_user_complete', function(data) {
+	$('#calendar').empty();
 	var calendarData = [];
 	// format events and tasks by type
 	for (var i = 0, j = data.calendarData.length; i < j; i++) {
@@ -67,16 +67,15 @@ _socketConnection.on('read_all_task_event_by_user_complete', function(data) {
 			right : 'month,agendaWeek,agendaDay'
 		},
 		defaultView : 'month',
+		weekMode : 'liquid',
 		selectable : true,
 		selectHelper : true,
 		select : function(start, end, allDay) {
-			//If start and end date are the same prevent default
 			if (start.toUTCString() != end.toUTCString()) {
 				$('#addPanel_addTask_dueDate_input').val(start);
 				$('#addPanel_addEvent_startDate_input').val(start);
 				$('#addPanel_addEvent_endDate_input').val(end);
 				openAdd();
-				// THESE ARE SPECIFIC TO THE SELECT OF FULLCALENDAR
 			}
 			if (start.toUTCString() == end.toUTCString()) {
 			}
@@ -89,19 +88,14 @@ _socketConnection.on('read_all_task_event_by_user_complete', function(data) {
 			// handle events vs task depending on modelType
 			setFields(calEvent, jsEvent, view);
 			openDetails(calEvent);
-			// setFields(calEvent, jsEvent, view);
-			// // closeDetails();
 		},
-		dayClick : function() {
+		dayClick : function(date, allDay, jsEvent, view) {
+			// If anything is open close it
 			closeDetails();
+			// If nothing is open, open the add panel
 		}
 	});
 });
-
-$(document).on('click', 'td', function() {
-	console.log('something happened');
-	// openAdd();
-})
 
 $(document).on('click', '#eventDetail_editEvent_button', function() {
 	$('.eventDetail-container').fadeOut(500, function() {
@@ -169,7 +163,13 @@ $(document).on('click', '#eventEdit_updateEvent_button', function() {
 		'subtask' : subtasks,
 		'note' : note
 	});
+});
 
+_socketConnection.on('update_event_complete', function(data) {
+	if (data.error) {
+		alert('There was an error updating the event');
+		return;
+	}
 	$('.eventEdit-container').fadeOut(500, function() {
 		$('.eventDetail-container').fadeIn(500);
 	});

@@ -78,14 +78,18 @@ $(document).on('click', '.task-item', function(event) {
 	var subtask = clickedTask.subtask;
 	var note = clickedTask.note;
 	var categoryObject = clickedTask.categoryObject;
+
+
 	var calEvent = {
 		'id' : clickedTaskId,
 		'title' : title,
-		'dueDate' : dueDate,
+		'start' : dueDate,
+		'end' : dueDate,
 		'categoryId' : categoryId,
 		'category' : categoryObject.title,
 		'color' : categoryObject.color,
 		'important' : important,
+		'allDay' : true,
 		'reminder' : reminder,
 		'subtasks' : subtask,
 		'note' : note,

@@ -154,9 +154,9 @@ module.exports.setup = function(socketServer, userSocket) {
 			if (data.note !== undefined) {
 				task.note = data.note;
 			}
-			if (data.completed !== undefined && data.completed != null) {
-				task.completed = data.completed;
-			}
+			// if (data.completed !== undefined && data.completed != null) {
+				// task.completed = data.completed;
+			// }
 
 			task.save(function(err, results) {
 
