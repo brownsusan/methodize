@@ -203,12 +203,13 @@ $('#addPanel_addEvent_submit_button').click(function() {
 
 $(document).on('keypress', '.addSubtask-input', function(event) {
 	if (event.which == 13) {
+		console.log('hit enter');
 		var data = {
 			'id' : uuid.v4(),
 			'title' : $(this).val(),
 			'open' : true
 		}
-
+		console.log(data);
 		var subtask = new EJS({
 			url : '/view/ui/subtask.ejs'
 		}).render(data);
@@ -391,6 +392,7 @@ $(document).on('click', '#taskDetail_editTask_button', function() {
 // ######  ########    ##       ##       #### ######## ######## ########   ######
 var setFields = function(calEvent, jsEvent, view) {
 	var id = calEvent.id;
+	console.log(calEvent);
 	if (calEvent.modelType === 'typeEvent') {
 		$('#eventDetail_id_input').val(id);
 		$('#eventEdit_id_input').val(id);
@@ -492,10 +494,11 @@ var setFields = function(calEvent, jsEvent, view) {
 		$('#taskEdit_reminders_container').empty();
 		if (calEvent.reminder != undefined && calEvent.reminder.length != 0) {
 			for (var i = 0, j = calEvent.reminder.length; i < j; i++) {
+				console.log('HEY' + calEvent.reminder[i].start);
 				var reminderDisplay = new EJS({
 					url : '/view/ui/reminder-display.ejs'
 				}).render(calEvent.reminder[i]);
-
+				// $('.reminder-display-start').html(calEvent.reminder[i].start);
 				var reminder = new EJS({
 					url : '/view/ui/reminder.ejs'
 				}).render(calEvent.reminder[i]);
@@ -541,7 +544,6 @@ $(document).on('click', '#taskEdit_updateTask_button', function() {
 	var category = $('#taskEdit_category_select').val();
 	var important = $('#taskEdit_important_input').is(":checked");
 	var note = $('#taskEdit_note_textarea').html();
-	// var completed = $(this).closest().find('').is(:checked);
 	var reminders = [];
 
 	$('.taskEdit-container').find('.reminder').each(function() {
@@ -561,9 +563,9 @@ $(document).on('click', '#taskEdit_updateTask_button', function() {
 		}
 
 		var reminder = {
-			start : $('.reminder-startTime-input').val(),
-			end : $('.reminder-endTime-input').val(),
-			frequency : $('.reminder-frequency-select').val(),
+			start : $(this).find('.reminder-startTime-input').val(),
+			end : $(this).find('.reminder-endTime-input').val(),
+			frequency : $(this).find('.reminder-frequency-select').val(),
 			via : via
 		};
 

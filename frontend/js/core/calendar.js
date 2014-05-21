@@ -135,9 +135,9 @@ $(document).on('click', '#eventEdit_updateEvent_button', function() {
 		}
 
 		var reminder = {
-			startDate : $('.reminder-startTime-input').val(),
-			endDate : $('.reminder-endTime-input').val(),
-			frequency : $('.reminder-frequency-select').val(),
+			start : $(this).find('.reminder-startTime-input').val(),
+			end : $(this).('.reminder-endTime-input').val(),
+			frequency : $(this).('.reminder-frequency-select').val(),
 			via : via
 		};
 
