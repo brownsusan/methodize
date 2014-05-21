@@ -22,7 +22,8 @@ module.exports.setup = function(socketServer, userSocket) {
 				//Emit an event from the server to the client using the userSocket
 				userSocket.emit('signin_user_complete', {
 					// Send error as part of data
-					'error' : true
+					'error' : true,
+					'message' : 'Error finding a user for signin'
 				});
 				return;
 			}
@@ -56,6 +57,9 @@ module.exports.setup = function(socketServer, userSocket) {
 		user.email = data.email;
 		user.password = data.password;
 		user.phoneNumber = data.phone;
+		
+		// TODO
+		// Validation
 
 		user.save(function(err, results) {
 			var user = results;
@@ -90,6 +94,8 @@ module.exports.setup = function(socketServer, userSocket) {
 	});
 
 	userSocket.on('update_user', function(data) {
+		var userId = data.userId;
+		
 		if (data.email !== undefined) {
 			var email = data.email.toLowerCase();
 		}
@@ -101,7 +107,7 @@ module.exports.setup = function(socketServer, userSocket) {
 		}
 
 		UserModel.findOne({
-			'email' : email
+			'id' : userId
 		}, function(err, results) {
 			// Check for an error
 			if (err || !results) {
@@ -109,7 +115,7 @@ module.exports.setup = function(socketServer, userSocket) {
 				userSocket.emit('update_user_complete', {
 					// Send error as part of data
 					'error' : true,
-					'message' : 'Issue finding user'
+					'message' : 'Issue finding user to update'
 				});
 				return;
 			}

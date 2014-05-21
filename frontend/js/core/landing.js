@@ -3,10 +3,23 @@ _socketConnection.on('signin_user_complete', function(data) {
 	if (!data.error) {
 		window.location.href = "/calendar";
 	}
+	if(error){
+		alert('You used the wrong info');
+	}
+});
 
+_socketConnection.on('signup_user_complete', function(data) {
+	if (!data.error) {
+		window.location.href = "/calendar";
+	}
+	if(error){
+		alert('You filled it out wrong');
+	}
+	
 });
 
 $('#landing_login_submit_button').click(function() {
+	console.log('LOGIN SUBMIT CLICKED');
 	//Get the data
 	var email = $('#landing_login_email_input').val();
 	var pass = $('#landing_login_password_input').val();
@@ -15,14 +28,6 @@ $('#landing_login_submit_button').click(function() {
 		'email' : email,
 		'password' : pass
 	});
-});
-
-//Create a 'complete' listener for the sign up
-_socketConnection.on('signup_user_complete', function(data) {
-	if (!data.error) {
-		window.location.href = "/calendar/day";
-	}
-
 });
 
 $('#landing_signUp_submit_button').click(function() {

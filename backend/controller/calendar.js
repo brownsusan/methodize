@@ -1,15 +1,11 @@
 module.exports.route = function(app) {
+	var mongoose = require('mongoose');
+	var UserModel = mongoose.model('User');
 
-	app.get('/calendar/day', function(req, res) {
-		res.render('day');
-	});
-
-	app.get('/calendar/month', function(req, res) {
-		res.render('month');
-	});
-	
 	app.get('/calendar', function(req, res) {
-		res.render('calendar');
+		res.render('calendar', {
+			'user' : req.session.user
+		});
 	});
 
 };

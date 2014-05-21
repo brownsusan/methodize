@@ -10,9 +10,9 @@ module.exports.route = function(app) {
 		}, function(err, results) {
 			var userInboxId = results.id;
 			res.render('task', {
-				'userInboxId' : userInboxId
+				'userInboxId' : userInboxId,
+				'user' : req.session.user
 			});
 		});
 	});
-
 };

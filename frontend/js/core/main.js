@@ -9,6 +9,14 @@ EJS.config({
 // console.log('Checking the events and tasks');
 // }
 
+_socketConnection.on('update_user_complete', function(data) {
+	// Reset fields
+	// Fade this in/out
+	console.log(data.message);
+	$('#account_info_display').show();
+	$('#account_info_edit').hide();
+});
+
 $(document).ready(function() {
 	$('#tab-container').easytabs();
 	$('.datetimepicker').datetimepicker();
@@ -215,22 +223,26 @@ $('#account_update_button').click(function() {
 	// TODO
 	// UPDATE ACCOUNT
 	//Selectors
+	var userId = $('#nav_userId').val();
 	var phone = $('.account-update-phone').val();
 	var email = $('.account-update-email').val();
 	var newPassword = $('.account-update-newPass').val();
 	var confirmNewPassword = $('.account-update-confirmNewPass').val();
-	if(newPassword.length != 0 && confirmNewPassword.length != 0 && newPassword === confirmNewPassword){
+	if (newPassword.length != 0 && confirmNewPassword.length != 0 && newPassword === confirmNewPassword) {
 		var password = newPassword;
 	}
+	if (phone.length == 0 || email.length == 0 || !password) {
+		alert('There was an issue submitting your changes. Please make sure you have entered a phone number, an email address, and a valid password');
+	}
 	//VALIDATE
+	// console.log('PHONE' + phone + 'EMAIL' + email + 'PASS' + password);
 	// emit an update account event
 	_socketConnection.emit('update_user', {
-		phone: phone,
-		email: email,
-		password: password
+		userId : userId,
+		phone : phone,
+		email : email,
+		password : password
 	});
-	$('#account_info_display').show();
-	$('#account_info_edit').hide();
 });
 
 // 	 ####  #####  ###### #    #         #      ####  #       ####   ####  ######
@@ -608,4 +620,4 @@ $(document).on('click', '#taskDetail_deleteTask_button', function() {
 
 $('.detailEdit-closeDetailEdit-button').click(function() {
 	closeDetails();
-}); 
+});
