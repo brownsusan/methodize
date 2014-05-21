@@ -10,11 +10,12 @@ EJS.config({
 // }
 
 _socketConnection.on('update_user_complete', function(data) {
-	// Reset fields
 	// Fade this in/out
-	console.log(data.message);
 	$('#account_info_display').show();
+	// TODO
+	// Reset fields with jquery selector
 	$('#account_info_edit').hide();
+	// Reset fields with jquery selectors
 });
 
 $(document).ready(function() {
@@ -61,6 +62,15 @@ $('#addPanel_addTask_addReminder_button').click(function() {
 		url : '/view/ui/reminder.ejs'
 	}).render();
 	$('#addPanel_addTask_reminders_container').append(reminder);
+	$('.reminder-startTime-input').datetimepicker();
+	$('.reminder-endTime-input').datetimepicker();
+});
+
+$('#addPanel_addEvent_addReminder_button').click(function() {
+	var reminder = new EJS({
+		url : '/view/ui/reminder.ejs'
+	}).render();
+	$('#addPanel_addEvent_reminders_container').append(reminder);
 	$('.reminder-startTime-input').datetimepicker();
 	$('.reminder-endTime-input').datetimepicker();
 });
@@ -223,26 +233,23 @@ $('#account_update_button').click(function() {
 	// TODO
 	// UPDATE ACCOUNT
 	//Selectors
-	var userId = $('#nav_userId').val();
-	var phone = $('.account-update-phone').val();
-	var email = $('.account-update-email').val();
+	var userData = {};
+	userData.userId = $('#nav_userId').val();
+	userData.phone = $('.account-update-phone').val();
+	userData.email = $('.account-update-email').val();
 	var newPassword = $('.account-update-newPass').val();
 	var confirmNewPassword = $('.account-update-confirmNewPass').val();
 	if (newPassword.length != 0 && confirmNewPassword.length != 0 && newPassword === confirmNewPassword) {
-		var password = newPassword;
+		userData.password = newPassword;
 	}
-	if (phone.length == 0 || email.length == 0 || !password) {
-		alert('There was an issue submitting your changes. Please make sure you have entered a phone number, an email address, and a valid password');
+	if(newPassword !== confirmNewPassword){
+		alert('Those passwords did not match. Please try again');
 	}
-	//VALIDATE
-	// console.log('PHONE' + phone + 'EMAIL' + email + 'PASS' + password);
-	// emit an update account event
-	_socketConnection.emit('update_user', {
-		userId : userId,
-		phone : phone,
-		email : email,
-		password : password
-	});
+	if (userData.phone.length == 0 || userData.email.length == 0) {
+		alert('There was an issue submitting your changes. Please make sure you have entered a phone number and an email address, and a valid password');
+	} else {
+		_socketConnection.emit('update_user', userData);
+	}
 });
 
 // 	 ####  #####  ###### #    #         #      ####  #       ####   ####  ######
@@ -534,6 +541,7 @@ $(document).on('click', '#taskEdit_updateTask_button', function() {
 	var category = $('#taskEdit_category_select').val();
 	var important = $('#taskEdit_important_input').is(":checked");
 	var note = $('#taskEdit_note_textarea').html();
+	// var completed = $(this).closest().find('').is(:checked);
 	var reminders = [];
 
 	$('.taskEdit-container').find('.reminder').each(function() {
@@ -620,4 +628,8 @@ $(document).on('click', '#taskDetail_deleteTask_button', function() {
 
 $('.detailEdit-closeDetailEdit-button').click(function() {
 	closeDetails();
+});
+
+$('#account_update_changePass_button').click(function() {
+	$('#account_update_changePass').toggleClass('core-hidden');
 });

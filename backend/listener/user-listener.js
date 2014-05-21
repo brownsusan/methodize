@@ -123,8 +123,7 @@ module.exports.setup = function(socketServer, userSocket) {
 			var user = results;
 			if (password) {
 				// Hash the password
-				var passwordHash = md5(password + user.salt);
-				user.password = passwordHash
+				user.password = password;
 			}
 			if (phone) {
 				user.phoneNumber = phone;
