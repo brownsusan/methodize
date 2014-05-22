@@ -1,11 +1,27 @@
+var mongoose = require('mongoose');
+var UserModel = mongoose.model('User');
+
 module.exports.route = function(app) {
-	var mongoose = require('mongoose');
-	var UserModel = mongoose.model('User');
 
 	app.get('/calendar', function(req, res) {
+
+		console.log(req.session.user);
+
+
+		// check if the user is logged in
+		if (req.session.user === undefined) {
+			res.redirect('/');
+		}
+
+		res.end();
+		return;
+
+		var user = req.session.user;
+
 		res.render('calendar', {
-			'user' : req.session.user
+			'user' : user
 		});
+
 	});
 
 };

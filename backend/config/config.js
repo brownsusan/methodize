@@ -43,7 +43,7 @@ module.exports.setupExpress = function(expressServer) {
 module.exports.setupSocketIO = function(socketIOServer) {
 	
 	socketIOServer.configure(function() {
-	// Give the socket IO server eveything that it will need
+		// Give the socket IO server eveything that it will need
 		socketIOServer.set('authorization', socketIOSession(cookieParser, sessionStore));
 
 	});

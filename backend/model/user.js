@@ -5,11 +5,6 @@ var mongoose = require('mongoose');
 var md5 = blueimpMd5.md5;
 var Schema = mongoose.Schema;
 
-// this setter to lowercase the email
-function setEmail(value) {
-	return value.toLowerCase();
-}
-
 var User = new Schema({
 	'id' : {
 		'type' : String,
@@ -20,7 +15,8 @@ var User = new Schema({
 	'email' : {
 		'type' : String,
 		'required' : true,
-		'set' : setEmail
+		'lowercase': true,
+		'trim': true
 	},
 	'password' : {
 		'type' : String,

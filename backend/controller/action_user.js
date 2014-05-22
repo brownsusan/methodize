@@ -11,4 +11,5 @@ module.exports.route = function(app) {
 		req.session.destroy();
 		res.redirect('/');
 	});
+	
 };

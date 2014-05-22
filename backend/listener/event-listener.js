@@ -1,16 +1,27 @@
 // Require Mongoose
 var mongoose = require('mongoose');
+
 // Get the appropriate db model
 var EventModel = mongoose.model('Event');
 var TaskModel = mongoose.model('Task');
 
 module.exports.setup = function(socketServer, userSocket) {
 
+	// Get the session
 	var session = userSocket.handshake.session;
 
+	// create
 	userSocket.on('create_event', function(data) {
+
+		// check if user is logged in
+		if (session.user === undefined) {
+			return;
+		}
+
+		var userId = session.user.id;
+
 		var newEvent = new EventModel();
-		newEvent.userId = session.user.id;
+		newEvent.userId = userId;
 		newEvent.title = data.title;
 		newEvent.startDate = data.startDate;
 		newEvent.endDate = data.endDate;
@@ -22,6 +33,7 @@ module.exports.setup = function(socketServer, userSocket) {
 		newEvent.note = data.note;
 
 		newEvent.save(function(err, results) {
+
 			if (err || !results) {
 				userSocket.emit('create_event_complete', {
 					// Send error as part of data
@@ -29,9 +41,9 @@ module.exports.setup = function(socketServer, userSocket) {
 				});
 				return;
 			}
-			userSocket.emit('create_event_complete', {
 
-				// Send an error as part of data
+			userSocket.emit('create_event_complete', {
+				// Send error as part of data
 				'error' : false,
 				'newEvent' : results
 			});
@@ -40,7 +52,10 @@ module.exports.setup = function(socketServer, userSocket) {
 
 	});
 
+	// read
 	userSocket.on('read_events', function(data) {
+
+		// check if user is logged in
 		if (session.user === undefined) {
 			return;
 		}
@@ -50,6 +65,7 @@ module.exports.setup = function(socketServer, userSocket) {
 		EventModel.find({
 			'userId' : userId
 		}, function(err, results) {
+
 			if (err || !results) {
 				userSocket.emit('read_events_complete', {
 					// Send error as part of data
@@ -59,22 +75,27 @@ module.exports.setup = function(socketServer, userSocket) {
 			}
 
 			userSocket.emit('read_events_complete', {
-				// Send an error as part of data
+				// Send error as part of data
 				'error' : false,
 				'events' : results
 			});
 			
 		});
+
 	});
 
+	// update
 	userSocket.on('update_event', function(data) {
 
+		// check if user is logged in
 		if (session.user === undefined) {
 			return;
 		}
 
+		var id = data.id;
+
 		EventModel.findOne({
-			'id' : data.id
+			'id' : id
 		}, function(err, results) {
 
 			if (err || !results) {
@@ -84,18 +105,24 @@ module.exports.setup = function(socketServer, userSocket) {
 			}
 
 			var eventToUpdate = results;
+
+			// check what needs to be updated
 			if (data.title !== undefined) {
 				eventToUpdate.title = data.title;
 			}
+
 			if (data.startDate !== undefined) {
 				eventToUpdate.startDate = data.startDate;
 			}
+
 			if (data.endDate !== undefined) {
 				eventToUpdate.endDate = data.endDate;
 			}
+
 			if (data.allDay !== undefined) {
 				eventToUpdate.allDay = data.allDay;
 			}
+
 			if (data.reminder !== undefined) {
 				eventToUpdate.reminder = data.reminder;
 			}
@@ -103,12 +130,15 @@ module.exports.setup = function(socketServer, userSocket) {
 			if (data.category !== undefined) {
 				eventToUpdate.category = data.category;
 			}
+
 			if (data.important !== undefined) {
 				eventToUpdate.important = data.important;
 			}
+
 			if (data.subtask !== undefined) {
 				eventToUpdate.subtask = data.subtask;
 			}
+
 			if (data.note !== undefined) {
 				eventToUpdate.note = data.note;
 			}
@@ -126,7 +156,7 @@ module.exports.setup = function(socketServer, userSocket) {
 				results.modelType = 'typeEvent';
 
 				userSocket.emit('update_event_complete', {
-					// Send an error as part of data
+					// Send error as part of data
 					'error' : false,
 					'updatedEvent' : results
 				});
@@ -137,63 +167,112 @@ module.exports.setup = function(socketServer, userSocket) {
 
 	});
 
+	// delete
 	userSocket.on('delete_event', function(data) {
+
+		// check if user is logged in
 		if (session.user === undefined) {
 			return;
 		}
+
+		var userId = session.user.id;
+
+		var id = data.id;
+
 		EventModel.findOne({
-			'id' : data.id,
-			'userId' : session.user.id
+			'id' : id,
+			'userId' : userId
 		}, function(err, results) {
+
+			if (err || !results) {
+				userSocket.emit('delete_event_complete', {
+					// Send error as part of data
+					'error' : true
+				});
+				return;
+			}
 
 			var eventToDelete = results;
 
-			if (!err) {
-				eventToDelete.remove(function(err, results) {
-					if (!err) {
-						userSocket.emit('delete_event_complete', {
-							'error' : false,
-							'id' : results.id
-						});
-					}
+			eventToDelete.remove(function(err, results) {
+
+				if (err || !results) {
+					userSocket.emit('delete_event_complete', {
+						// Send error as part of data
+						'error' : true
+					});
+					return;
+				}
+
+				userSocket.emit('delete_event_complete', {
+					// Send error as part of data
+					'error' : false,
+					'id' : results.id
 				});
-			}
+
+			});
+
 		});
 	});
 
+	// read from multiple collections
 	userSocket.on('read_all_task_event_by_user', function(data) {
 
 		console.log('read_all_task_event_by_user');
 
-		var calendarData = [];
+		// check if user is logged in
 		if (session.user === undefined) {
 			return;
 		}
+
+		var userId = session.user.id;
+
+		var calendarData = [];
+
 		EventModel.find({
-			'userId' : session.user.id
+			'userId' : userId
 		}, function(err, results) {
-			if (!err) {
-				// LOOP OVER RESULTS AND PUSH THEM INTO THE ARRAY
-				for (var i = 0, j = results.length; i < j; i++) {
-					calendarData.push(results[i]);
-				};
 
-				TaskModel.find({
-					'userId' : session.user.id
-				}, function(err, results) {
+			if (err || !results) {
+				userSocket.emit('read_all_task_event_by_user', {
+					// Send error as part of data
+					'error' : true
+				});
+				return;
+			}
 
-					if (!err) {
-						for (var i = 0, j = results.length; i < j; i++) {
-							calendarData.push(results[i]);
-						};
-						userSocket.emit('read_all_task_event_by_user_complete', {
-							'error' : false,
-							'calendarData' : calendarData
-						})
-					}
+			var eventsRead = results;
+
+			// LOOP OVER RESULTS AND PUSH THEM INTO THE ARRAY
+			for (var i = 0, j = eventsRead.length; i < j; i++) {
+				calendarData.push(eventsRead[i]);
+			}
+
+			TaskModel.find({
+				'userId' : userId
+			}, function(err, results) {
+
+				if (err || !results) {
+					userSocket.emit('read_all_task_event_by_user', {
+						// Send error as part of data
+						'error' : true
+					});
+					return;
+				}
+
+				var tasksRead = results;
+
+				for (var i = 0, j = tasksRead.length; i < j; i++) {
+					calendarData.push(tasksRead[i]);
+				}
+
+				userSocket.emit('read_all_task_event_by_user_complete', {
+					// Send error as part of data
+					'error' : false,
+					'calendarData' : calendarData
 				});
 
-			}
+			});
 
 		});
 
