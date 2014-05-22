@@ -10,9 +10,6 @@ module.exports.route = function(app) {
 			res.redirect('/');
 		}
 
-		res.end();
-		return;
-
 		var user = req.session.user;
 
 		res.render('calendar', {
