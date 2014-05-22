@@ -95,6 +95,7 @@ $(document).on('click', '.task-item', function(event) {
 		'note' : note,
 		'modelType' : 'typeTask'
 	}
+	// console.log(calEvent);
 	setFields(calEvent);
 	openDetails(calEvent);
 });

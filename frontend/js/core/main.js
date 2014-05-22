@@ -469,6 +469,14 @@ var setFields = function(calEvent, jsEvent, view) {
 
 				$('#eventDetail_reminders_container').append(reminderDisplay);
 				$('#eventEdit_reminders_container').append(reminder);
+				// TODO
+				// The reminders are not getting populated with data.
+				$('.reminder-startTime-input').val(calEvent.reminder[i].start);
+				$('.reminder-endTime-input').val(calEvent.reminder[i].end);
+				// TODO
+				// Loop over via array and check off the right inputs
+				// TODO
+				// Set frequency select
 			}
 		}
 		//TODO
@@ -491,8 +499,8 @@ var setFields = function(calEvent, jsEvent, view) {
 
 	if (calEvent.modelType === 'typeTask') {
 		//set fields for detail and edit
-		$('#taskDetail_id_input').val(id);
-		$('#taskEdit_id_input').val(id);
+		$('#taskDetail_id_input').val(calEvent.id);
+		$('#taskEdit_id_input').val(calEvent.id);
 		$('#taskDetail_title').html(calEvent.title);
 		$('#taskEdit_title_input').val(calEvent.title);
 		$('#taskDetail_dueDate').html(calEvent.start);
@@ -514,16 +522,20 @@ var setFields = function(calEvent, jsEvent, view) {
 				var reminderDisplay = new EJS({
 					url : '/view/ui/reminder-display.ejs'
 				}).render(calEvent.reminder[i]);
-				// $('.reminder-display-start').html(calEvent.reminder[i].start);
 				var reminder = new EJS({
 					url : '/view/ui/reminder.ejs'
 				}).render(calEvent.reminder[i]);
-				// TODO
-				// The reminders are not getting populated with data. 
-				//If I do this in the template it causes an error when I try ot use the same template for fresh reminders
-				// $('.reminder-startTime-input').val(calEvent.reminder[i].start);
+
 				$('#taskDetail_reminders_container').append(reminderDisplay);
 				$('#taskEdit_reminders_container').append(reminder);
+				// TODO
+				// The reminders are not getting populated with data.
+				$('.reminder-startTime-input').val(calEvent.reminder[i].start);
+				$('.reminder-endTime-input').val(calEvent.reminder[i].end);
+				// TODO
+				// Loop over via array and check off the right inputs
+				// TODO
+				// Set frequency select
 			}
 		}
 		//TODO
@@ -567,7 +579,7 @@ $(document).on('click', '#taskEdit_updateTask_button', function() {
 	var note = $('#taskEdit_note_textarea').html();
 	var reminders = [];
 
-	$('.taskEdit-container').find('.reminder').each(function() {
+	$(this).closest('.taskEdit-container').find('.reminder').each(function() {
 
 		var via = [];
 
