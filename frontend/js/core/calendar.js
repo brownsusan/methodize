@@ -1,16 +1,6 @@
 $(document).ready(function() {
 	_socketConnection.emit('read_events');
 	_socketConnection.emit('read_all_task_event_by_user');
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
 });
 
 _socketConnection.on('read_all_task_event_by_user_complete', function(data) {
