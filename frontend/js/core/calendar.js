@@ -4,6 +4,7 @@ $(document).ready(function() {
 });
 
 _socketConnection.on('read_all_task_event_by_user_complete', function(data) {
+	
 	$('#calendar').empty();
 	var calendarData = [];
 	// format events and tasks by type

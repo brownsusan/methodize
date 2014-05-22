@@ -30,7 +30,6 @@ _socketConnection.on('create_category_complete', function(data) {
 $('#task_categoryAdd_input').keypress(function(event) {
 	if (event.which == 13) {
 		//Validation Here
-		//Manipulate the data
 		var title = $('#task_categoryAdd_input').val();
 
 		_socketConnection.emit('create_category', {
