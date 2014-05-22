@@ -1,5 +1,7 @@
 var mongoose = require('mongoose');
+
 var TaskModel = mongoose.model('Task');
+
 module.exports.route = function(app) {
 
 	app.get('/action/read-task', function(req, res) {
@@ -70,4 +72,4 @@ module.exports.route = function(app) {
 
 	});
 
-}
+};
