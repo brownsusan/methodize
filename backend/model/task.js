@@ -73,9 +73,11 @@ Task.pre('save', function(next) {
 });
 
 Task.plugin(mongoosePostFind, {
-	find : function(results, next) {
+
+	'find' : function(results, next) {
 
 		async.each(results, function(task, nextTask) {
+
 			CategoryModel.findOne({
 				'id' : task.category
 			}, function(err, results) {
@@ -83,17 +85,23 @@ Task.plugin(mongoosePostFind, {
 				task.modelType = 'typeTask';
 
 				if (results != null) {
+
 					task.categoryObject = {
 						'title' : results.title,
 						'color' : results.color
 					};
+
 					nextTask();
+
 				} else {
+
 					task.categoryObject = {
 						'title' : '',
 						'color' : ''
 					};
+
 					nextTask();
+
 				}
 
 			});
@@ -101,6 +109,41 @@ Task.plugin(mongoosePostFind, {
 		}, function(err) {
 			next(null, results);
 		});
+
+	},
+
+	'findOne' : function(result, next) {
+
+		var task = result;
+
+		CategoryModel.findOne({
+			'id' : task.category
+		}, function(err, results) {
+
+			task.modelType = 'typeTask';
+
+			if (results != null) {
+
+				task.categoryObject = {
+					'title' : results.title,
+					'color' : results.color
+				};
+
+				next();
+
+			} else {
+
+				task.categoryObject = {
+					'title' : '',
+					'color' : ''
+				};
+
+				next();
+
+			}
+
+		});
+
 	}
 });
 
