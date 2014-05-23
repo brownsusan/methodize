@@ -6,14 +6,42 @@ EJS.config({
 _socketConnection.on('update_event_complete', function(data) {
 	if (!data.error) {
 	}
-	$('.eventEdit-container').fadeOut(500, function() {
-		// TODO
-		//This data needs to be formatted differently?
-		setFields(data.updatedEvent);
-		$('.eventDetail-container').fadeIn(500);
+	//THIS STILL DOES NOT GIVE ME THE CATEGORY OBJECT
+	var id = data.updatedEvent.id;
+	_socketConnection.emit('read_event', {
+		'id' : id
 	});
-	_socketConnection.emit('read_all_task_event_by_user', function(data) {
+	_socketConnection.on('read_event_complete', function(data) {
+		console.log(data.error);
+		console.log(data.readEvent[0]);
+		var calEvent = {
+			'id' : data.readEvent[i].id,
+			'title' : data.readEvent[i].title,
+			'start' : data.readEvent[i].startDate,
+			'end' : data.readEvent[i].endDate,
+			'color' : data.readEvent[i].categoryObject.color,
+			'category' : data.readEvent[i].categoryObject.title,
+			'categoryId' : data.readEvent[i].category,
+			'important' : data.readEvent[i].important,
+			'allDay' : data.readEvent[i].allDay,
+			'reminder' : data.readEvent[i].reminder,
+			'subtasks' : data.readEvent[i].subtask,
+			'note' : data.readEvent[i].note,
+			'modelType' : data.readEvent[i].modelType
+		};
+
+		$('.eventEdit-container').fadeOut(500, function() {
+			// TODO
+			// This data needs to be formatted differently
+			// I need the category object to be set when I call the set fields function
+
+			// Emit a read event socket event, on read event complete, fade things out and then call set fields with the right event data
+			setFields(calEvent);
+			$('.eventDetail-container').fadeIn(500);
+		});
 	});
+
+	_socketConnection.emit('read_all_task_event_by_user');
 });
 
 _socketConnection.on('update_user_complete', function(data) {
@@ -203,7 +231,6 @@ $('#addPanel_addEvent_submit_button').click(function() {
 		'frequency' : frequency,
 		'note' : note
 	});
-
 });
 
 $(document).on('keypress', '.addSubtask-input', function(event) {
@@ -401,8 +428,7 @@ $(document).on('click', '#taskDetail_editTask_button', function() {
 //
 var setFields = function(calEvent, jsEvent, view) {
 	var id = calEvent.id;
-	console.log(calEvent);
-	
+
 	//CALENDAR EVENT
 	if (calEvent.modelType === 'typeEvent') {
 		$('#eventDetail_id_input').val(calEvent.id);
@@ -421,29 +447,26 @@ var setFields = function(calEvent, jsEvent, view) {
 		if (calEvent.allDay === true) {
 			$('#eventDetail_allDay_input').attr("checked", calEvent.allDay);
 			$('#eventEdit_allDay_input').attr("checked", calEvent.allDay);
-		}
-		else{
+		} else {
 			$('#eventDetail_allDay_input').removeAttr("checked");
 			$('#eventEdit_allDay_input').removeAttr("checked");
 		}
 		if (calEvent.important === true) {
 			$('#eventDetail_important_input').attr('checked', calEvent.important);
 			$('#eventEdit_important_input').attr('checked', calEvent.important);
-		}
-		else{
+		} else {
 			$('#eventDetail_important_input').removeAttr("checked");
 			$('#eventEdit_important_input').removeAttr("checked");
 		}
-		
+
 		//TODO
 		//This next line is setting it to category ID instead of the category title after the edit
 		//Probably because the calEvent being returned to change the fields is not being formatted properly
-		// $('#eventDetail_category').html('Category: ' + calEvent.category);
-		$('#eventEdit_category_select').find('option').each(function(){
-			if($(this).val() == calEvent.categoryId){
+		$('#eventDetail_category').html('Category: ' + calEvent.category);
+		$('#eventEdit_category_select').find('option').each(function() {
+			if ($(this).val() == calEvent.categoryId) {
 				$(this).attr("selected", "selected");
-			}
-			else{
+			} else {
 				$(this).removeAttr("selected");
 			}
 		});
@@ -517,32 +540,28 @@ var setFields = function(calEvent, jsEvent, view) {
 		$('#taskDetail_dueDate').html(calEvent.start);
 		$('#taskEdit_dueDate_input').val(calEvent.start);
 		$('#taskDetail_category').html('Category: ' + calEvent.category);
-		$('#taskEdit_category_select').find('option').each(function(){
-			if($(this).val() == calEvent.categoryId){
+		$('#taskEdit_category_select').find('option').each(function() {
+			if ($(this).val() == calEvent.categoryId) {
 				$(this).attr("selected", "selected");
-			}
-			else{
+			} else {
 				$(this).removeAttr("selected");
 			}
 		});
 		//TODO
 		// Remove any defaults for the category select options
 		// Select option of current category should be chosen by default
-		
-		
+
 		if (calEvent.allDay === true) {
 			$('#taskDetail_allDay_input').attr("checked", calEvent.allDay);
 			$('#taskEdit_allDay_input').attr("checked", calEvent.allDay);
-		}
-		else{
+		} else {
 			$('#taskDetail_allDay_input').removeAttr("checked");
 			$('#taskEdit_allDay_input').removeAttr("checked");
 		}
 		if (calEvent.important === true) {
 			$('#taskDetail_important_input').attr('checked', calEvent.important);
 			$('#taskEdit_important_input').attr('checked', calEvent.important);
-		}
-		else{
+		} else {
 			$('#taskDetail_important_input').removeAttr("checked");
 			$('#taskEdit_important_input').removeAttr("checked");
 		}
@@ -676,7 +695,7 @@ _socketConnection.on('update_task_complete', function(data) {
 	// console.log('ERROR: ' + data.error);
 	// console.log('MESSAGE: ' + data.message);
 	// console.log('TASK FRONT END MODEL: ' + data.task);
-	// console.log('update_task_complete'); 
+	// console.log('update_task_complete');
 	// console.log(data.error);
 	var task = data.task;
 	task.modelType = 'typeTask';
