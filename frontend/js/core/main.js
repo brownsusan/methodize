@@ -2,12 +2,6 @@
 EJS.config({
 	cache : false
 });
-//TWILIO CONCEPT
-// window.setInterval(function() {checkEventsAndTasks()},3000);
-
-// var checkEventsAndTasks = function() {
-// console.log('Checking the events and tasks');
-// }
 
 _socketConnection.on('update_event_complete', function(data) {
 	if (!data.error) {
@@ -408,9 +402,11 @@ $(document).on('click', '#taskDetail_editTask_button', function() {
 var setFields = function(calEvent, jsEvent, view) {
 	var id = calEvent.id;
 	console.log(calEvent);
+	
+	//CALENDAR EVENT
 	if (calEvent.modelType === 'typeEvent') {
-		$('#eventDetail_id_input').val(id);
-		$('#eventEdit_id_input').val(id);
+		$('#eventDetail_id_input').val(calEvent.id);
+		$('#eventEdit_id_input').val(calEvent.id);
 		$('#eventDetail_title').html('Title: ' + calEvent.title);
 		$('#eventEdit_title_input').val(calEvent.title);
 		if (calEvent.start) {
@@ -422,16 +418,24 @@ var setFields = function(calEvent, jsEvent, view) {
 			$('#eventEdit_endDate_input').val(calEvent.end.toUTCString());
 		}
 
-		// TODO
-		// THIS SHIT DOESNT WORK - EVERYTHING IS ALWAYS CHECKED FOR EVENTS AND TASKS ALL DAY AND IMPORTANT
 		if (calEvent.allDay === true) {
-			$('#eventDetail_allDay_input').attr("checked");
-			$('#eventEdit_allDay_input').attr("checked");
+			$('#eventDetail_allDay_input').attr("checked", calEvent.allDay);
+			$('#eventEdit_allDay_input').attr("checked", calEvent.allDay);
+		}
+		else{
+			$('#eventDetail_allDay_input').removeAttr("checked");
+			$('#eventEdit_allDay_input').removeAttr("checked");
 		}
 		if (calEvent.important === true) {
 			$('#eventDetail_important_input').attr('checked', calEvent.important);
 			$('#eventEdit_important_input').attr('checked', calEvent.important);
 		}
+		else{
+			$('#eventDetail_important_input').removeAttr("checked");
+			$('#eventEdit_important_input').removeAttr("checked");
+		}
+		
+		
 		$('#eventDetail_category').html('Category: ' + calEvent.category);
 		// TODO
 		$('#eventEdit_category_select').find($('option').val(calEvent.categoryId)).attr('selected="selected"');
@@ -496,7 +500,7 @@ var setFields = function(calEvent, jsEvent, view) {
 			}
 		}
 	}
-
+	//CALENDAR TASK
 	if (calEvent.modelType === 'typeTask') {
 		//set fields for detail and edit
 		$('#taskDetail_id_input').val(calEvent.id);
@@ -506,9 +510,26 @@ var setFields = function(calEvent, jsEvent, view) {
 		$('#taskDetail_dueDate').html(calEvent.start);
 		$('#taskEdit_dueDate_input').val(calEvent.start);
 		$('#taskDetail_category').html('Category: ' + calEvent.category);
+		//TODO
+		// Remove any defaults for the category select options
+		// Select option of current category should be chosen by default
+		
+		
+		if (calEvent.allDay === true) {
+			$('#taskDetail_allDay_input').attr("checked", calEvent.allDay);
+			$('#taskEdit_allDay_input').attr("checked", calEvent.allDay);
+		}
+		else{
+			$('#taskDetail_allDay_input').removeAttr("checked");
+			$('#taskEdit_allDay_input').removeAttr("checked");
+		}
 		if (calEvent.important === true) {
 			$('#taskDetail_important_input').attr('checked', calEvent.important);
 			$('#taskEdit_important_input').attr('checked', calEvent.important);
+		}
+		else{
+			$('#taskDetail_important_input').removeAttr("checked");
+			$('#taskEdit_important_input').removeAttr("checked");
 		}
 		$('#taskDetail_note_textarea').html(calEvent.note);
 		$('#taskEdit_note_textarea').html(calEvent.note);
@@ -538,8 +559,6 @@ var setFields = function(calEvent, jsEvent, view) {
 				// Set frequency select
 			}
 		}
-		//TODO
-		// Select option of current category should be chosen by default
 		//TODO
 		// SHOW SUBTASKS
 		$('.taskEdit-container').find('.subtasks').empty();

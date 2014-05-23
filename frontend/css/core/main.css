@@ -388,10 +388,3 @@ button {
 	color: white;
 	background: #444;
 }
-
-.eventDetail-startDate-container span, .eventDetail-endDate-container span{
-	display: block;
-	max-width: 50%;
-	height: 50px;
-	float: left;
-}

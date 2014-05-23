@@ -90,3 +90,12 @@ socketIOServer.sockets.on('connection', function(userSocket) {
 httpServer.listen(expressServer.get('port'), function() {
 	console.log('Express server listening on port ' + expressServer.get('port') + ' and process ' + process.pid);
 });
+
+
+
+//TWILIO CONCEPT
+// window.setInterval(function() {checkEventsAndTasks()},3000);
+
+// var checkEventsAndTasks = function() {
+// console.log('Checking the events and tasks');
+// }
