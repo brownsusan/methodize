@@ -435,10 +435,18 @@ var setFields = function(calEvent, jsEvent, view) {
 			$('#eventEdit_important_input').removeAttr("checked");
 		}
 		
-		
-		$('#eventDetail_category').html('Category: ' + calEvent.category);
-		// TODO
-		$('#eventEdit_category_select').find($('option').val(calEvent.categoryId)).attr('selected="selected"');
+		//TODO
+		//This next line is setting it to category ID instead of the category title after the edit
+		//Probably because the calEvent being returned to change the fields is not being formatted properly
+		// $('#eventDetail_category').html('Category: ' + calEvent.category);
+		$('#eventEdit_category_select').find('option').each(function(){
+			if($(this).val() == calEvent.categoryId){
+				$(this).attr("selected", "selected");
+			}
+			else{
+				$(this).removeAttr("selected");
+			}
+		});
 
 		$('#eventDetail_note_textarea').html(calEvent.note);
 		$('#eventEdit_note_textarea').html(calEvent.note);
@@ -489,7 +497,6 @@ var setFields = function(calEvent, jsEvent, view) {
 		// show subtasks
 		$('.eventEdit-container').find('.subtasks').empty();
 		$('.eventDetail-container').find('.subtasks').empty();
-		console.log(calEvent.subtasks);
 		if (calEvent.subtasks != undefined && calEvent.subtasks.length != 0) {
 			for (var i = 0, j = calEvent.subtasks.length; i < j; i++) {
 				var subtask = new EJS({
@@ -511,14 +518,13 @@ var setFields = function(calEvent, jsEvent, view) {
 		$('#taskEdit_dueDate_input').val(calEvent.start);
 		$('#taskDetail_category').html('Category: ' + calEvent.category);
 		$('#taskEdit_category_select').find('option').each(function(){
-			console.log($(this).val());
 			if($(this).val() == calEvent.categoryId){
 				$(this).attr("selected", "selected");
 			}
 			else{
 				$(this).removeAttr("selected");
 			}
-		})
+		});
 		//TODO
 		// Remove any defaults for the category select options
 		// Select option of current category should be chosen by default
@@ -548,7 +554,6 @@ var setFields = function(calEvent, jsEvent, view) {
 		$('#taskEdit_reminders_container').empty();
 		if (calEvent.reminder != undefined && calEvent.reminder.length != 0) {
 			for (var i = 0, j = calEvent.reminder.length; i < j; i++) {
-				console.log('HEY' + calEvent.reminder[i].start);
 				var reminderDisplay = new EJS({
 					url : '/view/ui/reminder-display.ejs'
 				}).render(calEvent.reminder[i]);
@@ -668,11 +673,11 @@ $(document).on('click', '#taskEdit_updateTask_button', function() {
 });
 
 _socketConnection.on('update_task_complete', function(data) {
-	console.log('ERROR: ' + data.error);
-	console.log('MESSAGE: ' + data.message);
-	console.log('TASK FRONT END MODEL: ' + data.task);
-	console.log('update_task_complete');
-	console.log(data.error);
+	// console.log('ERROR: ' + data.error);
+	// console.log('MESSAGE: ' + data.message);
+	// console.log('TASK FRONT END MODEL: ' + data.task);
+	// console.log('update_task_complete'); 
+	// console.log(data.error);
 	var task = data.task;
 	task.modelType = 'typeTask';
 	if (!data.error) {
