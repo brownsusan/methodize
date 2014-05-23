@@ -53,6 +53,33 @@ module.exports.setup = function(socketServer, userSocket) {
 	});
 
 	// read
+	userSocket.on('read_event', function(data) {
+		// check if user is logged in
+		if (session.user === undefined) {
+			return;
+		}
+
+		EventModel.find({
+			'id' : data.id
+		}, function(err, results) {
+			console.log(results);
+			if (err || !results) {
+				userSocket.emit('read_event_complete', {
+					// Send error as part of data
+					'error' : true
+				});
+				return;
+			}
+
+			userSocket.emit('read_event_complete', {
+				// Send error as part of data
+				'error' : false,
+				'readEvent' : results
+			});
+
+		});
+	});
+
 	userSocket.on('read_events', function(data) {
 
 		// check if user is logged in
@@ -79,7 +106,7 @@ module.exports.setup = function(socketServer, userSocket) {
 				'error' : false,
 				'events' : results
 			});
-			
+
 		});
 
 	});
@@ -105,6 +132,7 @@ module.exports.setup = function(socketServer, userSocket) {
 			}
 
 			var eventToUpdate = results;
+			eventToUpdate.categoryObject = results.categoryObject;
 
 			// check what needs to be updated
 			if (data.title !== undefined) {
@@ -152,7 +180,8 @@ module.exports.setup = function(socketServer, userSocket) {
 					});
 					return;
 				}
-				
+				// TODO
+				// Format object here?
 				results.modelType = 'typeEvent';
 
 				userSocket.emit('update_event_complete', {
