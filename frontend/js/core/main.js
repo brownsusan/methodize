@@ -510,6 +510,15 @@ var setFields = function(calEvent, jsEvent, view) {
 		$('#taskDetail_dueDate').html(calEvent.start);
 		$('#taskEdit_dueDate_input').val(calEvent.start);
 		$('#taskDetail_category').html('Category: ' + calEvent.category);
+		$('#taskEdit_category_select').find('option').each(function(){
+			console.log($(this).val());
+			if($(this).val() == calEvent.categoryId){
+				$(this).attr("selected", "selected");
+			}
+			else{
+				$(this).removeAttr("selected");
+			}
+		})
 		//TODO
 		// Remove any defaults for the category select options
 		// Select option of current category should be chosen by default
