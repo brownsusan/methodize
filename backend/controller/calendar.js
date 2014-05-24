@@ -8,6 +8,7 @@ module.exports.route = function(app) {
 		// check if the user is logged in
 		if (req.session.user === undefined) {
 			res.redirect('/');
+			return;
 		}
 
 		var user = req.session.user;
@@ -18,4 +19,4 @@ module.exports.route = function(app) {
 
 	});
 
-};
+}; 

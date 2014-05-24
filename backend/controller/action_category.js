@@ -4,7 +4,7 @@ var CategoryModel = mongoose.model('Category');
 
 module.exports.route = function(app) {
 
-// Read Categories by User
-// Delete Category by Id
+	// Read Categories by User
+	// Delete Category by Id
 
-}
+}; 
