@@ -12,58 +12,10 @@ module.exports.setup = function(socketServer, userSocket) {
 	// Get the session
 	var session = userSocket.handshake.session;
 
-	userSocket.on('signin_user', function(data) {
-
-		var email = data.email.toLowerCase();
-		var password = data.password;
-
-		UserModel.findOne({
-			'email' : email
-		}, function(err, results) {
-
-			// Check for an error
-			if (err || !results) {
-				//Emit an event from the server to the client using the userSocket
-				userSocket.emit('signin_user_complete', {
-					// Send error as part of data
-					'error' : true,
-					'message' : 'Error finding a user for signin'
-				});
-				return;
-			}
-
-			var user = results;
-
-			var passwordHash = md5(password + user.salt);
-
-			// Check if the passwords match
-			if (passwordHash != user.password) {
-				//Emit an event from the server to the client using the userSocket
-				userSocket.emit('signin_user_complete', {
-					// Send an error as part of data
-					'error' : true
-				});
-				return;
-			}
-
-			//Have to call session.save() after changing the session in any way - just how socketio works
-			session.user = user;
-
-			session.save(function() {
-
-				//Emit an event from the server to the client using the userSocket
-				userSocket.emit('signin_user_complete', {
-					// Send error as part of data - this is the success
-					'error' : false
-				});
-
-			});
-
-		});
-
-	});
-
+	// create
 	userSocket.on('signup_user', function(data) {
+
+		console.log('socket signup_user');
 
 		var user = new UserModel();
 		user.email = data.email;
@@ -117,7 +69,64 @@ module.exports.setup = function(socketServer, userSocket) {
 
 	});
 
+	// read
+	userSocket.on('signin_user', function(data) {
+
+		console.log('socket signin_user');
+
+		var email = data.email.toLowerCase();
+		var password = data.password;
+
+		UserModel.findOne({
+			'email' : email
+		}, function(err, results) {
+
+			// Check for an error
+			if (err || !results) {
+				//Emit an event from the server to the client using the userSocket
+				userSocket.emit('signin_user_complete', {
+					// Send error as part of data
+					'error' : true,
+					'message' : 'Error finding a user for signin'
+				});
+				return;
+			}
+
+			var user = results;
+
+			var passwordHash = md5(password + user.salt);
+
+			// Check if the passwords match
+			if (passwordHash != user.password) {
+				//Emit an event from the server to the client using the userSocket
+				userSocket.emit('signin_user_complete', {
+					// Send an error as part of data
+					'error' : true
+				});
+				return;
+			}
+
+			//Have to call session.save() after changing the session in any way - just how socketio works
+			session.user = user;
+
+			session.save(function() {
+
+				//Emit an event from the server to the client using the userSocket
+				userSocket.emit('signin_user_complete', {
+					// Send error as part of data - this is the success
+					'error' : false
+				});
+
+			});
+
+		});
+
+	});
+
+	// update
 	userSocket.on('update_user', function(data) {
+
+		console.log('socket update_user');
 
 		// check if user is logged in
 		if (session.user === undefined) {

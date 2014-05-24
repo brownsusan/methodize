@@ -12,6 +12,8 @@ module.exports.setup = function(socketServer, userSocket) {
 
 	// create
 	userSocket.on('create_event', function(data) {
+		
+		console.log('socket create_event');
 
 		// check if user is logged in
 		if (session.user === undefined) {
@@ -54,6 +56,9 @@ module.exports.setup = function(socketServer, userSocket) {
 
 	// read
 	userSocket.on('read_event', function(data) {
+		
+		console.log('socket read_event');
+		
 		// check if user is logged in
 		if (session.user === undefined) {
 			return;
@@ -62,7 +67,9 @@ module.exports.setup = function(socketServer, userSocket) {
 		EventModel.find({
 			'id' : data.id
 		}, function(err, results) {
+			
 			console.log(results);
+			
 			if (err || !results) {
 				userSocket.emit('read_event_complete', {
 					// Send error as part of data
@@ -81,6 +88,8 @@ module.exports.setup = function(socketServer, userSocket) {
 	});
 
 	userSocket.on('read_events', function(data) {
+		
+		console.log('socket read_events');
 
 		// check if user is logged in
 		if (session.user === undefined) {
@@ -113,6 +122,8 @@ module.exports.setup = function(socketServer, userSocket) {
 
 	// update
 	userSocket.on('update_event', function(data) {
+		
+		console.log('socket update_event');
 
 		// check if user is logged in
 		if (session.user === undefined) {
@@ -199,6 +210,8 @@ module.exports.setup = function(socketServer, userSocket) {
 
 	// delete
 	userSocket.on('delete_event', function(data) {
+		
+		console.log('socket delete_event');
 
 		// check if user is logged in
 		if (session.user === undefined) {
@@ -247,8 +260,8 @@ module.exports.setup = function(socketServer, userSocket) {
 
 	// read from multiple collections
 	userSocket.on('read_all_task_event_by_user', function(data) {
-
-		console.log('read_all_task_event_by_user');
+		
+		console.log('socket read_all_task_event_by_user');
 
 		// check if user is logged in
 		if (session.user === undefined) {

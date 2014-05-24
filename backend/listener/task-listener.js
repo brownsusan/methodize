@@ -12,6 +12,8 @@ module.exports.setup = function(socketServer, userSocket) {
 	// create
 	userSocket.on('create_task', function(data) {
 
+		console.log('socket create_task');
+
 		// check if user is logged in
 		if (session.user === undefined) {
 			return;
@@ -52,6 +54,8 @@ module.exports.setup = function(socketServer, userSocket) {
 	// read
 	userSocket.on('read_tasks', function(data) {
 
+		console.log('socket read_tasks');
+
 		// check if user is logged in
 		if (session.user === undefined) {
 			return;
@@ -81,6 +85,8 @@ module.exports.setup = function(socketServer, userSocket) {
 	});
 
 	userSocket.on('read_task_by_id', function(data) {
+
+		console.log('socket read_task_by_id');
 
 		// check if user is logged in
 		if (session.user === undefined) {
@@ -112,6 +118,8 @@ module.exports.setup = function(socketServer, userSocket) {
 
 	userSocket.on('read_tasks_by_category', function(data) {
 
+		console.log('socket read_tasks_by_category');
+
 		// check if user is logged in
 		if (session.user === undefined) {
 			return;
@@ -142,6 +150,8 @@ module.exports.setup = function(socketServer, userSocket) {
 
 	// update
 	userSocket.on('update_task', function(data) {
+
+		console.log('socket update_task');
 
 		// check if user is logged in
 		if (session.user === undefined) {
@@ -193,7 +203,7 @@ module.exports.setup = function(socketServer, userSocket) {
 			}
 
 			// if (data.completed !== undefined && data.completed != null) {
-				// task.completed = data.completed;
+			// task.completed = data.completed;
 			// }
 
 			task.save(function(err, results) {
@@ -206,7 +216,7 @@ module.exports.setup = function(socketServer, userSocket) {
 					});
 					return;
 				}
-				
+
 				results.modelType = 'typeTask';
 
 				userSocket.emit('update_task_complete', {
@@ -222,6 +232,8 @@ module.exports.setup = function(socketServer, userSocket) {
 	});
 
 	userSocket.on('update_subtask', function(data) {
+
+		console.log('socket update_subtask');
 
 		// check if user is logged in
 		if (session.user === undefined) {
@@ -280,6 +292,8 @@ module.exports.setup = function(socketServer, userSocket) {
 
 	// delete
 	userSocket.on('delete_task', function(data) {
+
+		console.log('socket delete_task');
 
 		// check if user is logged in
 		if (session.user === undefined) {

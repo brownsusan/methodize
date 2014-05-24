@@ -10,8 +10,10 @@ module.exports.setup = function(socketServer, userSocket) {
 	// Get the session
 	var session = userSocket.handshake.session;
 
-	// Set up an event listener
+	// create
 	userSocket.on('create_category', function(data) {
+
+		console.log('socket create_category');
 
 		// check if user is logged in
 		if (session.user === undefined) {
@@ -45,7 +47,10 @@ module.exports.setup = function(socketServer, userSocket) {
 
 	});
 
+	// read
 	userSocket.on('read_categories', function(data) {
+
+		console.log('socket read_categories');
 
 		// check if user is logged in
 		if (session.user === undefined) {
@@ -76,7 +81,10 @@ module.exports.setup = function(socketServer, userSocket) {
 
 	});
 
+	// update
 	userSocket.on('update_category', function(data) {
+
+		console.log('socket update_category');
 
 		// check if user is logged in
 		if (session.user === undefined) {
@@ -106,12 +114,14 @@ module.exports.setup = function(socketServer, userSocket) {
 				'error' : false
 			});
 
-
 		});
 
 	});
 
+	// delete
 	userSocket.on('delete_category', function(data) {
+
+		console.log('socket delete_category');
 
 		// check if user is logged in
 		if (session.user === undefined) {
