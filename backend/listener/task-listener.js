@@ -1,3 +1,7 @@
+// dev libraries
+var chalk = require('chalk');
+var logger = require('tracer').console();
+
 // Require Mongoose
 var mongoose = require('mongoose');
 
@@ -32,8 +36,8 @@ module.exports.setup = function(socketServer, userSocket) {
 		task.save(function(err, results) {
 
 			if (err || !results) {
+				logger.log(chalk.bgRed('ERROR'));
 				userSocket.emit('create_task_complete', {
-
 					// Send error as part of data
 					'error' : true
 				});
@@ -41,7 +45,6 @@ module.exports.setup = function(socketServer, userSocket) {
 			}
 
 			userSocket.emit('create_task_complete', {
-
 				// Send an error as part of data
 				'error' : false,
 				'task' : results
@@ -68,6 +71,7 @@ module.exports.setup = function(socketServer, userSocket) {
 		}, function(err, results) {
 
 			if (err || !results) {
+				logger.log(chalk.bgRed('ERROR'));
 				userSocket.emit('read_tasks_complete', {
 					// Send error as part of data
 					'error' : true
@@ -100,9 +104,10 @@ module.exports.setup = function(socketServer, userSocket) {
 		}, function(err, results) {
 
 			if (err || !results) {
+				logger.log(chalk.bgRed('ERROR'));
 				userSocket.emit('read_task_by_id_complete', {
 					// Send error as part of data
-					error : true
+					'error' : true
 				});
 				return;
 			}
@@ -132,10 +137,12 @@ module.exports.setup = function(socketServer, userSocket) {
 		}, function(err, results) {
 
 			if (err || !results) {
+				logger.log(chalk.bgRed('ERROR'));
 				userSocket.emit('read_tasks_by_category_complete', {
 					// Send error as part of data
 					'error' : true
 				});
+				return;
 			}
 
 			userSocket.emit('read_tasks_by_category_complete', {
@@ -165,10 +172,12 @@ module.exports.setup = function(socketServer, userSocket) {
 		}, function(err, results) {
 
 			if (err || !results) {
+				logger.log(chalk.bgRed('ERROR'));
 				userSocket.emit('update_task_complete', {
 					'error' : true,
 					'message' : 'Couldnt find a matching task'
 				});
+				return;
 			}
 
 			var task = results;
@@ -209,6 +218,7 @@ module.exports.setup = function(socketServer, userSocket) {
 			task.save(function(err, results) {
 
 				if (err || !results) {
+					logger.log(chalk.bgRed('ERROR'));
 					userSocket.emit('update_task_complete', {
 						// Send error as part of data
 						'error' : true,
@@ -249,6 +259,7 @@ module.exports.setup = function(socketServer, userSocket) {
 		}, function(err, results) {
 
 			if (err || !results) {
+				logger.log(chalk.bgRed('ERROR'));
 				userSocket.emit('update_subtask_complete', {
 					// Send error as part of data
 					'error' : true
@@ -310,6 +321,7 @@ module.exports.setup = function(socketServer, userSocket) {
 		}, function(err, results) {
 
 			if (err || !results) {
+				logger.log(chalk.bgRed('ERROR'));
 				userSocket.emit('update_subtask_complete', {
 					// Send error as part of data
 					'error' : true
@@ -322,6 +334,7 @@ module.exports.setup = function(socketServer, userSocket) {
 			task.remove(function(err, results) {
 
 				if (err || !results) {
+					logger.log(chalk.bgRed('ERROR'));
 					userSocket.emit('delete_task_complete', {
 						// Send error as part of data
 						'error' : true

@@ -1,3 +1,7 @@
+// dev libraries
+var chalk = require('chalk');
+var logger = require('tracer').console();
+
 // Require Mongoose
 var mongoose = require('mongoose');
 
@@ -12,7 +16,7 @@ module.exports.setup = function(socketServer, userSocket) {
 
 	// create
 	userSocket.on('create_event', function(data) {
-		
+
 		console.log('socket create_event');
 
 		// check if user is logged in
@@ -37,6 +41,7 @@ module.exports.setup = function(socketServer, userSocket) {
 		newEvent.save(function(err, results) {
 
 			if (err || !results) {
+				logger.log(chalk.bgRed('ERROR'));
 				userSocket.emit('create_event_complete', {
 					// Send error as part of data
 					'error' : true
@@ -56,9 +61,9 @@ module.exports.setup = function(socketServer, userSocket) {
 
 	// read
 	userSocket.on('read_event', function(data) {
-		
+
 		console.log('socket read_event');
-		
+
 		// check if user is logged in
 		if (session.user === undefined) {
 			return;
@@ -67,10 +72,11 @@ module.exports.setup = function(socketServer, userSocket) {
 		EventModel.find({
 			'id' : data.id
 		}, function(err, results) {
-			
+
 			console.log(results);
-			
+
 			if (err || !results) {
+				logger.log(chalk.bgRed('ERROR'));
 				userSocket.emit('read_event_complete', {
 					// Send error as part of data
 					'error' : true
@@ -88,7 +94,7 @@ module.exports.setup = function(socketServer, userSocket) {
 	});
 
 	userSocket.on('read_events', function(data) {
-		
+
 		console.log('socket read_events');
 
 		// check if user is logged in
@@ -103,6 +109,7 @@ module.exports.setup = function(socketServer, userSocket) {
 		}, function(err, results) {
 
 			if (err || !results) {
+				logger.log(chalk.bgRed('ERROR'));
 				userSocket.emit('read_events_complete', {
 					// Send error as part of data
 					'error' : true
@@ -122,7 +129,7 @@ module.exports.setup = function(socketServer, userSocket) {
 
 	// update
 	userSocket.on('update_event', function(data) {
-		
+
 		console.log('socket update_event');
 
 		// check if user is logged in
@@ -137,6 +144,7 @@ module.exports.setup = function(socketServer, userSocket) {
 		}, function(err, results) {
 
 			if (err || !results) {
+				logger.log(chalk.bgRed('ERROR'));
 				userSocket.emit('update_event_complete', {
 					'error' : true,
 					'message' : 'couldnt find an event'
@@ -185,6 +193,7 @@ module.exports.setup = function(socketServer, userSocket) {
 			eventToUpdate.save(function(err, results) {
 
 				if (err || !results) {
+					logger.log(chalk.bgRed('ERROR'));
 					userSocket.emit('update_event_complete', {
 						// Send error as part of data
 						'error' : true,
@@ -192,8 +201,10 @@ module.exports.setup = function(socketServer, userSocket) {
 					});
 					return;
 				}
+
 				// TODO
 				// Format object here?
+				// we can do this in the model using a save override
 				results.modelType = 'typeEvent';
 
 				userSocket.emit('update_event_complete', {
@@ -210,7 +221,7 @@ module.exports.setup = function(socketServer, userSocket) {
 
 	// delete
 	userSocket.on('delete_event', function(data) {
-		
+
 		console.log('socket delete_event');
 
 		// check if user is logged in
@@ -228,6 +239,7 @@ module.exports.setup = function(socketServer, userSocket) {
 		}, function(err, results) {
 
 			if (err || !results) {
+				logger.log(chalk.bgRed('ERROR'));
 				userSocket.emit('delete_event_complete', {
 					// Send error as part of data
 					'error' : true
@@ -240,6 +252,7 @@ module.exports.setup = function(socketServer, userSocket) {
 			eventToDelete.remove(function(err, results) {
 
 				if (err || !results) {
+					logger.log(chalk.bgRed('ERROR'));
 					userSocket.emit('delete_event_complete', {
 						// Send error as part of data
 						'error' : true
@@ -260,7 +273,7 @@ module.exports.setup = function(socketServer, userSocket) {
 
 	// read from multiple collections
 	userSocket.on('read_all_task_event_by_user', function(data) {
-		
+
 		console.log('socket read_all_task_event_by_user');
 
 		// check if user is logged in
@@ -277,6 +290,7 @@ module.exports.setup = function(socketServer, userSocket) {
 		}, function(err, results) {
 
 			if (err || !results) {
+				logger.log(chalk.bgRed('ERROR'));
 				userSocket.emit('read_all_task_event_by_user', {
 					// Send error as part of data
 					'error' : true
@@ -296,6 +310,7 @@ module.exports.setup = function(socketServer, userSocket) {
 			}, function(err, results) {
 
 				if (err || !results) {
+					logger.log(chalk.bgRed('ERROR'));
 					userSocket.emit('read_all_task_event_by_user', {
 						// Send error as part of data
 						'error' : true

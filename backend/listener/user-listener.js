@@ -1,3 +1,7 @@
+// dev libraries
+var chalk = require('chalk');
+var logger = require('tracer').console();
+
 // Require Mongoose
 var mongoose = require('mongoose');
 var blueimpMd5 = require('blueimp-md5');
@@ -28,6 +32,7 @@ module.exports.setup = function(socketServer, userSocket) {
 		user.save(function(err, results) {
 
 			if (err || !results) {
+				logger.log(chalk.bgRed('ERROR'));
 				userSocket.emit('signup_user_complete', {
 					// Send error as part of data - this is the success
 					'error' : true
@@ -47,6 +52,7 @@ module.exports.setup = function(socketServer, userSocket) {
 			category.save(function(err, results) {
 
 				if (err || !results) {
+					logger.log(chalk.bgRed('ERROR'));
 					userSocket.emit('signup_user_complete', {
 						// Send error as part of data
 						'error' : true
@@ -83,6 +89,7 @@ module.exports.setup = function(socketServer, userSocket) {
 
 			// Check for an error
 			if (err || !results) {
+				logger.log(chalk.bgRed('ERROR'));
 				//Emit an event from the server to the client using the userSocket
 				userSocket.emit('signin_user_complete', {
 					// Send error as part of data
@@ -140,6 +147,7 @@ module.exports.setup = function(socketServer, userSocket) {
 
 			// Check for an error
 			if (err || !results) {
+				logger.log(chalk.bgRed('ERROR'));
 				//Emit an event from the server to the client using the userSocket
 				userSocket.emit('update_user_complete', {
 					// Send error as part of data
@@ -168,6 +176,7 @@ module.exports.setup = function(socketServer, userSocket) {
 			user.save(function(err, results) {
 
 				if (err || !results) {
+					logger.log(chalk.bgRed('ERROR'));
 					userSocket.emit('update_user_complete', {
 						// Send error as part of data
 						'error' : true,

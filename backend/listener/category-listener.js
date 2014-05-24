@@ -1,3 +1,7 @@
+// dev libraries
+var chalk = require('chalk');
+var logger = require('tracer').console();
+
 // Require Mongoose
 var mongoose = require('mongoose');
 
@@ -31,6 +35,7 @@ module.exports.setup = function(socketServer, userSocket) {
 		category.save(function(err, results) {
 
 			if (err || !results) {
+				logger.log(chalk.bgRed('ERROR'));
 				userSocket.emit('create_category_complete', {
 					// Send error as part of data
 					'error' : true
@@ -64,6 +69,7 @@ module.exports.setup = function(socketServer, userSocket) {
 		}, function(err, results) {
 
 			if (err || !results) {
+				logger.log(chalk.bgRed('ERROR'));
 				userSocket.emit('read_categories_complete', {
 					// Send error as part of data
 					'error' : true
@@ -99,6 +105,7 @@ module.exports.setup = function(socketServer, userSocket) {
 		}, function(err, results) {
 
 			if (err || !results) {
+				logger.log(chalk.bgRed('ERROR'));
 				userSocket.emit('update_category_complete', {
 					// Send error as part of data
 					'error' : true
@@ -137,7 +144,8 @@ module.exports.setup = function(socketServer, userSocket) {
 			'userId' : userId
 		}, function(err, results) {
 
-			if (!err && results) {
+			if (err || !results) {
+				logger.log(chalk.bgRed('ERROR'));
 				userSocket.emit('delete_category_complete', {
 					// Send error as part of data
 					'error' : true
@@ -150,7 +158,8 @@ module.exports.setup = function(socketServer, userSocket) {
 				'userId' : userId
 			}, function(err, results) {
 
-				if (!err && results) {
+				if (err || !results) {
+					logger.log(chalk.bgRed('ERROR'));
 					userSocket.emit('delete_category_complete', {
 						// Send error as part of data
 						'error' : true
