@@ -36,13 +36,12 @@ _socketConnection.on('update_event_complete', function(data) {
 			};
 
 			$('.eventEdit-container').fadeOut(500, function() {
-				setFields(calEvent);
 				$('.eventDetail-container').fadeIn(500);
+				setFields(calEvent);
 			});
 		});
 
 		_socketConnection.emit('read_all_task_event_by_user');
-
 	}
 });
 

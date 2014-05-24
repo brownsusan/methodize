@@ -133,7 +133,6 @@ module.exports.setup = function(socketServer, userSocket) {
 			}
 
 			var eventToUpdate = results;
-			eventToUpdate.categoryObject = results.categoryObject;
 
 			// check what needs to be updated
 			if (data.title !== undefined) {

@@ -99,31 +99,6 @@ Event.plugin(mongoosePostFind, {
 			next(null, results);
 		});
 
-	},
-
-	'findOne' : function(result, next) {
-
-		var newEvent = result;
-
-		newEvent.modelType = 'typeEvent';
-
-		CategoryModel.findOne({
-			'id' : newEvent.category
-		}, function(err, results) {
-
-			if (results != null) {
-
-				newEvent.categoryObject = {
-					'title' : results.title,
-					'color' : results.color
-				};
-
-				next();
-
-			}
-
-		});
-
 	}
 });
 
