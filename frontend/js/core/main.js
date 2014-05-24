@@ -482,45 +482,45 @@ var setFields = function(calEvent, jsEvent, view) {
 			//TODO these conditionals are a temporay fix, all of this information is to be required from the user.
 			// need to get info showing by default
 			for (var i = 0, j = reminders.length; i < j; i++) {
-				console.log(reminders[i]);
-				if (!reminders[i].start) {
-					reminders[i].start = '';
+				var currentReminder = reminders[i];
+				if (!currentReminder.start) {
+					currentReminder.start = '';
 				}
-				if (!reminders[i].end) {
-					reminders[i].end = '';
+				if (!currentReminder.end) {
+					currentReminder.end = '';
 				}
-				if (!reminders[i].frequency) {
-					reminders[i].frequency = '';
+				if (!currentReminder.frequency) {
+					currentReminder.frequency = '';
 				}
-				if (!reminders[i].via) {
-					reminders[i].via = [];
+				if (!currentReminder.via) {
+					currentReminder.via = [];
 				}
 				var reminderDisplay = new EJS({
 					url : '/view/ui/reminder-display.ejs'
-				}).render(reminders[i]);
+				}).render(currentReminder);
 
 				var reminder = new EJS({
 					url : '/view/ui/reminder.ejs'
-				}).render(reminders[i]);
+				}).render(currentReminder);
 
 				$('#eventDetail_reminders_container').append(reminderDisplay);
 				$('#eventEdit_reminders_container').append(reminder);
 				// TODO
 				// The reminders are not getting populated with data.
-				$('.reminder-startTime-input').val(calEvent.reminder[i].start);
-				$('.reminder-endTime-input').val(calEvent.reminder[i].end);
+				$('.reminder-startTime-input').val(currentReminder.start);
+				$('.reminder-endTime-input').val(currentReminder.end);
 
 				// TODO
 				// Loop over via array and check off the right inputs
-				if (reminders[i].via != undefined && reminders[i].via.length != 0) {
-					for (var i = 0, j = reminders[i].via.length; i < j; i++) {
-						if (reminders[i].via[i] === "email") {
+				if (currentReminder.via != undefined && currentReminder.via.length != 0) {
+					for (var i = 0, j = currentReminder.via.length; i < j; i++) {
+						if (currentReminder.via[i] === "email") {
 							$('.via-email-input').attr("checked", "checked");
 						}
-						if (reminders[i].via[i] === "call") {
+						if (currentReminder.via[i] === "call") {
 							$('.via-call-input').attr("checked", "checked");
 						}
-						if (reminders[i].via[i] === "sms") {
+						if (currentReminder.via[i] === "sms") {
 							$('.via-sms-input').attr("checked", "checked");
 						}
 					}
