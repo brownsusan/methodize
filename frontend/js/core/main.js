@@ -4,44 +4,46 @@ EJS.config({
 });
 
 _socketConnection.on('update_event_complete', function(data) {
-	if (!data.error) {
+	if (data.error) {
+		alert(data.message);
+		return;
 	}
-	//THIS STILL DOES NOT GIVE ME THE CATEGORY OBJECT
-	var id = data.updatedEvent.id;
-	_socketConnection.emit('read_event', {
-		'id' : id
-	});
-	_socketConnection.on('read_event_complete', function(data) {
-		console.log(data.error);
-		console.log(data.readEvent[0]);
-		var calEvent = {
-			'id' : data.readEvent[i].id,
-			'title' : data.readEvent[i].title,
-			'start' : data.readEvent[i].startDate,
-			'end' : data.readEvent[i].endDate,
-			'color' : data.readEvent[i].categoryObject.color,
-			'category' : data.readEvent[i].categoryObject.title,
-			'categoryId' : data.readEvent[i].category,
-			'important' : data.readEvent[i].important,
-			'allDay' : data.readEvent[i].allDay,
-			'reminder' : data.readEvent[i].reminder,
-			'subtasks' : data.readEvent[i].subtask,
-			'note' : data.readEvent[i].note,
-			'modelType' : data.readEvent[i].modelType
-		};
+	if (!data.error) {
+		var id = data.updatedEvent.id;
+		if (id) {
+			_socketConnection.emit('read_event', {
+				'id' : id
+			});
+		}
 
-		$('.eventEdit-container').fadeOut(500, function() {
-			// TODO
-			// This data needs to be formatted differently
-			// I need the category object to be set when I call the set fields function
+		_socketConnection.on('read_event_complete', function(data) {
+			console.log(data.error);
+			console.log(data.readEvent[0]);
+			var calEvent = {
+				'id' : data.readEvent[0].id,
+				'title' : data.readEvent[0].title,
+				'start' : data.readEvent[0].startDate,
+				'end' : data.readEvent[0].endDate,
+				'color' : data.readEvent[0].categoryObject.color,
+				'category' : data.readEvent[0].categoryObject.title,
+				'categoryId' : data.readEvent[0].category,
+				'important' : data.readEvent[0].important,
+				'allDay' : data.readEvent[0].allDay,
+				'reminder' : data.readEvent[0].reminder,
+				'subtasks' : data.readEvent[0].subtask,
+				'note' : data.readEvent[0].note,
+				'modelType' : data.readEvent[0].modelType
+			};
 
-			// Emit a read event socket event, on read event complete, fade things out and then call set fields with the right event data
-			setFields(calEvent);
-			$('.eventDetail-container').fadeIn(500);
+			$('.eventEdit-container').fadeOut(500, function() {
+				setFields(calEvent);
+				$('.eventDetail-container').fadeIn(500);
+			});
 		});
-	});
 
-	_socketConnection.emit('read_all_task_event_by_user');
+		_socketConnection.emit('read_all_task_event_by_user');
+
+	}
 });
 
 _socketConnection.on('update_user_complete', function(data) {
@@ -435,6 +437,7 @@ var setFields = function(calEvent, jsEvent, view) {
 		$('#eventEdit_id_input').val(calEvent.id);
 		$('#eventDetail_title').html('Title: ' + calEvent.title);
 		$('#eventEdit_title_input').val(calEvent.title);
+
 		if (calEvent.start) {
 			$('#eventDetail_startDate').html(calEvent.start.toUTCString());
 			$('#eventEdit_startDate_input').val(calEvent.start.toUTCString());
@@ -459,9 +462,6 @@ var setFields = function(calEvent, jsEvent, view) {
 			$('#eventEdit_important_input').removeAttr("checked");
 		}
 
-		//TODO
-		//This next line is setting it to category ID instead of the category title after the edit
-		//Probably because the calEvent being returned to change the fields is not being formatted properly
 		$('#eventDetail_category').html('Category: ' + calEvent.category);
 		$('#eventEdit_category_select').find('option').each(function() {
 			if ($(this).val() == calEvent.categoryId) {
@@ -482,6 +482,7 @@ var setFields = function(calEvent, jsEvent, view) {
 			//TODO these conditionals are a temporay fix, all of this information is to be required from the user.
 			// need to get info showing by default
 			for (var i = 0, j = reminders.length; i < j; i++) {
+				console.log(reminders[i]);
 				if (!reminders[i].start) {
 					reminders[i].start = '';
 				}
@@ -508,14 +509,26 @@ var setFields = function(calEvent, jsEvent, view) {
 				// The reminders are not getting populated with data.
 				$('.reminder-startTime-input').val(calEvent.reminder[i].start);
 				$('.reminder-endTime-input').val(calEvent.reminder[i].end);
+
 				// TODO
 				// Loop over via array and check off the right inputs
+				if (reminders[i].via != undefined && reminders[i].via.length != 0) {
+					for (var i = 0, j = reminders[i].via.length; i < j; i++) {
+						if (reminders[i].via[i] === "email") {
+							$('.via-email-input').attr("checked", "checked");
+						}
+						if (reminders[i].via[i] === "call") {
+							$('.via-call-input').attr("checked", "checked");
+						}
+						if (reminders[i].via[i] === "sms") {
+							$('.via-sms-input').attr("checked", "checked");
+						}
+					}
+				}
 				// TODO
 				// Set frequency select
 			}
 		}
-		//TODO
-		// Select option of current category should be chosen by default
 		// TODO
 		// show subtasks
 		$('.eventEdit-container').find('.subtasks').empty();

@@ -127,7 +127,8 @@ module.exports.setup = function(socketServer, userSocket) {
 
 			if (err || !results) {
 				userSocket.emit('update_event_complete', {
-					'error' : true
+					'error' : true,
+					'message' : 'couldnt find an event'
 				});
 			}
 
@@ -176,7 +177,8 @@ module.exports.setup = function(socketServer, userSocket) {
 				if (err || !results) {
 					userSocket.emit('update_event_complete', {
 						// Send error as part of data
-						'error' : true
+						'error' : true,
+						'message' : 'couldnt save the event'
 					});
 					return;
 				}

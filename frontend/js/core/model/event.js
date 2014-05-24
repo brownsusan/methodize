@@ -7,6 +7,3 @@ _socketConnection.on('create_event_complete', function(data) {
 	});
 });
 
-_socketConnection.on('update_event_complete', function(data){
-	console.log(data.results);
-});

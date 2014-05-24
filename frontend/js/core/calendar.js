@@ -156,16 +156,6 @@ $(document).on('click', '#eventEdit_updateEvent_button', function() {
 	});
 });
 
-_socketConnection.on('update_event_complete', function(data) {
-	if (data.error) {
-		alert('There was an error updating the event');
-		return;
-	}
-	$('.eventEdit-container').fadeOut(500, function() {
-		$('.eventDetail-container').fadeIn(500);
-	});
-});
-
 $(document).on('click', '#eventDetail_deleteEvent_button', function() {
 	var id = $('#eventDetail_id_input').val();
 	_socketConnection.emit('delete_event', {
