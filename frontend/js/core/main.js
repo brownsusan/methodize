@@ -704,11 +704,10 @@ $(document).on('click', '#taskEdit_updateTask_button', function() {
 });
 
 _socketConnection.on('update_task_complete', function(data) {
-	// console.log('ERROR: ' + data.error);
-	// console.log('MESSAGE: ' + data.message);
-	// console.log('TASK FRONT END MODEL: ' + data.task);
-	// console.log('update_task_complete');
-	// console.log(data.error);
+	console.log('ERROR: ' + data.error);
+	console.log('MESSAGE: ' + data.message);
+	console.log('TASK FRONT END MODEL: ' + data.task);
+	console.log('update_task_complete');
 	var task = data.task;
 	task.modelType = 'typeTask';
 	if (!data.error) {
