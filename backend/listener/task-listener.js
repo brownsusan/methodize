@@ -2,7 +2,7 @@
 var chalk = require('chalk');
 var logger = require('tracer').console();
 
-// Require Mongoose
+// Require needed libraries
 var mongoose = require('mongoose');
 
 // Get the appropriate db model

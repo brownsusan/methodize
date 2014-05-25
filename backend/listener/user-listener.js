@@ -2,9 +2,10 @@
 var chalk = require('chalk');
 var logger = require('tracer').console();
 
-// Require Mongoose
+// Require needed libraries
 var mongoose = require('mongoose');
 var blueimpMd5 = require('blueimp-md5');
+
 var md5 = blueimpMd5.md5;
 
 // Get the appropriate db model

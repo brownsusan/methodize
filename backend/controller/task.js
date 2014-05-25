@@ -1,4 +1,7 @@
+// Require needed libraries
 var mongoose = require('mongoose');
+
+// Get the appropriate db model
 var CategoryModel = mongoose.model('Category');
 
 module.exports.route = function(app) {
@@ -11,6 +14,10 @@ module.exports.route = function(app) {
 			return;
 		}
 
+		// create the data variable to be sent to the view
+		var data = {};
+		data.user = req.session.user;
+
 		var userId = req.session.user.id;
 
 		CategoryModel.findOne({
@@ -20,10 +27,9 @@ module.exports.route = function(app) {
 
 			var userInboxId = results.id;
 
-			res.render('task', {
-				'userInboxId' : userInboxId,
-				'user' : req.session.user
-			});
+			data.userInboxId = userInboxId;
+
+			res.render('task', data);
 
 		});
 
