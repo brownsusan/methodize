@@ -1,17 +1,25 @@
 //Create a 'complete' listener for the sign in
 _socketConnection.on('signin_user_complete', function(data) {
+	
+	console.log('on signin_user_complete');
+	
 	if (!data.error) {
 		window.location.href = "/calendar";
 	}
+	
 	if(error){
 		alert('You used the wrong info');
 	}
 });
 
 _socketConnection.on('signup_user_complete', function(data) {
+	
+	console.log('on signup_user_complete');
+	
 	if (!data.error) {
 		window.location.href = "/calendar";
 	}
+	
 	if(error){
 		alert('You filled it out wrong');
 	}
@@ -19,18 +27,23 @@ _socketConnection.on('signup_user_complete', function(data) {
 });
 
 $('#landing_login_submit_button').click(function() {
+	
 	console.log('LOGIN SUBMIT CLICKED');
+	
 	//Get the data
 	var email = $('#landing_login_email_input').val();
 	var pass = $('#landing_login_password_input').val();
 	// Emit an event - name it - create an object to emit
+	
 	_socketConnection.emit('signin_user', {
 		'email' : email,
 		'password' : pass
 	});
+	
 });
 
 $('#landing_signUp_submit_button').click(function() {
+	
 	// Get the data
 	var email = $('#landing_signUp_email').val();
 	var phone = $('#landing_signUp_phone').val();
@@ -39,6 +52,7 @@ $('#landing_signUp_submit_button').click(function() {
 
 	var regex_email = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
 	var regex_pass = /^[a-zA-Z]\w{3,14}$/;
+	
 	//Validate
 	valid = true;
 
@@ -51,7 +65,7 @@ $('#landing_signUp_submit_button').click(function() {
 	}
 
 	if (confirmPass != pass) {
-		valid = false
+		valid = false;
 	}
 
 	if (email.length === 0 || phone.length === 0 || pass.length === 0 || confirmPass === 0) {
@@ -63,6 +77,7 @@ $('#landing_signUp_submit_button').click(function() {
 		$('#landing-error').html(errorHtml);
 		return;
 	}
+	
 	//Emit an event
 	_socketConnection.emit('signup_user', {
 		'email' : email,

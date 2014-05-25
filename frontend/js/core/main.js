@@ -4,21 +4,33 @@ EJS.config({
 });
 
 _socketConnection.on('update_event_complete', function(data) {
+
+	console.log('on update_event_complete');
+
 	if (data.error) {
 		alert(data.message);
 		return;
 	}
+
 	if (!data.error) {
+
 		var id = data.updatedEvent.id;
+
 		if (id) {
 			_socketConnection.emit('read_event', {
 				'id' : id
 			});
 		}
 
+		// TODO
+		// there shouldn't be a socket on event inside another socket on event
 		_socketConnection.on('read_event_complete', function(data) {
+
+			console.log('on read_event_complete');
+
 			console.log(data.error);
 			console.log(data.readEvent[0]);
+
 			var calEvent = {
 				'id' : data.readEvent[0].id,
 				'title' : data.readEvent[0].title,
@@ -39,114 +51,165 @@ _socketConnection.on('update_event_complete', function(data) {
 				$('.eventDetail-container').fadeIn(500);
 				setFields(calEvent);
 			});
+
 		});
 
 		_socketConnection.emit('read_all_task_event_by_user');
+
 	}
+
 });
 
 _socketConnection.on('update_user_complete', function(data) {
+
+	console.log('on update_user_complete');
+
 	$('#account_info_edit').fadeOut(500, function() {
 		// TODO
 		// Reset fields with jquery selector
 		$('#account_info_display').fadeIn();
 	});
+
 });
 
 $(document).ready(function() {
+
 	$('#tab-container').easytabs();
 	$('.datetimepicker').datetimepicker();
+
 	var defaultCategory = $('#user-default-category').val();
+
 	$('.task-pageHeading').html('Inbox');
+
 	_socketConnection.emit('read_tasks_by_category', {
 		'categoryId' : defaultCategory
 	});
 
 	_socketConnection.emit('read_categories');
+
 });
 
 var db = {};
+
 $('#nav_container').click(function(event) {
+
 	// if nav is open - close it
 	if ($('#nav_container').css('left') == '0px') {
 		closeNav();
 	}
+
 	// if nav if closed - open it
 	else {
 		closeAdd();
 		closeDetails();
 		openNav();
 	}
+
 }).children().children().children('.nav-account-link').click(function(e) {
 	return false;
 });
 
 $(document).on('click', '.category', function(event) {
+
 	closeDetails();
+
 	var parentCategoryId = $(this).find('.category-id').val();
+
 	$('#parent-category').val(parentCategoryId);
+
 	$('.task-pageHeading').html($(this).find('.category-title').html());
+
 	_socketConnection.emit('read_tasks_by_category', {
 		'categoryId' : parentCategoryId
 	});
+
 });
 
 $('#addPanel_addTask_addReminder_button').click(function() {
+
 	var reminder = new EJS({
 		url : '/view/ui/reminder.ejs'
 	}).render();
+
 	$('#addPanel_addTask_reminders_container').append(reminder);
+
 	$('.reminder-startTime-input').datetimepicker();
+
 	$('.reminder-endTime-input').datetimepicker();
+
 });
 
 $('#addPanel_addEvent_addReminder_button').click(function() {
+
 	var reminder = new EJS({
 		url : '/view/ui/reminder.ejs'
 	}).render();
+
 	$('#addPanel_addEvent_reminders_container').append(reminder);
+
 	$('.reminder-startTime-input').datetimepicker();
+
 	$('.reminder-endTime-input').datetimepicker();
+
 });
 
 $('#taskEdit_addReminder_button').click(function() {
+
 	var reminder = new EJS({
 		url : '/view/ui/reminder.ejs'
 	}).render();
+
 	$('#taskEdit_reminders_container').append(reminder);
+
 	$('.reminder-startTime-input').datetimepicker();
+
 	$('.reminder-endTime-input').datetimepicker();
+
 });
 
 $('#eventEdit_addReminder_button').click(function() {
+
 	var reminder = new EJS({
 		url : '/view/ui/reminder.ejs'
 	}).render();
+
 	$('#eventEdit_reminders_container').append(reminder);
+
 	$('.reminder-startTime-input').datetimepicker();
+
 	$('.reminder-endTime-input').datetimepicker();
+
 });
 
 $('#addPanel_addTask_submit_button').click(function() {
+
 	var reminders = [];
+
 	$('#addPanel_addTask .reminder').each(function() {
+
 		var via = [];
+
 		if ($(this).find('.via-email-input').is(":checked")) {
 			via.push('email');
 		}
+
 		if ($(this).find('.via-call-input').is(":checked")) {
 			via.push('call');
 		}
+
 		if ($(this).find('.via-sms-input').is(":checked")) {
 			via.push('sms');
 		}
+
 		var reminder = {
 			start : $('.reminder-startTime-input').val(),
 			end : $('.reminder-endTime-input').val(),
 			frequency : $('.reminder-frequency-select').val(),
 			via : via
 		};
+
 		reminders.push(reminder);
+
 	});
 
 	var subtasks = [];
@@ -177,9 +240,11 @@ $('#addPanel_addTask_submit_button').click(function() {
 		'frequency' : frequency,
 		'note' : note
 	});
+	
 });
 
 $('#addPanel_addEvent_submit_button').click(function() {
+	
 	var reminders = [];
 	$('#addPanel_addEvent .reminder').each(function() {
 		var via = [];
@@ -232,23 +297,31 @@ $('#addPanel_addEvent_submit_button').click(function() {
 		'frequency' : frequency,
 		'note' : note
 	});
+	
 });
 
 $(document).on('keypress', '.addSubtask-input', function(event) {
+
 	if (event.which == 13) {
+
 		console.log('hit enter');
+
 		var data = {
 			'id' : uuid.v4(),
 			'title' : $(this).val(),
 			'open' : true
-		}
+		};
+
 		console.log(data);
+
 		var subtask = new EJS({
 			url : '/view/ui/subtask.ejs'
 		}).render(data);
 
 		$(this).next('.subtasks').append(subtask);
+
 	}
+
 });
 
 $('.nav-account-link').click(function() {
@@ -372,6 +445,7 @@ var closeDetails = function(callback) {
 		});
 	}
 };
+
 // Open Add Panel
 var openAdd = function() {
 	//Needs a conditional to see if the event detail container is open - if it is then close it
@@ -388,6 +462,7 @@ var openAdd = function() {
 		'right' : +360
 	});
 };
+
 // Close Add Panel
 var closeAdd = function() {
 	//HIDE DETAILS AND EVENTS
@@ -410,14 +485,8 @@ $(document).on('click', '#taskDetail_editTask_button', function() {
 	$('.taskDetail-container').fadeOut(500, function() {
 		$('.taskEdit-container').fadeIn(500);
 	});
-
 });
-//
-//
-//
-//
-//
-//
+
 // ######  ######## ########    ######## #### ######## ##       ########   ######
 //##    ## ##          ##       ##        ##  ##       ##       ##     ## ##    ##
 //##       ##          ##       ##        ##  ##       ##       ##     ## ##
@@ -425,8 +494,7 @@ $(document).on('click', '#taskDetail_editTask_button', function() {
 //      ## ##          ##       ##        ##  ##       ##       ##     ##       ##
 //##    ## ##          ##       ##        ##  ##       ##       ##     ## ##    ##
 // ######  ########    ##       ##       #### ######## ######## ########   ######
-//
-//
+
 var setFields = function(calEvent, jsEvent, view) {
 	var id = calEvent.id;
 
@@ -618,11 +686,8 @@ var setFields = function(calEvent, jsEvent, view) {
 			}
 		}
 	}
-}
-//
-//
-//
-//
+};
+
 //##     ## ########  ########     ###    ######## ########    ########    ###     ######  ##    ##
 //##     ## ##     ## ##     ##   ## ##      ##    ##             ##      ## ##   ##    ## ##   ##
 //##     ## ##     ## ##     ##  ##   ##     ##    ##             ##     ##   ##  ##       ##  ##
@@ -630,6 +695,7 @@ var setFields = function(calEvent, jsEvent, view) {
 //##     ## ##        ##     ## #########    ##    ##             ##    #########       ## ##  ##
 //##     ## ##        ##     ## ##     ##    ##    ##             ##    ##     ## ##    ## ##   ##
 // #######  ##        ########  ##     ##    ##    ########       ##    ##     ##  ######  ##    ##
+
 $(document).on('click', '#taskEdit_updateTask_button', function() {
 	var id = $('#taskEdit_id_input').val();
 	var task = _(db.tasks).where({
@@ -704,27 +770,30 @@ $(document).on('click', '#taskEdit_updateTask_button', function() {
 });
 
 _socketConnection.on('update_task_complete', function(data) {
+
+	console.log('on update_task_complete');
+
 	console.log('ERROR: ' + data.error);
 	console.log('MESSAGE: ' + data.message);
 	console.log('TASK FRONT END MODEL: ' + data.task);
-	console.log('update_task_complete');
+
 	var task = data.task;
 	task.modelType = 'typeTask';
+
 	if (!data.error) {
 	}
+
 	$('.taskEdit-container').fadeOut(500, function() {
 		setFields(task);
 		$('.taskDetail-container').fadeIn(500);
 	});
+
 	_.updateWhere(db.tasks, {
 		id : data.task.id
 	}, data.task);
+
 });
 
-//
-//
-//
-//
 //########  ######## ##       ######## ######## ########    ########    ###     ######  ##    ##
 //##     ## ##       ##       ##          ##    ##             ##      ## ##   ##    ## ##   ##
 //##     ## ##       ##       ##          ##    ##             ##     ##   ##  ##       ##  ##
@@ -732,6 +801,7 @@ _socketConnection.on('update_task_complete', function(data) {
 //##     ## ##       ##       ##          ##    ##             ##    #########       ## ##  ##
 //##     ## ##       ##       ##          ##    ##             ##    ##     ## ##    ## ##   ##
 //########  ######## ######## ########    ##    ########       ##    ##     ##  ######  ##    ##
+
 $(document).on('click', '#taskDetail_deleteTask_button', function() {
 	var id = $('#taskDetail_id_input').val();
 	_socketConnection.emit('delete_task', {

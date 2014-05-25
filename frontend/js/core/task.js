@@ -26,17 +26,29 @@ _.observe(db.tasks, function() {
 });
 
 _socketConnection.on('update_subtask_complete', function(data) {
+
+	console.log('on update_subtask_complete');
+
 	$('.subtasks').empty();
+
 	var subtasks = data.task.subtask;
+
 	if (subtasks === undefined) {
+
 	} else {
+
 		for (var i = 0, j = subtasks.length; i < j; i++) {
+
 			var subtask = new EJS({
 				url : '/view/ui/subtask.ejs'
 			}).render(subtasks[i]);
+
 			$('.subtasks').append(subtask);
-		};
+
+		}
+
 	}
+
 });
 
 // triggers when adding a new task to a category
@@ -79,7 +91,6 @@ $(document).on('click', '.task-item', function(event) {
 	var note = clickedTask.note;
 	var categoryObject = clickedTask.categoryObject;
 
-
 	var calEvent = {
 		'id' : clickedTaskId,
 		'title' : title,
@@ -94,7 +105,8 @@ $(document).on('click', '.task-item', function(event) {
 		'subtasks' : subtask,
 		'note' : note,
 		'modelType' : 'typeTask'
-	}
+	};
+	
 	// console.log(calEvent);
 	setFields(calEvent);
 	openDetails(calEvent);

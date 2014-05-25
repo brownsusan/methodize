@@ -1,8 +1,30 @@
-//Create a 'complete' listener for the category creation
 db.categories = [];
 
+//Create a 'complete' listener for the category creation
+// create
+_socketConnection.on('create_category_complete', function(data) {
+
+	console.log('on create_category_complete');
+
+	// check if an error occured
+	if (data.error) {
+		return;
+	}
+
+	_socketConnection.emit('read_categories');
+
+});
+
+// read
 _socketConnection.on('read_categories_complete', function(data) {
-	console.log('read_categories_complete');
+
+	console.log('on read_categories_complete');
+
+	// check if an error occured
+	if (data.error) {
+		return;
+	}
+
 	while (db.categories.length > 0) {
 		db.categories.pop();
 	}
@@ -13,22 +35,30 @@ _socketConnection.on('read_categories_complete', function(data) {
 
 });
 
-_socketConnection.on('create_category_complete', function(data) {
-	console.log('create_category_complete');
-	if (!data.error) {
-		_socketConnection.emit('read_categories');
-	}
-});
-
+// update
 _socketConnection.on('update_category_complete', function(data) {
-	console.log('update_category_complete');
-	if (!data.error) {
+
+	console.log('on update_category_complete');
+
+	// check if an error occured
+	if (data.error) {
+		return;
 	}
 
 	_socketConnection.emit('read_categories');
+
 });
 
+// delete
 _socketConnection.on('delete_category_complete', function(data) {
-	console.log('delete_category_complete');
+
+	console.log('on delete_category_complete');
+
+	// check if an error occured
+	if (data.error) {
+		return;
+	}
+
 	_socketConnection.emit('read_categories');
-}); 
+
+});

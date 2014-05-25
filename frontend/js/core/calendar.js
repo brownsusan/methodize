@@ -1,15 +1,20 @@
-$(document).ready(function() {
-	_socketConnection.emit('read_events');
-	_socketConnection.emit('read_all_task_event_by_user');
-});
-
 _socketConnection.on('read_all_task_event_by_user_complete', function(data) {
 
+	console.log('on read_all_task_event_by_user_complete');
+
+	// check if an error occured
+	if (data.error) {
+		return;
+	}
+
 	$('#calendar').empty();
+
 	var calendarData = [];
 	// format events and tasks by type
 	for (var i = 0, j = data.calendarData.length; i < j; i++) {
+
 		if (data.calendarData[i].modelType == 'typeEvent') {
+
 			var newEvent = {
 				'id' : data.calendarData[i].id,
 				'title' : data.calendarData[i].title,
@@ -24,10 +29,14 @@ _socketConnection.on('read_all_task_event_by_user_complete', function(data) {
 				'subtasks' : data.calendarData[i].subtask,
 				'note' : data.calendarData[i].note,
 				'modelType' : data.calendarData[i].modelType
-			}
+			};
+
 			calendarData.push(newEvent);
+
 		}
+
 		if (data.calendarData[i].modelType == 'typeTask') {
+
 			var newTask = {
 				'id' : data.calendarData[i].id,
 				'title' : data.calendarData[i].title,
@@ -42,21 +51,27 @@ _socketConnection.on('read_all_task_event_by_user_complete', function(data) {
 				'subtasks' : data.calendarData[i].subtask,
 				'note' : data.calendarData[i].note,
 				'modelType' : data.calendarData[i].modelType
-			}
+			};
+
 			calendarData.push(newTask);
+
 		}
+
 	};
+
 	var date = new Date();
 	var d = date.getDate();
 	var m = date.getMonth();
 	var y = date.getFullYear();
 
 	var calendar = $('#calendar').fullCalendar({
+
 		header : {
 			left : 'prev,next today',
 			center : 'title',
 			right : 'month,agendaWeek,agendaDay'
 		},
+
 		defaultView : 'month',
 		weekMode : 'liquid',
 		selectable : true,
@@ -88,14 +103,23 @@ _socketConnection.on('read_all_task_event_by_user_complete', function(data) {
 	});
 });
 
+$(document).ready(function() {
+
+	console.log('event - document ready');
+
+	_socketConnection.emit('read_events');
+	_socketConnection.emit('read_all_task_event_by_user');
+
+});
+
 $(document).on('click', '#eventDetail_editEvent_button', function() {
 	$('.eventDetail-container').fadeOut(500, function() {
 		$('.eventEdit-container').fadeIn(500);
 	});
-
 });
 
 $(document).on('click', '#eventEdit_updateEvent_button', function() {
+
 	var id = $('#eventEdit_id_input').val();
 	var title = $('#eventEdit_title_input').val();
 	var startDate = $('#eventEdit_startDate_input').val();
@@ -105,6 +129,7 @@ $(document).on('click', '#eventEdit_updateEvent_button', function() {
 
 	var reminders = [];
 	$('.eventEdit-container .reminder').each(function() {
+
 		var via = [];
 
 		if ($(this).find('.via-email-input').is(":checked")) {
@@ -127,15 +152,19 @@ $(document).on('click', '#eventEdit_updateEvent_button', function() {
 		};
 
 		reminders.push(reminder);
+
 	});
 
 	var subtasks = [];
 	$('.eventEdit-container .subtasks li').each(function() {
+
 		var subtask = {
 			title : $(this).find('.subtask-title').html(),
 			completed : $(this).find('.subtask-completed').prop('checked')
 		};
+
 		subtasks.push(subtask);
+
 	});
 
 	//TODO ALWAYS CHECKED ATTR
@@ -154,13 +183,18 @@ $(document).on('click', '#eventEdit_updateEvent_button', function() {
 		'subtask' : subtasks,
 		'note' : note
 	});
+
 });
 
 $(document).on('click', '#eventDetail_deleteEvent_button', function() {
+
 	var id = $('#eventDetail_id_input').val();
+
 	_socketConnection.emit('delete_event', {
 		'id' : id
 	});
+
 	closeDetails();
+
 });
 
