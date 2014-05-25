@@ -1,3 +1,4 @@
+// Require needed libraries
 var async = require('async');
 var uuid = require('node-uuid');
 var mongoose = require('mongoose');
@@ -7,15 +8,21 @@ var CategoryModel = mongoose.model('Category');
 var Schema = mongoose.Schema;
 
 var Event = new Schema({
+	// userId is a foriegn key to the user collection's id property
+	'userId' : {
+		'type' : String,
+		'required' : true
+	},
+	// category is a foriegn key to the category collection's id property
+	'category' : {
+		'type' : String,
+		'required' : true
+	},
 	'id' : {
 		'type' : String,
 		'default' : function() {
 			return uuid.v4();
 		}
-	},
-	'userId' : {
-		'type' : String,
-		'required' : true
 	},
 	'title' : {
 		'type' : String,
@@ -39,12 +46,10 @@ var Event = new Schema({
 			'enum' : ['call', 'email', 'sms']
 		}
 	}],
-	'category' : {
-		'type' : String,
-		'required' : true
-	},
 	'categoryObject' : Object,
 	'important' : Boolean,
+	'note' : String,
+	'modelType' : String,
 	'subtask' : [{
 		'id' : {
 			'type' : String,
@@ -54,9 +59,7 @@ var Event = new Schema({
 		},
 		'title' : String,
 		'completed' : Boolean
-	}],
-	'note' : String,
-	'modelType' : String
+	}]
 }, {
 	'collection' : 'event',
 	'versionKey' : false

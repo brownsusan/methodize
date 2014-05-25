@@ -9,7 +9,7 @@ _.observe(db.categories, function() {
 	for (var i = 0, j = db.categories.length; i < j; i++) {
 		$('#addPanel_addTask_category_select, #addPanel_addEvent_category_select, #eventEdit_category_select, #taskEdit_category_select').append('<option value="' + db.categories[i].id + '">' + db.categories[i].title + '</option>');
 		// $('#addPanel_addEvent_category_select').append('<option value="' + db.categories[i].id + '">' + db.categories[i].title + '</option>');
-	};
+	}
 
 	$('.task-category-list').empty();
 
@@ -27,16 +27,18 @@ _socketConnection.on('create_category_complete', function(data) {
 	console.log('on create_category_complete');
 	
 	if (!data.error) {
+
 	}
 	
 });
 
+// create
 $('#task_categoryAdd_input').keypress(function(event) {
 	
 	if (event.which == 13) {
 		
 		//Validation Here
-		var title = $('#task_categoryAdd_input').val();
+		var title = $(this).val();
 
 		_socketConnection.emit('create_category', {
 			'title' : title
@@ -61,14 +63,18 @@ $(document).on('dblclick', '.category', function(event) {
 $(document).on('keypress', '.category-title-edit', (function(event) {
 	
 	if (event.which == 13 && $(this).closest().find('.category-id').val() != $('#user-default-category').val()) {
+
 		//Manipulate the data
 		var title = $(this).closest('.category').find('.category-title-edit').val();
 		var id = $(this).closest('.category').find('.category-id').val();
+
 		//Figure out how to determine color
+
 		_socketConnection.emit('update_category', {
 			'id' : id,
 			'title' : title
 		});
+
 	}
 	
 	// TODO
@@ -76,6 +82,7 @@ $(document).on('keypress', '.category-title-edit', (function(event) {
 	
 }));
 
+// delete
 $(document).on('click', '.category-delete', function(event) {
 	
 	var id = $(this).closest('.category').find('.category-id').val();

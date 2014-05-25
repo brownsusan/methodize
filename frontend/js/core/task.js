@@ -3,6 +3,7 @@ var taskId;
 //Create a 'complete' listener for the sign in
 // triggers when the db.tasks updates
 _.observe(db.tasks, function() {
+
 	$('.task-task-list').empty();
 	$('.task-completedTask-list').empty();
 
@@ -106,7 +107,7 @@ $(document).on('click', '.task-item', function(event) {
 		'note' : note,
 		'modelType' : 'typeTask'
 	};
-	
+
 	// console.log(calEvent);
 	setFields(calEvent);
 	openDetails(calEvent);

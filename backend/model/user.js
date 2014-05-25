@@ -1,3 +1,4 @@
+// Require needed libraries
 var blueimpMd5 = require('blueimp-md5');
 var uuid = require('node-uuid');
 var mongoose = require('mongoose');
@@ -15,8 +16,8 @@ var User = new Schema({
 	'email' : {
 		'type' : String,
 		'required' : true,
-		'lowercase': true,
-		'trim': true
+		'lowercase' : true,
+		'trim' : true
 	},
 	'password' : {
 		'type' : String,

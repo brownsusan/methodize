@@ -17,6 +17,9 @@ module.exports.setup = function(socketServer, userSocket) {
 	// create
 	userSocket.on('create_category', function(data) {
 
+		// data must include
+		// title
+
 		console.log('socket create_category');
 
 		// check if user is logged in
@@ -55,6 +58,9 @@ module.exports.setup = function(socketServer, userSocket) {
 	// read
 	userSocket.on('read_categories', function(data) {
 
+		// data must include
+		// ---- nothing
+
 		console.log('socket read_categories');
 
 		// check if user is logged in
@@ -89,6 +95,10 @@ module.exports.setup = function(socketServer, userSocket) {
 
 	// update
 	userSocket.on('update_category', function(data) {
+
+		// data must include
+		// id
+		// title
 
 		console.log('socket update_category');
 
@@ -127,6 +137,9 @@ module.exports.setup = function(socketServer, userSocket) {
 
 	// delete
 	userSocket.on('delete_category', function(data) {
+
+		// data must include
+		// id
 
 		console.log('socket delete_category');
 

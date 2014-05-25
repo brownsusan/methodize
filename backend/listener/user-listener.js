@@ -20,6 +20,11 @@ module.exports.setup = function(socketServer, userSocket) {
 	// create
 	userSocket.on('signup_user', function(data) {
 
+		// data must include
+		// email
+		// password
+		// phone
+
 		console.log('socket signup_user');
 
 		var user = new UserModel();
@@ -79,6 +84,10 @@ module.exports.setup = function(socketServer, userSocket) {
 	// read
 	userSocket.on('signin_user', function(data) {
 
+		// data must include
+		// email
+		// password
+
 		console.log('socket signin_user');
 
 		var email = data.email.toLowerCase();
@@ -134,6 +143,14 @@ module.exports.setup = function(socketServer, userSocket) {
 	// update
 	userSocket.on('update_user', function(data) {
 
+		// data must include
+		// ---- nothing
+
+		// data could include
+		// email
+		// password
+		// phone
+
 		console.log('socket update_user');
 
 		// check if user is logged in
@@ -141,7 +158,8 @@ module.exports.setup = function(socketServer, userSocket) {
 			return;
 		}
 
-		var userId = data.userId;
+		var userId = session.user.id;
+
 		UserModel.findOne({
 			'id' : userId
 		}, function(err, results) {
@@ -160,6 +178,11 @@ module.exports.setup = function(socketServer, userSocket) {
 
 			var user = results;
 
+			if (data.email !== undefined) {
+				// the model will lowercase the email
+				user.email = data.email;
+			}
+
 			// check what needs to be updated
 			if (data.password !== undefined) {
 				// the model will hash the password
@@ -170,10 +193,6 @@ module.exports.setup = function(socketServer, userSocket) {
 				user.phoneNumber = data.phone;
 			}
 
-			if (data.email !== undefined) {
-				// the model will lowercase the email
-				user.email = data.email;
-			}
 			user.save(function(err, results) {
 
 				if (err || !results) {
@@ -186,15 +205,15 @@ module.exports.setup = function(socketServer, userSocket) {
 					return;
 				}
 
+				//Have to call session.save() after changing the session in any way - just how socketio works
+				session.user = user;
+				session.save();
+
 				userSocket.emit('update_user_complete', {
 					// Send an error as part of data
 					'error' : false,
 					'user' : results
 				});
-
-				//Have to call session.save() after changing the session in any way - just how socketio works
-				session.user = user;
-				session.save();
 
 			});
 

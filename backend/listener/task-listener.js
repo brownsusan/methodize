@@ -16,6 +16,15 @@ module.exports.setup = function(socketServer, userSocket) {
 	// create
 	userSocket.on('create_task', function(data) {
 
+		// data must include
+		// title
+		// dueDate
+		// reminder
+		// category
+		// important
+		// subtask
+		// note
+
 		console.log('socket create_task');
 
 		// check if user is logged in
@@ -57,6 +66,9 @@ module.exports.setup = function(socketServer, userSocket) {
 	// read
 	userSocket.on('read_tasks', function(data) {
 
+		// data must include
+		// ---- nothing
+
 		console.log('socket read_tasks');
 
 		// check if user is logged in
@@ -90,6 +102,9 @@ module.exports.setup = function(socketServer, userSocket) {
 
 	userSocket.on('read_task_by_id', function(data) {
 
+		// data must include
+		// id
+
 		console.log('socket read_task_by_id');
 
 		// check if user is logged in
@@ -122,6 +137,9 @@ module.exports.setup = function(socketServer, userSocket) {
 	});
 
 	userSocket.on('read_tasks_by_category', function(data) {
+
+		// data must include
+		// categoryId
 
 		console.log('socket read_tasks_by_category');
 
@@ -157,6 +175,18 @@ module.exports.setup = function(socketServer, userSocket) {
 
 	// update
 	userSocket.on('update_task', function(data) {
+
+		// data must include
+		// id
+
+		// data could include
+		// title
+		// dueDate
+		// reminder
+		// category
+		// important
+		// subtask
+		// note
 
 		console.log('socket update_task');
 
@@ -243,6 +273,11 @@ module.exports.setup = function(socketServer, userSocket) {
 
 	userSocket.on('update_subtask', function(data) {
 
+		// data must include
+		// taskId
+		// subtaskId
+		// title
+
 		console.log('socket update_subtask');
 
 		// check if user is logged in
@@ -303,6 +338,9 @@ module.exports.setup = function(socketServer, userSocket) {
 
 	// delete
 	userSocket.on('delete_task', function(data) {
+
+		// data must include
+		// id
 
 		console.log('socket delete_task');
 
