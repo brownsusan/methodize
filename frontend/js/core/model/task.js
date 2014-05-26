@@ -42,9 +42,9 @@ _socketConnection.on('read_tasks_complete', function(data) {
 
 });
 
-_socketConnection.on('read_task_by_id_complete', function(data) {
+_socketConnection.on('read_task_complete', function(data) {
 
-	console.log('on read_task_by_id_complete');
+	console.log('on read_task_complete');
 
 	// check if an error occured
 	if (data.error) {
@@ -99,23 +99,7 @@ _socketConnection.on('update_task_complete', function(data) {
 		$('.taskDetail-container').fadeIn(500);
 	});
 
-	_socketConnection.emit('read_all_task_event_by_user', function(data) {
-	});
-
-	_.updateWhere(db.tasks, {
-		id : data.task.id
-	}, data.task);
-
-});
-
-_socketConnection.on('update_subtask_complete', function(data) {
-
-	console.log('on update_subtask_complete');
-
-	// check if an error occured
-	if (data.error) {
-		return;
-	}
+	_socketConnection.emit('read_events_tasks');
 
 	_.updateWhere(db.tasks, {
 		id : data.task.id

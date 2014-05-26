@@ -1,6 +1,6 @@
-_socketConnection.on('read_all_task_event_by_user_complete', function(data) {
+_socketConnection.on('read_events_tasks_complete', function(data) {
 
-	console.log('on read_all_task_event_by_user_complete');
+	console.log('on read_events_tasks_complete');
 
 	// check if an error occured
 	if (data.error) {
@@ -104,12 +104,7 @@ _socketConnection.on('read_all_task_event_by_user_complete', function(data) {
 });
 
 $(document).ready(function() {
-
-	console.log('event - document ready');
-
-	_socketConnection.emit('read_events');
-	_socketConnection.emit('read_all_task_event_by_user');
-
+	_socketConnection.emit('read_events_tasks');
 });
 
 $(document).on('click', '#eventDetail_editEvent_button', function() {

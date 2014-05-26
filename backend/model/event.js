@@ -73,6 +73,35 @@ Event.pre('save', function(next) {
 
 });
 
+// custom methods
+// this acts simular to a post save but allows control flow
+Event.methods = {
+	'save': function(next) {
+
+		var newEvent = this;
+
+		newEvent.modelType = 'typeEvent';
+
+		CategoryModel.findOne({
+			'id' : newEvent.category
+		}, function(err, results) {
+
+			if (results != null) {
+
+				newEvent.categoryObject = {
+					'title' : results.title,
+					'color' : results.color
+				};
+
+				next(null, newEvent);
+
+			}
+
+		});
+
+	}
+};
+
 Event.plugin(mongoosePostFind, {
 
 	'find' : function(results, next) {
@@ -120,7 +149,7 @@ Event.plugin(mongoosePostFind, {
 					'color' : results.color
 				};
 
-				next();
+				next(null, newEvent);
 
 			}
 
