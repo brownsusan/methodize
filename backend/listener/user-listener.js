@@ -192,7 +192,6 @@ module.exports.setup = function(socketServer, userSocket) {
 			if (data.password !== undefined) {
 				// the model will hash the password
 				user.password = data.password;
-				console.log(user.password);
 			}
 
 			if (data.phone !== undefined) {

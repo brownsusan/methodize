@@ -84,8 +84,6 @@ module.exports.setup = function(socketServer, userSocket) {
 				return;
 			}
 
-			console.log(socketServer.sockets.manager.rooms)
-
 			userSocket.emit('read_categories_complete', {
 				// Send error as part of data
 				'error': false,

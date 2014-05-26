@@ -126,8 +126,6 @@ module.exports.setup = function(socketServer, userSocket) {
 			'id' : data.id
 		}, function(err, results) {
 
-			console.log(results);
-
 			if (err || !results) {
 				logger.log(chalk.bgRed('ERROR'));
 				userSocket.emit('read_event_complete', {
