@@ -4,12 +4,13 @@ _socketConnection.on('signin_user_complete', function(data) {
 	console.log('on signin_user_complete');
 	
 	if (!data.error) {
-		window.location.href = "/calendar";
+		window.location.href = '/calendar';
 	}
 	
-	if(error){
+	if(data.error){
 		alert('You used the wrong info');
 	}
+
 });
 
 _socketConnection.on('signup_user_complete', function(data) {
@@ -17,10 +18,10 @@ _socketConnection.on('signup_user_complete', function(data) {
 	console.log('on signup_user_complete');
 	
 	if (!data.error) {
-		window.location.href = "/calendar";
+		window.location.href = '/calendar';
 	}
 	
-	if(error){
+	if(data.error){
 		alert('You filled it out wrong');
 	}
 	

@@ -133,7 +133,7 @@ Task.plugin(mongoosePostFind, {
 					'color' : results.color
 				};
 
-				next();
+				next(null, result);
 
 			} else {
 
@@ -142,7 +142,7 @@ Task.plugin(mongoosePostFind, {
 					'color' : ''
 				};
 
-				next();
+				next(null, result);
 
 			}
 

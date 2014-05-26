@@ -34,7 +34,9 @@ var config = require(_backend_root + '/config/config');
 /** Mongoose */
 
 fs.readdirSync(_backend_root + '/model').forEach(function(file) {
-	require(_backend_root + '/model/' + file);
+	if (file.substr(-3) == '.js') {
+		require(_backend_root + '/model/' + file);
+	}
 });
 
 mongoose.connect('mongodb://localhost/methodize');

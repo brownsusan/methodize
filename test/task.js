@@ -132,7 +132,7 @@ test.task = {};
 				console.log(data);
 			});
 
-			_socketConnection.emit('', {
+			_socketConnection.emit('update_subtask', {
 				'title': 'Some Testing Title'
 			});
 

@@ -29,6 +29,7 @@ module.exports.setup = function(socketServer, userSocket) {
 		// note
 
 		console.log('socket create_event');
+		console.log(data);
 
 		// check if user is logged in
 		if (session.user === undefined) {
@@ -77,6 +78,7 @@ module.exports.setup = function(socketServer, userSocket) {
 		// ---- nothing
 
 		console.log('socket read_events');
+		console.log(data);
 
 		// check if user is logged in
 		if (session.user === undefined) {
@@ -114,6 +116,7 @@ module.exports.setup = function(socketServer, userSocket) {
 		// id
 
 		console.log('socket read_event');
+		console.log(data);
 
 		// check if user is logged in
 		if (session.user === undefined) {
@@ -163,6 +166,7 @@ module.exports.setup = function(socketServer, userSocket) {
 		// note
 
 		console.log('socket update_event');
+		console.log(data);
 
 		// check if user is logged in
 		if (session.user === undefined) {
@@ -260,6 +264,7 @@ module.exports.setup = function(socketServer, userSocket) {
 		// id
 
 		console.log('socket delete_event');
+		console.log(data);
 
 		// check if user is logged in
 		if (session.user === undefined) {
@@ -315,6 +320,7 @@ module.exports.setup = function(socketServer, userSocket) {
 		// ---- nothing
 
 		console.log('socket read_all_task_event_by_user');
+		console.log(data);
 
 		// check if user is logged in
 		if (session.user === undefined) {

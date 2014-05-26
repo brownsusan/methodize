@@ -3,6 +3,10 @@ EJS.config({
 	cache : false
 });
 
+_socketConnection.on('reload', function(data) {
+	document.location.href = '/task';
+});
+
 _socketConnection.on('update_event_complete', function(data) {
 
 	console.log('on update_event_complete');
@@ -12,51 +16,48 @@ _socketConnection.on('update_event_complete', function(data) {
 		return;
 	}
 
-	if (!data.error) {
+	var id = data.updatedEvent.id;
 
-		var id = data.updatedEvent.id;
+	if (id) {
+		_socketConnection.emit('read_event', {
+			'id' : id
+		});
+	}
 
-		if (id) {
-			_socketConnection.emit('read_event', {
-				'id' : id
-			});
-		}
+	// TODO
+	// there shouldn't be a socket on event inside another socket on event
+	_socketConnection.on('read_event_complete', function(data) {
 
-		// TODO
-		// there shouldn't be a socket on event inside another socket on event
-		_socketConnection.on('read_event_complete', function(data) {
+		console.log('on read_event_complete');
 
-			console.log('on read_event_complete');
+		console.log(data.error);
+		console.log(data.readEvent[0]);
 
-			console.log(data.error);
-			console.log(data.readEvent[0]);
+		var calEvent = {
+			'id' : data.readEvent[0].id,
+			'title' : data.readEvent[0].title,
+			'start' : data.readEvent[0].startDate,
+			'end' : data.readEvent[0].endDate,
+			'color' : data.readEvent[0].categoryObject.color,
+			'category' : data.readEvent[0].categoryObject.title,
+			'categoryId' : data.readEvent[0].category,
+			'important' : data.readEvent[0].important,
+			'allDay' : data.readEvent[0].allDay,
+			'reminder' : data.readEvent[0].reminder,
+			'subtasks' : data.readEvent[0].subtask,
+			'note' : data.readEvent[0].note,
+			'modelType' : data.readEvent[0].modelType
+		};
 
-			var calEvent = {
-				'id' : data.readEvent[0].id,
-				'title' : data.readEvent[0].title,
-				'start' : data.readEvent[0].startDate,
-				'end' : data.readEvent[0].endDate,
-				'color' : data.readEvent[0].categoryObject.color,
-				'category' : data.readEvent[0].categoryObject.title,
-				'categoryId' : data.readEvent[0].category,
-				'important' : data.readEvent[0].important,
-				'allDay' : data.readEvent[0].allDay,
-				'reminder' : data.readEvent[0].reminder,
-				'subtasks' : data.readEvent[0].subtask,
-				'note' : data.readEvent[0].note,
-				'modelType' : data.readEvent[0].modelType
-			};
-
-			$('.eventEdit-container').fadeOut(500, function() {
-				$('.eventDetail-container').fadeIn(500);
-				setFields(calEvent);
-			});
-
+		$('.eventEdit-container').fadeOut(500, function() {
+			$('.eventDetail-container').fadeIn(500);
+			setFields(calEvent);
 		});
 
-		_socketConnection.emit('read_all_task_event_by_user');
+	});
 
-	}
+	_socketConnection.emit('read_all_task_event_by_user');
+
 
 });
 
@@ -697,10 +698,15 @@ var setFields = function(calEvent, jsEvent, view) {
 // #######  ##        ########  ##     ##    ##    ########       ##    ##     ##  ######  ##    ##
 
 $(document).on('click', '#taskEdit_updateTask_button', function() {
+
 	var id = $('#taskEdit_id_input').val();
+
 	var task = _(db.tasks).where({
 		'id' : id
 	});
+
+	console.log(task);
+
 	var clickedTask = task[0];
 	var title = $('#taskEdit_title_input').val();
 	var dueDate = $('#taskEdit_dueDate_input').val();
@@ -746,17 +752,6 @@ $(document).on('click', '#taskEdit_updateTask_button', function() {
 		subtasks.push(subtask);
 	});
 
-	// console.log(
-	// 'id' + id + ' ' +
-	// 'title' + title + ' ' +
-	// 'dueDate' + dueDate + ' ' +
-	// 'reminder' + reminders + ' ' +
-	// 'category' + category + ' ' +
-	// 'important' + important + ' ' +
-	// 'subtask' + subtasks + ' ' +
-	// 'note' + note
-	// );
-
 	_socketConnection.emit('update_task', {
 		'id' : id,
 		'title' : title,
@@ -767,6 +762,7 @@ $(document).on('click', '#taskEdit_updateTask_button', function() {
 		'subtask' : subtasks,
 		'note' : note
 	});
+
 });
 
 _socketConnection.on('update_task_complete', function(data) {

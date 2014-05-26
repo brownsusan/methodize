@@ -26,6 +26,7 @@ module.exports.setup = function(socketServer, userSocket) {
 		// subtask
 
 		console.log('socket create_task');
+		console.log(data);
 
 		// check if user is logged in
 		if (session.user === undefined) {
@@ -72,6 +73,7 @@ module.exports.setup = function(socketServer, userSocket) {
 		// ---- nothing
 
 		console.log('socket read_tasks');
+		console.log(data);
 
 		// check if user is logged in
 		if (session.user === undefined) {
@@ -108,6 +110,7 @@ module.exports.setup = function(socketServer, userSocket) {
 		// categoryId
 
 		console.log('socket read_tasks_by_category');
+		console.log(data);
 
 		// check if user is logged in
 		if (session.user === undefined) {
@@ -147,6 +150,7 @@ module.exports.setup = function(socketServer, userSocket) {
 		// id
 
 		console.log('socket read_task_by_id');
+		console.log(data);
 
 		// check if user is logged in
 		if (session.user === undefined) {
@@ -196,6 +200,7 @@ module.exports.setup = function(socketServer, userSocket) {
 		// subtask
 
 		console.log('socket update_task');
+		console.log(data);
 
 		// check if user is logged in
 		if (session.user === undefined) {
@@ -206,9 +211,14 @@ module.exports.setup = function(socketServer, userSocket) {
 
 		var id = data.id;
 
+		console.log(id);
+
 		TaskModel.findOne({
 			'id' : id
 		}, function(err, results) {
+
+			console.log(err);
+			console.log(results);
 
 			if (err || !results) {
 				logger.log(chalk.bgRed('ERROR'));
@@ -288,6 +298,7 @@ module.exports.setup = function(socketServer, userSocket) {
 		// title
 
 		console.log('socket update_subtask');
+		console.log(data);
 
 		// check if user is logged in
 		if (session.user === undefined) {
@@ -354,6 +365,7 @@ module.exports.setup = function(socketServer, userSocket) {
 		// id
 
 		console.log('socket delete_task');
+		console.log(data);
 
 		// check if user is logged in
 		if (session.user === undefined) {

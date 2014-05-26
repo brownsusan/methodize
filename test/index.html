@@ -5,6 +5,34 @@
 	</head>
 
 	<body>
+
+		<h1>User</h1>
+		<button onclick="test.user.signup();">Run Sign Up</button>
+		<button onclick="test.user.signin();">Run Sign In</button>
+		<button onclick="test.user.update();">Run Update</button>
+
+		<h1>Category</h1>
+		<button onclick="test.category.create();">Run Create</button>
+		<button onclick="test.category.read();">Run Read</button>
+		<button onclick="test.category.update();">Run Update</button>
+		<button onclick="test.category.delete();">Run Delete</button>
+
+		<h1>Event</h1>
+		<button onclick="test.event.create();">Run Create</button>
+		<button onclick="test.event.readAllBySession();">Run Read All by Session</button>
+		<button onclick="test.event.readById();">Run Read by ID</button>
+		<button onclick="test.event.update();">Run Update</button>
+		<button onclick="test.event.delete();">Run Delete</button>
+
+		<h1>Task</h1>
+		<button onclick="test.task.create();">Run Create</button>
+		<button onclick="test.task.readAllBySession();">Run Read All by Session</button>
+		<button onclick="test.task.readAllByCategory();">Run Read All by Category</button>
+		<button onclick="test.task.readById();">Run Read by ID</button>
+		<button onclick="test.task.update();">Run Update</button>
+		<button onclick="test.task.updateSubtask();">Run Update Subtask</button>
+		<button onclick="test.task.delete();">Run Delete</button>
+
 		<script src="http://localhost:3000/socket.io/socket.io.js"></script>
 		<script>var _socketConnection = io.connect('http://localhost:3000');</script>
 		<script>

@@ -21,6 +21,7 @@ module.exports.setup = function(socketServer, userSocket) {
 		// title
 
 		console.log('socket create_category');
+		console.log(data);
 
 		// check if user is logged in
 		if (session.user === undefined) {
@@ -63,6 +64,7 @@ module.exports.setup = function(socketServer, userSocket) {
 		// ---- nothing
 
 		console.log('socket read_categories');
+		console.log(data);
 
 		// check if user is logged in
 		if (session.user === undefined) {
@@ -102,6 +104,7 @@ module.exports.setup = function(socketServer, userSocket) {
 		// title
 
 		console.log('socket update_category');
+		console.log(data);
 
 		// check if user is logged in
 		if (session.user === undefined) {
@@ -145,6 +148,7 @@ module.exports.setup = function(socketServer, userSocket) {
 		// id
 
 		console.log('socket delete_category');
+		console.log(data);
 
 		// check if user is logged in
 		if (session.user === undefined) {
@@ -174,12 +178,17 @@ module.exports.setup = function(socketServer, userSocket) {
 				'userId': userId
 			}, function(err, results) {
 
-				if (err || !results) {
+				if (err) {
 					logger.log(chalk.bgRed('ERROR'));
 					userSocket.emit('delete_category_complete', {
 						// Send error as part of data
 						'error': true
 					});
+					return;
+				}
+
+				if (!results) {
+					logger.log(chalk.bgYellow('NO TASKS FOUND TO DELETE'));
 					return;
 				}
 
