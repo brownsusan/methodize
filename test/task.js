@@ -84,12 +84,12 @@ test.task = {};
 
 			_socketConnection.removeAllListeners();
 
-			_socketConnection.on('read_task_by_id_complete', function(data) {
-				console.log('read_task_by_id_complete');
+			_socketConnection.on('read_task_complete', function(data) {
+				console.log('read_task_complete');
 				console.log(data);
 			});
 
-			_socketConnection.emit('read_task_by_id', {
+			_socketConnection.emit('read_task', {
 				'title': 'Some Testing Title'
 			});
 
@@ -121,27 +121,6 @@ test.task = {};
 
 	})();
 
-	(function() {
-
-		function test() {
-
-			_socketConnection.removeAllListeners();
-
-			_socketConnection.on('update_subtask_complete', function(data) {
-				console.log('update_subtask_complete');
-				console.log(data);
-			});
-
-			_socketConnection.emit('update_subtask', {
-				'title': 'Some Testing Title'
-			});
-
-		}
-
-		window.test.task.updateSubtask = test;
-
-	})();
-
 	// delete
 	(function() {
 
@@ -160,7 +139,7 @@ test.task = {};
 
 		}
 
-		window.test.task.create = test;
+		window.test.task.delete = test;
 
 	})();
 

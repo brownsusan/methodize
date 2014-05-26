@@ -11,6 +11,9 @@ var TaskModel = mongoose.model('Task');
 
 module.exports.setup = function(socketServer, userSocket) {
 
+	// Get the session
+	var session = userSocket.handshake.session;
+
 	userSocket.on('reload', function(data) {
 		socketServer.sockets.emit('reload');
 	});
