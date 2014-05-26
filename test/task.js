@@ -2,6 +2,14 @@ test.task = {};
 
 (function() {
 
+	var categoryId;
+
+	_socketConnection.on('read_categories_complete', function(data) {
+		categoryId = data.categories[0].id;
+	});
+
+	_socketConnection.emit('read_categories');
+
 	var task;
 
 	// create

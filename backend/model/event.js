@@ -18,6 +18,7 @@ var Event = new Schema({
 		'type' : String,
 		'required' : true
 	},
+	'categoryObject' : Object,
 	'id' : {
 		'type' : String,
 		'default' : function() {
@@ -46,7 +47,6 @@ var Event = new Schema({
 			'enum' : ['call', 'email', 'sms']
 		}
 	}],
-	'categoryObject' : Object,
 	'important' : Boolean,
 	'note' : String,
 	'modelType' : String,

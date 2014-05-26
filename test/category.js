@@ -18,7 +18,7 @@ test.category = {};
 			});
 
 			_socketConnection.emit('create_category', {
-				'title': 'Some Testing Title'
+				'title': 'Some Category'
 			});
 
 		}
@@ -61,7 +61,7 @@ test.category = {};
 
 			_socketConnection.emit('update_category', {
 				'id': category.id,
-				'title': 'Some Other Testing Title'
+				'title': 'Some Category Update'
 			});
 
 		}

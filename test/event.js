@@ -2,6 +2,14 @@ test.event = {};
 
 (function() {
 
+	var categoryId;
+
+	_socketConnection.on('read_categories_complete', function(data) {
+		categoryId = data.categories[0].id;		
+	});
+
+	_socketConnection.emit('read_categories');
+
 	var event;
 
 	// create
@@ -14,19 +22,19 @@ test.event = {};
 			_socketConnection.on('create_event_complete', function(data) {
 				console.log('create_event_complete');
 				console.log(data);
-				event = data.event;
+				event = data.newEvent;
 			});
 
 			_socketConnection.emit('create_event', {
-				'category': '',
-				'title': '',
-				'startDate': '',
-				'endDate': '',
-				'allDay': '',
-				'reminder': '',
-				'important': '',
-				'subtask': '',
-				'note': ''
+				'category': categoryId,
+				'title': 'Some Evenet',
+				'startDate': new Date(),
+				'endDate': new Date(),
+				'allDay': false,
+				'reminder': [],
+				'important': false,
+				'note': '',
+				'subtask': ''
 			});
 
 		}
@@ -92,15 +100,15 @@ test.event = {};
 
 			_socketConnection.emit('update_event', {
 				'id': event.id,
-				'category': '',
-				'title': '',
-				'startDate': '',
-				'endDate': '',
-				'allDay': '',
-				'reminder': '',
-				'important': '',
-				'subtask': '',
-				'note': ''
+				'category': categoryId,
+				'title': 'Some Event Update',
+				'startDate': new Date(),
+				'endDate': new Date(),
+				'allDay': false,
+				'reminder': [],
+				'important': false,
+				'note': '',
+				'subtask': ''
 			});
 
 		}

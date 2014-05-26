@@ -18,6 +18,7 @@ var Task = new Schema({
 		'type' : String,
 		'required' : true
 	},
+	'categoryObject' : Object,
 	'id' : {
 		'type' : String,
 		'default' : function() {
@@ -44,7 +45,6 @@ var Task = new Schema({
 			'enum' : ['call', 'email', 'sms']
 		}
 	}],
-	'categoryObject' : Object,
 	'completed' : {
 		'type' : Boolean,
 		'default' : false
