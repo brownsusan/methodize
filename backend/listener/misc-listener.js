@@ -42,7 +42,7 @@ module.exports.setup = function(socketServer, userSocket) {
 
 			if (err || !results) {
 				logger.log(chalk.bgRed('ERROR'));
-				userSocket.emit('read_all_task_event_by_user', {
+				userSocket.emit('read_events_tasks_complete', {
 					// Send error as part of data
 					'error': true
 				});
@@ -62,7 +62,7 @@ module.exports.setup = function(socketServer, userSocket) {
 
 				if (err || !results) {
 					logger.log(chalk.bgRed('ERROR'));
-					userSocket.emit('read_all_task_event_by_user', {
+					userSocket.emit('read_events_tasks_complete', {
 						// Send error as part of data
 						'error': true
 					});
@@ -75,7 +75,7 @@ module.exports.setup = function(socketServer, userSocket) {
 					calendarData.push(tasksRead[i]);
 				}
 
-				userSocket.emit('read_all_task_event_by_user_complete', {
+				userSocket.emit('read_events_tasks_complete', {
 					// Send error as part of data
 					'error': false,
 					'calendarData': calendarData
