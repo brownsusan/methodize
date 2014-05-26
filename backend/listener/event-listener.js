@@ -18,12 +18,12 @@ module.exports.setup = function(socketServer, userSocket) {
 	userSocket.on('create_event', function(data) {
 
 		// data must include
+		// category
 		// title
 		// startDate
 		// endDate
 		// allDay
 		// reminder
-		// category
 		// important
 		// subtask
 		// note
@@ -60,7 +60,7 @@ module.exports.setup = function(socketServer, userSocket) {
 				return;
 			}
 
-			userSocket.emit('create_event_complete', {
+			socketServer.sockets.in(userId).emit('create_event_complete', {
 				// Send error as part of data
 				'error' : false,
 				'newEvent' : results
@@ -71,42 +71,6 @@ module.exports.setup = function(socketServer, userSocket) {
 	});
 
 	// read
-	userSocket.on('read_event', function(data) {
-
-		// data must include
-		// id
-
-		console.log('socket read_event');
-
-		// check if user is logged in
-		if (session.user === undefined) {
-			return;
-		}
-
-		EventModel.find({
-			'id' : data.id
-		}, function(err, results) {
-
-			console.log(results);
-
-			if (err || !results) {
-				logger.log(chalk.bgRed('ERROR'));
-				userSocket.emit('read_event_complete', {
-					// Send error as part of data
-					'error' : true
-				});
-				return;
-			}
-
-			userSocket.emit('read_event_complete', {
-				// Send error as part of data
-				'error' : false,
-				'readEvent' : results
-			});
-
-		});
-	});
-
 	userSocket.on('read_events', function(data) {
 
 		// data must include
@@ -144,6 +108,45 @@ module.exports.setup = function(socketServer, userSocket) {
 
 	});
 
+	userSocket.on('read_event', function(data) {
+
+		// data must include
+		// id
+
+		console.log('socket read_event');
+
+		// check if user is logged in
+		if (session.user === undefined) {
+			return;
+		}
+
+		var userId = session.user.id;
+
+		EventModel.find({
+			'id' : data.id
+		}, function(err, results) {
+
+			console.log(results);
+
+			if (err || !results) {
+				logger.log(chalk.bgRed('ERROR'));
+				userSocket.emit('read_event_complete', {
+					// Send error as part of data
+					'error' : true
+				});
+				return;
+			}
+
+			userSocket.emit('read_event_complete', {
+				// Send error as part of data
+				'error' : false,
+				'readEvent' : results
+			});
+
+		});
+		
+	});
+
 	// update
 	userSocket.on('update_event', function(data) {
 
@@ -151,12 +154,12 @@ module.exports.setup = function(socketServer, userSocket) {
 		// id
 
 		// data could include
+		// category
 		// title
 		// startDate
 		// endDate
 		// allDay
 		// reminder
-		// category
 		// important
 		// subtask
 		// note
@@ -167,6 +170,8 @@ module.exports.setup = function(socketServer, userSocket) {
 		if (session.user === undefined) {
 			return;
 		}
+
+		var userId = session.user.id;
 
 		var id = data.id;
 
@@ -238,7 +243,7 @@ module.exports.setup = function(socketServer, userSocket) {
 				// we can do this in the model using a save override
 				results.modelType = 'typeEvent';
 
-				userSocket.emit('update_event_complete', {
+				socketServer.sockets.in(userId).emit('update_event_complete', {
 					// Send error as part of data
 					'error' : false,
 					'updatedEvent' : results
@@ -294,7 +299,7 @@ module.exports.setup = function(socketServer, userSocket) {
 					return;
 				}
 
-				userSocket.emit('delete_event_complete', {
+				socketServer.sockets.in(userId).emit('delete_event_complete', {
 					// Send error as part of data
 					'error' : false,
 					'id' : results.id

@@ -41,14 +41,15 @@ module.exports.setup = function(socketServer, userSocket) {
 				logger.log(chalk.bgRed('ERROR'));
 				userSocket.emit('create_category_complete', {
 					// Send error as part of data
-					'error' : true
+					'error': true
 				});
 				return;
 			}
 
-			userSocket.emit('create_category_complete', {
+			socketServer.sockets.in(userId).emit('create_category_complete', {
 				// Send error as part of data
-				'error' : false
+				'error': false,
+				'category': category
 			});
 
 		});
@@ -71,22 +72,24 @@ module.exports.setup = function(socketServer, userSocket) {
 		var userId = session.user.id;
 
 		CategoryModel.find({
-			'userId' : userId
+			'userId': userId
 		}, function(err, results) {
 
 			if (err || !results) {
 				logger.log(chalk.bgRed('ERROR'));
 				userSocket.emit('read_categories_complete', {
 					// Send error as part of data
-					'error' : true
+					'error': true
 				});
 				return;
 			}
 
+			console.log(socketServer.sockets.manager.rooms)
+
 			userSocket.emit('read_categories_complete', {
 				// Send error as part of data
-				'error' : false,
-				'categories' : results
+				'error': false,
+				'categories': results
 			});
 
 		});
@@ -107,18 +110,20 @@ module.exports.setup = function(socketServer, userSocket) {
 			return;
 		}
 
+		var userId = session.user.id;
+
 		var id = data.id;
 		var title = data.title;
 
 		CategoryModel.findOne({
-			'id' : id
+			'id': id
 		}, function(err, results) {
 
 			if (err || !results) {
 				logger.log(chalk.bgRed('ERROR'));
 				userSocket.emit('update_category_complete', {
 					// Send error as part of data
-					'error' : true
+					'error': true
 				});
 				return;
 			}
@@ -126,9 +131,9 @@ module.exports.setup = function(socketServer, userSocket) {
 			results.title = title;
 			results.save();
 
-			userSocket.emit('update_category_complete', {
+			socketServer.sockets.in(userId).emit('update_category_complete', {
 				// Send error as part of data
-				'error' : false
+				'error': false
 			});
 
 		});
@@ -153,36 +158,36 @@ module.exports.setup = function(socketServer, userSocket) {
 		var id = data.id;
 
 		CategoryModel.remove({
-			'id' : id,
-			'userId' : userId
+			'id': id,
+			'userId': userId
 		}, function(err, results) {
 
 			if (err || !results) {
 				logger.log(chalk.bgRed('ERROR'));
 				userSocket.emit('delete_category_complete', {
 					// Send error as part of data
-					'error' : true
+					'error': true
 				});
 				return;
 			}
 
 			TaskModel.remove({
-				'category' : id,
-				'userId' : userId
+				'category': id,
+				'userId': userId
 			}, function(err, results) {
 
 				if (err || !results) {
 					logger.log(chalk.bgRed('ERROR'));
 					userSocket.emit('delete_category_complete', {
 						// Send error as part of data
-						'error' : true
+						'error': true
 					});
 					return;
 				}
 
-				userSocket.emit('delete_category_complete', {
+				socketServer.sockets.in(userId).emit('delete_category_complete', {
 					// Send error as part of data
-					'error' : false
+					'error': false
 				});
 
 			});
@@ -191,4 +196,3 @@ module.exports.setup = function(socketServer, userSocket) {
 
 	});
 };
-

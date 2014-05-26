@@ -17,13 +17,13 @@ module.exports.setup = function(socketServer, userSocket) {
 	userSocket.on('create_task', function(data) {
 
 		// data must include
+		// category
 		// title
 		// dueDate
 		// reminder
-		// category
 		// important
-		// subtask
 		// note
+		// subtask
 
 		console.log('socket create_task');
 
@@ -31,6 +31,8 @@ module.exports.setup = function(socketServer, userSocket) {
 		if (session.user === undefined) {
 			return;
 		}
+
+		var userId = session.user.id;
 
 		var task = new TaskModel();
 		task.userId = session.user.id;
@@ -53,7 +55,7 @@ module.exports.setup = function(socketServer, userSocket) {
 				return;
 			}
 
-			userSocket.emit('create_task_complete', {
+			socketServer.sockets.in(userId).emit('create_task_complete', {
 				// Send an error as part of data
 				'error' : false,
 				'task' : results
@@ -100,42 +102,6 @@ module.exports.setup = function(socketServer, userSocket) {
 
 	});
 
-	userSocket.on('read_task_by_id', function(data) {
-
-		// data must include
-		// id
-
-		console.log('socket read_task_by_id');
-
-		// check if user is logged in
-		if (session.user === undefined) {
-			return;
-		}
-
-		var id = data.id;
-
-		TaskModel.findOne({
-			'id' : id
-		}, function(err, results) {
-
-			if (err || !results) {
-				logger.log(chalk.bgRed('ERROR'));
-				userSocket.emit('read_task_by_id_complete', {
-					// Send error as part of data
-					'error' : true
-				});
-				return;
-			}
-
-			userSocket.emit('read_task_by_id_complete', {
-				// Send error as part of data
-				'error' : false,
-				'task' : results
-			});
-
-		});
-	});
-
 	userSocket.on('read_tasks_by_category', function(data) {
 
 		// data must include
@@ -147,6 +113,8 @@ module.exports.setup = function(socketServer, userSocket) {
 		if (session.user === undefined) {
 			return;
 		}
+
+		var userId = session.user.id;
 
 		var categoryId = data.categoryId;
 
@@ -173,6 +141,45 @@ module.exports.setup = function(socketServer, userSocket) {
 
 	});
 
+	userSocket.on('read_task_by_id', function(data) {
+
+		// data must include
+		// id
+
+		console.log('socket read_task_by_id');
+
+		// check if user is logged in
+		if (session.user === undefined) {
+			return;
+		}
+
+		var userId = session.user.id;
+
+		var id = data.id;
+
+		TaskModel.findOne({
+			'id' : id
+		}, function(err, results) {
+
+			if (err || !results) {
+				logger.log(chalk.bgRed('ERROR'));
+				userSocket.emit('read_task_by_id_complete', {
+					// Send error as part of data
+					'error' : true
+				});
+				return;
+			}
+
+			userSocket.emit('read_task_by_id_complete', {
+				// Send error as part of data
+				'error' : false,
+				'task' : results
+			});
+
+		});
+		
+	});
+
 	// update
 	userSocket.on('update_task', function(data) {
 
@@ -180,13 +187,13 @@ module.exports.setup = function(socketServer, userSocket) {
 		// id
 
 		// data could include
+		// category
 		// title
 		// dueDate
 		// reminder
-		// category
 		// important
-		// subtask
 		// note
+		// subtask
 
 		console.log('socket update_task');
 
@@ -194,6 +201,8 @@ module.exports.setup = function(socketServer, userSocket) {
 		if (session.user === undefined) {
 			return;
 		}
+
+		var userId = session.user.id;
 
 		var id = data.id;
 
@@ -259,7 +268,7 @@ module.exports.setup = function(socketServer, userSocket) {
 
 				results.modelType = 'typeTask';
 
-				userSocket.emit('update_task_complete', {
+				socketServer.sockets.in(userId).emit('update_task_complete', {
 					// Send error as part of data
 					'error' : false,
 					'task' : results
@@ -284,6 +293,8 @@ module.exports.setup = function(socketServer, userSocket) {
 		if (session.user === undefined) {
 			return;
 		}
+
+		var userId = session.user.id;
 
 		var taskId = data.taskId;
 		var subtaskId = data.subtaskId;
@@ -327,7 +338,7 @@ module.exports.setup = function(socketServer, userSocket) {
 			}
 
 			// no matching subtask was found
-			userSocket.emit('update_subtask_complete', {
+			socketServer.sockets.in(userId).emit('update_subtask_complete', {
 				// Send error as part of data
 				'error' : true
 			});
@@ -380,7 +391,7 @@ module.exports.setup = function(socketServer, userSocket) {
 					return;
 				}
 
-				userSocket.emit('delete_task_complete', {
+				socketServer.sockets.in(userId).emit('delete_task_complete', {
 					// Send error as part of data
 					'error' : false,
 					'id' : results.id
@@ -389,5 +400,7 @@ module.exports.setup = function(socketServer, userSocket) {
 			});
 
 		});
+
 	});
+
 };
