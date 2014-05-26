@@ -144,12 +144,12 @@ module.exports.setup = function(socketServer, userSocket) {
 
 	});
 
-	userSocket.on('read_task_by_id', function(data) {
+	userSocket.on('read_task', function(data) {
 
 		// data must include
 		// id
 
-		console.log('socket read_task_by_id');
+		console.log('socket read_task');
 		console.log(data);
 
 		// check if user is logged in
@@ -167,14 +167,14 @@ module.exports.setup = function(socketServer, userSocket) {
 
 			if (err || !results) {
 				logger.log(chalk.bgRed('ERROR'));
-				userSocket.emit('read_task_by_id_complete', {
+				userSocket.emit('read_task_complete', {
 					// Send error as part of data
 					'error' : true
 				});
 				return;
 			}
 
-			userSocket.emit('read_task_by_id_complete', {
+			userSocket.emit('read_task_complete', {
 				// Send error as part of data
 				'error' : false,
 				'task' : results
