@@ -26,7 +26,13 @@ test.task = {};
 			});
 
 			_socketConnection.emit('create_task', {
-				'title': 'Some Testing Title'
+				'category': categoryId,
+				'title': 'Some Evenet',
+				'dueDate': new Date(),
+				'reminder': [],
+				'important': false,
+				'note': '',
+				'subtask': ''
 			});
 
 		}

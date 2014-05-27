@@ -79,35 +79,39 @@ Task.pre('save', function(next) {
 // custom methods
 // this acts simular to a post save but allows control flow
 Task.methods = {
-	'save': function(next) {
+	'store': function(instance, next) {
 
-		var task = this;
+		instance.save(function(err, result) {
 
-		CategoryModel.findOne({
-			'id': task.category
-		}, function(err, results) {
+			var task = result;
 
-			task.modelType = 'typeTask';
+			CategoryModel.findOne({
+				'id': task.category
+			}, function(err, results) {
 
-			if (results != null) {
+				task.modelType = 'typeTask';
 
-				task.categoryObject = {
-					'title': results.title,
-					'color': results.color
-				};
+				if (results != null) {
 
-				next(null, task);
+					task.categoryObject = {
+						'title': results.title,
+						'color': results.color
+					};
 
-			} else {
+					next(null, task);
 
-				task.categoryObject = {
-					'title': '',
-					'color': ''
-				};
+				} else {
 
-				next(null, task);
+					task.categoryObject = {
+						'title': '',
+						'color': ''
+					};
 
-			}
+					next(null, task);
+
+				}
+
+			});
 
 		});
 

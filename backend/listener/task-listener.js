@@ -25,7 +25,7 @@ module.exports.setup = function(socketServer, userSocket) {
 		// note
 		// subtask
 
-		console.log('socket create_task');
+		console.log(chalk.bgGreen('socket create_task'));
 		console.log(data);
 
 		// check if user is logged in
@@ -36,30 +36,31 @@ module.exports.setup = function(socketServer, userSocket) {
 		var userId = session.user.id;
 
 		var task = new TaskModel();
+		task.category = data.category;
 		task.userId = session.user.id;
 		task.title = data.title;
 		task.dueDate = data.dueDate;
 		task.reminder = data.reminder;
-		task.category = data.category;
 		task.important = data.important;
 		task.subtask = data.subtask;
 		task.note = data.note;
 
-		task.save(function(err, results) {
+		task.store(task, function(err, results) {
 
 			if (err || !results) {
+				console.log(err);
 				logger.log(chalk.bgRed('ERROR'));
 				userSocket.emit('create_task_complete', {
 					// Send error as part of data
-					'error' : true
+					'error': true
 				});
 				return;
 			}
 
 			socketServer.sockets.in(userId).emit('create_task_complete', {
 				// Send an error as part of data
-				'error' : false,
-				'task' : results
+				'error': false,
+				'task': results
 			});
 
 		});
@@ -72,7 +73,7 @@ module.exports.setup = function(socketServer, userSocket) {
 		// data must include
 		// ---- nothing
 
-		console.log('socket read_tasks');
+		console.log(chalk.bgGreen('socket read_tasks'));
 		console.log(data);
 
 		// check if user is logged in
@@ -83,22 +84,22 @@ module.exports.setup = function(socketServer, userSocket) {
 		var userId = session.user.id;
 
 		TaskModel.find({
-			'userId' : userId
+			'userId': userId
 		}, function(err, results) {
 
 			if (err || !results) {
 				logger.log(chalk.bgRed('ERROR'));
 				userSocket.emit('read_tasks_complete', {
 					// Send error as part of data
-					'error' : true
+					'error': true
 				});
 				return;
 			}
 
 			userSocket.emit('read_tasks_complete', {
 				// Send error as part of data
-				'error' : false,
-				'tasks' : results
+				'error': false,
+				'tasks': results
 			});
 		});
 
@@ -109,7 +110,7 @@ module.exports.setup = function(socketServer, userSocket) {
 		// data must include
 		// categoryId
 
-		console.log('socket read_tasks_by_category');
+		console.log(chalk.bgGreen('socket read_tasks_by_category'));
 		console.log(data);
 
 		// check if user is logged in
@@ -122,22 +123,22 @@ module.exports.setup = function(socketServer, userSocket) {
 		var categoryId = data.categoryId;
 
 		TaskModel.find({
-			'category' : categoryId
+			'category': categoryId
 		}, function(err, results) {
 
 			if (err || !results) {
 				logger.log(chalk.bgRed('ERROR'));
 				userSocket.emit('read_tasks_by_category_complete', {
 					// Send error as part of data
-					'error' : true
+					'error': true
 				});
 				return;
 			}
 
 			userSocket.emit('read_tasks_by_category_complete', {
 				// Send error as part of data
-				'error' : false,
-				'tasks' : results
+				'error': false,
+				'tasks': results
 			});
 
 		});
@@ -149,7 +150,7 @@ module.exports.setup = function(socketServer, userSocket) {
 		// data must include
 		// id
 
-		console.log('socket read_task');
+		console.log(chalk.bgGreen('socket read_task'));
 		console.log(data);
 
 		// check if user is logged in
@@ -162,26 +163,26 @@ module.exports.setup = function(socketServer, userSocket) {
 		var id = data.id;
 
 		TaskModel.findOne({
-			'id' : id
+			'id': id
 		}, function(err, results) {
 
 			if (err || !results) {
 				logger.log(chalk.bgRed('ERROR'));
 				userSocket.emit('read_task_complete', {
 					// Send error as part of data
-					'error' : true
+					'error': true
 				});
 				return;
 			}
 
 			userSocket.emit('read_task_complete', {
 				// Send error as part of data
-				'error' : false,
-				'task' : results
+				'error': false,
+				'task': results
 			});
 
 		});
-		
+
 	});
 
 	// update
@@ -199,7 +200,7 @@ module.exports.setup = function(socketServer, userSocket) {
 		// note
 		// subtask
 
-		console.log('socket update_task');
+		console.log(chalk.bgGreen('socket update_task'));
 		console.log(data);
 
 		// check if user is logged in
@@ -214,7 +215,7 @@ module.exports.setup = function(socketServer, userSocket) {
 		console.log(id);
 
 		TaskModel.findOne({
-			'id' : id
+			'id': id
 		}, function(err, results) {
 
 			console.log(err);
@@ -223,8 +224,8 @@ module.exports.setup = function(socketServer, userSocket) {
 			if (err || !results) {
 				logger.log(chalk.bgRed('ERROR'));
 				userSocket.emit('update_task_complete', {
-					'error' : true,
-					'message' : 'Couldnt find a matching task'
+					'error': true,
+					'message': 'Couldnt find a matching task'
 				});
 				return;
 			}
@@ -264,94 +265,24 @@ module.exports.setup = function(socketServer, userSocket) {
 			// task.completed = data.completed;
 			// }
 
-			task.save(function(err, results) {
+			task.store(task, function(err, results) {
 
 				if (err || !results) {
 					logger.log(chalk.bgRed('ERROR'));
 					userSocket.emit('update_task_complete', {
 						// Send error as part of data
-						'error' : true,
-						'message' : 'error in the task.save function'
+						'error': true,
+						'message': 'error in the task.store function'
 					});
 					return;
 				}
-
-				results.modelType = 'typeTask';
 
 				socketServer.sockets.in(userId).emit('update_task_complete', {
 					// Send error as part of data
-					'error' : false,
-					'task' : results
+					'error': false,
+					'task': results
 				});
 
-			});
-
-		});
-
-	});
-
-	userSocket.on('update_subtask', function(data) {
-
-		// data must include
-		// taskId
-		// subtaskId
-		// title
-
-		console.log('socket update_subtask');
-		console.log(data);
-
-		// check if user is logged in
-		if (session.user === undefined) {
-			return;
-		}
-
-		var userId = session.user.id;
-
-		var taskId = data.taskId;
-		var subtaskId = data.subtaskId;
-		var title = data.title;
-
-		TaskModel.findOne({
-			'id' : taskId
-		}, function(err, results) {
-
-			if (err || !results) {
-				logger.log(chalk.bgRed('ERROR'));
-				userSocket.emit('update_subtask_complete', {
-					// Send error as part of data
-					'error' : true
-				});
-				return;
-			}
-
-			var task = results;
-
-			// loop over the subtasks
-			for (var i = 0, j = task.subtask.length; i < j; i++) {
-
-				// check if the subtask matches the subtask we need to update
-				if (task.subtask[i].id == subtaskId) {
-
-					task.subtask[i].title = title;
-
-					task.save(function() {
-
-						userSocket.emit('update_subtask_complete', {
-							// Send error as part of data
-							'error' : false,
-							'task' : task
-						});
-
-					});
-
-					return;
-				}
-			}
-
-			// no matching subtask was found
-			socketServer.sockets.in(userId).emit('update_subtask_complete', {
-				// Send error as part of data
-				'error' : true
 			});
 
 		});
@@ -364,7 +295,7 @@ module.exports.setup = function(socketServer, userSocket) {
 		// data must include
 		// id
 
-		console.log('socket delete_task');
+		console.log(chalk.bgGreen('socket delete_task'));
 		console.log(data);
 
 		// check if user is logged in
@@ -377,15 +308,15 @@ module.exports.setup = function(socketServer, userSocket) {
 		var id = data.id;
 
 		TaskModel.findOne({
-			'id' : id,
-			'userId' : userId
+			'id': id,
+			'userId': userId
 		}, function(err, results) {
 
 			if (err || !results) {
 				logger.log(chalk.bgRed('ERROR'));
 				userSocket.emit('update_subtask_complete', {
 					// Send error as part of data
-					'error' : true
+					'error': true
 				});
 				return;
 			}
@@ -398,15 +329,15 @@ module.exports.setup = function(socketServer, userSocket) {
 					logger.log(chalk.bgRed('ERROR'));
 					userSocket.emit('delete_task_complete', {
 						// Send error as part of data
-						'error' : true
+						'error': true
 					});
 					return;
 				}
 
 				socketServer.sockets.in(userId).emit('delete_task_complete', {
 					// Send error as part of data
-					'error' : false,
-					'id' : results.id
+					'error': false,
+					'id': id
 				});
 
 			});

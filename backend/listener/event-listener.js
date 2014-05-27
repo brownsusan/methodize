@@ -28,7 +28,7 @@ module.exports.setup = function(socketServer, userSocket) {
 		// subtask
 		// note
 
-		console.log('socket create_event');
+		console.log(chalk.bgGreen('socket create_event'));
 		console.log(data);
 
 		// check if user is logged in
@@ -38,19 +38,19 @@ module.exports.setup = function(socketServer, userSocket) {
 
 		var userId = session.user.id;
 
-		var newEvent = new EventModel();
-		newEvent.userId = userId;
-		newEvent.title = data.title;
-		newEvent.startDate = data.startDate;
-		newEvent.endDate = data.endDate;
-		newEvent.allDay = data.allDay;
-		newEvent.reminder = data.reminder;
-		newEvent.category = data.category;
-		newEvent.important = data.important;
-		newEvent.subtask = data.subtask;
-		newEvent.note = data.note;
+		var eventToCreate = new EventModel();
+		eventToCreate.userId = userId;
+		eventToCreate.title = data.title;
+		eventToCreate.startDate = data.startDate;
+		eventToCreate.endDate = data.endDate;
+		eventToCreate.allDay = data.allDay;
+		eventToCreate.reminder = data.reminder;
+		eventToCreate.category = data.category;
+		eventToCreate.important = data.important;
+		eventToCreate.subtask = data.subtask;
+		eventToCreate.note = data.note;
 
-		newEvent.save(function(err, results) {
+		eventToCreate.store(eventToCreate, function(err, results) {
 
 			if (err || !results) {
 				logger.log(chalk.bgRed('ERROR'));
@@ -64,7 +64,7 @@ module.exports.setup = function(socketServer, userSocket) {
 			socketServer.sockets.in(userId).emit('create_event_complete', {
 				// Send error as part of data
 				'error' : false,
-				'newEvent' : results
+				'event' : results
 			});
 
 		});
@@ -77,7 +77,7 @@ module.exports.setup = function(socketServer, userSocket) {
 		// data must include
 		// ---- nothing
 
-		console.log('socket read_events');
+		console.log(chalk.bgGreen('socket read_events'));
 		console.log(data);
 
 		// check if user is logged in
@@ -115,7 +115,7 @@ module.exports.setup = function(socketServer, userSocket) {
 		// data must include
 		// id
 
-		console.log('socket read_event');
+		console.log(chalk.bgGreen('socket read_event'));
 		console.log(data);
 
 		// check if user is logged in
@@ -141,7 +141,7 @@ module.exports.setup = function(socketServer, userSocket) {
 			userSocket.emit('read_event_complete', {
 				// Send error as part of data
 				'error' : false,
-				'readEvent' : results
+				'event' : results
 			});
 
 		});
@@ -165,7 +165,7 @@ module.exports.setup = function(socketServer, userSocket) {
 		// subtask
 		// note
 
-		console.log('socket update_event');
+		console.log(chalk.bgGreen('socket update_event'));
 		console.log(data);
 
 		// check if user is logged in
@@ -184,8 +184,7 @@ module.exports.setup = function(socketServer, userSocket) {
 			if (err || !results) {
 				logger.log(chalk.bgRed('ERROR'));
 				userSocket.emit('update_event_complete', {
-					'error' : true,
-					'message' : 'couldnt find an event'
+					'error' : true
 				});
 			}
 
@@ -228,27 +227,21 @@ module.exports.setup = function(socketServer, userSocket) {
 				eventToUpdate.note = data.note;
 			}
 
-			eventToUpdate.save(function(err, results) {
+			eventToUpdate.store(eventToUpdate, function(err, results) {
 
 				if (err || !results) {
 					logger.log(chalk.bgRed('ERROR'));
 					userSocket.emit('update_event_complete', {
 						// Send error as part of data
-						'error' : true,
-						'message' : 'couldnt save the event'
+						'error' : true
 					});
 					return;
 				}
 
-				// TODO
-				// Format object here?
-				// we can do this in the model using a save override
-				results.modelType = 'typeEvent';
-
 				socketServer.sockets.in(userId).emit('update_event_complete', {
 					// Send error as part of data
 					'error' : false,
-					'updatedEvent' : results
+					'event' : results
 				});
 
 			});
@@ -263,7 +256,7 @@ module.exports.setup = function(socketServer, userSocket) {
 		// data must include
 		// id
 
-		console.log('socket delete_event');
+		console.log(chalk.bgGreen('socket delete_event'));
 		console.log(data);
 
 		// check if user is logged in
@@ -305,7 +298,7 @@ module.exports.setup = function(socketServer, userSocket) {
 				socketServer.sockets.in(userId).emit('delete_event_complete', {
 					// Send error as part of data
 					'error' : false,
-					'id' : results.id
+					'id' : id
 				});
 
 			});

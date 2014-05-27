@@ -30,7 +30,7 @@ module.exports.setup = function(socketServer, userSocket) {
 		// password
 		// phone
 
-		console.log('socket signup_user');
+		console.log(chalk.bgGreen('socket signup_user'));
 		console.log(data);
 
 		var user = new UserModel();
@@ -94,7 +94,7 @@ module.exports.setup = function(socketServer, userSocket) {
 		// email
 		// password
 
-		console.log('socket signin_user');
+		console.log(chalk.bgGreen('socket signin_user'));
 		console.log(data);
 
 		var email = data.email.toLowerCase();
@@ -158,7 +158,7 @@ module.exports.setup = function(socketServer, userSocket) {
 		// password
 		// phone
 
-		console.log('socket update_user');
+		console.log(chalk.bgGreen('socket update_user'));
 		console.log(data);
 
 		// check if user is logged in

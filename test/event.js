@@ -27,7 +27,7 @@ test.event = {};
 
 			_socketConnection.emit('create_event', {
 				'category': categoryId,
-				'title': 'Some Evenet',
+				'title': 'Some Event',
 				'startDate': new Date(),
 				'endDate': new Date(),
 				'allDay': false,
@@ -55,9 +55,7 @@ test.event = {};
 				console.log(data);
 			});
 
-			_socketConnection.emit('', {
-				'title': 'Some Testing Title'
-			});
+			_socketConnection.emit('read_events');
 
 		}
 

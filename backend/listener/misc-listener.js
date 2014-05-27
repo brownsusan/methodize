@@ -24,7 +24,7 @@ module.exports.setup = function(socketServer, userSocket) {
 		// data must include
 		// ---- nothing
 
-		console.log('socket read_events_tasks');
+		console.log(chalk.bgGreen('socket read_events_tasks'));
 		console.log(data);
 
 		// check if user is logged in

@@ -20,7 +20,7 @@ module.exports.setup = function(socketServer, userSocket) {
 		// data must include
 		// title
 
-		console.log('socket create_category');
+		console.log(chalk.bgGreen('socket create_category'));
 		console.log(data);
 
 		// check if user is logged in
@@ -63,7 +63,7 @@ module.exports.setup = function(socketServer, userSocket) {
 		// data must include
 		// ---- nothing
 
-		console.log('socket read_categories');
+		console.log(chalk.bgGreen('socket read_categories'));
 		console.log(data);
 
 		// check if user is logged in
@@ -103,7 +103,7 @@ module.exports.setup = function(socketServer, userSocket) {
 		// id
 		// title
 
-		console.log('socket update_category');
+		console.log(chalk.bgGreen('socket update_category'));
 		console.log(data);
 
 		// check if user is logged in
@@ -129,12 +129,26 @@ module.exports.setup = function(socketServer, userSocket) {
 				return;
 			}
 
-			results.title = title;
-			results.save();
+			var category = results;
 
-			socketServer.sockets.in(userId).emit('update_category_complete', {
-				// Send error as part of data
-				'error': false
+			category.title = title;
+			category.save(function(err, results) {
+
+				if (err || !results) {
+					logger.log(chalk.bgRed('ERROR'));
+					userSocket.emit('update_category_complete', {
+						// Send error as part of data
+						'error': true
+					});
+					return;
+				}
+
+				socketServer.sockets.in(userId).emit('update_category_complete', {
+					// Send error as part of data
+					'error': false,
+					'category': category
+				});
+
 			});
 
 		});
@@ -147,7 +161,7 @@ module.exports.setup = function(socketServer, userSocket) {
 		// data must include
 		// id
 
-		console.log('socket delete_category');
+		console.log(chalk.bgGreen('socket delete_category'));
 		console.log(data);
 
 		// check if user is logged in
@@ -189,12 +203,12 @@ module.exports.setup = function(socketServer, userSocket) {
 
 				if (!results) {
 					logger.log(chalk.bgYellow('NO TASKS FOUND TO DELETE'));
-					return;
 				}
 
 				socketServer.sockets.in(userId).emit('delete_category_complete', {
 					// Send error as part of data
-					'error': false
+					'error': false,
+					'id': id
 				});
 
 			});
