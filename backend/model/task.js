@@ -122,7 +122,14 @@ Task.plugin(mongoosePostFind, {
 
 	'find': function(results, next) {
 
-		async.each(results, function(task, nextTask) {
+		var tasks = results;
+
+		// if no tasks were found
+		if (!tasks) {
+			next(null, []);
+		}
+
+		async.each(tasks, function(task, nextTask) {
 
 			CategoryModel.findOne({
 				'id': task.category
@@ -162,11 +169,16 @@ Task.plugin(mongoosePostFind, {
 
 		var task = result;
 
+		// if no task was found
+		if (!task) {
+			next(null, null);
+		}
+
+		task.modelType = 'typeTask';
+
 		CategoryModel.findOne({
 			'id': task.category
 		}, function(err, results) {
-
-			task.modelType = 'typeTask';
 
 			if (results != null) {
 

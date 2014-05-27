@@ -53,9 +53,7 @@ test.task = {};
 				console.log(data);
 			});
 
-			_socketConnection.emit('', {
-				'title': 'Some Testing Title'
-			});
+			_socketConnection.emit('read_tasks');
 
 		}
 
@@ -67,6 +65,8 @@ test.task = {};
 
 		function test(categoryId) {
 
+			console.log(categoryId);
+
 			_socketConnection.removeAllListeners();
 
 			_socketConnection.on('read_tasks_by_category_complete', function(data) {
@@ -75,7 +75,7 @@ test.task = {};
 			});
 
 			_socketConnection.emit('read_tasks_by_category', {
-				'category': categoryId
+				'categoryId': categoryId
 			});
 
 		}
@@ -86,7 +86,9 @@ test.task = {};
 
 	(function() {
 
-		function test() {
+		function test(taskId) {
+
+			console.log(taskId);
 
 			_socketConnection.removeAllListeners();
 
@@ -96,7 +98,7 @@ test.task = {};
 			});
 
 			_socketConnection.emit('read_task', {
-				'title': 'Some Testing Title'
+				'id': taskId
 			});
 
 		}

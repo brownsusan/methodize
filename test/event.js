@@ -67,6 +67,8 @@ test.event = {};
 
 		function test(eventId) {
 
+			console.log(eventId);
+
 			_socketConnection.removeAllListeners();
 
 			_socketConnection.on('read_event_complete', function(data) {

@@ -2,6 +2,12 @@
 	
 	<head>
 		<title>Tests</title>
+
+		<style>
+			button{
+				display:block;
+			}
+		</style>
 	</head>
 
 	<body>
@@ -20,15 +26,18 @@
 		<h1>Event</h1>
 		<button onclick="test.event.create();">Run Create</button>
 		<button onclick="test.event.readAllBySession();">Run Read All by Session</button>
-		<button onclick="test.event.readById();">Run Read by ID</button>
+		<input id="event_id" />
+		<button onclick="test.event.readById(document.querySelector('#event_id').value);">Run Read by ID</button>
 		<button onclick="test.event.update();">Run Update</button>
 		<button onclick="test.event.delete();">Run Delete</button>
 
 		<h1>Task</h1>
 		<button onclick="test.task.create();">Run Create</button>
 		<button onclick="test.task.readAllBySession();">Run Read All by Session</button>
-		<button onclick="test.task.readAllByCategory();">Run Read All by Category</button>
-		<button onclick="test.task.readById();">Run Read by ID</button>
+		<input id="task_category_id" />
+		<button onclick="test.task.readAllByCategory(document.querySelector('#task_category_id').value);">Run Read All by Category</button>
+		<input id="task_id" />
+		<button onclick="test.task.readById(document.querySelector('#task_id').value);">Run Read by ID</button>
 		<button onclick="test.task.update();">Run Update</button>
 		<button onclick="test.task.delete();">Run Delete</button>
 

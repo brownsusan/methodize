@@ -111,7 +111,14 @@ Event.plugin(mongoosePostFind, {
 
 	'find': function(results, next) {
 
-		async.each(results, function(newEvent, nextEvent) {
+		var events = results;
+
+		// if no events were found
+		if (!events) {
+			next(null, []);
+		}
+
+		async.each(events, function(newEvent, nextEvent) {
 
 			newEvent.modelType = 'typeEvent';
 
@@ -141,6 +148,11 @@ Event.plugin(mongoosePostFind, {
 
 		var newEvent = result;
 
+		// if no event was found
+		if (!newEvent) {
+			next(null, null);
+		}
+
 		newEvent.modelType = 'typeEvent';
 
 		CategoryModel.findOne({
@@ -152,6 +164,15 @@ Event.plugin(mongoosePostFind, {
 				newEvent.categoryObject = {
 					'title': results.title,
 					'color': results.color
+				};
+
+				next(null, newEvent);
+
+			} else {
+
+				newEvent.categoryObject = {
+					'title': '',
+					'color': ''
 				};
 
 				next(null, newEvent);
