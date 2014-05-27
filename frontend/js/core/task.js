@@ -52,6 +52,7 @@ $('#task_taskAdd_input').keypress(function(event) {
 $(document).on('click', '.task-item', function(event) {
 	// Here I could construct a calEvent object and use the public functions
 	var clickedTaskId = $(this).find('.task-item-id').val();
+
 	var task = _(db.tasks).where({
 		'id' : clickedTaskId
 	});
@@ -85,6 +86,7 @@ $(document).on('click', '.task-item', function(event) {
 	// console.log(calEvent);
 	setFields(calEvent);
 	openDetails(calEvent);
+	
 });
 
 // When an item is deleted

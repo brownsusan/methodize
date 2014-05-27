@@ -33,8 +33,7 @@ test.event = {};
 				'allDay': false,
 				'reminder': [],
 				'important': false,
-				'note': '',
-				'subtask': ''
+				'note': ''
 			});
 
 		}
