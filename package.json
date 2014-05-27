@@ -1,22 +1,23 @@
 {
   "name": "methodize",
-  "description": "Personal Organizer that provides event and task management with a superior reminder system.",
+  "description": "Personal organizer that provides event and task management with a superior reminder system.",
   "version": "0.0.1",
   "private": true,
   "dependencies": {
+    "async": "~0.8.0",
+    "blueimp-md5": "~1.1.0",
+    "chalk": "^0.4.0",
+    "connect": "~2.14.3",
+    "connect-mongo": "~0.4.0",
+    "cookie": "~0.1.1",
+    "ejs": "1.0.0",
     "express": "3.x",
     "mongoose": "3.8.x",
-    "ejs": "1.0.0",
-    "socket.io": "~0.9.16",
-    "cookie": "~0.1.1",
-    "connect": "~2.14.3",
-    "socket.io-session": "0.0.5",
-    "blueimp-md5": "~1.1.0",
-    "node-uuid": "~1.4.1",
-    "connect-mongo": "~0.4.0",
     "mongoose-post-find": "0.0.2",
-    "async": "~0.8.0",
-    "chalk": "^0.4.0",
-    "tracer": "^0.7.1"
+    "node-uuid": "~1.4.1",
+    "socket.io": "~0.9.16",
+    "socket.io-session": "0.0.5",
+    "tracer": "^0.7.1",
+    "twilio": "^1.6.0"
   }
 }

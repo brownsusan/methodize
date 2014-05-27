@@ -1,112 +1,58 @@
-//When The Edit Button Is Clicked
-$(document).on('click', '#taskDetail_editTask_button', function() {
+//TWILIO CONCEPT
+// TODO
+// Set the interval to check the tasks and events
+// window.setInterval(function() {checkEventsAndTasks()},3000);
 
-	var id = $('#taskDetail_id_input').val();
-
-	// get the task from the client side model
-	var tasks = _(db.tasks).where({
-		'id' : id
-	});
-
-	var task = tasks[0];
-
-	$('#taskEdit_id_input').val(task.id);
-	$('#taskEdit_title_input').val(task.title);
+// TODO
+// Check the events and tasks
+// var checkEventsAndTasks = function() {
 	// TODO
-	// $('#taskEdit_dueDate_input').datetimepicker();
+	// Read all tasks and events in the database for EVERY USER
+	// Loop over the returned events and tasks
+		// Check to see if any reminders exists
+		// If so, loop over the reminders
+			// In the loop - Check and store the reminder start date
+			// In the loop - Check and store the via array
+			// If the reminder start date is within 30 seconds of the current time and the frequency is once
+				// If via.phone is true
+				// Send out a call
+				// If via.sms is true
+				// Send out an sms
+			// If the reminder start date is within 30 seconds and the frquency is not once
+				// Set another interval dependant on the frequency field
+				// if via.phone is true
+				// Send out a call
+				// if via.sms is true
+				// Send out an sms
+				// Set timeout for reminder end date/time	
+// console.log('Checking the events and tasks');
+// }
 
-	// show reminders
-	$('#taskEdit_reminders_container').empty();
-	var reminders = task.reminder;
-	for (var i = 0, j = reminders.length; i < j; i++) {
-		var reminder = new EJS({
-			url : '/view/ui/reminder-display.ejs'
-		}).render(reminders[i]);
-		$('#taskEdit_reminders_container').append(reminder);
+
+
+// This is the testing account info
+
+// TODO
+// Need a way to get the number for the user attached to the reminder
+var accountSid = 'AC42333c57015730911c7cebcbb78c587d';
+var authToken = 'ef9243210c35fb75d8053a1b1f8ffed2';
+var twilioNumber = '+17343657844';
+// TODO
+// Set a message to send. "You have a reminder for the 'Event' or 'Task' called 'Title'. This item is due at this 'time' on this 'day'."
+var client = new twilio.RestClient(accountSid, authToken);
+client.sendSms({
+	body : "Testing",
+	to : "+12488803127",
+	from : twilioNumber
+}, function(error, message) {
+	if (!error) {
+		console.log('Success! The SID for this SMS message is:');
+		console.log(message.sid);
+
+		console.log('Message sent on:');
+		console.log(message.dateCreated);
+	} else {
+		console.log('Oops! There was an error.');
+		console.log('Error: ' + JSON.stringify(error));
 	}
-
-	// show categories
-	$('#taskEdit_category_select').empty();
-	var categories = db.categories;
-	for (var i = 0, j = categories.length; i < j; i++) {
-		var category = '<option value="' + categories[i].id + '">' + categories[i].title + '</option>';
-		$('#taskEdit_category_select').append(category);
-	}
-
-	$('#taskEdit_important_input').attr('checked', task.important);
-
-	// show subtasks
-	$('.subtasks').empty();
-	var subtasks = task.subtask;
-	for (var i = 0, j = subtasks.length; i < j; i++) {
-		var subtask = new EJS({
-			url : '/view/ui/subtask.ejs'
-		}).render(subtasks[i]);
-		$('.task-edit .subtasks').append(subtask);
-	}
-
-	$('.taskDetail-container').hide();
-	$('.taskEdit-container').show();
-
 });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-// $('#taskDetail_id_input').val(clickedTask.id);
-// $('#taskEdit_id_input').val(clickedTask.id);
-// $('#taskDetail_title').html(clickedTask.title);
-// $('#taskEdit_title_input').val(clickedTask.title);
-// $('.task-pageHeading-task').html(' : ' + clickedTask.title);
-// $('#taskDetail_dueDate').html(clickedTask.dueDate);
-// $('#taskDetail_note_textarea').html(task.note);
-// $('#taskEdit_note_textarea').html(task.note);
-//
-// // show reminders
-// $('#taskDetail_reminders_container').empty();
-// var reminders = clickedTask.reminder;
-// if (reminders === undefined) {
-// } else {
-// for (var i = 0, j = reminders.length; i < j; i++) {
-// reminders[i]
-// var reminder = new EJS({
-// url : '/view/ui/reminder-display.ejs'
-// }).render(reminders[i]);
-// $('#taskDetail_reminders_container').append(reminder);
-//
-// };
-// }
-//
-// $('#taskDetail_important_input').attr("checked", clickedTask.important);
-//
-// // show subtasks
-// $('.subtasks').empty();
-// var subtasks = clickedTask.subtask;
-// if (subtasks === undefined) {
-// } else {
-// for (var i = 0, j = subtasks.length; i < j; i++) {
-// subtasks[i]
-// var subtask = new EJS({
-// url : '/view/ui/subtask.ejs'
-// }).render(subtasks[i]);
-// $('.subtasks').append(subtask);
-// };
-// }
-// $('#taskDetail_note_textarea').html(task.note);

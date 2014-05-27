@@ -10,53 +10,32 @@ _socketConnection.on('reload', function(data) {
 _socketConnection.on('update_event_complete', function(data) {
 
 	console.log('on update_event_complete');
-
 	if (data.error) {
 		return;
 	}
+	console.log(data);
+	var calEvent = {
+		'id' : data.event.id,
+		'title' : data.event.title,
+		'start' : data.event.startDate,
+		'end' : data.event.endDate,
+		'color' : data.event.categoryObject.color,
+		'category' : data.event.categoryObject.title,
+		'categoryId' : data.event.category,
+		'important' : data.event.important,
+		'allDay' : data.event.allDay,
+		'reminder' : data.event.reminder,
+		'subtasks' : data.event.subtask,
+		'note' : data.event.note,
+		'modelType' : data.event.modelType
+	};
 
-	var id = data.updatedEvent.id;
-
-	if (id) {
-		_socketConnection.emit('read_event', {
-			'id' : id
-		});
-	}
-
-	// TODO
-	// there shouldn't be a socket on event inside another socket on event
-	_socketConnection.on('read_event_complete', function(data) {
-
-		console.log('on read_event_complete');
-
-		console.log(data.error);
-		console.log(data.event[0]);
-
-		var calEvent = {
-			'id' : data.event[0].id,
-			'title' : data.event[0].title,
-			'start' : data.event[0].startDate,
-			'end' : data.event[0].endDate,
-			'color' : data.event[0].categoryObject.color,
-			'category' : data.event[0].categoryObject.title,
-			'categoryId' : data.event[0].category,
-			'important' : data.event[0].important,
-			'allDay' : data.event[0].allDay,
-			'reminder' : data.event[0].reminder,
-			'subtasks' : data.event[0].subtask,
-			'note' : data.event[0].note,
-			'modelType' : data.event[0].modelType
-		};
-
-		$('.eventEdit-container').fadeOut(500, function() {
-			$('.eventDetail-container').fadeIn(500);
-			setFields(calEvent);
-		});
-
+	$('.eventEdit-container').fadeOut(500, function() {
+		$('.eventDetail-container').fadeIn(500);
+		setFields(calEvent);
 	});
 
-	_socketConnection.emit('read_all_task_event_by_user');
-
+	_socketConnection.emit('read_events_tasks');
 
 });
 
@@ -240,11 +219,11 @@ $('#addPanel_addTask_submit_button').click(function() {
 		'frequency' : frequency,
 		'note' : note
 	});
-	
+
 });
 
 $('#addPanel_addEvent_submit_button').click(function() {
-	
+
 	var reminders = [];
 	$('#addPanel_addEvent .reminder').each(function() {
 		var via = [];
@@ -297,7 +276,7 @@ $('#addPanel_addEvent_submit_button').click(function() {
 		'frequency' : frequency,
 		'note' : note
 	});
-	
+
 });
 
 $(document).on('keypress', '.addSubtask-input', function(event) {

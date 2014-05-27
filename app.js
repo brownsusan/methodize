@@ -17,6 +17,8 @@ var http = require('http');
 var io = require('socket.io');
 //Mongo Abstraction Layer, Duh
 var mongoose = require('mongoose');
+// Twilio node library
+var twilio = require("twilio");
 
 //Instantiating the Servers and telling them to use the same HTTP server with a mega weird order of operations.
 //This has to be set up first because the http constructor is going to expect my routing engine.
@@ -92,12 +94,3 @@ socketIOServer.sockets.on('connection', function(userSocket) {
 httpServer.listen(expressServer.get('port'), function() {
 	console.log('Express server listening on port ' + expressServer.get('port') + ' and process ' + process.pid);
 });
-
-
-
-//TWILIO CONCEPT
-// window.setInterval(function() {checkEventsAndTasks()},3000);
-
-// var checkEventsAndTasks = function() {
-// console.log('Checking the events and tasks');
-// }
