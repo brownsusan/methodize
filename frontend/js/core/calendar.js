@@ -98,6 +98,7 @@ _socketConnection.on('read_events_tasks_complete', function(data) {
 		dayClick : function(date, allDay, jsEvent, view) {
 			// If anything is open close it
 			closeDetails();
+			openAdd();
 			// If nothing is open, open the add panel
 		}
 	});

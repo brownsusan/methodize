@@ -7,6 +7,56 @@ _socketConnection.on('reload', function(data) {
 	document.location.href = '/task';
 });
 
+_socketConnection.on('create_task_complete', function(data){
+	closeAdd();
+	// TODO
+	// Clear out the add panel fields
+	// TODO - When I run the set fields function from here, the toUTCString function will not work
+	// var calEvent = {
+		// 'id' : data.task.id,
+		// 'title' : data.task.title,
+		// 'start' : data.task.startDate,
+		// 'end' : data.task.endDate,
+		// 'color' : data.task.categoryObject.color,
+		// 'category' : data.task.categoryObject.title,
+		// 'categoryId' : data.task.category,
+		// 'important' : data.task.important,
+		// 'allDay' : data.task.allDay,
+		// 'reminder' : data.task.reminder,
+		// 'subtasks' : data.task.subtask,
+		// 'note' : data.task.note,
+		// 'modelType' : data.task.modelType
+	// };
+	// setFields(calEvent);
+	// openDetails(calEvent);
+	_socketConnection.emit('read_events_tasks');
+});
+
+_socketConnection.on('create_event_complete', function(data){
+	closeAdd();
+	// TODO
+	// Clear out the add panel fields
+	// TODO - When I run the set fields function from here, the toUTCString function will not work
+	// var calEvent = {
+		// 'id' : data.event.id,
+		// 'title' : data.event.title,
+		// 'start' : data.event.startDate,
+		// 'end' : data.event.endDate,
+		// 'color' : data.event.categoryObject.color,
+		// 'category' : data.event.categoryObject.title,
+		// 'categoryId' : data.event.category,
+		// 'important' : data.event.important,
+		// 'allDay' : data.event.allDay,
+		// 'reminder' : data.event.reminder,
+		// 'subtasks' : data.event.subtask,
+		// 'note' : data.event.note,
+		// 'modelType' : data.event.modelType
+	// };
+	// setFields(calEvent);
+	// openDetails(calEvent);
+	_socketConnection.emit('read_events_tasks');
+});
+
 _socketConnection.on('update_event_complete', function(data) {
 
 	console.log('on update_event_complete');
@@ -368,8 +418,6 @@ var closeNav = function() {
 };
 
 var openDetails = function(calEvent) {
-	// TODO
-	// make the fades work
 	if (calEvent.modelType === 'typeTask') {
 		$('.taskDetailEdit-container').show();
 		$('.taskDetail-container').show();
@@ -485,6 +533,7 @@ var setFields = function(calEvent, jsEvent, view) {
 		$('#eventEdit_title_input').val(calEvent.title);
 
 		if (calEvent.start) {
+			//TODO UTC STRING IS CAUSING AN ERROR - SAYS UNDEFINED IS NOT A FUNCTION
 			$('#eventDetail_startDate').html(calEvent.start.toUTCString());
 			$('#eventEdit_startDate_input').val(calEvent.start.toUTCString());
 		}

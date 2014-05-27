@@ -66,10 +66,17 @@ h1 {
 header, .fc-header {
 	background: #222;
 	height: 40px;
-	/*margin-bottom: 20px;*/
 	color: #E6E6E6;
 	line-height: 30px;
 	text-align: center;
+	padding: 0 10px;
+}
+
+#landing-header{
+	width: 100%;
+	margin: 0;
+	position: absolute;
+	left: 0;
 }
 
 footer {
@@ -77,7 +84,7 @@ footer {
 	bottom: 0;
 }
 
-input[type=text], input[type=tel], input[type=password] {
+input[type=text], input[type=tel], input[type=password], input[type=email] {
 	height: 30px;
 	background: rgba(255, 255, 255, 0.05);
 	border: 1px solid rgba(255, 255, 255, 0.1);
@@ -189,7 +196,7 @@ nav li img {
 
 .task-tasks ul li, .task-categories ul li, .subtasks li, .completed-subtasks li {
 	margin: 5px 0;
-	background: #f7f8f9;
+	background: rgba(255,255,255,0.2);
 }
 
 .task-tasks ul li, .task-categories ul li, .day-events-allDay ul li {
@@ -332,14 +339,18 @@ header h1 {
 }
 
 #landing_signUp_form {
-	background: #BCE8F1;
-	height: 300px;
-	margin: 10px;
+	background: rgba(255,255,255,0.5);
+	height: 400px;
+	margin: 50px 10px 10px;
 	padding: 10px;
-	width: 300px;
+	width: 400px;
 }
 
-#landing_signUp_form input[type=text], #landing_signUp_form input[type=tel], #landing_signUp_form input[type=password] {
+#eventEdit_reminders_container:nth-child(odd){
+	background: rgba(255,255,255,0.05);
+}
+
+#landing_signUp_form input[type=text], #landing_signUp_form input[type=tel], #landing_signUp_form input[type=password], #landing_signUp_form input[type=email] {
 	background: white;
 	margin-bottom: 10px;
 	display: block;
@@ -348,6 +359,7 @@ header h1 {
 
 .category-title-edit{
 	max-width: 80%;
+	border: 1px solid #999999 !important;
 }
 
 /*
@@ -387,4 +399,8 @@ button {
 .fc-button:hover, button:hover{
 	color: white;
 	background: #444;
+}
+
+.subtask-title{
+	max-width: 80%;
 }
