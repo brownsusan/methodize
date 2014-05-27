@@ -81,6 +81,11 @@ Event.methods = {
 
 		instance.save(function(err, result) {
 
+			if (err || !result) {
+				next(err, result);
+				return;
+			}
+
 			var newEvent = result;
 
 			newEvent.modelType = 'typeEvent';
