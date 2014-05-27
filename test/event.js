@@ -22,7 +22,7 @@ test.event = {};
 			_socketConnection.on('create_event_complete', function(data) {
 				console.log('create_event_complete');
 				console.log(data);
-				event = data.newEvent;
+				event = data.event;
 			});
 
 			_socketConnection.emit('create_event', {

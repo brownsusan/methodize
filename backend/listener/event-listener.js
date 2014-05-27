@@ -56,15 +56,15 @@ module.exports.setup = function(socketServer, userSocket) {
 				logger.log(chalk.bgRed('ERROR'));
 				userSocket.emit('create_event_complete', {
 					// Send error as part of data
-					'error' : true
+					'error': true
 				});
 				return;
 			}
 
 			socketServer.sockets.in(userId).emit('create_event_complete', {
 				// Send error as part of data
-				'error' : false,
-				'event' : results
+				'error': false,
+				'event': results
 			});
 
 		});
@@ -88,22 +88,22 @@ module.exports.setup = function(socketServer, userSocket) {
 		var userId = session.user.id;
 
 		EventModel.find({
-			'userId' : userId
+			'userId': userId
 		}, function(err, results) {
 
 			if (err || !results) {
 				logger.log(chalk.bgRed('ERROR'));
 				userSocket.emit('read_events_complete', {
 					// Send error as part of data
-					'error' : true
+					'error': true
 				});
 				return;
 			}
 
 			userSocket.emit('read_events_complete', {
 				// Send error as part of data
-				'error' : false,
-				'events' : results
+				'error': false,
+				'events': results
 			});
 
 		});
@@ -125,27 +125,29 @@ module.exports.setup = function(socketServer, userSocket) {
 
 		var userId = session.user.id;
 
-		EventModel.find({
-			'id' : data.id
+		var id = data.id;
+
+		EventModel.findOne({
+			'id': id
 		}, function(err, results) {
 
 			if (err || !results) {
 				logger.log(chalk.bgRed('ERROR'));
 				userSocket.emit('read_event_complete', {
 					// Send error as part of data
-					'error' : true
+					'error': true
 				});
 				return;
 			}
 
 			userSocket.emit('read_event_complete', {
 				// Send error as part of data
-				'error' : false,
-				'event' : results
+				'error': false,
+				'event': results
 			});
 
 		});
-		
+
 	});
 
 	// update
@@ -178,13 +180,13 @@ module.exports.setup = function(socketServer, userSocket) {
 		var id = data.id;
 
 		EventModel.findOne({
-			'id' : id
+			'id': id
 		}, function(err, results) {
 
 			if (err || !results) {
 				logger.log(chalk.bgRed('ERROR'));
 				userSocket.emit('update_event_complete', {
-					'error' : true
+					'error': true
 				});
 			}
 
@@ -233,15 +235,15 @@ module.exports.setup = function(socketServer, userSocket) {
 					logger.log(chalk.bgRed('ERROR'));
 					userSocket.emit('update_event_complete', {
 						// Send error as part of data
-						'error' : true
+						'error': true
 					});
 					return;
 				}
 
 				socketServer.sockets.in(userId).emit('update_event_complete', {
 					// Send error as part of data
-					'error' : false,
-					'event' : results
+					'error': false,
+					'event': results
 				});
 
 			});
@@ -269,15 +271,15 @@ module.exports.setup = function(socketServer, userSocket) {
 		var id = data.id;
 
 		EventModel.findOne({
-			'id' : id,
-			'userId' : userId
+			'id': id,
+			'userId': userId
 		}, function(err, results) {
 
 			if (err || !results) {
 				logger.log(chalk.bgRed('ERROR'));
 				userSocket.emit('delete_event_complete', {
 					// Send error as part of data
-					'error' : true
+					'error': true
 				});
 				return;
 			}
@@ -290,15 +292,15 @@ module.exports.setup = function(socketServer, userSocket) {
 					logger.log(chalk.bgRed('ERROR'));
 					userSocket.emit('delete_event_complete', {
 						// Send error as part of data
-						'error' : true
+						'error': true
 					});
 					return;
 				}
 
 				socketServer.sockets.in(userId).emit('delete_event_complete', {
 					// Send error as part of data
-					'error' : false,
-					'id' : id
+					'error': false,
+					'id': id
 				});
 
 			});

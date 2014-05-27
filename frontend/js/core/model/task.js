@@ -42,6 +42,25 @@ _socketConnection.on('read_tasks_complete', function(data) {
 
 });
 
+_socketConnection.on('read_tasks_by_category_complete', function(data) {
+
+	console.log('on read_tasks_by_category_complete');
+
+	// check if an error occured
+	if (data.error) {
+		return;
+	}
+
+	while (db.tasks.length > 0) {
+		db.tasks.pop();
+	}
+
+	for (var i = 0, j = data.tasks.length; i < j; i++) {
+		db.tasks.push(data.tasks[i]);
+	}
+
+});
+
 _socketConnection.on('read_task_complete', function(data) {
 
 	console.log('on read_task_complete');
@@ -60,25 +79,6 @@ _socketConnection.on('read_task_complete', function(data) {
 	}).render(data.task);
 
 	$('.task-taskDetails').append(taskDetail);
-
-});
-
-_socketConnection.on('read_tasks_by_category_complete', function(data) {
-
-	console.log('on read_tasks_by_category_complete');
-
-	// check if an error occured
-	if (data.error) {
-		return;
-	}
-
-	while (db.tasks.length > 0) {
-		db.tasks.pop();
-	}
-
-	for (var i = 0, j = data.tasks.length; i < j; i++) {
-		db.tasks.push(data.tasks[i]);
-	}
 
 });
 

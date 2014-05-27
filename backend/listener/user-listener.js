@@ -110,8 +110,7 @@ module.exports.setup = function(socketServer, userSocket) {
 				//Emit an event from the server to the client using the userSocket
 				userSocket.emit('signin_user_complete', {
 					// Send error as part of data
-					'error': true,
-					'message': 'Error finding a user for signin'
+					'error': true
 				});
 				return;
 			}
@@ -178,8 +177,7 @@ module.exports.setup = function(socketServer, userSocket) {
 				//Emit an event from the server to the client using the userSocket
 				userSocket.emit('update_user_complete', {
 					// Send error as part of data
-					'error': true,
-					'message': 'Issue finding user to update'
+					'error': true
 				});
 				return;
 			}
@@ -207,8 +205,7 @@ module.exports.setup = function(socketServer, userSocket) {
 					logger.log(chalk.bgRed('ERROR'));
 					userSocket.emit('update_user_complete', {
 						// Send error as part of data
-						'error': true,
-						'message': 'error in the user.save function'
+						'error': true
 					});
 					return;
 				}

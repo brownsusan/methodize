@@ -23,45 +23,45 @@ _.observe(db.categories, function() {
 });
 
 _socketConnection.on('create_category_complete', function(data) {
-	
-	console.log('on create_category_complete');
-	
-	if (!data.error) {
 
+	console.log('on create_category_complete');
+
+	if (!data.error) {
+		return;
 	}
-	
+
 });
 
 // create
 $('#task_categoryAdd_input').keypress(function(event) {
-	
+
 	if (event.which == 13) {
-		
+
 		//Validation Here
 		var title = $(this).val();
 
 		_socketConnection.emit('create_category', {
 			'title' : title
 		});
-		
+
 	}
-	
+
 });
 
 $(document).on('dblclick', '.category', function(event) {
-	
+
 	if ($(this).find('.category-id').val() != $('#user-default-category').val()) {
 		$(this).find('.category-title').hide();
 		$(this).find('.category-title-edit').show();
 	}
-	
+
 	// TODO
 	// alert("You can't edit that bitch");
-	
+
 });
 
 $(document).on('keypress', '.category-title-edit', (function(event) {
-	
+
 	if (event.which == 13 && $(this).closest().find('.category-id').val() != $('#user-default-category').val()) {
 
 		//Manipulate the data
@@ -76,19 +76,19 @@ $(document).on('keypress', '.category-title-edit', (function(event) {
 		});
 
 	}
-	
+
 	// TODO
 	// alert("You can't edit that bitch");
-	
+
 }));
 
 // delete
 $(document).on('click', '.category-delete', function(event) {
-	
+
 	var id = $(this).closest('.category').find('.category-id').val();
-	
+
 	_socketConnection.emit('delete_category', {
 		'id' : id
 	});
-	
+
 });

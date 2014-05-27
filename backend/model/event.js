@@ -116,6 +116,7 @@ Event.plugin(mongoosePostFind, {
 		// if no events were found
 		if (!events) {
 			next(null, []);
+			return;
 		}
 
 		async.each(events, function(newEvent, nextEvent) {
@@ -151,6 +152,7 @@ Event.plugin(mongoosePostFind, {
 		// if no event was found
 		if (!newEvent) {
 			next(null, null);
+			return;
 		}
 
 		newEvent.modelType = 'typeEvent';

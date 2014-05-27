@@ -127,6 +127,7 @@ Task.plugin(mongoosePostFind, {
 		// if no tasks were found
 		if (!tasks) {
 			next(null, []);
+			return;
 		}
 
 		async.each(tasks, function(task, nextTask) {
@@ -172,6 +173,7 @@ Task.plugin(mongoosePostFind, {
 		// if no task was found
 		if (!task) {
 			next(null, null);
+			return;
 		}
 
 		task.modelType = 'typeTask';

@@ -26,32 +26,6 @@ _.observe(db.tasks, function() {
 
 });
 
-_socketConnection.on('update_subtask_complete', function(data) {
-
-	console.log('on update_subtask_complete');
-
-	$('.subtasks').empty();
-
-	var subtasks = data.task.subtask;
-
-	if (subtasks === undefined) {
-
-	} else {
-
-		for (var i = 0, j = subtasks.length; i < j; i++) {
-
-			var subtask = new EJS({
-				url : '/view/ui/subtask.ejs'
-			}).render(subtasks[i]);
-
-			$('.subtasks').append(subtask);
-
-		}
-
-	}
-
-});
-
 // triggers when adding a new task to a category
 $('#task_taskAdd_input').keypress(function(event) {
 

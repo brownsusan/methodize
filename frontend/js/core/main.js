@@ -12,7 +12,6 @@ _socketConnection.on('update_event_complete', function(data) {
 	console.log('on update_event_complete');
 
 	if (data.error) {
-		alert(data.message);
 		return;
 	}
 
@@ -31,22 +30,22 @@ _socketConnection.on('update_event_complete', function(data) {
 		console.log('on read_event_complete');
 
 		console.log(data.error);
-		console.log(data.readEvent[0]);
+		console.log(data.event[0]);
 
 		var calEvent = {
-			'id' : data.readEvent[0].id,
-			'title' : data.readEvent[0].title,
-			'start' : data.readEvent[0].startDate,
-			'end' : data.readEvent[0].endDate,
-			'color' : data.readEvent[0].categoryObject.color,
-			'category' : data.readEvent[0].categoryObject.title,
-			'categoryId' : data.readEvent[0].category,
-			'important' : data.readEvent[0].important,
-			'allDay' : data.readEvent[0].allDay,
-			'reminder' : data.readEvent[0].reminder,
-			'subtasks' : data.readEvent[0].subtask,
-			'note' : data.readEvent[0].note,
-			'modelType' : data.readEvent[0].modelType
+			'id' : data.event[0].id,
+			'title' : data.event[0].title,
+			'start' : data.event[0].startDate,
+			'end' : data.event[0].endDate,
+			'color' : data.event[0].categoryObject.color,
+			'category' : data.event[0].categoryObject.title,
+			'categoryId' : data.event[0].category,
+			'important' : data.event[0].important,
+			'allDay' : data.event[0].allDay,
+			'reminder' : data.event[0].reminder,
+			'subtasks' : data.event[0].subtask,
+			'note' : data.event[0].note,
+			'modelType' : data.event[0].modelType
 		};
 
 		$('.eventEdit-container').fadeOut(500, function() {
@@ -770,7 +769,6 @@ _socketConnection.on('update_task_complete', function(data) {
 	console.log('on update_task_complete');
 
 	console.log('ERROR: ' + data.error);
-	console.log('MESSAGE: ' + data.message);
 	console.log('TASK FRONT END MODEL: ' + data.task);
 
 	var task = data.task;

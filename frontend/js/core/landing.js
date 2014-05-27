@@ -1,50 +1,48 @@
-//Create a 'complete' listener for the sign in
-_socketConnection.on('signin_user_complete', function(data) {
-	
-	console.log('on signin_user_complete');
-	
-	if (!data.error) {
-		window.location.href = '/calendar';
+//Create a 'complete' listener for the sign up
+_socketConnection.on('signup_user_complete', function(data) {
+
+	console.log('on signup_user_complete');
+
+	if (data.error) {
+		alert('You filled it out wrong');
 	}
-	
-	if(data.error){
-		alert('You used the wrong info');
-	}
+
+	window.location.href = '/calendar';
 
 });
 
-_socketConnection.on('signup_user_complete', function(data) {
-	
-	console.log('on signup_user_complete');
-	
-	if (!data.error) {
-		window.location.href = '/calendar';
+//Create a 'complete' listener for the sign in
+_socketConnection.on('signin_user_complete', function(data) {
+
+	console.log('on signin_user_complete');
+
+	if (data.error) {
+		alert('You used the wrong info');
+		return;
 	}
-	
-	if(data.error){
-		alert('You filled it out wrong');
-	}
-	
+
+	window.location.href = '/calendar';
+
 });
 
 $('#landing_login_submit_button').click(function() {
-	
+
 	console.log('LOGIN SUBMIT CLICKED');
-	
+
 	//Get the data
 	var email = $('#landing_login_email_input').val();
 	var pass = $('#landing_login_password_input').val();
 	// Emit an event - name it - create an object to emit
-	
+
 	_socketConnection.emit('signin_user', {
 		'email' : email,
 		'password' : pass
 	});
-	
+
 });
 
 $('#landing_signUp_submit_button').click(function() {
-	
+
 	// Get the data
 	var email = $('#landing_signUp_email').val();
 	var phone = $('#landing_signUp_phone').val();
@@ -53,7 +51,7 @@ $('#landing_signUp_submit_button').click(function() {
 
 	var regex_email = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
 	var regex_pass = /^[a-zA-Z]\w{3,14}$/;
-	
+
 	//Validate
 	valid = true;
 
@@ -78,7 +76,7 @@ $('#landing_signUp_submit_button').click(function() {
 		$('#landing-error').html(errorHtml);
 		return;
 	}
-	
+
 	//Emit an event
 	_socketConnection.emit('signup_user', {
 		'email' : email,

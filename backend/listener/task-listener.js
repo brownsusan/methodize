@@ -224,8 +224,7 @@ module.exports.setup = function(socketServer, userSocket) {
 			if (err || !results) {
 				logger.log(chalk.bgRed('ERROR'));
 				userSocket.emit('update_task_complete', {
-					'error': true,
-					'message': 'Couldnt find a matching task'
+					'error': true
 				});
 				return;
 			}
@@ -271,8 +270,7 @@ module.exports.setup = function(socketServer, userSocket) {
 					logger.log(chalk.bgRed('ERROR'));
 					userSocket.emit('update_task_complete', {
 						// Send error as part of data
-						'error': true,
-						'message': 'error in the task.store function'
+						'error': true
 					});
 					return;
 				}
