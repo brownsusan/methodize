@@ -17,6 +17,8 @@ var http = require('http');
 var io = require('socket.io');
 //Mongo Abstraction Layer, Duh
 var mongoose = require('mongoose');
+// Twilio node library
+var twilio = require("/twilio/lib");
 
 //Instantiating the Servers and telling them to use the same HTTP server with a mega weird order of operations.
 //This has to be set up first because the http constructor is going to expect my routing engine.
