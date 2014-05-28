@@ -21,13 +21,13 @@ module.exports.route = function(app) {
 		var userId = req.session.user.id;
 
 		CategoryModel.findOne({
-			'title' : 'Inbox',
+			'title' : 'Default',
 			'userId' : userId
 		}, function(err, results) {
 
-			var userInboxId = results.id;
+			var userDefaultCategoryId = results.id;
 
-			data.userInboxId = userInboxId;
+			data.userDefaultCategoryId = userDefaultCategoryId;
 
 			res.render('task', data);
 

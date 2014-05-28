@@ -58,8 +58,8 @@ module.exports.setup = function(socketServer, userSocket) {
 			// we need to create this default category when creating the user
 			var category = new CategoryModel();
 			category.userId = results.id;
-			category.title = 'Inbox';
-			category.color = '#4281DB';
+			category.title = 'Default';
+			category.color = '#5DB3F9';
 
 			category.save(function(err, results) {
 

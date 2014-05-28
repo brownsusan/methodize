@@ -76,7 +76,7 @@ $(document).ready(function() {
 
 	var defaultCategory = $('#user-default-category').val();
 
-	$('.task-pageHeading').html('Inbox');
+	$('.task-pageHeading').html('Default');
 
 	_socketConnection.emit('read_tasks_by_category', {
 		'categoryId' : defaultCategory
