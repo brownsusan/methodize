@@ -28,10 +28,13 @@ _socketConnection.on('create_event_complete', function(data) {
 _socketConnection.on('update_event_complete', function(data) {
 
 	console.log('on update_event_complete');
+	
 	if (data.error) {
 		return;
 	}
+
 	console.log(data);
+
 	var calEvent = {
 		'id' : data.event.id,
 		'title' : data.event.title,
@@ -619,7 +622,6 @@ var setFields = function(calEvent, jsEvent, view) {
 		$('#taskEdit_title_input').val(calEvent.title);
 		$('#taskDetail_dueDate').html(calEvent.start);
 		$('#taskEdit_dueDate_input').val(calEvent.start);
-		console.log(calEvent.category);
 		$('#taskDetail_category').html(calEvent.category);
 		$('#taskEdit_category_select').find('option').each(function() {
 			if ($(this).val() == calEvent.categoryId) {

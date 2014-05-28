@@ -22,7 +22,7 @@ _.observe(db.tasks, function() {
 			}).render(db.tasks[i]);
 			$('.task-completedTask-list').append(task);
 		}
-	};
+	}
 
 });
 
@@ -101,13 +101,20 @@ $(document).on('click', '.task-item-delete', function(event) {
 });
 
 // When a task is checked off
-$(document).on('click', 'input[type=checkbox]', function(event) {
+$(document).on('click', '.task-item input[type=checkbox]', function(event) {
+
 	var id = $(this).closest('.task-item').find('.task-item-id').val();
-	var completed = $(this).is(":checked");
+
+	var completed = $(this).is(':checked');
+
+	console.log(id);
+	console.log(completed);
+
 	_socketConnection.emit('update_task', {
 		'id' : id,
 		'completed' : completed
 	});
+
 });
 
 $(document).on('dblclick', '.subtasks li', function(event) {
