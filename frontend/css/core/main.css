@@ -136,9 +136,15 @@ input[type=text] {
 	top: 0;
 	position: fixed;
 	right: -360px;
-	color: #999;
+	color: #ebebeb;
 	background: #222;
 	overflow: scroll;
+}
+
+.detail-label{
+	color: #999;
+	display: inline-block;
+	width: 80px !important;
 }
 
 nav h1 {
@@ -196,6 +202,10 @@ nav li img {
 
 .task-tasks ul li, .task-categories ul li, .subtasks li, .completed-subtasks li {
 	margin: 5px 0;
+	background: #f7f8f9;
+}
+
+.subtasks li, .completed-subtasks li{
 	background: rgba(255,255,255,0.2);
 }
 
@@ -250,10 +260,12 @@ nav li img {
 	display: block;
 }
 
-#addPanel_addTask textarea, #addPanel_addEvent textarea {
+#addPanel_addTask_note_textarea, #addPanel_addEvent_note_textarea, #eventDetail_note_textarea, #eventEdit_note_textarea, #taskDetail_note_textarea, #taskEdit_note_textarea{
+	background: rgba(255,255,255,0.2);
 	min-width: 100%;
 	max-width: 100%;
-	border: 1px solid #b2b2b2;
+	padding: 10px;
+	border: none;
 	min-height: 160px;
 }
 
@@ -304,7 +316,7 @@ ul {
  └  └─┘┴─┘┴─┘  └─┘┴ ┴┴─┘└─┘┘└┘─┴┘┴ ┴┴└─  └─┘ └┘ └─┘┴└─┴└─┴─┴┘└─┘└─┘
  ==================================================================
  */
-.fc-state-highlight {/* <td> today cell */ /* TODO: add .fc-today to <th> */
+.fc-state-highlight {
 	background: rgba(255,255,255,0.5);
 }
 
@@ -404,3 +416,22 @@ button {
 .subtask-title{
 	max-width: 80%;
 }
+
+/*DETAIL EDIT*/
+#eventDetail_title, #taskDetail_title, #eventEdit_title_input, #taskEdit_title_input{
+	font-weight: bold;
+	font-size: 14px;
+}
+
+/*Date Time Picker*/
+/*.ui-timepicker-div .ui-widget-header { margin-bottom: 8px; }
+.ui-timepicker-div dl { text-align: left; }
+.ui-timepicker-div dl dt { float: left; clear:left; padding: 0 0 0 5px; }
+.ui-timepicker-div dl dd { margin: 0 10px 10px 40%; }
+.ui-timepicker-div td { font-size: 90%; }
+.ui-tpicker-grid-label { background: none; border: none; margin: 0; padding: 0; }
+
+.ui-timepicker-rtl{ direction: rtl; }
+.ui-timepicker-rtl dl { text-align: right; padding: 0 5px 0 0; }
+.ui-timepicker-rtl dl dt{ float: right; clear: right; }
+.ui-timepicker-rtl dl dd { margin: 0 40% 10px 10px; }*/

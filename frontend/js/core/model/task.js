@@ -93,8 +93,6 @@ _socketConnection.on('update_task_complete', function(data) {
 	}
 
 	$('.taskEdit-container').fadeOut(500, function() {
-		// TODO
-		// update fields
 		setFields(data.task);
 		$('.taskDetail-container').fadeIn(500);
 	});

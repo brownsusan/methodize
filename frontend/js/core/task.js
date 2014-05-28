@@ -121,19 +121,3 @@ $(document).on('keypress', '.subtask-title-edit', function(event) {
 		});
 	}
 });
-
-// TODO
-// Handle Completion of Subtasks
-
-// TODO
-// Update display when a subtask is completed (could also be done with the update subtask function above)
-
-// TODO
-// Delete Subtask
-// Make an event listener on a delete button
-// Get the id of the clicked subtask
-// Emit a delete subtask event
-
-// TODO
-// Listen for delete subtask complete event
-// Update the display

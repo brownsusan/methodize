@@ -1,0 +1,51 @@
+<div class="taskDetailEdit-container">
+	<div class="taskDetail-container core-hidden">
+		<input id="taskDetail_id_input" type="hidden" />
+		<span id="taskDetail_title"></span>
+		<br />
+		<span class="detail-label">Due: </span><span id="taskDetail_dueDate"></span>
+		<br />
+		<br />
+		<span class="detail-label">Reminders</span>
+		<div id="taskDetail_reminders_container"></div>
+		<div></div>
+		<span class="detail-label">Category: </span>
+		<br />
+		<label class="detail-label">
+			<input id="taskDetail_important_input" type="checkbox" />
+			Important</label>
+		<span class="detail-label">Subtasks</span>
+		<ul class="subtasks"></ul>
+		<ul class="completed-subtasks"></ul>
+		<span class="detail-label">Notes</span>
+		<textarea id="taskDetail_note_textarea"></textarea>
+		<button id="taskDetail_editTask_button">
+			Edit
+		</button>
+	</div>
+
+	<div class="taskEdit-container core-hidden">
+		<input id="taskEdit_id_input" type="hidden" />
+		<input id="taskEdit_title_input" type="text" />
+		<input id="taskEdit_dueDate_input" class="datetimepicker" type="text" placeholder = "Due Date"/>
+		<span class="detail-label">Reminders</span>
+		<div id="taskEdit_reminders_container"></div>
+		<button id="taskEdit_addReminder_button">
+			Add
+		</button>
+		<label class="detail-label">Category <select id="taskEdit_category_select" ></select></label>
+		<br />
+		<label class="detail-label">
+			<input id="taskEdit_important_input" type="checkbox"/>
+			Important</label>
+		<span class="detail-label">Sub Tasks</span>
+		<input class="addSubtask-input" type="text"  placeholder="Add a subtask..." />
+		<ul class="subtasks"></ul>
+		<ul class="completed-subtasks"></ul>
+		<span class="detail-label">Notes</span>
+		<textarea id="taskEdit_note_textarea"></textarea>
+		<button id="taskEdit_updateTask_button">
+			Save
+		</button>
+	</div>
+</div>

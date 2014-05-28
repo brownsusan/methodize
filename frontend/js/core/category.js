@@ -55,9 +55,6 @@ $(document).on('dblclick', '.category', function(event) {
 		$(this).find('.category-title-edit').show();
 	}
 
-	// TODO
-	// alert("You can't edit that bitch");
-
 });
 
 $(document).on('keypress', '.category-title-edit', (function(event) {
@@ -76,9 +73,6 @@ $(document).on('keypress', '.category-title-edit', (function(event) {
 		});
 
 	}
-
-	// TODO
-	// alert("You can't edit that bitch");
 
 }));
 

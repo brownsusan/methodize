@@ -90,8 +90,6 @@ _socketConnection.on('read_events_tasks_complete', function(data) {
 		editable : true,
 		events : calendarData,
 		eventClick : function(calEvent, jsEvent, view) {
-			// TODO
-			// handle events vs task depending on modelType
 			setFields(calEvent, jsEvent, view);
 			openDetails(calEvent);
 		},
@@ -163,7 +161,6 @@ $(document).on('click', '#eventEdit_updateEvent_button', function() {
 
 	});
 
-	//TODO ALWAYS CHECKED ATTR
 	var allDay = $('#eventEdit_allDay_input').is(":checked");
 	var note = $('#eventEdit_note_textarea').html();
 

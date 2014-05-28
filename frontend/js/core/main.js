@@ -7,53 +7,21 @@ _socketConnection.on('reload', function(data) {
 	document.location.href = '/task';
 });
 
-_socketConnection.on('create_task_complete', function(data){
+_socketConnection.on('create_task_complete', function(data) {
 	closeAdd();
 	// TODO
 	// Clear out the add panel fields
-	// TODO - When I run the set fields function from here, the toUTCString function will not work
-	// var calEvent = {
-		// 'id' : data.task.id,
-		// 'title' : data.task.title,
-		// 'start' : data.task.startDate,
-		// 'end' : data.task.endDate,
-		// 'color' : data.task.categoryObject.color,
-		// 'category' : data.task.categoryObject.title,
-		// 'categoryId' : data.task.category,
-		// 'important' : data.task.important,
-		// 'allDay' : data.task.allDay,
-		// 'reminder' : data.task.reminder,
-		// 'subtasks' : data.task.subtask,
-		// 'note' : data.task.note,
-		// 'modelType' : data.task.modelType
-	// };
-	// setFields(calEvent);
-	// openDetails(calEvent);
+	// TODO
+	// Set the fields for the detail panel and open it
 	_socketConnection.emit('read_events_tasks');
 });
 
-_socketConnection.on('create_event_complete', function(data){
+_socketConnection.on('create_event_complete', function(data) {
 	closeAdd();
 	// TODO
 	// Clear out the add panel fields
-	// TODO - When I run the set fields function from here, the toUTCString function will not work
-	// var calEvent = {
-		// 'id' : data.event.id,
-		// 'title' : data.event.title,
-		// 'start' : data.event.startDate,
-		// 'end' : data.event.endDate,
-		// 'color' : data.event.categoryObject.color,
-		// 'category' : data.event.categoryObject.title,
-		// 'categoryId' : data.event.category,
-		// 'important' : data.event.important,
-		// 'allDay' : data.event.allDay,
-		// 'reminder' : data.event.reminder,
-		// 'subtasks' : data.event.subtask,
-		// 'note' : data.event.note,
-		// 'modelType' : data.event.modelType
-	// };
-	// setFields(calEvent);
-	// openDetails(calEvent);
+	// TODO
+	// Set the fields for the detail panel and open it
 	_socketConnection.emit('read_events_tasks');
 });
 
@@ -95,7 +63,7 @@ _socketConnection.on('update_user_complete', function(data) {
 
 	$('#account_info_edit').fadeOut(500, function() {
 		// TODO
-		// Reset fields with jquery selector
+		// Set the fields with the updated user information
 		$('#account_info_display').fadeIn();
 	});
 
@@ -529,11 +497,13 @@ var setFields = function(calEvent, jsEvent, view) {
 	if (calEvent.modelType === 'typeEvent') {
 		$('#eventDetail_id_input').val(calEvent.id);
 		$('#eventEdit_id_input').val(calEvent.id);
-		$('#eventDetail_title').html('Title: ' + calEvent.title);
+		$('#eventDetail_title').html(calEvent.title);
 		$('#eventEdit_title_input').val(calEvent.title);
 
 		if (calEvent.start) {
-			//TODO UTC STRING IS CAUSING AN ERROR - SAYS UNDEFINED IS NOT A FUNCTION
+			// TODO
+			// UTC STRING IS CAUSING AN ERROR - SAYS UNDEFINED IS NOT A FUNCTION
+			// After the dates have been properly formatted/validated, this should be unecessary
 			$('#eventDetail_startDate').html(calEvent.start.toUTCString());
 			$('#eventEdit_startDate_input').val(calEvent.start.toUTCString());
 		}
@@ -557,7 +527,7 @@ var setFields = function(calEvent, jsEvent, view) {
 			$('#eventEdit_important_input').removeAttr("checked");
 		}
 
-		$('#eventDetail_category').html('Category: ' + calEvent.category);
+		$('#eventDetail_category').html(calEvent.category);
 		$('#eventEdit_category_select').find('option').each(function() {
 			if ($(this).val() == calEvent.categoryId) {
 				$(this).attr("selected", "selected");
@@ -568,14 +538,12 @@ var setFields = function(calEvent, jsEvent, view) {
 
 		$('#eventDetail_note_textarea').html(calEvent.note);
 		$('#eventEdit_note_textarea').html(calEvent.note);
-		// TODO
-		// show reminders
 		$('#eventDetail_reminders_container').empty();
 		$('#eventEdit_reminders_container').empty();
 		if (calEvent.reminder != undefined && calEvent.reminder.length != 0) {
 			var reminders = calEvent.reminder;
-			//TODO these conditionals are a temporay fix, all of this information is to be required from the user.
-			// need to get info showing by default
+			// TODO
+			// these conditionals are a temporary fix, all of this information should be required.
 			for (var i = 0, j = reminders.length; i < j; i++) {
 				var currentReminder = reminders[i];
 				if (!currentReminder.start) {
@@ -622,10 +590,13 @@ var setFields = function(calEvent, jsEvent, view) {
 				}
 				// TODO
 				// Set frequency select
+				// TODO
+				// Set frequency display in detail section
 			}
+		} else {
+			//TODO
+			// Say that there are no reminders
 		}
-		// TODO
-		// show subtasks
 		$('.eventEdit-container').find('.subtasks').empty();
 		$('.eventDetail-container').find('.subtasks').empty();
 		if (calEvent.subtasks != undefined && calEvent.subtasks.length != 0) {
@@ -647,7 +618,8 @@ var setFields = function(calEvent, jsEvent, view) {
 		$('#taskEdit_title_input').val(calEvent.title);
 		$('#taskDetail_dueDate').html(calEvent.start);
 		$('#taskEdit_dueDate_input').val(calEvent.start);
-		$('#taskDetail_category').html('Category: ' + calEvent.category);
+		console.log(calEvent.category);
+		$('#taskDetail_category').html(calEvent.category);
 		$('#taskEdit_category_select').find('option').each(function() {
 			if ($(this).val() == calEvent.categoryId) {
 				$(this).attr("selected", "selected");
@@ -680,28 +652,62 @@ var setFields = function(calEvent, jsEvent, view) {
 		$('#taskDetail_reminders_container').empty();
 		$('#taskEdit_reminders_container').empty();
 		if (calEvent.reminder != undefined && calEvent.reminder.length != 0) {
-			for (var i = 0, j = calEvent.reminder.length; i < j; i++) {
+			var reminders = calEvent.reminder;
+			// TODO
+			// these conditionals are a temporary fix, all of this information should be required.
+			for (var i = 0, j = reminders.length; i < j; i++) {
+				var currentReminder = reminders[i];
+				if (!currentReminder.start) {
+					currentReminder.start = '';
+				}
+				if (!currentReminder.end) {
+					currentReminder.end = '';
+				}
+				if (!currentReminder.frequency) {
+					currentReminder.frequency = '';
+				}
+				if (!currentReminder.via) {
+					currentReminder.via = [];
+				}
 				var reminderDisplay = new EJS({
 					url : '/view/ui/reminder-display.ejs'
-				}).render(calEvent.reminder[i]);
+				}).render(currentReminder);
+
 				var reminder = new EJS({
 					url : '/view/ui/reminder.ejs'
-				}).render(calEvent.reminder[i]);
+				}).render(currentReminder);
 
 				$('#taskDetail_reminders_container').append(reminderDisplay);
 				$('#taskEdit_reminders_container').append(reminder);
 				// TODO
 				// The reminders are not getting populated with data.
-				$('.reminder-startTime-input').val(calEvent.reminder[i].start);
-				$('.reminder-endTime-input').val(calEvent.reminder[i].end);
+				$('.reminder-startTime-input').val(currentReminder.start);
+				$('.reminder-endTime-input').val(currentReminder.end);
+
 				// TODO
 				// Loop over via array and check off the right inputs
+				if (currentReminder.via != undefined && currentReminder.via.length != 0) {
+					for (var i = 0, j = currentReminder.via.length; i < j; i++) {
+						if (currentReminder.via[i] === "email") {
+							$('.via-email-input').attr("checked", "checked");
+						}
+						if (currentReminder.via[i] === "call") {
+							$('.via-call-input').attr("checked", "checked");
+						}
+						if (currentReminder.via[i] === "sms") {
+							$('.via-sms-input').attr("checked", "checked");
+						}
+					}
+				}
 				// TODO
 				// Set frequency select
+				// TODO
+				// Set frequency display in detail section
 			}
+		} else {
+			//TODO
+			// Say that there are no reminders
 		}
-		//TODO
-		// SHOW SUBTASKS
 		$('.taskEdit-container').find('.subtasks').empty();
 		$('.taskDetail-container').find('.subtasks').empty();
 		if (calEvent.subtasks != undefined && calEvent.subtasks.length != 0) {
