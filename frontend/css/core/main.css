@@ -358,8 +358,14 @@ header h1 {
 	width: 400px;
 }
 
-#eventEdit_reminders_container:nth-child(odd){
+/*#eventEdit_reminders_container:nth-child(odd), #taskEdit_reminders_container:nth-child(odd){
 	background: rgba(255,255,255,0.05);
+}*/
+
+#eventDetail_reminders_container div, #taskDetail_reminders_container div, #eventEdit_reminders_container div, #taskEdit_reminders_container div{
+	border: 1px solid rgba(255,255,255,0.1);
+	padding: 10px;
+	margin-bottom: 10px;
 }
 
 #landing_signUp_form input[type=text], #landing_signUp_form input[type=tel], #landing_signUp_form input[type=password], #landing_signUp_form input[type=email] {

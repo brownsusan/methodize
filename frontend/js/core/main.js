@@ -504,12 +504,12 @@ var setFields = function(calEvent, jsEvent, view) {
 			// TODO
 			// UTC STRING IS CAUSING AN ERROR - SAYS UNDEFINED IS NOT A FUNCTION
 			// After the dates have been properly formatted/validated, this should be unecessary
-			$('#eventDetail_startDate').html(calEvent.start.toUTCString());
-			$('#eventEdit_startDate_input').val(calEvent.start.toUTCString());
+			$('#eventDetail_startDate').html(calEvent.start);
+			$('#eventEdit_startDate_input').val(calEvent.start);
 		}
 		if (calEvent.end) {
-			$('#eventDetail_endDate').html(calEvent.end.toUTCString());
-			$('#eventEdit_endDate_input').val(calEvent.end.toUTCString());
+			$('#eventDetail_endDate').html(calEvent.end);
+			$('#eventEdit_endDate_input').val(calEvent.end);
 		}
 
 		if (calEvent.allDay === true) {
@@ -544,6 +544,8 @@ var setFields = function(calEvent, jsEvent, view) {
 			var reminders = calEvent.reminder;
 			// TODO
 			// these conditionals are a temporary fix, all of this information should be required.
+			// TODO
+			// This loop is stopping after running once
 			for (var i = 0, j = reminders.length; i < j; i++) {
 				var currentReminder = reminders[i];
 				if (!currentReminder.start) {
@@ -593,9 +595,6 @@ var setFields = function(calEvent, jsEvent, view) {
 				// TODO
 				// Set frequency display in detail section
 			}
-		} else {
-			//TODO
-			// Say that there are no reminders
 		}
 		$('.eventEdit-container').find('.subtasks').empty();
 		$('.eventDetail-container').find('.subtasks').empty();

@@ -122,8 +122,7 @@ $(document).on('click', '#eventEdit_updateEvent_button', function() {
 	var important = $('#eventEdit_important_input').is(":checked");
 
 	var reminders = [];
-	$('.eventEdit-container .reminder').each(function() {
-
+	$('#eventEdit_reminders_container .reminder').each(function() {
 		var via = [];
 
 		if ($(this).find('.via-email-input').is(":checked")) {
