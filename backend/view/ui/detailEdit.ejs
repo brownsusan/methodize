@@ -6,33 +6,40 @@
 	<div class="eventDetailEdit-container">
 		<div class="eventDetail-container core-hidden">
 			<input id="eventDetail_id_input" type="hidden" />
-			<span id="eventDetail_title"></span>
-			<br />
-			<span class="detail-label">Start: </span><span id="eventDetail_startDate"></span>
-			<br />
-			<span class="detail-label">End: </span><span id="eventDetail_endDate"></span>
-			<br />
-			<label class="detail-label">
-				<input disabled="true" id="eventDetail_allDay_input" type="checkbox"/>
-				All Day</label>
-			<br />
-			<label class="detail-label">
-				<input disabled="true" id="eventDetail_important_input" type="checkbox" />
-				Important</label><br />
-			<span class="detail-label">Reminders</span>
-			<div id="eventDetail_reminders_container"></div>
-			<br />
-			<span class="detail-label">Category: </span>
-			<span id="eventDetail_category"></span>
-			<br />
-			<br />
-			<span class="detail-label">Subtasks</span>
-			<ul class="subtasks"></ul>
-			<ul class="completed-subtasks"></ul>
-			<br />
-			<span class="detail-label">Notes</span>
-			<textarea disabled="true" id="eventDetail_note_textarea"></textarea>
-			<br />
+			<div>
+				<span id="eventDetail_title"></span>
+			</div>
+			<div>
+				<span class="detail-label">Start: </span><span id="eventDetail_startDate"></span>
+				<span class="detail-label">End: </span><span id="eventDetail_endDate"></span>
+			</div>
+			<div>
+				<label class="detail-label">
+					<input disabled="true" id="eventDetail_allDay_input" type="checkbox"/>
+					All Day</label>
+			</div>
+			<div>
+				<label class="detail-label">
+					<input disabled="true" id="eventDetail_important_input" type="checkbox" />
+					Important</label>
+			</div>
+			<div>
+				<span class="detail-label">Reminders</span>
+				<div id="eventDetail_reminders_container"></div>
+			</div>
+			<div>
+				<span class="detail-label">Category: </span>
+				<span id="eventDetail_category"></span>
+			</div>
+			<div>
+				<span class="detail-label">Subtasks</span>
+				<ul class="subtasks"></ul>
+				<ul class="completed-subtasks"></ul>
+			</div>
+			<div>
+				<span class="detail-label">Notes</span>
+				<textarea disabled="true" id="eventDetail_note_textarea"></textarea>
+			</div>
 			<button id="eventDetail_editEvent_button">
 				Edit
 			</button>
@@ -43,28 +50,43 @@
 
 		<div class="eventEdit-container core-hidden">
 			<input id="eventEdit_id_input" type="hidden" />
-			<input id="eventEdit_title_input" type="text" />
-			<input id="eventEdit_startDate_input" class="datetimepicker" type="text" placeholder = "Start Date"/>
-			<input id="eventEdit_endDate_input" class="datetimepicker" type="text" placeholder = "End Date"/>
-			<label>
-				<input id="eventEdit_allDay_input" type="checkbox"/>
-				All Day</label>
-			<span>Reminders</span>
-			<div id="eventEdit_reminders_container"></div>
-			<button id="eventEdit_addReminder_button">
-				Add
-			</button>
-			<label>Category <select id="eventEdit_category_select" ></select></label>
-			<br />
-			<label>
-				<input id="eventEdit_important_input" type="checkbox"/>
-				Important</label>
-			<span>Sub Tasks</span>
-			<input class="addSubtask-input" type="text"  placeholder="Add a subtask..." />
-			<ul class="subtasks"></ul>
-			<ul class="completed-subtasks"></ul>
-			<span>Notes</span>
-			<textarea id="eventEdit_note_textarea"></textarea>
+			<div>
+				<input id="eventEdit_title_input" type="text" />
+			</div>
+			<div>
+				<input id="eventEdit_startDate_input" class="datetimepicker" type="text" placeholder = "Start Date"/>
+				<input id="eventEdit_endDate_input" class="datetimepicker" type="text" placeholder = "End Date"/>
+			</div>
+			<div>
+				<label>
+					<input id="eventEdit_allDay_input" type="checkbox"/>
+					All Day</label>
+			</div>
+			<div>
+				<span>Reminders</span>
+				<div id="eventEdit_reminders_container"></div>
+				<button id="eventEdit_addReminder_button">
+					New Reminder
+				</button>
+			</div>
+			<div>
+				<label>Category <select id="eventEdit_category_select" ></select></label>
+			</div>
+			<div>
+				<label>
+					<input id="eventEdit_important_input" type="checkbox"/>
+					Important</label>
+			</div>
+			<div>
+				<span>Sub Tasks</span>
+				<input class="addSubtask-input" type="text"  placeholder="Add a subtask..." />
+				<ul class="subtasks"></ul>
+				<ul class="completed-subtasks"></ul>
+			</div>
+			<div>
+				<span>Notes</span>
+				<textarea id="eventEdit_note_textarea"></textarea>
+			</div>
 			<button id="eventEdit_updateEvent_button">
 				Save
 			</button>
@@ -74,25 +96,34 @@
 	<div class="taskDetailEdit-container">
 		<div class="taskDetail-container core-hidden">
 			<input id="taskDetail_id_input" type="hidden" />
-			<span id="taskDetail_title"></span>
-			<br />
-			<span class="detail-label">Due: </span><span id="taskDetail_dueDate"></span>
-			<br />
-			<label class="detail-label">
-				<input disabled="true" id="taskDetail_important_input" type="checkbox" />
-				Important</label>
-			<br />
-			<span class="detail-label">Reminders</span>
-			<div id="taskDetail_reminders_container"></div>
-			<div></div>
-			<span class="detail-label">Category: </span>
-			<span id="taskDetail_category"></span>
-			<br />
-			<span class="detail-label">Subtasks</span>
-			<ul class="subtasks"></ul>
-			<ul class="completed-subtasks"></ul>
-			<span class="detail-label">Notes</span>
-			<textarea disabled="true" id="taskDetail_note_textarea"></textarea>
+			<div>
+				<span id="taskDetail_title"></span>
+			</div>
+			<div>
+				<span class="detail-label">Due: </span><span id="taskDetail_dueDate"></span>
+			</div>
+			<div>
+				<label class="detail-label">
+					<input disabled="true" id="taskDetail_important_input" type="checkbox" />
+					Important</label>
+			</div>
+			<div>
+				<span class="detail-label">Reminders</span>
+				<div id="taskDetail_reminders_container"></div>
+			</div>
+			<div>
+				<span class="detail-label">Category: </span>
+				<span id="taskDetail_category"></span>
+			</div>
+			<div>
+				<span class="detail-label">Subtasks</span>
+				<ul class="subtasks"></ul>
+				<ul class="completed-subtasks"></ul>
+			</div>
+			<div>
+				<span class="detail-label">Notes</span>
+				<textarea disabled="true" id="taskDetail_note_textarea"></textarea>
+			</div>
 			<button id="taskDetail_editTask_button">
 				Edit
 			</button>
@@ -100,27 +131,39 @@
 
 		<div class="taskEdit-container core-hidden">
 			<input id="taskEdit_id_input" type="hidden" />
-			<input id="taskEdit_title_input" type="text" />
-			<input id="taskEdit_dueDate_input" class="datetimepicker" type="text" placeholder = "Due Date"/>
-			<label class="detail-label">
-				<input id="taskEdit_important_input" type="checkbox"/>
-				Important</label>
-			<span class="detail-label">Reminders</span>
-			<div id="taskEdit_reminders_container"></div>
-			<button id="taskEdit_addReminder_button">
-				Add
-			</button>
+			<div>
+				<input id="taskEdit_title_input" type="text" />
+			</div>
+			<div>
+				<input id="taskEdit_dueDate_input" class="datetimepicker" type="text" placeholder = "Due Date"/>
+			</div>
+			<div>
+				<label class="detail-label">
+					<input id="taskEdit_important_input" type="checkbox"/>
+					Important</label>
+			</div>
+			<div>
+				<span class="detail-label">Reminders</span>
+				<div id="taskEdit_reminders_container"></div>
+				<button id="taskEdit_addReminder_button">
+					New Reminder
+				</button>
+			</div>
+			<div
 			<label class="detail-label">Category: <select id="taskEdit_category_select" ></select></label>
-			<br />
+			</div>
+			<div>
 			<span class="detail-label">Subtasks</span>
 			<input class="addSubtask-input" type="text"  placeholder="Add a subtask..." />
 			<ul class="subtasks"></ul>
 			<ul class="completed-subtasks"></ul>
+		</div>
+		<div>
 			<span class="detail-label">Notes</span>
 			<textarea id="taskEdit_note_textarea"></textarea>
-			<button id="taskEdit_updateTask_button">
-				Save
-			</button>
 		</div>
+		<button id="taskEdit_updateTask_button">
+			Save
+		</button>
 	</div>
 </div>

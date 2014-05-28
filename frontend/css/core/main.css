@@ -358,10 +358,6 @@ header h1 {
 	width: 400px;
 }
 
-/*#eventEdit_reminders_container:nth-child(odd), #taskEdit_reminders_container:nth-child(odd){
-	background: rgba(255,255,255,0.05);
-}*/
-
 #eventDetail_reminders_container div, #taskDetail_reminders_container div, #eventEdit_reminders_container div, #taskEdit_reminders_container div{
 	border: 1px solid rgba(255,255,255,0.1);
 	padding: 10px;
@@ -427,6 +423,10 @@ button {
 #eventDetail_title, #taskDetail_title, #eventEdit_title_input, #taskEdit_title_input{
 	font-weight: bold;
 	font-size: 14px;
+}
+
+.eventDetailEdit-container div, .taskDetailEdit-container div{
+	margin: 5px 0 15px;
 }
 
 /*Date Time Picker*/
