@@ -36,13 +36,14 @@ _socketConnection.on('read_events_tasks_complete', function(data) {
 		}
 
 		if (data.calendarData[i].modelType == 'typeTask') {
-
+			// var titleHtml = data.calendarData[i].title +'<div style="background:'+data.calendarData[i].categoryObject.color+'" class="round-color-rep"></div>';
 			var newTask = {
 				'id' : data.calendarData[i].id,
 				'title' : data.calendarData[i].title,
 				'start' : data.calendarData[i].dueDate,
 				'end' : data.calendarData[i].dueDate,
-				'color' : data.calendarData[i].categoryObject.color,
+				'color' : '#f7f8f9',
+				'categoryColor' : data.calendarData[i].categoryObject.color,
 				'category' : data.calendarData[i].categoryObject.title,
 				'categoryId' : data.calendarData[i].category,
 				'important' : data.calendarData[i].important,
@@ -89,6 +90,11 @@ _socketConnection.on('read_events_tasks_complete', function(data) {
 		},
 		editable : true,
 		events : calendarData,
+		eventRender: function(event, element){
+			if(event.modelType === 'typeTask'){
+				element.find('.fc-event-title').append('<span class="round-color-rep" style="background:'+event.categoryColor+';"></span>');
+			}
+		},
 		eventClick : function(calEvent, jsEvent, view) {
 			setFields(calEvent, jsEvent, view);
 			openDetails(calEvent);
