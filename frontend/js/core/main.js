@@ -111,6 +111,8 @@ $(document).on('click', '.category', function(event) {
 	closeDetails();
 
 	var parentCategoryId = $(this).find('.category-id').val();
+	$('.active-category').removeClass('active-category');
+	$(this).addClass('active-category')
 
 	$('#parent-category').val(parentCategoryId);
 

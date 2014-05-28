@@ -435,6 +435,10 @@ button {
 	margin: 5px 0 15px;
 }
 
+.active-category, .active-task{
+	background: #e9e9e9 !important;
+}
+
 /*Date Time Picker*/
 /*.ui-timepicker-div .ui-widget-header { margin-bottom: 8px; }
 .ui-timepicker-div dl { text-align: left; }
