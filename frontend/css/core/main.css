@@ -180,7 +180,8 @@ nav li img, footer li img {
 	width: 15px;
 	border-radius: 10px;
 	background: rgba(231, 85, 111, 0.7);
-	margin-top: 8px;
+	margin-top: 5px;
+	margin-right: 5px;
 }
 
 .pill-color-rep {
@@ -207,6 +208,11 @@ nav li img, footer li img {
 
 .subtasks li, .completed-subtasks li{
 	background: rgba(255,255,255,0.2);
+}
+
+#task_categoryAdd_input, #task_taskAdd_input{
+	background: rgba(255,255,255,0.5);
+	margin: 10px 0 0;
 }
 
 .task-tasks ul li, .task-categories ul li, .day-events-allDay ul li {
