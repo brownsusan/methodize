@@ -31,8 +31,7 @@ test.task = {};
 				'dueDate': new Date(),
 				'reminder': [],
 				'important': false,
-				'note': '',
-				'subtask': ''
+				'note': ''
 			});
 
 		}

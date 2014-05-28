@@ -83,6 +83,11 @@ Task.methods = {
 
 		instance.save(function(err, result) {
 
+			if (err || !result) {
+				next(err, result);
+				return;
+			}
+
 			var task = result;
 
 			CategoryModel.findOne({
