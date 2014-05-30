@@ -212,8 +212,6 @@ module.exports.setup = function(socketServer, userSocket) {
 
 		var id = data.id;
 
-		console.log(id);
-
 		TaskModel.findOne({
 			'id': id
 		}, function(err, results) {
@@ -260,9 +258,9 @@ module.exports.setup = function(socketServer, userSocket) {
 				task.note = data.note;
 			}
 
-			// if (data.completed !== undefined && data.completed != null) {
-			// task.completed = data.completed;
-			// }
+			if (data.completed !== undefined) {
+				task.completed = data.completed;
+			}
 
 			task.store(task, function(err, results) {
 

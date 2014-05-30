@@ -1,3 +1,5 @@
+var twilio = require("twilio");
+
 //TWILIO CONCEPT
 // TODO
 // Set the interval to check the tasks and events
