@@ -297,8 +297,8 @@ ul {
 	border: 1px solid rgb(231, 85, 111);
 }
 
-#landing_login_form input[type=text], #landing_signUp_form input[type=text] {
-	width: 100px;
+#landing_login_form {
+	width: 400px;
 }
 
 .category-id, .core-hidden {
