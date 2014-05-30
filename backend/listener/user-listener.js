@@ -47,7 +47,7 @@ module.exports.setup = function(socketServer, userSocket) {
 				logger.log(chalk.bgRed('ERROR'));
 				userSocket.emit('signup_user_complete', {
 					// Send error as part of data - this is the success
-					'error': true
+					'error' : true
 				});
 				return;
 			}
@@ -67,7 +67,7 @@ module.exports.setup = function(socketServer, userSocket) {
 					logger.log(chalk.bgRed('ERROR'));
 					userSocket.emit('signup_user_complete', {
 						// Send error as part of data
-						'error': true
+						'error' : true
 					});
 					return;
 				}
@@ -78,7 +78,7 @@ module.exports.setup = function(socketServer, userSocket) {
 
 				userSocket.emit('signup_user_complete', {
 					// Send error as part of data - this is the success
-					'error': false
+					'error' : false
 				});
 
 			});
@@ -101,7 +101,7 @@ module.exports.setup = function(socketServer, userSocket) {
 		var password = data.password;
 
 		UserModel.findOne({
-			'email': email
+			'email' : email
 		}, function(err, results) {
 
 			// Check for an error
@@ -110,7 +110,7 @@ module.exports.setup = function(socketServer, userSocket) {
 				//Emit an event from the server to the client using the userSocket
 				userSocket.emit('signin_user_complete', {
 					// Send error as part of data
-					'error': true
+					'error' : true
 				});
 				return;
 			}
@@ -124,7 +124,7 @@ module.exports.setup = function(socketServer, userSocket) {
 				//Emit an event from the server to the client using the userSocket
 				userSocket.emit('signin_user_complete', {
 					// Send an error as part of data
-					'error': true
+					'error' : true
 				});
 				return;
 			}
@@ -137,7 +137,7 @@ module.exports.setup = function(socketServer, userSocket) {
 				//Emit an event from the server to the client using the userSocket
 				userSocket.emit('signin_user_complete', {
 					// Send error as part of data - this is the success
-					'error': false
+					'error' : false
 				});
 
 			});
@@ -168,7 +168,7 @@ module.exports.setup = function(socketServer, userSocket) {
 		var userId = session.user.id;
 
 		UserModel.findOne({
-			'id': userId
+			'id' : userId
 		}, function(err, results) {
 
 			// Check for an error
@@ -177,7 +177,7 @@ module.exports.setup = function(socketServer, userSocket) {
 				//Emit an event from the server to the client using the userSocket
 				userSocket.emit('update_user_complete', {
 					// Send error as part of data
-					'error': true
+					'error' : true
 				});
 				return;
 			}
@@ -205,7 +205,7 @@ module.exports.setup = function(socketServer, userSocket) {
 					logger.log(chalk.bgRed('ERROR'));
 					userSocket.emit('update_user_complete', {
 						// Send error as part of data
-						'error': true
+						'error' : true
 					});
 					return;
 				}
@@ -216,12 +216,14 @@ module.exports.setup = function(socketServer, userSocket) {
 
 					userSocket.emit('update_user_complete', {
 						// Send an error as part of data
-						'error': false,
-						'user': results
+						'error' : false,
+						'user' : {
+							'email' : user.email,
+							'phone' : user.phoneNumber
+						}
 					});
 
 				});
-
 
 			});
 

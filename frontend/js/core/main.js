@@ -73,9 +73,13 @@ _socketConnection.on('update_user_complete', function(data) {
 	console.log('on update_user_complete');
 
 	$('#account_info_edit').fadeOut(500, function() {
-		// TODO
+		
 		// Set the fields with the updated user information
+		$('#account_info_display .account-display-email').html(data.user.email);
+		$('#account_info_display .account-display-phone').html(data.user.phone);
+
 		$('#account_info_display').fadeIn();
+		
 	});
 
 });
@@ -516,7 +520,7 @@ var setFields = function(calEvent, jsEvent, view) {
 			$('#eventDetail_startDate').html(moment(new Date(calEvent.start)).format('MM/DD/YYYY HH:mm'));
 			$('#eventEdit_startDate_input').val(new Date(calEvent.start));
 		}
-		
+
 		if (calEvent.end) {
 			$('#eventDetail_endDate').html(moment(new Date(calEvent.end)).format('MM/DD/YYYY HH:mm'));
 			$('#eventEdit_endDate_input').val(new Date(calEvent.end));
@@ -529,7 +533,7 @@ var setFields = function(calEvent, jsEvent, view) {
 			$('#eventDetail_allDay_input').removeAttr("checked");
 			$('#eventEdit_allDay_input').removeAttr("checked");
 		}
-		
+
 		if (calEvent.important === true) {
 			$('#eventDetail_important_input').attr('checked', calEvent.important);
 			$('#eventEdit_important_input').attr('checked', calEvent.important);
@@ -551,9 +555,9 @@ var setFields = function(calEvent, jsEvent, view) {
 		$('#eventEdit_note_textarea').html(calEvent.note);
 		$('#eventDetail_reminders_container').empty();
 		$('#eventEdit_reminders_container').empty();
-		
+
 		if (calEvent.reminder != undefined && calEvent.reminder.length != 0) {
-			
+
 			var reminders = calEvent.reminder;
 			// TODO
 			// these conditionals are a temporary fix, all of this information should be required.
@@ -850,4 +854,4 @@ $('.detailEdit-closeDetailEdit-button').click(function() {
 
 $('#account_update_changePass_button').click(function() {
 	$('#account_update_changePass').toggleClass('core-hidden');
-}); 
+});
