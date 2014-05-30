@@ -90,9 +90,9 @@ _socketConnection.on('read_events_tasks_complete', function(data) {
 		},
 		editable : true,
 		events : calendarData,
-		eventRender: function(event, element){
-			if(event.modelType === 'typeTask'){
-				element.find('.fc-event-title').append('<span class="round-color-rep" style="background:'+event.categoryColor+';"></span>');
+		eventRender : function(event, element) {
+			if (event.modelType === 'typeTask') {
+				element.find('.fc-event-title').append('<span class="round-color-rep" style="background:' + event.categoryColor + ';"></span>');
 			}
 		},
 		eventClick : function(calEvent, jsEvent, view) {
@@ -128,7 +128,9 @@ $(document).on('click', '#eventEdit_updateEvent_button', function() {
 	var important = $('#eventEdit_important_input').is(":checked");
 
 	var reminders = [];
+	
 	$('#eventEdit_reminders_container .reminder').each(function() {
+		
 		var via = [];
 
 		if ($(this).find('.via-email-input').is(":checked")) {

@@ -1,6 +1,6 @@
 // Turn off caching
 EJS.config({
-	cache: false
+	cache : false
 });
 
 _socketConnection.on('reload', function(data) {
@@ -44,19 +44,19 @@ _socketConnection.on('update_event_complete', function(data) {
 	}
 
 	var calEvent = {
-		'id': data.event.id,
-		'title': data.event.title,
-		'start': data.event.startDate,
-		'end': data.event.endDate,
-		'color': data.event.categoryObject.color,
-		'category': data.event.categoryObject.title,
-		'categoryId': data.event.category,
-		'important': data.event.important,
-		'allDay': data.event.allDay,
-		'reminder': data.event.reminder,
-		'subtasks': data.event.subtask,
-		'note': data.event.note,
-		'modelType': data.event.modelType
+		'id' : data.event.id,
+		'title' : data.event.title,
+		'start' : data.event.startDate,
+		'end' : data.event.endDate,
+		'color' : data.event.categoryObject.color,
+		'category' : data.event.categoryObject.title,
+		'categoryId' : data.event.category,
+		'important' : data.event.important,
+		'allDay' : data.event.allDay,
+		'reminder' : data.event.reminder,
+		'subtasks' : data.event.subtask,
+		'note' : data.event.note,
+		'modelType' : data.event.modelType
 	};
 
 	$('.eventEdit-container').fadeOut(500, function() {
@@ -90,7 +90,7 @@ $(document).ready(function() {
 	$('.task-pageHeading').html('Default');
 
 	_socketConnection.emit('read_tasks_by_category', {
-		'categoryId': defaultCategory
+		'categoryId' : defaultCategory
 	});
 
 	_socketConnection.emit('read_categories');
@@ -123,14 +123,14 @@ $(document).on('click', '.category', function(event) {
 
 	var parentCategoryId = $(this).find('.category-id').val();
 	$('.active-category').removeClass('active-category');
-	$(this).addClass('active-category')
+	$(this).addClass('active-category');
 
 	$('#parent-category').val(parentCategoryId);
 
 	$('.task-pageHeading').html($(this).find('.category-title').html());
 
 	_socketConnection.emit('read_tasks_by_category', {
-		'categoryId': parentCategoryId
+		'categoryId' : parentCategoryId
 	});
 
 });
@@ -138,7 +138,7 @@ $(document).on('click', '.category', function(event) {
 $('#addPanel_addTask_addReminder_button').click(function() {
 
 	var reminder = new EJS({
-		url: '/view/ui/reminder.ejs'
+		url : '/view/ui/reminder.ejs'
 	}).render();
 
 	$('#addPanel_addTask_reminders_container').append(reminder);
@@ -152,7 +152,7 @@ $('#addPanel_addTask_addReminder_button').click(function() {
 $('#addPanel_addEvent_addReminder_button').click(function() {
 
 	var reminder = new EJS({
-		url: '/view/ui/reminder.ejs'
+		url : '/view/ui/reminder.ejs'
 	}).render();
 
 	$('#addPanel_addEvent_reminders_container').append(reminder);
@@ -166,7 +166,7 @@ $('#addPanel_addEvent_addReminder_button').click(function() {
 $('#taskEdit_addReminder_button').click(function() {
 
 	var reminder = new EJS({
-		url: '/view/ui/reminder.ejs'
+		url : '/view/ui/reminder.ejs'
 	}).render();
 
 	$('#taskEdit_reminders_container').append(reminder);
@@ -180,7 +180,7 @@ $('#taskEdit_addReminder_button').click(function() {
 $('#eventEdit_addReminder_button').click(function() {
 
 	var reminder = new EJS({
-		url: '/view/ui/reminder.ejs'
+		url : '/view/ui/reminder.ejs'
 	}).render();
 
 	$('#eventEdit_reminders_container').append(reminder);
@@ -212,10 +212,10 @@ $('#addPanel_addTask_submit_button').click(function() {
 		}
 
 		var reminder = {
-			start: $('.reminder-startTime-input').val(),
-			end: $('.reminder-endTime-input').val(),
-			frequency: $('.reminder-frequency-select').val(),
-			via: via
+			start : $('.reminder-startTime-input').val(),
+			end : $('.reminder-endTime-input').val(),
+			frequency : $('.reminder-frequency-select').val(),
+			via : via
 		};
 
 		reminders.push(reminder);
@@ -225,8 +225,8 @@ $('#addPanel_addTask_submit_button').click(function() {
 	var subtasks = [];
 	$('#addPanel_addTask .subtasks li').each(function() {
 		var subtask = {
-			title: $(this).find('.subtask-title').html(),
-			completed: $(this).find('.subtask-completed').prop('checked')
+			title : $(this).find('.subtask-title').html(),
+			completed : $(this).find('.subtask-completed').prop('checked')
 		};
 		subtasks.push(subtask);
 	});
@@ -241,14 +241,14 @@ $('#addPanel_addTask_submit_button').click(function() {
 	//Validation
 
 	_socketConnection.emit('create_task', {
-		'title': title,
-		'dueDate': dueDate,
-		'reminder': reminders,
-		'category': category,
-		'important': important,
-		'subtask': subtasks,
-		'frequency': frequency,
-		'note': note
+		'title' : title,
+		'dueDate' : dueDate,
+		'reminder' : reminders,
+		'category' : category,
+		'important' : important,
+		'subtask' : subtasks,
+		'frequency' : frequency,
+		'note' : note
 	});
 
 });
@@ -268,10 +268,10 @@ $('#addPanel_addEvent_submit_button').click(function() {
 			via.push('sms');
 		}
 		var reminder = {
-			start: $('.reminder-startTime-input').val(),
-			end: $('.reminder-endTime-input').val(),
-			frequency: $('.reminder-frequency-select').val(),
-			via: via
+			start : $('.reminder-startTime-input').val(),
+			end : $('.reminder-endTime-input').val(),
+			frequency : $('.reminder-frequency-select').val(),
+			via : via
 		};
 		reminders.push(reminder);
 	});
@@ -279,8 +279,8 @@ $('#addPanel_addEvent_submit_button').click(function() {
 	var subtasks = [];
 	$('#addPanel_addEvent .subtasks li').each(function() {
 		var subtask = {
-			title: $(this).find('.subtask-title').html(),
-			completed: $(this).find('.subtask-completed').prop('checked')
+			title : $(this).find('.subtask-title').html(),
+			completed : $(this).find('.subtask-completed').prop('checked')
 		};
 		subtasks.push(subtask);
 	});
@@ -296,16 +296,16 @@ $('#addPanel_addEvent_submit_button').click(function() {
 
 	//Validation
 	_socketConnection.emit('create_event', {
-		'title': title,
-		'startDate': startDate,
-		'endDate': endDate,
-		'allDay': allDay,
-		'reminder': reminders,
-		'category': category,
-		'important': important,
-		'subtask': subtasks,
-		'frequency': frequency,
-		'note': note
+		'title' : title,
+		'startDate' : startDate,
+		'endDate' : endDate,
+		'allDay' : allDay,
+		'reminder' : reminders,
+		'category' : category,
+		'important' : important,
+		'subtask' : subtasks,
+		'frequency' : frequency,
+		'note' : note
 	});
 
 });
@@ -315,13 +315,13 @@ $(document).on('keypress', '.addSubtask-input', function(event) {
 	if (event.which == 13) {
 
 		var data = {
-			'id': uuid.v4(),
-			'title': $(this).val(),
-			'open': true
+			'id' : uuid.v4(),
+			'title' : $(this).val(),
+			'open' : true
 		};
 
 		var subtask = new EJS({
-			url: '/view/ui/subtask.ejs'
+			url : '/view/ui/subtask.ejs'
 		}).render(data);
 
 		$(this).next('.subtasks').append(subtask);
@@ -371,22 +371,22 @@ $('#account_update_button').click(function() {
 
 var openNav = function() {
 	$('#nav_container').animate({
-		'left': 0
+		'left' : 0
 	});
 
 	$('body').animate({
-		'left': +180
+		'left' : +180
 	});
 };
 
 var closeNav = function() {
 	if ($('#nav_container').css('left') == '0px') {
 		$('#nav_container').animate({
-			'left': -180
+			'left' : -180
 		});
 
 		$('body').animate({
-			'left': 0
+			'left' : 0
 		}, function() {
 			$('body').css('left', 'auto');
 			$('body').css('right', 'auto');
@@ -419,11 +419,11 @@ var openDetails = function(calEvent) {
 	$('#detailEdit_container').show();
 	//Move the body
 	$('body').animate({
-		'left': -360
+		'left' : -360
 	});
 	//Move the container
 	$('#detailEdit_container').animate({
-		'right': 0
+		'right' : 0
 	});
 };
 
@@ -432,11 +432,11 @@ var closeDetails = function(callback) {
 	if ($('#detailEdit_container').css('right') == '0px') {
 		//HIDE DETAILS AND EVENTS
 		$('#detailEdit_container').animate({
-			'right': -360
+			'right' : -360
 		});
 
 		$('body').animate({
-			'right': 0
+			'right' : 0
 		}, function() {
 			$('body').css('left', 'auto');
 			$('body').css('right', 'auto');
@@ -459,11 +459,11 @@ var openAdd = function() {
 
 	//move out the add panel
 	$('.addPanel-container').animate({
-		'right': 0
+		'right' : 0
 	});
 
 	$('body').animate({
-		'right': +360
+		'right' : +360
 	});
 };
 
@@ -472,11 +472,11 @@ var closeAdd = function() {
 	//HIDE DETAILS AND EVENTS
 	if ($('.addPanel-container').css('right') == '0px') {
 		$('.addPanel-container').animate({
-			'right': -360
+			'right' : -360
 		});
 
 		$('body').animate({
-			'right': 0
+			'right' : 0
 		}, function() {
 			$('body').css('left', 'auto');
 			$('body').css('right', 'auto');
@@ -513,11 +513,12 @@ var setFields = function(calEvent, jsEvent, view) {
 			// TODO
 			// UTC STRING IS CAUSING AN ERROR - SAYS UNDEFINED IS NOT A FUNCTION
 			// After the dates have been properly formatted/validated, this should be unecessary
-			$('#eventDetail_startDate').html(new Date(calEvent.start));
+			$('#eventDetail_startDate').html(moment(new Date(calEvent.start)).format('MM/DD/YYYY HH:mm'));
 			$('#eventEdit_startDate_input').val(new Date(calEvent.start));
 		}
+		
 		if (calEvent.end) {
-			$('#eventDetail_endDate').html(new Date(calEvent.end));
+			$('#eventDetail_endDate').html(moment(new Date(calEvent.end)).format('MM/DD/YYYY HH:mm'));
 			$('#eventEdit_endDate_input').val(new Date(calEvent.end));
 		}
 
@@ -528,6 +529,7 @@ var setFields = function(calEvent, jsEvent, view) {
 			$('#eventDetail_allDay_input').removeAttr("checked");
 			$('#eventEdit_allDay_input').removeAttr("checked");
 		}
+		
 		if (calEvent.important === true) {
 			$('#eventDetail_important_input').attr('checked', calEvent.important);
 			$('#eventEdit_important_input').attr('checked', calEvent.important);
@@ -549,7 +551,9 @@ var setFields = function(calEvent, jsEvent, view) {
 		$('#eventEdit_note_textarea').html(calEvent.note);
 		$('#eventDetail_reminders_container').empty();
 		$('#eventEdit_reminders_container').empty();
+		
 		if (calEvent.reminder != undefined && calEvent.reminder.length != 0) {
+			
 			var reminders = calEvent.reminder;
 			// TODO
 			// these conditionals are a temporary fix, all of this information should be required.
@@ -570,11 +574,11 @@ var setFields = function(calEvent, jsEvent, view) {
 					currentReminder.via = [];
 				}
 				var reminderDisplay = new EJS({
-					url: '/view/ui/reminder-display.ejs'
+					url : '/view/ui/reminder-display.ejs'
 				}).render(currentReminder);
 
 				var reminder = new EJS({
-					url: '/view/ui/reminder.ejs'
+					url : '/view/ui/reminder.ejs'
 				}).render(currentReminder);
 
 				$('#eventDetail_reminders_container').append(reminderDisplay);
@@ -610,7 +614,7 @@ var setFields = function(calEvent, jsEvent, view) {
 		if (calEvent.subtasks != undefined && calEvent.subtasks.length != 0) {
 			for (var i = 0, j = calEvent.subtasks.length; i < j; i++) {
 				var subtask = new EJS({
-					url: '/view/ui/subtask.ejs'
+					url : '/view/ui/subtask.ejs'
 				}).render(calEvent.subtasks[i]);
 				$('.eventEdit-container').find('.subtasks').append(subtask);
 				$('.eventDetail-container').find('.subtasks').append(subtask);
@@ -677,11 +681,11 @@ var setFields = function(calEvent, jsEvent, view) {
 					currentReminder.via = [];
 				}
 				var reminderDisplay = new EJS({
-					url: '/view/ui/reminder-display.ejs'
+					url : '/view/ui/reminder-display.ejs'
 				}).render(currentReminder);
 
 				var reminder = new EJS({
-					url: '/view/ui/reminder.ejs'
+					url : '/view/ui/reminder.ejs'
 				}).render(currentReminder);
 
 				$('#taskDetail_reminders_container').append(reminderDisplay);
@@ -720,7 +724,7 @@ var setFields = function(calEvent, jsEvent, view) {
 		if (calEvent.subtasks != undefined && calEvent.subtasks.length != 0) {
 			for (var i = 0, j = calEvent.subtasks.length; i < j; i++) {
 				var subtask = new EJS({
-					url: '/view/ui/subtask.ejs'
+					url : '/view/ui/subtask.ejs'
 				}).render(calEvent.subtasks[i]);
 				$('.taskEdit-container').find('.subtasks').append(subtask);
 				$('.taskDetail-container').find('.subtasks').append(subtask);
@@ -742,7 +746,7 @@ $(document).on('click', '#taskEdit_updateTask_button', function() {
 	var id = $('#taskEdit_id_input').val();
 
 	var task = _(db.tasks).where({
-		'id': id
+		'id' : id
 	});
 
 	var clickedTask = task[0];
@@ -770,10 +774,10 @@ $(document).on('click', '#taskEdit_updateTask_button', function() {
 		}
 
 		var reminder = {
-			start: $(this).find('.reminder-startTime-input').val(),
-			end: $(this).find('.reminder-endTime-input').val(),
-			frequency: $(this).find('.reminder-frequency-select').val(),
-			via: via
+			start : $(this).find('.reminder-startTime-input').val(),
+			end : $(this).find('.reminder-endTime-input').val(),
+			frequency : $(this).find('.reminder-frequency-select').val(),
+			via : via
 		};
 
 		reminders.push(reminder);
@@ -784,21 +788,21 @@ $(document).on('click', '#taskEdit_updateTask_button', function() {
 
 	$('.taskEdit-container').find('.subtasks').find('li').each(function() {
 		var subtask = {
-			'title': $(this).find('.subtask-title').html(),
-			'completed': $(this).find('.subtask-completed').prop('checked')
+			'title' : $(this).find('.subtask-title').html(),
+			'completed' : $(this).find('.subtask-completed').prop('checked')
 		};
 		subtasks.push(subtask);
 	});
 
 	_socketConnection.emit('update_task', {
-		'id': id,
-		'title': title,
-		'dueDate': dueDate,
-		'reminder': reminders,
-		'category': category,
-		'important': important,
-		'subtask': subtasks,
-		'note': note
+		'id' : id,
+		'title' : title,
+		'dueDate' : dueDate,
+		'reminder' : reminders,
+		'category' : category,
+		'important' : important,
+		'subtask' : subtasks,
+		'note' : note
 	});
 
 });
@@ -810,7 +814,8 @@ _socketConnection.on('update_task_complete', function(data) {
 	var task = data.task;
 	task.modelType = 'typeTask';
 
-	if (!data.error) {}
+	if (!data.error) {
+	}
 
 	$('.taskEdit-container').fadeOut(500, function() {
 		setFields(task);
@@ -818,7 +823,7 @@ _socketConnection.on('update_task_complete', function(data) {
 	});
 
 	_.updateWhere(db.tasks, {
-		id: data.task.id
+		id : data.task.id
 	}, data.task);
 
 });
@@ -834,7 +839,7 @@ _socketConnection.on('update_task_complete', function(data) {
 $(document).on('click', '#taskDetail_deleteTask_button', function() {
 	var id = $('#taskDetail_id_input').val();
 	_socketConnection.emit('delete_task', {
-		'id': id
+		'id' : id
 	});
 	closeDetails();
 });
@@ -845,4 +850,4 @@ $('.detailEdit-closeDetailEdit-button').click(function() {
 
 $('#account_update_changePass_button').click(function() {
 	$('#account_update_changePass').toggleClass('core-hidden');
-});
+}); 

@@ -9,63 +9,63 @@ var Schema = mongoose.Schema;
 
 var Task = new Schema({
 	// userId is a foriegn key to the user collection's id property
-	'userId': {
-		'type': String,
-		'required': true
+	'userId' : {
+		'type' : String,
+		'required' : true
 	},
 	// category is a foriegn key to the category collection's id property
-	'category': {
-		'type': String,
-		'required': true
+	'category' : {
+		'type' : String,
+		'required' : true
 	},
-	'categoryObject': Object,
-	'id': {
-		'type': String,
-		'default': function() {
+	'categoryObject' : Object,
+	'id' : {
+		'type' : String,
+		'default' : function() {
 			return uuid.v4();
 		}
 	},
-	'title': {
-		'type': String,
-		'required': true
+	'title' : {
+		'type' : String,
+		'required' : true
 	},
-	'dueDate': Date,
-	'reminder': [{
-		'id': {
-			'type': String,
-			'default': function() {
+	'dueDate' : Date,
+	'reminder' : [{
+		'id' : {
+			'type' : String,
+			'default' : function() {
 				return uuid.v4();
 			}
 		},
-		'start': Date,
-		'end': Date,
-		'frequency': Number,
-		'via': {
-			'type': Array,
-			'enum': ['call', 'email', 'sms']
+		'start' : Date,
+		'end' : Date,
+		'frequency' : Number,
+		'via' : {
+			'type' : Array,
+			'enum' : ['call', 'email', 'sms']
 		}
 	}],
-	'completed': {
-		'type': Boolean,
-		'default': false
+	'completed' : {
+		'type' : Boolean,
+		'default' : false
 	},
-	'important': Boolean,
+	'important' : Boolean,
 
-	'note': String,
-	'modelType': String,
-	'subtask': [{
-		'id': {
-			'type': String,
-			'default': function() {
+	'note' : String,
+	'modelType' : String,
+	'subtask' : [{
+		'id' : {
+			'type' : String,
+			'default' : function() {
 				return uuid.v4();
 			}
 		},
-		'title': String,
-		'completed': Boolean
+		'title' : String,
+		'completed' : Boolean
 	}]
 }, {
-	'collection': 'task',
-	'versionKey': false
+	'collection' : 'task',
+	'versionKey' : false
 });
 
 Task.pre('save', function(next) {
@@ -79,7 +79,7 @@ Task.pre('save', function(next) {
 // custom methods
 // this acts simular to a post save but allows control flow
 Task.methods = {
-	'store': function(instance, next) {
+	'store' : function(instance, next) {
 
 		instance.save(function(err, result) {
 
@@ -91,7 +91,7 @@ Task.methods = {
 			var task = result;
 
 			CategoryModel.findOne({
-				'id': task.category
+				'id' : task.category
 			}, function(err, results) {
 
 				task.modelType = 'typeTask';
@@ -99,8 +99,8 @@ Task.methods = {
 				if (results != null) {
 
 					task.categoryObject = {
-						'title': results.title,
-						'color': results.color
+						'title' : results.title,
+						'color' : results.color
 					};
 
 					next(null, task);
@@ -108,8 +108,8 @@ Task.methods = {
 				} else {
 
 					task.categoryObject = {
-						'title': '',
-						'color': ''
+						'title' : '',
+						'color' : ''
 					};
 
 					next(null, task);
@@ -125,7 +125,7 @@ Task.methods = {
 
 Task.plugin(mongoosePostFind, {
 
-	'find': function(results, next) {
+	'find' : function(results, next) {
 
 		var tasks = results;
 
@@ -138,7 +138,7 @@ Task.plugin(mongoosePostFind, {
 		async.each(tasks, function(task, nextTask) {
 
 			CategoryModel.findOne({
-				'id': task.category
+				'id' : task.category
 			}, function(err, results) {
 
 				task.modelType = 'typeTask';
@@ -146,8 +146,8 @@ Task.plugin(mongoosePostFind, {
 				if (results != null) {
 
 					task.categoryObject = {
-						'title': results.title,
-						'color': results.color
+						'title' : results.title,
+						'color' : results.color
 					};
 
 					nextTask();
@@ -155,8 +155,8 @@ Task.plugin(mongoosePostFind, {
 				} else {
 
 					task.categoryObject = {
-						'title': '',
-						'color': ''
+						'title' : '',
+						'color' : ''
 					};
 
 					nextTask();
@@ -171,7 +171,7 @@ Task.plugin(mongoosePostFind, {
 
 	},
 
-	'findOne': function(result, next) {
+	'findOne' : function(result, next) {
 
 		var task = result;
 
@@ -184,14 +184,14 @@ Task.plugin(mongoosePostFind, {
 		task.modelType = 'typeTask';
 
 		CategoryModel.findOne({
-			'id': task.category
+			'id' : task.category
 		}, function(err, results) {
 
 			if (results != null) {
 
 				task.categoryObject = {
-					'title': results.title,
-					'color': results.color
+					'title' : results.title,
+					'color' : results.color
 				};
 
 				next(null, task);
@@ -199,8 +199,8 @@ Task.plugin(mongoosePostFind, {
 			} else {
 
 				task.categoryObject = {
-					'title': '',
-					'color': ''
+					'title' : '',
+					'color' : ''
 				};
 
 				next(null, task);
@@ -212,4 +212,4 @@ Task.plugin(mongoosePostFind, {
 	}
 });
 
-mongoose.model('Task', Task);
+mongoose.model('Task', Task); 

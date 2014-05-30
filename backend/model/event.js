@@ -10,60 +10,60 @@ var Schema = mongoose.Schema;
 
 var Event = new Schema({
 	// userId is a foriegn key to the user collection's id property
-	'userId': {
-		'type': String,
-		'required': true
+	'userId' : {
+		'type' : String,
+		'required' : true
 	},
 	// category is a foriegn key to the category collection's id property
-	'category': {
-		'type': String,
-		'required': true
+	'category' : {
+		'type' : String,
+		'required' : true
 	},
-	'categoryObject': Object,
-	'id': {
-		'type': String,
-		'default': function() {
+	'categoryObject' : Object,
+	'id' : {
+		'type' : String,
+		'default' : function() {
 			return uuid.v4();
 		}
 	},
-	'title': {
-		'type': String,
-		'required': true
+	'title' : {
+		'type' : String,
+		'required' : true
 	},
-	'startDate': {
-		'type': Date,
-		'required': true
+	'startDate' : {
+		'type' : Date,
+		'required' : true
 	},
-	'endDate': {
-		'type': Date,
-		'required': true
+	'endDate' : {
+		'type' : Date,
+		'required' : true
 	},
-	'allDay': Boolean,
-	'reminder': [{
-		'start': Date,
-		'end': Date,
-		'frequency': Number,
-		'via': {
-			'type': Array,
-			'enum': ['call', 'email', 'sms']
+	'allDay' : Boolean,
+	'reminder' : [{
+		'start' : Date,
+		'end' : Date,
+		'frequency' : Number,
+		'via' : {
+			'type' : Array,
+			'enum' : ['call', 'email', 'sms']
 		}
 	}],
-	'important': Boolean,
-	'note': String,
-	'modelType': String,
-	'subtask': [{
-		'id': {
-			'type': String,
-			'default': function() {
+	'important' : Boolean,
+	'note' : String,
+	'modelType' : String,
+	'subtask' : [{
+		'id' : {
+			'type' : String,
+			'default' : function() {
 				return uuid.v4();
 			}
 		},
-		'title': String,
-		'completed': Boolean
+		'title' : String,
+		'completed' : Boolean
 	}]
 }, {
-	'collection': 'event',
-	'versionKey': false
+	'collection' : 'event',
+	'versionKey' : false
 });
 
 Event.pre('save', function(next) {
@@ -77,7 +77,7 @@ Event.pre('save', function(next) {
 // custom methods
 // this acts simular to a post save but allows control flow
 Event.methods = {
-	'store': function(instance, next) {
+	'store' : function(instance, next) {
 
 		instance.save(function(err, result) {
 
@@ -91,14 +91,14 @@ Event.methods = {
 			newEvent.modelType = 'typeEvent';
 
 			CategoryModel.findOne({
-				'id': newEvent.category
+				'id' : newEvent.category
 			}, function(err, results) {
 
 				if (results != null) {
 
 					newEvent.categoryObject = {
-						'title': results.title,
-						'color': results.color
+						'title' : results.title,
+						'color' : results.color
 					};
 
 					next(null, newEvent);
@@ -114,7 +114,7 @@ Event.methods = {
 
 Event.plugin(mongoosePostFind, {
 
-	'find': function(results, next) {
+	'find' : function(results, next) {
 
 		var events = results;
 
@@ -129,14 +129,14 @@ Event.plugin(mongoosePostFind, {
 			newEvent.modelType = 'typeEvent';
 
 			CategoryModel.findOne({
-				'id': newEvent.category
+				'id' : newEvent.category
 			}, function(err, results) {
 
 				if (results != null) {
 
 					newEvent.categoryObject = {
-						'title': results.title,
-						'color': results.color
+						'title' : results.title,
+						'color' : results.color
 					};
 
 					nextEvent();
@@ -150,7 +150,7 @@ Event.plugin(mongoosePostFind, {
 		});
 
 	},
-	'findOne': function(result, next) {
+	'findOne' : function(result, next) {
 
 		var newEvent = result;
 
@@ -163,14 +163,14 @@ Event.plugin(mongoosePostFind, {
 		newEvent.modelType = 'typeEvent';
 
 		CategoryModel.findOne({
-			'id': newEvent.category
+			'id' : newEvent.category
 		}, function(err, results) {
 
 			if (results != null) {
 
 				newEvent.categoryObject = {
-					'title': results.title,
-					'color': results.color
+					'title' : results.title,
+					'color' : results.color
 				};
 
 				next(null, newEvent);
@@ -178,8 +178,8 @@ Event.plugin(mongoosePostFind, {
 			} else {
 
 				newEvent.categoryObject = {
-					'title': '',
-					'color': ''
+					'title' : '',
+					'color' : ''
 				};
 
 				next(null, newEvent);
@@ -191,4 +191,4 @@ Event.plugin(mongoosePostFind, {
 	}
 });
 
-mongoose.model('Event', Event);
+mongoose.model('Event', Event); 

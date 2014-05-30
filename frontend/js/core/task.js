@@ -52,7 +52,7 @@ $('#task_taskAdd_input').keypress(function(event) {
 $(document).on('click', '.task-item', function(event) {
 	$('.active-task').removeClass('active-task');
 	$(this).addClass('active-task')
-	
+
 	var clickedTaskId = $(this).find('.task-item-id').val();
 
 	var task = _(db.tasks).where({
@@ -89,7 +89,7 @@ $(document).on('click', '.task-item', function(event) {
 	// console.log(calEvent);
 	setFields(calEvent);
 	openDetails(calEvent);
-	
+
 });
 
 // When an item is deleted
