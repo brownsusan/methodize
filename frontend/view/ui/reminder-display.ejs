@@ -1,9 +1,9 @@
 <div>
 	<span class="detail-label">Start: </span>
-	<span><%= start %></span>
+	<span><%= moment(new Date(start)).format('MM/DD/YYYY HH:mm') %></span>
 	<br />
 	<span class="detail-label">End: </span>
-	<span><%= end %></span>
+	<span><%= moment(new Date(end)).format('MM/DD/YYYY HH:mm') %></span>
 	<br />
 	<span class="detail-label">Frequency: </span>
 	<span><%= frequency %></span>

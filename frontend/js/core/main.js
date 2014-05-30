@@ -632,7 +632,7 @@ var setFields = function(calEvent, jsEvent, view) {
 		$('#taskEdit_id_input').val(calEvent.id);
 		$('#taskDetail_title').html(calEvent.title);
 		$('#taskEdit_title_input').val(calEvent.title);
-		$('#taskDetail_dueDate').html(new Date(calEvent.start));
+		$('#taskDetail_dueDate').html(moment(new Date(calEvent.start)).format('MM/DD/YYYY HH:mm'));
 		$('#taskEdit_dueDate_input').val(new Date(calEvent.start));
 		$('#taskDetail_category').html(calEvent.category);
 		$('#taskEdit_category_select').find('option').each(function() {
