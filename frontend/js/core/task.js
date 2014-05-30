@@ -51,7 +51,7 @@ $('#task_taskAdd_input').keypress(function(event) {
 // triggers when clicking a task item to view it's details
 $(document).on('click', '.task-item', function(event) {
 	$('.active-task').removeClass('active-task');
-	$(this).addClass('active-task')
+	$(this).addClass('active-task');
 	
 	var clickedTaskId = $(this).find('.task-item-id').val();
 
