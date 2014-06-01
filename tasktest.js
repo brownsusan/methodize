@@ -3,34 +3,7 @@ var twilio = require("twilio");
 //TWILIO CONCEPT
 // TODO
 // Set the interval to check the tasks and events
-// window.setInterval(function() {checkEventsAndTasks()},3000);
-
-// TODO
-// Check the events and tasks
-// var checkEventsAndTasks = function() {
-	// TODO
-	// Read all tasks and events in the database for EVERY USER
-	// Loop over the returned events and tasks
-		// Check to see if any reminders exists
-		// If so, loop over the reminders
-			// In the loop - Check and store the reminder start date
-			// In the loop - Check and store the via array
-			// If the reminder start date is within 30 seconds of the current time and the frequency is once
-				// If via.phone is true
-				// Send out a call
-				// If via.sms is true
-				// Send out an sms
-			// If the reminder start date is within 30 seconds and the frquency is not once
-				// Set another interval dependant on the frequency field
-				// if via.phone is true
-				// Send out a call
-				// if via.sms is true
-				// Send out an sms
-				// Set timeout for reminder end date/time	
-// console.log('Checking the events and tasks');
-// }
-
-
+var processing = false;
 
 // This is the testing account info
 
@@ -39,6 +12,7 @@ var twilio = require("twilio");
 var accountSid = 'AC42333c57015730911c7cebcbb78c587d';
 var authToken = 'ef9243210c35fb75d8053a1b1f8ffed2';
 var twilioNumber = '+17343657844';
+
 // TODO
 // Set a message to send. "You have a reminder for the 'Event' or 'Task' called 'Title'. This item is due at this 'time' on this 'day'."
 var client = new twilio.RestClient(accountSid, authToken);
@@ -58,3 +32,69 @@ client.sendSms({
 		console.log('Error: ' + JSON.stringify(error));
 	}
 });
+
+window.setInterval(function() {
+	// Make a new date object
+	var currentTime = new Date();
+	// TODO
+	// Format this date object with moment
+	var data = [];
+	// Query the database for all tasks and events
+	EventModel.find({}, function(err, results) {
+
+		if (err || !results) {
+			return;
+		}
+		for (var i = 0, j = results.length; i < j; i++) {
+			// push results[i] into an array
+			data.push(results[i]);
+		};
+		TaskModel.find({}, function(err, results) {
+			if (err || !results) {
+				return;
+			}
+			for (var i = 0, j = results.length; i < j; i++) {
+				// push results[i] into an array
+				data.push(results[i]);
+			};
+		});
+	});
+
+	for (var i = 0, j = data.length; i < j; i++) {
+		//Loop over the reminders for the current index
+		var reminders = data[i].reminder;
+		if (reminders != undefined && reminders.length != 0) {
+			for (var i = 0, j = reminders.length; i < j; i++) {
+				// Check the start time of the reminder against the current date
+				var startDate = reminders[i].start;
+				var via = reminders[i].via;
+				var frequency = reminders[i].frequency;
+
+				if (currentDate == startDate) {
+					if (frequency == 0) {
+						if (via.phone == true) {
+							//Make a call
+						}
+						if (via.sms == true) {
+							//Make an sms
+						}
+					} else {
+						// Task the frequency and multiply it by 60000 (the amount of millisecons in a minute)
+						var frequencyMs = frequency * 60000;
+						window.setInterval(function() {
+							if (via.phone == true) {
+								//Make a call
+							}
+							if (via.sms == true) {
+								//Make an sms
+							}
+						}, frequencyMs);
+					}
+				}
+			}
+			// Set timeout for reminder end date/time
+			// console.log('Checking the events and tasks');)
+		};
+	};
+
+}, 6000);
