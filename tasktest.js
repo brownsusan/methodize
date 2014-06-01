@@ -44,7 +44,7 @@ var twilioNumber = '+17343657844';
 var client = new twilio.RestClient(accountSid, authToken);
 client.sendSms({
 	body : "Testing",
-	to : "+12488803127",
+	to : "+18133104868",
 	from : twilioNumber
 }, function(error, message) {
 	if (!error) {
