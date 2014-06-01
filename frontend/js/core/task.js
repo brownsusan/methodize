@@ -116,20 +116,3 @@ $(document).on('click', '.task-item input[type=checkbox]', function(event) {
 	});
 
 });
-
-$(document).on('dblclick', '.subtasks li', function(event) {
-	$(this).find('.subtask-title').addClass('core-hidden');
-	$(this).find('.subtask-title-edit').removeClass('core-hidden');
-});
-
-$(document).on('keypress', '.subtask-title-edit', function(event) {
-	if (event.which === 13) {
-		var subtaskId = $(this).closest('.subtasks li').find('.subtask-id').val();
-		var title = $(this).closest('.subtasks li').find('.subtask-title-edit').val();
-		_socketConnection.emit('update_subtask', {
-			'taskId' : taskId,
-			'subtaskId' : subtaskId,
-			'title' : title
-		});
-	}
-});

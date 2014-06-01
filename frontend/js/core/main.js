@@ -491,6 +491,8 @@ var closeAdd = function() {
 
 $(document).on('click', '#taskDetail_editTask_button', function() {
 	$('.taskDetail-container').fadeOut(500, function() {
+		$('.subtask-title').attr('contenteditable', 'true');
+		$('.subtask-delete').show();
 		$('.taskEdit-container').fadeIn(500);
 	});
 });
@@ -746,6 +748,9 @@ var setFields = function(calEvent, jsEvent, view) {
 // #######  ##        ########  ##     ##    ##    ########       ##    ##     ##  ######  ##    ##
 
 $(document).on('click', '#taskEdit_updateTask_button', function() {
+	
+	$('.subtask-title').attr('contenteditable', 'false');
+	$('.subtask-delete').hide();
 
 	var id = $('#taskEdit_id_input').val();
 
@@ -790,12 +795,15 @@ $(document).on('click', '#taskEdit_updateTask_button', function() {
 
 	var subtasks = [];
 
-	$('.taskEdit-container').find('.subtasks').find('li').each(function() {
+	$('.taskEdit-container .subtasks li').each(function() {
+		
 		var subtask = {
 			'title' : $(this).find('.subtask-title').html(),
 			'completed' : $(this).find('.subtask-completed').prop('checked')
 		};
+		
 		subtasks.push(subtask);
+		
 	});
 
 	_socketConnection.emit('update_task', {
@@ -808,6 +816,9 @@ $(document).on('click', '#taskEdit_updateTask_button', function() {
 		'subtask' : subtasks,
 		'note' : note
 	});
+
+	// this is a hack because the task needs to be clicked again to show it's details
+	closeDetails();
 
 });
 
@@ -829,6 +840,32 @@ _socketConnection.on('update_task_complete', function(data) {
 	_.updateWhere(db.tasks, {
 		id : data.task.id
 	}, data.task);
+
+});
+
+$(document).on('click', '.subtask-delete', function() {
+	var confirmation = confirm('Are you sure you want to delete this subtask?');
+	if(confirmation){
+		$(this).closest('.li-subtask').remove();
+	}
+});
+
+$(document).on('click', '.subtask-completed', function() {
+
+	var completed = $(this).is(':checked');
+
+	console.log(completed);
+	
+	var $subtask = $(this).closest('.li-subtask');
+
+	// if the subtask is complete
+	if(completed){
+		var $destination = $(this).closest('.subtasks').next('.completed-subtasks');
+	}else{
+		var $destination = $(this).closest('.completed-subtasks').prev('.subtasks');
+	}
+
+	$subtask.appendTo($destination);
 
 });
 

@@ -114,11 +114,16 @@ $(document).ready(function() {
 
 $(document).on('click', '#eventDetail_editEvent_button', function() {
 	$('.eventDetail-container').fadeOut(500, function() {
+		$('.subtask-title').attr('contenteditable', 'true');
+		$('.subtask-delete').show();
 		$('.eventEdit-container').fadeIn(500);
 	});
 });
 
 $(document).on('click', '#eventEdit_updateEvent_button', function() {
+
+	$('.subtask-title').attr('contenteditable', 'false');
+	$('.subtask-delete').hide();
 
 	var id = $('#eventEdit_id_input').val();
 	var title = $('#eventEdit_title_input').val();
@@ -157,11 +162,12 @@ $(document).on('click', '#eventEdit_updateEvent_button', function() {
 	});
 
 	var subtasks = [];
+
 	$('.eventEdit-container .subtasks li').each(function() {
 
 		var subtask = {
-			title : $(this).find('.subtask-title').html(),
-			completed : $(this).find('.subtask-completed').prop('checked')
+			'title' : $(this).find('.subtask-title').html(),
+			'completed' : $(this).find('.subtask-completed').prop('checked')
 		};
 
 		subtasks.push(subtask);
