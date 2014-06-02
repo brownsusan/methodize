@@ -73,20 +73,20 @@ window.setInterval(function() {
 				if (currentDate == startDate) {
 					if (frequency == 0) {
 						if (via.phone == true) {
-							//Make a call
+							console.log('Make a phone call');
 						}
 						if (via.sms == true) {
-							//Make an sms
+							console.log('Make an sms');
 						}
 					} else {
 						// Task the frequency and multiply it by 60000 (the amount of millisecons in a minute)
 						var frequencyMs = frequency * 60000;
 						window.setInterval(function() {
 							if (via.phone == true) {
-								//Make a call
+								console.log('Make a phone call');
 							}
 							if (via.sms == true) {
-								//Make an sms
+								console.log('Make an sms');
 							}
 						}, frequencyMs);
 					}

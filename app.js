@@ -94,3 +94,122 @@ socketIOServer.sockets.on('connection', function(userSocket) {
 httpServer.listen(expressServer.get('port'), function() {
 	console.log('Express server listening on port ' + expressServer.get('port') + ' and process ' + process.pid);
 });
+
+// // TODO
+// // Set the interval to check the tasks and events
+// var processing = false;
+// // TODO
+// // Need a way to get the number for the user attached to the reminder
+// var accountSid = 'AC42333c57015730911c7cebcbb78c587d';
+// var authToken = 'ef9243210c35fb75d8053a1b1f8ffed2';
+// var twilioNumber = '+17343657844';
+// 
+// // TODO
+// // Set a message to send. "You have a reminder for the 'Event' or 'Task' called 'Title'. This item is due at this 'time' on this 'day'."
+// var sendReminderSms = function() {
+	// var client = new twilio.RestClient(accountSid, authToken);
+	// client.sendSms({
+		// body : "Testing",
+		// to : "+12488803127",
+		// from : twilioNumber
+	// }, function(error, message) {
+		// if (!error) {
+			// console.log('Success! The SID for this SMS message is:');
+			// console.log(message.sid);
+// 
+			// console.log('Message sent on:');
+			// console.log(message.dateCreated);
+		// } else {
+			// console.log('Oops! There was an error.');
+			// console.log('Error: ' + JSON.stringify(error));
+		// }
+	// });
+// }
+// var sendReminderCall = function() {
+	// var client = new twilio.RestClient(accountSid, authToken);
+	// client.makeCall({
+		// body : "Testing",
+		// to : "+12488803127",
+		// from : twilioNumber
+	// }, function(error, message) {
+		// if (!error) {
+			// console.log('Success! The SID for this SMS message is:');
+			// console.log(message.sid);
+// 
+			// console.log('Message sent on:');
+			// console.log(message.dateCreated);
+		// } else {
+			// console.log('Oops! There was an error.');
+			// console.log('Error: ' + JSON.stringify(error));
+		// }
+	// });
+// }
+// setInterval(function() {
+	// console.log('Set Interval');
+	// // Make a new date object
+	// var currentDate = new Date();
+	// // TODO
+	// // Format this date object with moment
+	// var data = [];
+	// // Query the database for all tasks and events
+	// mongoose.model('Event').find({}, function(err, results) {
+		// if (err || !results) {
+			// return;
+		// }
+		// for (var i = 0, j = results.length; i < j; i++) {
+			// // push results[i] into an array
+			// data.push(results[i]);
+		// };
+		// mongoose.model('Task').find({}, function(err, results) {
+			// if (err || !results) {
+				// return;
+			// }
+			// for (var i = 0, j = results.length; i < j; i++) {
+				// // push results[i] into an array
+				// data.push(results[i]);
+			// };
+		// });
+	// });
+	// console.log('DATA: ' + data.length);
+	// //TODO - this loop does not actually loop through results - just works with one result each time the timer runs
+	// for (var i = 0, j = data.length; i < j; i++) {
+		// //Loop over the reminders for the current index
+		// var reminders = data[i].reminder;
+		// console.log('DATA LENGTH: ' + data.length);
+		// // console.log('Data[i]: ' + data[i]);
+		// // console.log('Reminders' + reminders);
+		// if (reminders != undefined && reminders.length != 0) {
+			// for (var i = 0, j = reminders.length; i < j; i++) {
+				// console.log(reminders[i]);
+				// // Check the start time of the reminder against the current date
+				// var startDate = reminders[i].start;
+				// var via = reminders[i].via;
+				// var frequency = reminders[i].frequency;
+// 
+				// if (currentDate == startDate) {
+					// if (frequency == 0) {
+						// if (via.phone == true) {
+							// console.log('Make a phone call');
+						// }
+						// if (via.sms == true) {
+							// console.log('Make an sms');
+						// }
+					// } else {
+						// // Task the frequency and multiply it by 60000 (the amount of millisecons in a minute)
+						// var frequencyMs = frequency * 60000;
+						// window.setInterval(function() {
+							// if (via.phone == true) {
+								// console.log('Make a phone call');
+							// }
+							// if (via.sms == true) {
+								// console.log('Make an sms');
+							// }
+						// }, frequencyMs);
+					// }
+				// }
+			// }
+			// // Set timeout for reminder end date/time
+			// // console.log('Checking the events and tasks');)
+		// };
+	// };
+// }, 6000);
